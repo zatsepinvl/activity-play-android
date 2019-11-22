@@ -1,7 +1,6 @@
 package com.zatsepinvl.activity.play.game
 
 import com.zatsepinvl.activity.play.game.WordType.*
-import java.io.InputStream
 import java.util.*
 
 enum class WordType {
