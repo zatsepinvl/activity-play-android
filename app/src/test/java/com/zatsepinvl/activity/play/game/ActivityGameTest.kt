@@ -1,12 +1,14 @@
 package com.zatsepinvl.activity.play.game
 
+import com.zatsepinvl.activity.play.core.*
+import createTestGame
 import org.junit.Assert.*
 import org.junit.Test
 
 class ActivityGameTest {
     @Test
     fun validate_init_state() {
-        val game = createGame()
+        val game = createTestGame()
 
         assertEquals(
             "The initial score should be 0",
@@ -25,7 +27,7 @@ class ActivityGameTest {
 
     @Test
     fun validate_current_task() {
-        val game = createGame()
+        val game = createTestGame()
 
         val taskBefore = game.currentTask
         game.startRound()
@@ -40,7 +42,7 @@ class ActivityGameTest {
 
     @Test
     fun play_1_frame() {
-        val game = createGame(
+        val game = createTestGame(
             GameSettings(
                 pointsForDone = 1,
                 pointsForFail = 0
@@ -60,7 +62,7 @@ class ActivityGameTest {
 
     @Test
     fun finish_game() {
-        val game = createGame(GameSettings(maxScore = 2))
+        val game = createTestGame(GameSettings(maxScore = 2))
 
         game.playOneFrame(doneCount = 1)
         game.playOneFrame(doneCount = 2)
@@ -72,11 +74,11 @@ class ActivityGameTest {
     @Test
     fun save_then_restore_state() {
         val settings = GameSettings(maxScore = 2)
-        val game = createGame(settings)
+        val game = createTestGame(settings)
 
         game.playOneFrame(doneCount = 1)
         val state = game.save()
-        val loadedGame = createGame(settings).apply { load(state) }
+        val loadedGame = createTestGame(settings).apply { load(state) }
 
         loadedGame.playOneFrame(doneCount = 2)
 
@@ -87,10 +89,11 @@ class ActivityGameTest {
     @Test
     fun test_all_words_are_different() {
         val wordsRange = 1..1000
-        val game = createGame(
-            dictionary = createDictionary(wordsRange
-                .map { "en" to noun("word#$it") },
-                retryCount = 10000
+        val game = createTestGame(
+            dictionary = Dictionary(
+                "en",
+                wordsRange.map { noun("word#$it") }.toList(),
+                defaultRetryCount = 10000
             )
         )
         game.startRound()
@@ -106,19 +109,28 @@ class ActivityGameTest {
         }
     }
 
-    private fun createGame(
-        settings: GameSettings = GameSettings(),
-        dictionary: Dictionary = createDictionary(listOf("en" to noun("word")))
-    ): ActivityGame {
-        return ActivityGame(settings, dictionary)
+    @Test
+    fun test_actions_different_between_frames() {
+        val game = createTestGame()
+
+        val actions = mutableSetOf<GameAction>()
+
+        //many iterations to cover random probability
+        repeat(100) {
+            val action = game.startRound().action
+            game.finishRound()
+            actions.add(action)
+        }
+
+        assertEquals(actions, GameAction.values().toSet())
     }
 
+    private fun ActivityGame.playOneFrame(doneCount: Int = 0, failCount: Int = 0) {
+        this.startRound()
+        repeat(doneCount) { this.completeCurrentTask() }
+        repeat(failCount) { this.skipCurrentTask() }
+        this.finishRound()
+    }
 
 }
 
-fun ActivityGame.playOneFrame(doneCount: Int = 0, failCount: Int = 0) {
-    this.startRound()
-    repeat(doneCount) { this.completeCurrentTask() }
-    repeat(failCount) { this.skipCurrentTask() }
-    this.finishRound()
-}

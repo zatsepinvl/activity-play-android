@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">activity-play</string>
+
+    <string-array name="words_languages_keys">
+        <item>en</item>
+        <item>ru</item>
+    </string-array>
+
+    <string-array name="words_languages_values">
+        <item>English</item>
+        <item>Russian</item>
+    </string-array>
+    <string name="title_activity_game">GameActivity</string>
 </resources>

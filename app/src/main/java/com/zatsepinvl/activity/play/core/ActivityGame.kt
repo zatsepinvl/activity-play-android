@@ -1,8 +1,8 @@
-package com.zatsepinvl.activity.play.game
+package com.zatsepinvl.activity.play.core
 
-import com.zatsepinvl.activity.play.game.GameAction.*
-import com.zatsepinvl.activity.play.game.TaskResultStatus.DONE
-import com.zatsepinvl.activity.play.game.TaskResultStatus.SKIPPED
+import com.zatsepinvl.activity.play.core.GameAction.*
+import com.zatsepinvl.activity.play.core.TaskResultStatus.DONE
+import com.zatsepinvl.activity.play.core.TaskResultStatus.SKIPPED
 import java.util.*
 
 enum class GameAction {
@@ -18,8 +18,7 @@ data class GameSettings(
     val pointsForDone: Int = 1,
     val pointsForFail: Int = 0,
     val maxScore: Int = 20,
-    val actions: Set<GameAction> = setOf(SAY, DRAW, SHOW),
-    val language: String = "en"
+    val actions: Set<GameAction> = setOf(SAY, DRAW, SHOW)
 )
 
 data class CompletedTask(
@@ -48,13 +47,15 @@ data class GameState(
     val currentTeamIndex: Int
 )
 
-class ActivityGame(private var settings: GameSettings, private var dictionary: Dictionary) {
+class ActivityGame(
+    private var settings: GameSettings,
+    private var dictionary: Dictionary
+) {
     private val completedTasks = mutableListOf<CompletedTask>()
     private val random = Random()
 
     init {
-        require(settings.teamCount > 1) { "At least 2 teams are required." }
-        require(settings.actions.isNotEmpty()) { "At least 1 action should be enabled" }
+        validateSettings(settings)
     }
 
     var finished = false
@@ -76,6 +77,20 @@ class ActivityGame(private var settings: GameSettings, private var dictionary: D
 
     var roundIsPlaying = false
         private set
+
+    fun resetSettings(settings: GameSettings) {
+        validateSettings(settings)
+        this.settings = settings
+    }
+
+    fun resetDictionary(dictionary: Dictionary) {
+        this.dictionary = dictionary
+    }
+
+    private fun validateSettings(settings: GameSettings) {
+        require(settings.teamCount > 1) { "At least 2 teams are required." }
+        require(settings.actions.isNotEmpty()) { "At least 1 action should be enabled" }
+    }
 
     fun startRound(): GameTask {
         require(!roundIsPlaying)
@@ -151,10 +166,6 @@ class ActivityGame(private var settings: GameSettings, private var dictionary: D
             .fold(0) { total, score -> total + score }
     }
 
-    fun resetSettings(settings: GameSettings) {
-        this.settings = settings
-    }
-
     fun getWinnerTeamIndex(): Int {
         require(finished) { "Game must be finished to get winner" }
         return (0..settings.teamCount)
@@ -195,6 +206,6 @@ class ActivityGame(private var settings: GameSettings, private var dictionary: D
     }
 
     private fun nextWord(): Word {
-        return dictionary.getRandomWord(settings.language, getUsedWords())
+        return dictionary.getRandomWord(getUsedWords())
     }
 }

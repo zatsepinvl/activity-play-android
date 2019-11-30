@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">activity-play</string>
+
+    <string-array name="words_languages_values">
+        <item>Английский</item>
+        <item>Русский</item>
+    </string-array>
+</resources>
