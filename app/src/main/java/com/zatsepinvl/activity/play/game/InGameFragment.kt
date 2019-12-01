@@ -5,23 +5,23 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.zatsepinvl.activity.play.BasicFragment
 import com.zatsepinvl.activity.play.R
-import com.zatsepinvl.activity.play.databinding.FragmentGameFinishBinding
+import com.zatsepinvl.activity.play.databinding.FragmentGameInBinding
 import com.zatsepinvl.activity.play.game.model.GameState
 import com.zatsepinvl.activity.play.game.model.GameViewModel
 
-class FinishGameFragment : BasicFragment<FragmentGameFinishBinding>(
-    R.layout.fragment_game_finish
+class InGameFragment : BasicFragment<FragmentGameInBinding>(
+    R.layout.fragment_game_in
 ) {
     private val viewModel: GameViewModel by activityViewModels()
 
-    override fun onCreateBinding(binding: FragmentGameFinishBinding) {
+    override fun onCreateBinding(binding: FragmentGameInBinding) {
         binding.viewmodel = viewModel
     }
 
     override fun onCreateView() {
         viewModel.gameState.observe(viewLifecycleOwner, Observer<GameState> { gameState ->
-            if (gameState == GameState.START) {
-                findNavController().navigate(R.id.startGameFragment)
+            if (gameState == GameState.FINISH) {
+                findNavController().navigate(R.id.finishGameFragment)
             }
         })
     }

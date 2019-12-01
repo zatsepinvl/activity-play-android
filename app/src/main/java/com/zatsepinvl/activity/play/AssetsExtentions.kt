@@ -1,4 +1,4 @@
-package com.zatsepinvl.activity.play.game
+package com.zatsepinvl.activity.play
 
 import android.content.res.AssetManager
 import com.zatsepinvl.activity.play.core.Dictionary

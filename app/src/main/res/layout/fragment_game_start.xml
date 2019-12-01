@@ -5,7 +5,7 @@
 
         <variable
             name="viewmodel"
-            type="com.zatsepinvl.activity.play.game.GameViewModel" />
+            type="com.zatsepinvl.activity.play.game.model.GameViewModel" />
     </data>
 
     <FrameLayout
@@ -20,7 +20,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/gameFrameWord"
+                android:id="@+id/gameStartCurrentTeamName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Word"
@@ -36,7 +36,7 @@
             android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/gameFrameSkipButton"
+                android:id="@+id/gameStartRoundStartButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"

@@ -1,34 +1,28 @@
 package com.zatsepinvl.activity.play.game
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
+import com.zatsepinvl.activity.play.BasicFragment
 import com.zatsepinvl.activity.play.R
-import com.zatsepinvl.activity.play.databinding.FragmentGameFrameBinding
 import com.zatsepinvl.activity.play.databinding.FragmentGameStartBinding
+import com.zatsepinvl.activity.play.game.model.GameState
+import com.zatsepinvl.activity.play.game.model.GameViewModel
 
-class StartGameFragment : Fragment() {
+class StartGameFragment : BasicFragment<FragmentGameStartBinding>(
+    R.layout.fragment_game_start
+) {
+    private val viewModel: GameViewModel by activityViewModels()
 
-    private val model: GameViewModel by viewModels({ requireActivity() })
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val binding = DataBindingUtil.inflate<FragmentGameStartBinding>(
-            inflater,
-            R.layout.fragment_game_start,
-            container,
-            false
-        )
-        //binding.lifecycleOwner = this
-        binding.viewmodel = model
-        return binding.root
+    override fun onCreateBinding(binding: FragmentGameStartBinding) {
+        binding.viewmodel = viewModel
     }
 
+    override fun onCreateView() {
+        viewModel.gameState.observe(viewLifecycleOwner, Observer<GameState> { gameState ->
+            if (gameState == GameState.PLAY) {
+                findNavController().navigate(R.id.inGameFragment)
+            }
+        })
+    }
 }

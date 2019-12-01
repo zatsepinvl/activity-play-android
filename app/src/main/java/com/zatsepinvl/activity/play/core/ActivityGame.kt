@@ -94,6 +94,7 @@ class ActivityGame(
 
     fun startRound(): GameTask {
         require(!roundIsPlaying)
+        require(!finished)
         roundIsPlaying = true
         currentTask = nextTask()
         return currentTask!!
@@ -143,27 +144,23 @@ class ActivityGame(
     fun finishRound() {
         roundIsPlaying = false
         currentTask = null
+        currentTeamIndex++
 
         val maxScore = (0..settings.teamCount)
             .map { i -> getTeamTotalScore(i) }
             .max() ?: 0
-        val isFinish = maxScore >= settings.maxScore
-        if (isFinish) {
-            finished = true
-            return
-        }
+        val maxScoreReached = maxScore >= settings.maxScore
+        val lastTeamPlayed = currentTeamIndex == settings.teamCount
 
-        currentTeamIndex++
-        if (currentTeamIndex == settings.teamCount) {
+        if (lastTeamPlayed) {
             currentTeamIndex = 0
             currentRoundIndex++
+            finished = maxScoreReached
         }
     }
 
     fun getTeamTotalScore(teamIndex: Int): Int {
-        return completedTasks.filter { it.task.teamIndex == teamIndex }
-            .map { it.result.score }
-            .fold(0) { total, score -> total + score }
+        return getTeamCompletedTasks(teamIndex).totalScore()
     }
 
     fun getWinnerTeamIndex(): Int {
@@ -171,6 +168,10 @@ class ActivityGame(
         return (0..settings.teamCount)
             .map { i -> i to getTeamTotalScore(i) }
             .maxBy { it.second }?.first ?: 0
+    }
+
+    fun getTeamCompletedTasks(teamIndex: Int): List<CompletedTask> {
+        return completedTasks.filter { it.task.teamIndex == teamIndex }
     }
 
     private fun nextTask(): GameTask {
@@ -208,4 +209,19 @@ class ActivityGame(
     private fun nextWord(): Word {
         return dictionary.getRandomWord(getUsedWords())
     }
+}
+
+
+fun List<CompletedTask>.totalScore(): Int {
+    return this.sumBy { it.result.score }
+}
+
+fun List<CompletedTask>.totalScoreForRound(roundIndex: Int): Int {
+    return this.filter { it.task.roundIndex == roundIndex }
+        .sumBy { it.result.score }
+}
+
+fun List<CompletedTask>.totalScoreForLastRound(): Int {
+    val lastRound: Int = this.map { it.task.roundIndex }.max() ?: 0
+    return totalScoreForRound(lastRound)
 }
