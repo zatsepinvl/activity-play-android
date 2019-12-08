@@ -10,5 +10,6 @@
         <item>English</item>
         <item>Russian</item>
     </string-array>
-    <string name="title_activity_game">GameActivity</string>
+
+    <string name="title_activity_game" translatable="false">GameActivity</string>
 </resources>

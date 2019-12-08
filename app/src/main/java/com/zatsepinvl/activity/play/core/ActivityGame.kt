@@ -164,7 +164,7 @@ class ActivityGame(
     }
 
     fun getWinnerTeamIndex(): Int {
-        require(finished) { "Game must be finished to get winner" }
+        require(finished) { "Game must be finished to getSettings winner" }
         return (0..settings.teamCount)
             .map { i -> i to getTeamTotalScore(i) }
             .maxBy { it.second }?.first ?: 0
