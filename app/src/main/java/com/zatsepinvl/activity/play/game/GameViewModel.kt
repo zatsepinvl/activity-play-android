@@ -1,6 +1,8 @@
 package com.zatsepinvl.activity.play.game
 
 import android.content.Context
+import androidx.databinding.BindingMethod
+import androidx.databinding.BindingMethods
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.zatsepinvl.activity.play.core.*
@@ -52,10 +54,10 @@ class GameViewModel @Inject constructor(private val gameService: GameService) : 
         gameState.value = GameStatus.PLAY
     }
 
-    fun lastPlayedTeamScore(): String {
+    fun lastPlayedTeamScore(): Int {
         return game
             .getTeamCompletedTasks(lastPlayedTeam.value!!.index)
-            .totalScoreForLastRound().toString()
+            .totalScoreForLastRound()
     }
 
     fun finishRound() {
@@ -71,4 +73,7 @@ class GameViewModel @Inject constructor(private val gameService: GameService) : 
         gameState.value = GameStatus.START
     }
 
+    fun currentTeamTotalScore(): Int {
+        return game.getTeamTotalScore(currentTeam.value!!.index)
+    }
 }

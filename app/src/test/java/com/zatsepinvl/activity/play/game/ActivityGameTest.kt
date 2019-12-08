@@ -122,7 +122,18 @@ class ActivityGameTest {
             actions.add(action)
         }
 
-        assertEquals(actions, GameAction.values().toSet())
+        assertEquals(GameAction.values().toSet(), actions)
+    }
+
+
+    @Test
+    fun skip_single_task() {
+        val game = createTestGame()
+
+        game.startRound()
+        game.finishRound()
+
+        assertEquals(1, game.getTeamCompletedTasks(0).size)
     }
 
     private fun ActivityGame.playOneFrame(doneCount: Int = 0, failCount: Int = 0) {

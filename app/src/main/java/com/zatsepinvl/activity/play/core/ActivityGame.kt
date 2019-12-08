@@ -27,12 +27,13 @@ data class CompletedTask(
 )
 
 data class GameTask(
-    val frameId: String,
     val teamIndex: Int,
     val roundIndex: Int,
     val action: GameAction,
     val word: Word
-)
+) {
+    val frameId = "$roundIndex:$teamIndex"
+}
 
 
 data class TaskResult(
@@ -73,7 +74,7 @@ class ActivityGame(
     var currentTeamIndex = 0
         private set
 
-    var currentFrameId = "${currentRoundIndex}:${currentTeamIndex}"
+    var currentFrameId = currentTask?.frameId
 
     var roundIsPlaying = false
         private set
@@ -121,7 +122,7 @@ class ActivityGame(
         require(!roundIsPlaying)
         completedTasks.apply {
             clear()
-            state.completedTasks.forEach { add(it) }
+            state.completedTasks.addAll(this)
         }
         currentRoundIndex = state.currentRoundIndex
         currentTeamIndex = state.currentTeamIndex
@@ -129,8 +130,7 @@ class ActivityGame(
     }
 
     private fun completeCurrentTask(done: Boolean): GameTask {
-        require(roundIsPlaying) { "Round must be playing to complete task" }
-        checkNotNull(currentTask) { "Current task must not be null" }
+        requireInGame()
         val taskResult = TaskResult(
             score = if (done) settings.pointsForDone else settings.pointsForFail,
             status = if (done) DONE else SKIPPED
@@ -142,6 +142,9 @@ class ActivityGame(
     }
 
     fun finishRound() {
+        requireInGame()
+        completedTasks.add(CompletedTask(currentTask!!, TaskResult(0, SKIPPED)))
+
         roundIsPlaying = false
         currentTask = null
         currentTeamIndex++
@@ -174,9 +177,13 @@ class ActivityGame(
         return completedTasks.filter { it.task.teamIndex == teamIndex }
     }
 
+    private fun requireInGame() {
+        require(roundIsPlaying) { "Round must be playing to complete task" }
+        checkNotNull(currentTask) { "Current task must not be null" }
+    }
+
     private fun nextTask(): GameTask {
         return GameTask(
-            currentFrameId,
             currentTeamIndex,
             currentRoundIndex,
             nextAction(),

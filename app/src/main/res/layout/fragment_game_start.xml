@@ -23,10 +23,28 @@
                 android:id="@+id/gameStartCurrentTeamName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Word"
+                android:hint="Team name"
                 android:text="@{viewmodel.currentTeam.name}"
                 android:textAlignment="center"
                 android:textSize="40sp" />
+
+            <TextView
+                android:id="@+id/gameStartCurrentTeamTotalScoreLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total score"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/gameStartCurrentTeamTotalScore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="40"
+                android:text="@{Integer.toString(viewmodel.currentTeamTotalScore())}"
+                android:textAlignment="center"
+                android:textSize="30sp" />
+
         </LinearLayout>
 
         <LinearLayout
