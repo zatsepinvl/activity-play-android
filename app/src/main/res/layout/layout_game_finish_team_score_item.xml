@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="teamResult"
+            type="com.zatsepinvl.activity.play.game.TeamResult" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{teamResult.name}"
+            android:textSize="30sp"
+            android:layout_gravity="left"
+            android:hint="Name"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:text="@{String.valueOf(teamResult.totalScore)}"
+            android:layout_gravity="right"
+            android:hint="1"/>
+
+    </FrameLayout>
+</layout>

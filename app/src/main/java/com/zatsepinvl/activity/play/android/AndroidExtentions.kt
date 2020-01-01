@@ -1,5 +1,6 @@
-package com.zatsepinvl.activity.play.core.android
+package com.zatsepinvl.activity.play.android
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
@@ -9,8 +10,13 @@ fun Context.privateSp(name: String): SharedPreferences {
 }
 
 fun SharedPreferences.saveJson(obj: Any) {
+    saveJson(obj.javaClass.name, obj)
+}
+
+@SuppressLint("ApplySharedPref")
+fun SharedPreferences.saveJson(key: String, obj: Any) {
     val json = Gson().toJson(obj)
-    this.edit().putString(obj.javaClass.name, json).apply()
+    this.edit().putString(key, json).commit()
 }
 
 inline fun <reified T> SharedPreferences.getFromJson(): T? {
@@ -18,11 +24,21 @@ inline fun <reified T> SharedPreferences.getFromJson(): T? {
     return getFromJson(clazz)
 }
 
+inline fun <reified T> SharedPreferences.getFromJson(key: String): T? {
+    val clazz = T::class.java
+    return getFromJson(key, clazz)
+}
+
 fun <T> SharedPreferences.getFromJson(clazz: Class<T>): T? {
-    val json = this.getString(clazz.name, "") ?: ""
+    return getFromJson(clazz.name, clazz)
+}
+
+fun <T> SharedPreferences.getFromJson(key: String, clazz: Class<T>): T? {
+    val json = this.getString(key, "") ?: ""
     if (json.isEmpty()) return null
     return Gson().fromJson(json, clazz)
 }
+
 
 inline fun <reified T> SharedPreferences.containsJson(): Boolean {
     val clazz = T::class.java

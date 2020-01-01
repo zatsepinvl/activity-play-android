@@ -1,6 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ffa000</color>
-    <color name="colorPrimaryDark">#c67100</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">@color/md_amber_900</color>
+    <color name="colorPrimaryDark">@color/md_amber_900</color>
+    <color name="colorAccent">@color/md_amber_900</color>
+
+    <color name="teamDefaultColor">@color/md_red_700</color>
+
+    <array name="colors">
+        <item>@color/md_red_700</item>
+        <item>@color/md_pink_700</item>
+        <item>@color/md_purple_700</item>
+        <item>@color/md_deep_purple_700</item>
+        <item>@color/md_indigo_700</item>
+        <item>@color/md_blue_700</item>
+        <item>@color/md_light_blue_700</item>
+        <item>@color/md_cyan_700</item>
+        <item>@color/md_teal_700</item>
+        <item>@color/md_green_700</item>
+        <item>@color/md_light_green_700</item>
+        <item>@color/md_lime_700</item>
+        <item>@color/md_yellow_700</item>
+        <item>@color/md_amber_700</item>
+        <item>@color/md_orange_700</item>
+        <item>@color/md_deep_orange_700</item>
+        <item>@color/md_brown_700</item>
+        <item>@color/md_grey_700</item>
+        <item>@color/md_blue_grey_700</item>
+        <item>@color/md_grey_900</item>
+    </array>
+
+    <array name="colorIds">
+        <item>red</item>
+        <item>pink</item>
+        <item>purple</item>
+        <item>deep_purple</item>
+        <item>indigo</item>
+        <item>blue</item>
+        <item>light_blue</item>
+        <item>cyan</item>
+        <item>teal</item>
+        <item>green</item>
+        <item>light_green</item>
+        <item>lime</item>
+        <item>yellow</item>
+        <item>amber</item>
+        <item>orange</item>
+        <item>deep_orange</item>
+        <item>brown</item>
+        <item>grey</item>
+        <item>blue_grey</item>
+        <item>black</item>
+    </array>
+
+
 </resources>

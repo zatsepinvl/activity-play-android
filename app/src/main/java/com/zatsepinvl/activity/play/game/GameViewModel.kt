@@ -1,18 +1,14 @@
 package com.zatsepinvl.activity.play.game
 
-import android.content.Context
-import androidx.databinding.BindingMethod
-import androidx.databinding.BindingMethods
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.zatsepinvl.activity.play.core.*
+import com.zatsepinvl.activity.play.color.ColorService
+import com.zatsepinvl.activity.play.core.ActivityGame
+import com.zatsepinvl.activity.play.core.GameTask
+import com.zatsepinvl.activity.play.core.totalScoreForLastRound
+import com.zatsepinvl.activity.play.team.Team
+import com.zatsepinvl.activity.play.team.TeamService
 import javax.inject.Inject
-
-
-data class Team(
-    val index: Int,
-    val name: String
-)
 
 enum class GameStatus {
     START,
@@ -20,23 +16,28 @@ enum class GameStatus {
     FINISH
 }
 
-class GameViewModel @Inject constructor(private val gameService: GameService) : ViewModel() {
-    private val teams = listOf(
-        Team(0, "Team A"),
-        Team(1, "Team B")
-    )
-
-    private val game: ActivityGame
+class GameViewModel @Inject constructor(
+    private val gameService: GameService,
+    private val teamService: TeamService,
+    private val colorService: ColorService
+) : ViewModel() {
+    private lateinit var game: ActivityGame
 
     val currentTask = MutableLiveData<GameTask>()
     val isPlayingRound = MutableLiveData<Boolean>()
     val currentTeam = MutableLiveData<Team>()
+    val currentTeamColorResourceId = MutableLiveData<Int>()
     val lastPlayedTeam = MutableLiveData<Team>()
     val gameState = MutableLiveData<GameStatus>()
 
     init {
-        game = gameService.getLastSavedGame()
-        currentTeam.value = teams[game.currentTeamIndex]
+        reload()
+    }
+
+    fun reload() {
+        game = gameService.getSavedGame()
+        currentTeam.value = teams()[game.currentTeamIndex]
+        currentTeamColorResourceId.value = currentTeamColorResource()
         gameState.value = GameStatus.START
     }
 
@@ -55,6 +56,7 @@ class GameViewModel @Inject constructor(private val gameService: GameService) : 
     }
 
     fun lastPlayedTeamScore(): Int {
+        if (lastPlayedTeam.value == null) return 0
         return game
             .getTeamCompletedTasks(lastPlayedTeam.value!!.index)
             .totalScoreForLastRound()
@@ -64,7 +66,8 @@ class GameViewModel @Inject constructor(private val gameService: GameService) : 
         game.finishRound()
         isPlayingRound.value = false
         lastPlayedTeam.value = currentTeam.value
-        currentTeam.value = teams[game.currentTeamIndex]
+        currentTeam.value = teams()[game.currentTeamIndex]
+        currentTeamColorResourceId.value = currentTeamColorResource()
         gameState.value = GameStatus.FINISH
         gameService.saveGame(game)
     }
@@ -76,4 +79,12 @@ class GameViewModel @Inject constructor(private val gameService: GameService) : 
     fun currentTeamTotalScore(): Int {
         return game.getTeamTotalScore(currentTeam.value!!.index)
     }
+
+    fun currentTeamColorResource(): Int {
+        return colorService.getColorResourceById(currentTeam.value!!.colorId)
+    }
+
+    fun isGameFinished() = game.finished
+
+    private fun teams() = teamService.getTeams()
 }

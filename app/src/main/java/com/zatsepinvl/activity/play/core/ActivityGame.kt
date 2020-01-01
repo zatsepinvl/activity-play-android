@@ -49,11 +49,16 @@ data class GameState(
 )
 
 class ActivityGame(
-    private var settings: GameSettings,
-    private var dictionary: Dictionary
+    settings: GameSettings,
+    dictionary: Dictionary
 ) {
     private val completedTasks = mutableListOf<CompletedTask>()
     private val random = Random()
+
+    var settings: GameSettings = settings
+        private set
+    var dictionary: Dictionary = dictionary
+        private set
 
     init {
         validateSettings(settings)
@@ -122,7 +127,7 @@ class ActivityGame(
         require(!roundIsPlaying)
         completedTasks.apply {
             clear()
-            state.completedTasks.addAll(this)
+            addAll(state.completedTasks)
         }
         currentRoundIndex = state.currentRoundIndex
         currentTeamIndex = state.currentTeamIndex

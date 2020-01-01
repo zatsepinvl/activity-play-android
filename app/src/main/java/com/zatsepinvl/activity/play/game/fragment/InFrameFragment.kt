@@ -9,13 +9,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.zatsepinvl.activity.play.R
-import com.zatsepinvl.activity.play.databinding.FragmentGameStartBinding
+import com.zatsepinvl.activity.play.databinding.FragmentRoundInBinding
 import com.zatsepinvl.activity.play.game.GameStatus
 import com.zatsepinvl.activity.play.game.GameViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class StartGameFragment : DaggerFragment() {
+class InFrameFragment : DaggerFragment() {
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
@@ -26,15 +27,16 @@ class StartGameFragment : DaggerFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val dataBinding = FragmentGameStartBinding.inflate(inflater, container, false)
+        val dataBinding = FragmentRoundInBinding.inflate(inflater, container, false)
         dataBinding.viewmodel = viewModel
         dataBinding.lifecycleOwner = this
 
         viewModel.gameState.observe(viewLifecycleOwner, Observer<GameStatus> { gameState ->
-            if (gameState == GameStatus.PLAY) {
-                findNavController().navigate(R.id.inGameFragment)
+            if (gameState == GameStatus.FINISH) {
+                findNavController().navigate(R.id.finishRoundFragment)
             }
         })
         return dataBinding.root
     }
+
 }

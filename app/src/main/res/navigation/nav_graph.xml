@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/startRoundFragment"
+        android:name="com.zatsepinvl.activity.play.game.fragment.StartRoundFragment"
+        android:label="StartGameFragment">
+        <action
+            android:id="@+id/action_startGameFragment_to_gameFrameFragment"
+            app:destination="@id/inRoundFragment" />
+        <action
+            android:id="@+id/action_startGameFragment_to_finishGameFragment2"
+            app:destination="@id/finishGameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/inRoundFragment"
+        android:name="com.zatsepinvl.activity.play.game.fragment.InFrameFragment"
+        android:label="InGameFragment">
+        <action
+            android:id="@+id/action_gameFrameFragment_to_finishGameFragment"
+            app:destination="@id/finishRoundFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/finishRoundFragment"
+        android:name="com.zatsepinvl.activity.play.game.fragment.FinishRoundFragment"
+        android:label="FinishGameFragment">
+        <action
+            android:id="@+id/action_finishGameFragment_to_startGameFragment"
+            app:destination="@id/startRoundFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/finishGameFragment"
+        android:name="com.zatsepinvl.activity.play.game.fragment.FinishGameFragment"
+        android:label="fragment_game_finish"
+        tools:layout="@layout/fragment_game_finish" >
+        <action
+            android:id="@+id/action_finishGameFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.zatsepinvl.activity.play.home.fragment.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_startRoundFragment"
+            app:destination="@id/startRoundFragment" />
+    </fragment>
+</navigation>

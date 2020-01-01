@@ -8,7 +8,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.zatsepinvl.activity.play"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -41,10 +41,11 @@ dependencies {
     implementation "com.google.code.gson:gson:2.8.6"
 
     implementation "com.google.dagger:dagger:2.25.2"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     kapt "com.google.dagger:dagger-compiler:2.25.2"
     implementation "com.google.dagger:dagger-android-support:2.25.2"
     kapt "com.google.dagger:dagger-android-processor:2.25.2"
-    
+
     testImplementation "junit:junit:4.12"
 
     androidTestImplementation "androidx.test.ext:junit:1.1.1"
