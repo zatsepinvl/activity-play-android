@@ -35,7 +35,7 @@ class HomeFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         homeNewGameButton.setOnClickListener {
             viewModel.initNewGame()
-            findNavController().navigate(R.id.startRoundFragment)
+            findNavController().navigate(R.id.teamSettingsFragment)
         }
 
         homeContinueButton.setOnClickListener {

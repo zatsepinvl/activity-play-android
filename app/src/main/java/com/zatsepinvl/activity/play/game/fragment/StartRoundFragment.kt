@@ -26,7 +26,7 @@ class StartRoundFragment : DaggerFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel.reload()
+        viewModel.reloadGame()
 
         val dataBinding = FragmentRoundStartBinding.inflate(inflater, container, false)
         dataBinding.viewmodel = viewModel
@@ -35,7 +35,6 @@ class StartRoundFragment : DaggerFragment() {
         if (viewModel.isGameFinished()) {
             findNavController().navigate(R.id.finishGameFragment)
         }
-
 
         viewModel.gameState.observe(viewLifecycleOwner, Observer<GameStatus> { gameState ->
             if (gameState == GameStatus.PLAY) {

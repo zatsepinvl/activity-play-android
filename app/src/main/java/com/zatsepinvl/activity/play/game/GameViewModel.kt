@@ -26,18 +26,16 @@ class GameViewModel @Inject constructor(
     val currentTask = MutableLiveData<GameTask>()
     val isPlayingRound = MutableLiveData<Boolean>()
     val currentTeam = MutableLiveData<Team>()
-    val currentTeamColorResourceId = MutableLiveData<Int>()
     val lastPlayedTeam = MutableLiveData<Team>()
     val gameState = MutableLiveData<GameStatus>()
 
     init {
-        reload()
+        reloadGame()
     }
 
-    fun reload() {
+    fun reloadGame() {
         game = gameService.getSavedGame()
         currentTeam.value = teams()[game.currentTeamIndex]
-        currentTeamColorResourceId.value = currentTeamColorResource()
         gameState.value = GameStatus.START
     }
 
@@ -67,7 +65,6 @@ class GameViewModel @Inject constructor(
         isPlayingRound.value = false
         lastPlayedTeam.value = currentTeam.value
         currentTeam.value = teams()[game.currentTeamIndex]
-        currentTeamColorResourceId.value = currentTeamColorResource()
         gameState.value = GameStatus.FINISH
         gameService.saveGame(game)
     }

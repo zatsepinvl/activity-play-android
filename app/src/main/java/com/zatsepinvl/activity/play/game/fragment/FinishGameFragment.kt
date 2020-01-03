@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.databinding.FragmentGameFinishBinding
-import com.zatsepinvl.activity.play.databinding.LayoutGameFinishTeamScoreItemBinding
+import com.zatsepinvl.activity.play.databinding.ViewGameFinishTeamScoreItemBinding
 import com.zatsepinvl.activity.play.game.FinishGameViewModel
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_game_finish.*
@@ -29,12 +29,11 @@ class FinishGameFragment : DaggerFragment() {
         val dataBinding = FragmentGameFinishBinding.inflate(inflater, container, false)
         dataBinding.lifecycleOwner = this
 
-        val itemRoot = dataBinding.fragmentGameFinishTeamsScoreRoot
+        val teamScoresRootView = dataBinding.fragmentGameFinishTeamsScoreRoot
         viewModel.getTeamResults().forEach {
-            val resultBinding =
-                LayoutGameFinishTeamScoreItemBinding.inflate(inflater)
+            val resultBinding = ViewGameFinishTeamScoreItemBinding.inflate(inflater)
             resultBinding.teamResult = it
-            itemRoot.addView(resultBinding.root)
+            teamScoresRootView.addView(resultBinding.root)
         }
 
         return dataBinding.root

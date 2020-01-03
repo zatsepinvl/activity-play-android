@@ -12,10 +12,6 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     fun initNewGame() {
-        if (teamService.getTeamsCount() == 0) {
-            teamService.createDefaultTeams().forEach { teamService.addTeam(it) }
-        }
-
         val newGame = gameService.createNewGame()
         gameService.saveGame(newGame)
     }

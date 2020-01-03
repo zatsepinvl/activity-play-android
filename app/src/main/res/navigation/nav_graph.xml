@@ -49,5 +49,12 @@
         <action
             android:id="@+id/action_homeFragment_to_startRoundFragment"
             app:destination="@id/startRoundFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_teamSettingsFragment"
+            app:destination="@id/teamSettingsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/teamSettingsFragment"
+        android:name="com.zatsepinvl.activity.play.team.fragment.TeamSettingsFragment"
+        android:label="TeamSettingsFragment" />
 </navigation>
