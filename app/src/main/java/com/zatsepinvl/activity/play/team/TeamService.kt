@@ -13,18 +13,30 @@ data class Team(
 )
 
 interface TeamService {
-    fun createDefaultTeams(): List<Team>
     fun editTeam(team: Team)
     fun deleteTeam(id: String)
     fun addTeam(team: Team)
+    fun addTeam(name: String, colorId: ColorId)
     fun getTeams(): List<Team>
     fun getTeamsCount(): Int
+    fun createTeam(name: String, colorId: ColorId): Team
 }
 
 class TeamServiceImpl @Inject constructor(
     private val teamRepository: TeamRepository,
     private val colorService: ColorService
 ) : TeamService {
+
+    override fun createTeam(name: String, colorId: ColorId): Team {
+        val index = getTeamsCount()
+        return Team(
+            getTeamsCount().toString(),
+            index,
+            name,
+            colorId,
+            colorService.getColorResourceById(colorId)
+        )
+    }
 
     override fun editTeam(team: Team) {
         teamRepository.delete(team.id)
@@ -39,6 +51,12 @@ class TeamServiceImpl @Inject constructor(
         teamRepository.save(team)
     }
 
+    override fun addTeam(name: String, colorId: ColorId) {
+        teamRepository.save(
+            createTeam(name, colorId)
+        )
+    }
+
     override fun getTeams(): List<Team> {
         return teamRepository.getAll()
             ?.map { it.copy(colorResource = colorService.getColorResourceById(it.colorId)) }
@@ -48,21 +66,5 @@ class TeamServiceImpl @Inject constructor(
     override fun getTeamsCount(): Int {
         return teamRepository.count()
     }
-
-    override fun createDefaultTeams(): List<Team> {
-        return listOf(
-            Team(
-                "0", 0,
-                "Watermelon",
-                ColorId.GREEN, colorService.getColorResourceById(ColorId.GREEN)
-            ),
-            Team(
-                "1", 1,
-                "Strawberry",
-                ColorId.RED, colorService.getColorResourceById(ColorId.RED)
-            )
-        )
-    }
-
 
 }
