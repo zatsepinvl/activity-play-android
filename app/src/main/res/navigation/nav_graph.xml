@@ -36,7 +36,7 @@
         android:id="@+id/finishGameFragment"
         android:name="com.zatsepinvl.activity.play.game.fragment.FinishGameFragment"
         android:label="fragment_game_finish"
-        tools:layout="@layout/fragment_game_finish" >
+        tools:layout="@layout/fragment_game_finish">
         <action
             android:id="@+id/action_finishGameFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -45,16 +45,30 @@
         android:id="@+id/homeFragment"
         android:name="com.zatsepinvl.activity.play.home.fragment.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment_to_startRoundFragment"
+            android:id="@+id/continueGame"
             app:destination="@id/startRoundFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_teamSettingsFragment"
-            app:destination="@id/teamSettingsFragment" />
+            android:id="@+id/newGame"
+            app:destination="@id/teamSettingsFragment">
+            <argument
+                android:name="navigationFlow"
+                android:defaultValue="NEW_GAME"
+                app:argType="com.zatsepinvl.activity.play.navigation.NavigationFlow" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/teamSettingsFragment"
         android:name="com.zatsepinvl.activity.play.team.fragment.TeamSettingsFragment"
-        android:label="TeamSettingsFragment" />
+        android:label="TeamSettingsFragment">
+
+        <argument
+            android:name="navigationFlow"
+            android:defaultValue="DEFAULT"
+            app:argType="com.zatsepinvl.activity.play.navigation.NavigationFlow" />
+        <action
+            android:id="@+id/action_teamSettingsFragment_to_startRoundFragment"
+            app:destination="@id/startRoundFragment" />
+    </fragment>
 </navigation>

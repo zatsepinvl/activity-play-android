@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.databinding.FragmentHomeBinding
 import com.zatsepinvl.activity.play.home.HomeViewModel
 import dagger.android.support.DaggerFragment
@@ -35,11 +34,11 @@ class HomeFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         homeNewGameButton.setOnClickListener {
             viewModel.initNewGame()
-            findNavController().navigate(R.id.teamSettingsFragment)
+            findNavController().navigate(HomeFragmentDirections.newGame())
         }
 
         homeContinueButton.setOnClickListener {
-            findNavController().navigate(R.id.startRoundFragment)
+            findNavController().navigate(HomeFragmentDirections.continueGame())
         }
     }
 }

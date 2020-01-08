@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
     <FrameLayout
-        android:layout_width="match_parent" android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:id="@+id/teamSettingsItemRoot"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:layout_gravity="center"
-            android:padding="10dp">
-        </LinearLayout>
+            android:orientation="vertical"
+            android:padding="10dp" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:layout_margin="16dp"
-            android:src="@drawable/ic_add_white_24dp"
-            />
+            android:src="@drawable/ic_add_white_24dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/teamSettingsStartNewGameButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_margin="16dp"
+            android:text="Start new game" />
 
     </FrameLayout>
 </layout>

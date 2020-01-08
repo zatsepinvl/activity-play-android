@@ -35,14 +35,14 @@ class DictionaryServiceImpl @Inject constructor(
     private val context: Context
 ) : DictionaryService {
 
-    private lateinit var dictionaryCash: Dictionary
+    private lateinit var dictionaryCache: Dictionary
 
     init {
         updateDictionary()
     }
 
     override fun getDictionary(): Dictionary {
-        return dictionaryCash
+        return dictionaryCache
     }
 
     private fun loadDictionary(): Dictionary {
@@ -70,7 +70,7 @@ class DictionaryServiceImpl @Inject constructor(
     }
 
     private fun updateDictionary() {
-        dictionaryCash = loadDictionary()
+        dictionaryCache = loadDictionary()
     }
 }
 
