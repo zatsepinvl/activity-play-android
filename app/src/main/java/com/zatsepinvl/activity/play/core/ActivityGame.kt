@@ -154,13 +154,17 @@ class ActivityGame(
         currentTask = null
         currentTeamIndex++
 
-        val maxScore = (0..settings.teamCount)
-            .map { i -> getTeamTotalScore(i) }
-            .max() ?: 0
-        val maxScoreReached = maxScore >= settings.maxScore
         val lastTeamPlayed = currentTeamIndex == settings.teamCount
 
         if (lastTeamPlayed) {
+            val scores = (0..settings.teamCount)
+                .map { i -> getTeamTotalScore(i) }
+                .sortedDescending()
+            val maxScore = scores[0]
+            val anotherMaxScore = scores[1]
+
+            val maxScoreReached = maxScore >= settings.maxScore && maxScore != anotherMaxScore
+
             currentTeamIndex = 0
             currentRoundIndex++
             finished = maxScoreReached

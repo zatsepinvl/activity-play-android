@@ -125,6 +125,54 @@ class ActivityGameTest {
         assertEquals(GameAction.values().toSet(), actions)
     }
 
+    @Test
+    fun test_the_same_score_after_the_round() {
+        val game = createTestGame(
+            settings = GameSettings(maxScore = 1)
+        )
+
+        game.playOneFrame(1)
+        game.playOneFrame(1)
+
+        game.playOneFrame(1)
+        game.playOneFrame(1)
+
+        assertEquals(false, game.finished)
+    }
+
+    @Test
+    fun test_game_finishes_after_extra_round() {
+        val game = createTestGame(
+            settings = GameSettings(maxScore = 1)
+        )
+
+        game.playOneFrame(1)
+        game.playOneFrame(1)
+
+        game.playOneFrame(1)
+        assertEquals(false, game.finished)
+
+        game.playOneFrame()
+        assertEquals(true, game.finished)
+        assertEquals(0, game.getWinnerTeamIndex())
+    }
+
+    @Test
+    fun test_game_finishes_after_extra_round_second_team_wins() {
+        val game = createTestGame(
+            settings = GameSettings(maxScore = 1)
+        )
+
+        game.playOneFrame(1)
+        game.playOneFrame(1)
+
+        game.playOneFrame(0)
+        game.playOneFrame(1)
+
+        assertEquals(true, game.finished)
+        assertEquals(1, game.getWinnerTeamIndex())
+    }
+
 
     @Test
     fun skip_single_task() {
