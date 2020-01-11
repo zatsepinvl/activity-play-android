@@ -11,7 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ActivityPlay">
 
-        <activity android:name=".ActivityPlayMainActivity">
+        <activity
+            android:name=".ActivityPlayMainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />

@@ -40,5 +40,9 @@ class HomeFragment : DaggerFragment() {
         homeContinueButton.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.continueGame())
         }
+
+        homeSettingsButton.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.settings())
+        }
     }
 }
