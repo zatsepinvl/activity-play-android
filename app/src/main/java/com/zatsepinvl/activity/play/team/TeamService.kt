@@ -9,7 +9,7 @@ data class Team(
     val index: Int,
     val name: String,
     val colorId: ColorId,
-    val colorResource: Int
+    val color: Int
 )
 
 interface TeamService {
@@ -34,7 +34,7 @@ class TeamServiceImpl @Inject constructor(
             index,
             name,
             colorId,
-            colorService.getColorResourceById(colorId)
+            colorService.getColorById(colorId).hexCode
         )
     }
 
@@ -59,7 +59,7 @@ class TeamServiceImpl @Inject constructor(
 
     override fun getTeams(): List<Team> {
         return teamRepository.getAll()
-            ?.map { it.copy(colorResource = colorService.getColorResourceById(it.colorId)) }
+            ?.map { it.copy(color = colorService.getColorById(it.colorId).hexCode) }
             ?: throw IllegalStateException("There is no one team created yet")
     }
 

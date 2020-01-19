@@ -10,14 +10,12 @@
         android:name="com.zatsepinvl.activity.play.home.fragment.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
-
         <action
             android:id="@+id/continueGame"
             app:destination="@id/startRoundFragment" />
         <action
             android:id="@+id/newGame"
             app:destination="@id/teamSettingsFragment">
-
             <argument
                 android:name="navigationFlow"
                 android:defaultValue="NEW_GAME"
@@ -30,23 +28,51 @@
     </fragment>
 
     <fragment
+        android:id="@+id/teamSettingsFragment"
+        android:name="com.zatsepinvl.activity.play.team.fragment.TeamListFragment"
+        android:label="TeamSettingsFragment">
+        <argument
+            android:name="navigationFlow"
+            android:defaultValue="DEFAULT"
+            app:argType="com.zatsepinvl.activity.play.navigation.NavigationFlow" />
+        <action
+            android:id="@+id/startRound"
+            app:destination="@id/startRoundFragment">
+            <argument
+                android:name="navigationFlow"
+                android:defaultValue="NEW_GAME"
+                app:argType="com.zatsepinvl.activity.play.navigation.NavigationFlow"/>
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/gameSettingsFragment"
+        android:name="com.zatsepinvl.activity.play.settings.fragment.GameSettingsFragment"
+        android:label="GameSettingsFragment" />
+
+    <fragment
         android:id="@+id/startRoundFragment"
         android:name="com.zatsepinvl.activity.play.game.fragment.StartRoundFragment"
         android:label="StartGameFragment">
-
         <action
             android:id="@+id/action_startGameFragment_to_gameFrameFragment"
             app:destination="@id/inRoundFragment" />
         <action
             android:id="@+id/action_startGameFragment_to_finishGameFragment2"
             app:destination="@id/finishGameFragment" />
+        <action
+            android:id="@+id/backToMenu"
+            app:destination="@id/homeFragment" />
+        <argument
+            android:name="navigationFlow"
+            android:defaultValue="DEFAULT"
+            app:argType="com.zatsepinvl.activity.play.navigation.NavigationFlow" />
     </fragment>
 
     <fragment
         android:id="@+id/inRoundFragment"
         android:name="com.zatsepinvl.activity.play.game.fragment.InFrameFragment"
         android:label="InGameFragment">
-
         <action
             android:id="@+id/action_gameFrameFragment_to_finishGameFragment"
             app:destination="@id/finishRoundFragment" />
@@ -56,7 +82,6 @@
         android:id="@+id/finishRoundFragment"
         android:name="com.zatsepinvl.activity.play.game.fragment.FinishRoundFragment"
         android:label="FinishGameFragment">
-
         <action
             android:id="@+id/action_finishGameFragment_to_startGameFragment"
             app:destination="@id/startRoundFragment" />
@@ -67,30 +92,9 @@
         android:name="com.zatsepinvl.activity.play.game.fragment.FinishGameFragment"
         android:label="fragment_game_finish"
         tools:layout="@layout/fragment_game_finish">
-
         <action
             android:id="@+id/action_finishGameFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
-
-    <fragment
-        android:id="@+id/teamSettingsFragment"
-        android:name="com.zatsepinvl.activity.play.team.fragment.TeamSettingsFragment"
-        android:label="TeamSettingsFragment">
-
-        <argument
-            android:name="navigationFlow"
-            android:defaultValue="DEFAULT"
-            app:argType="com.zatsepinvl.activity.play.navigation.NavigationFlow" />
-
-        <action
-            android:id="@+id/action_teamSettingsFragment_to_startRoundFragment"
-            app:destination="@id/startRoundFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/gameSettingsFragment"
-        android:name="com.zatsepinvl.activity.play.settings.fragment.GameSettingsFragment"
-        android:label="GameSettingsFragment" />
 
 </navigation>

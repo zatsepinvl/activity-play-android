@@ -2,7 +2,6 @@ package com.zatsepinvl.activity.play.game
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.zatsepinvl.activity.play.color.ColorService
 import com.zatsepinvl.activity.play.core.ActivityGame
 import com.zatsepinvl.activity.play.core.GameTask
 import com.zatsepinvl.activity.play.core.totalScoreForLastRound
@@ -18,8 +17,7 @@ enum class GameStatus {
 
 class GameViewModel @Inject constructor(
     private val gameService: GameService,
-    private val teamService: TeamService,
-    private val colorService: ColorService
+    private val teamService: TeamService
 ) : ViewModel() {
     private lateinit var game: ActivityGame
 
@@ -29,11 +27,12 @@ class GameViewModel @Inject constructor(
     val lastPlayedTeam = MutableLiveData<Team>()
     val gameState = MutableLiveData<GameStatus>()
 
-    init {
-        reloadGame()
+    fun startNewGame() {
+        gameService.startNewGame()
+        prepare()
     }
 
-    fun reloadGame() {
+    fun prepare() {
         game = gameService.getSavedGame()
         currentTeam.value = teams()[game.currentTeamIndex]
         gameState.value = GameStatus.START
@@ -75,10 +74,6 @@ class GameViewModel @Inject constructor(
 
     fun currentTeamTotalScore(): Int {
         return game.getTeamTotalScore(currentTeam.value!!.index)
-    }
-
-    fun currentTeamColorResource(): Int {
-        return colorService.getColorResourceById(currentTeam.value!!.colorId)
     }
 
     fun isGameFinished() = game.finished

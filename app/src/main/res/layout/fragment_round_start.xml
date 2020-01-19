@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -11,7 +12,16 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/gameStartRoundExitButton"
+            style="@style/Widget.ActivityPlay.Button.OutlinedButton.Grey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:text="Main menu" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,6 +36,7 @@
                 android:hint="Team name"
                 android:text="@{viewmodel.currentTeam.name}"
                 android:textAlignment="center"
+                android:textColor="@{viewmodel.currentTeam.color}"
                 android:textSize="40sp" />
 
             <TextView
@@ -55,13 +66,12 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/gameStartRoundStartButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                style="@style/Widget.ActivityPlay.Button.OutlinedButton"
                 android:layout_weight="1"
-                android:backgroundTint="@{viewmodel.currentTeam.colorResource}"
                 android:onClick="@{() -> viewmodel.startRound()}"
-                android:text="Start round" />
+                android:text="Start round"
+                android:textColor="@{viewmodel.currentTeam.color}"
+                app:strokeColor="@{viewmodel.currentTeam.color}" />
         </LinearLayout>
     </FrameLayout>
 </layout>

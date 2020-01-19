@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory app:title="General">
+        <ListPreference
+            android:entries="@array/words_languages_values"
+            android:entryValues="@array/words_languages_keys"
+            android:summary="%s"
+            app:key="dictionaryLanguage"
+            app:title="Dictionary language" />
+
+        <SwitchPreferenceCompat
+            app:key="fineForFail"
+            app:summary="If enabled, team will be fined with 1 point for each skipped word"
+            app:title="Make a fine for skipped word" />
+
+        <SeekBarPreference
+            android:max="200"
+            app:defaultValue="60"
+            app:key="roundTimeSeconds"
+            app:min="10"
+            app:updatesContinuously="true"
+            app:showSeekBarValue="true"
+            app:title="Seconds for one round" />
+
+        <SeekBarPreference
+            android:max="200"
+            app:defaultValue="20"
+            app:key="maxScore"
+            app:updatesContinuously="true"
+            app:min="10"
+            app:showSeekBarValue="true"
+            app:title="Total score to win" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Game actions">
+        <CheckBoxPreference
+            app:key="enableDraw"
+            app:summary="You have to explain a word using gestures and body language only"
+            app:title="Draw" />
+
+        <CheckBoxPreference
+            app:key="enableShow"
+            app:summary="You have to explain a word drawing it`s definition without using letters and digits"
+            app:title="Show" />
+
+        <CheckBoxPreference
+            app:key="enableSay"
+            app:summary="You have to explain a word saying it`s definition without using root words"
+            app:title="Say" />
+    </PreferenceCategory>
+</PreferenceScreen>

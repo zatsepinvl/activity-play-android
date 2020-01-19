@@ -40,21 +40,14 @@
                 android:textSize="40sp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:orientation="horizontal">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/gameFrameSkipButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:background="@color/md_grey_700"
-                android:onClick="@{() -> viewmodel.nextTeam()}"
-                android:text="Done" />
-        </LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/gameFrameSkipButton"
+            style="@style/Widget.ActivityPlay.Button.OutlinedButton"
+            android:layout_gravity="center|bottom"
+            android:background="@color/md_grey_700"
+            android:onClick="@{() -> viewmodel.nextTeam()}"
+            android:layout_margin="16dp"
+            android:text="Done" />
     </FrameLayout>
 </layout>

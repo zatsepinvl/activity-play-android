@@ -15,10 +15,12 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:layout_marginBottom="6dp"
         android:clickable="true"
-        app:cardBackgroundColor="@{team.colorResource}">
+        app:cardCornerRadius="10dp"
+        app:strokeColor="@{team.color}"
+        app:strokeWidth="2dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -27,19 +29,20 @@
             android:layout_marginStart="8dp"
             android:hint="Team name"
             android:text="@{team.name}"
-            android:textColor="@color/md_white_1000"
+            android:textColor="@{team.color}"
             android:textSize="22sp" />
 
 
         <com.google.android.material.button.MaterialButton
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Widget.ActivityPlay.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
             android:layout_marginEnd="8dp"
             android:onClick="@{() -> viewmodel.deleteTeam(team.id)}"
             android:text="Delete"
-            android:textColor="@color/md_white_1000" />
+            android:textColor="@{team.color}"
+            app:strokeColor="@{team.color}" />
 
     </com.google.android.material.card.MaterialCardView>
 </layout>

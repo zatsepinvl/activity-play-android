@@ -3,14 +3,13 @@ package com.zatsepinvl.activity.play.color
 import android.content.Context
 import androidx.core.content.res.getResourceIdOrThrow
 import com.zatsepinvl.activity.play.R
-import java.lang.IllegalStateException
 import java.util.*
 import javax.inject.Inject
 
 data class Color(
     val id: ColorId,
     val name: String,
-    val resource: Int
+    val hexCode: Int
 )
 
 enum class ColorId {
@@ -60,16 +59,15 @@ class ColorService @Inject constructor(context: Context) {
         resourceColorNames.recycle()
     }
 
-    fun getColorResourceByIndex(index: Int): Int {
+    fun getColorByIndex(index: Int): Color {
         require(index > -1 && index < colors.size) {
             "$index is out of bound of colors list"
         }
-        return colors.values.toList()[index].resource
+        return colors.values.toList()[index]
     }
 
-    fun getColorResourceById(id: ColorId): Int {
-        return colors[id]?.resource
-            ?: throw IllegalArgumentException("Color is not found by id $id")
+    fun getColorById(id: ColorId): Color {
+        return colors[id] ?: throw IllegalArgumentException("Color is not found by id $id")
     }
 
     fun getAllColors(): List<Color> = colors.values.toList()

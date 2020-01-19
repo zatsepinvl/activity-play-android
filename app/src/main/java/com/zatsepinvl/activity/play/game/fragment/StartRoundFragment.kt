@@ -8,16 +8,22 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.zatsepinvl.activity.play.R
+import com.zatsepinvl.activity.play.color.ColoredView
 import com.zatsepinvl.activity.play.databinding.FragmentRoundStartBinding
 import com.zatsepinvl.activity.play.game.GameStatus
 import com.zatsepinvl.activity.play.game.GameViewModel
+import com.zatsepinvl.activity.play.navigation.NavigationFlow
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.fragment_round_start.*
 import javax.inject.Inject
 
 class StartRoundFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    private val args: StartRoundFragmentArgs by navArgs()
 
     private val viewModel: GameViewModel by activityViewModels { viewModelFactory }
 
@@ -26,7 +32,11 @@ class StartRoundFragment : DaggerFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel.reloadGame()
+        if (args.navigationFlow == NavigationFlow.NEW_GAME) {
+            viewModel.startNewGame()
+        } else {
+            viewModel.prepare()
+        }
 
         val dataBinding = FragmentRoundStartBinding.inflate(inflater, container, false)
         dataBinding.viewmodel = viewModel
@@ -41,6 +51,19 @@ class StartRoundFragment : DaggerFragment() {
                 findNavController().navigate(R.id.inRoundFragment)
             }
         })
+
+        viewModel.currentTeam.observe(this, Observer {
+            (activity as ColoredView)
+                .changeBackgroundColor(it.color)
+        })
+
         return dataBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        gameStartRoundExitButton.setOnClickListener {
+            findNavController().navigate(StartRoundFragmentDirections.backToMenu())
+        }
+        super.onViewCreated(view, savedInstanceState)
     }
 }

@@ -2,7 +2,6 @@ package com.zatsepinvl.activity.play.game
 
 import com.zatsepinvl.activity.play.core.ActivityGame
 import com.zatsepinvl.activity.play.settings.GameSettingsService
-import java.lang.IllegalStateException
 import javax.inject.Inject
 
 interface GameService {
@@ -10,6 +9,7 @@ interface GameService {
     fun saveGame(game: ActivityGame)
     fun getSavedGame(): ActivityGame
     fun isGameSaved(): Boolean
+    fun startNewGame()
 }
 
 class GameServiceImpl @Inject constructor(
@@ -17,6 +17,10 @@ class GameServiceImpl @Inject constructor(
     private val gameSettingsService: GameSettingsService,
     private val dictionaryService: DictionaryService
 ) : GameService {
+
+    override fun startNewGame() {
+        saveGame(createNewGame())
+    }
 
     override fun createNewGame(): ActivityGame {
         return ActivityGame(

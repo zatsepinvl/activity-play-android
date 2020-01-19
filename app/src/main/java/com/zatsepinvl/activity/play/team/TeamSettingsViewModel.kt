@@ -38,6 +38,7 @@ class TeamSettingsViewModel @Inject constructor(
 
     fun addTeam(name: String, colorId: ColorId) {
         teamService.addTeam(name, colorId)
+        syncTeams()
     }
 
     private fun syncTeams() {
