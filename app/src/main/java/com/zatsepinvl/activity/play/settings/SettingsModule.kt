@@ -1,7 +1,10 @@
 package com.zatsepinvl.activity.play.settings
 
+import com.zatsepinvl.activity.play.di.ViewModelBuilder
+import com.zatsepinvl.activity.play.settings.fragment.GameSettingsFragment
 import dagger.Binds
 import dagger.Module
+import dagger.android.ContributesAndroidInjector
 import javax.inject.Singleton
 
 @Module
@@ -10,11 +13,6 @@ abstract class SettingsModule {
     @Singleton
     abstract fun gameSettingsService(service: GameSettingsServiceImpl): GameSettingsService
 
-    @Binds
-    @Singleton
-    abstract fun dictionarySettingsRepository(repo: LocalDictionarySettingsRepository): DictionarySettingsRepository
-
-    @Binds
-    @Singleton
-    abstract fun gameSettingsRepository(repo: LocalGameSettingsRepository): GameSettingsRepository
+    @ContributesAndroidInjector(modules = [ViewModelBuilder::class])
+    abstract fun gameSettingsFragment(): GameSettingsFragment
 }

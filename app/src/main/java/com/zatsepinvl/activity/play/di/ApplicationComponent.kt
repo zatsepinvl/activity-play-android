@@ -2,6 +2,7 @@ package com.zatsepinvl.activity.play.di
 
 import android.content.Context
 import com.zatsepinvl.activity.play.ActivityPlayApplication
+import com.zatsepinvl.activity.play.dictionary.DictionaryModule
 import com.zatsepinvl.activity.play.game.GameModule
 import com.zatsepinvl.activity.play.home.HomeModule
 import com.zatsepinvl.activity.play.settings.SettingsModule
@@ -18,6 +19,7 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
         ApplicationModule::class,
         SettingsModule::class,
+        DictionaryModule::class,
         GameModule::class,
         HomeModule::class,
         TeamModule::class

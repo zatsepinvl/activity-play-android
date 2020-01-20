@@ -10,7 +10,8 @@
             app:title="Dictionary language" />
 
         <SwitchPreferenceCompat
-            app:key="fineForFail"
+            app:defaultValue="false"
+            app:key="fineForSkipping"
             app:summary="If enabled, team will be fined with 1 point for each skipped word"
             app:title="Make a fine for skipped word" />
 
@@ -19,35 +20,38 @@
             app:defaultValue="60"
             app:key="roundTimeSeconds"
             app:min="10"
-            app:updatesContinuously="true"
             app:showSeekBarValue="true"
-            app:title="Seconds for one round" />
+            app:title="Seconds for one round"
+            app:updatesContinuously="true" />
 
         <SeekBarPreference
             android:max="200"
-            app:defaultValue="20"
+            app:defaultValue="40"
             app:key="maxScore"
-            app:updatesContinuously="true"
             app:min="10"
             app:showSeekBarValue="true"
-            app:title="Total score to win" />
+            app:title="Total score to win"
+            app:updatesContinuously="true" />
 
     </PreferenceCategory>
 
     <PreferenceCategory app:title="Game actions">
         <CheckBoxPreference
-            app:key="enableDraw"
-            app:summary="You have to explain a word using gestures and body language only"
-            app:title="Draw" />
-
-        <CheckBoxPreference
-            app:key="enableShow"
-            app:summary="You have to explain a word drawing it`s definition without using letters and digits"
-            app:title="Show" />
-
-        <CheckBoxPreference
-            app:key="enableSay"
+            app:defaultValue="true"
+            app:key="actionSay"
             app:summary="You have to explain a word saying it`s definition without using root words"
-            app:title="Say" />
+            app:title="Describe" />
+
+        <CheckBoxPreference
+            app:defaultValue="true"
+            app:key="actionDraw"
+            app:summary="You have to explain a word drawing it`s definition without using letters and digits"
+            app:title="Paint" />
+
+        <CheckBoxPreference
+            app:defaultValue="true"
+            app:key="actionShow"
+            app:summary="You have to explain a word using gestures and body language only"
+            app:title="Act" />
     </PreferenceCategory>
 </PreferenceScreen>

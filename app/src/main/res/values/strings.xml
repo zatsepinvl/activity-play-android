@@ -12,6 +12,7 @@
     </string-array>
 
     <string name="title_activity_game" translatable="false">GameActivity</string>
+    <string name="loading_dictionary_progress_title">Loading dictionary...</string>
 
     <!--Relates to colors-->
     <string-array name="colorNames">

@@ -1,6 +1,7 @@
 package com.zatsepinvl.activity.play.game
 
 import com.zatsepinvl.activity.play.core.ActivityGame
+import com.zatsepinvl.activity.play.dictionary.DictionaryService
 import com.zatsepinvl.activity.play.settings.GameSettingsService
 import javax.inject.Inject
 
@@ -25,7 +26,7 @@ class GameServiceImpl @Inject constructor(
     override fun createNewGame(): ActivityGame {
         return ActivityGame(
             gameSettingsService.getSettings(),
-            dictionaryService.getDictionary()
+            dictionaryService.loadDictionary()
         )
     }
 

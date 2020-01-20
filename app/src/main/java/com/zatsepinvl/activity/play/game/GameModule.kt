@@ -36,10 +36,6 @@ abstract class GameModule {
     abstract fun gameService(service: GameServiceImpl): GameService
 
     @Binds
-    @Singleton
-    abstract fun dictionaryService(service: DictionaryServiceImpl): DictionaryService
-
-    @Binds
     @IntoMap
     @ViewModelKey(GameViewModel::class)
     abstract fun gameViewModel(gameViewModel: GameViewModel): ViewModel
