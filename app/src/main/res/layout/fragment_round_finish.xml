@@ -19,12 +19,17 @@
             android:layout_gravity="center"
             android:orientation="vertical">
 
+            <TextView
+                style="@style/Widget.ActivityPlay.TextView.Header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Round is over" />
 
             <TextView
                 android:id="@+id/gameFinishTotalScoreLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint=""
                 android:text="Total score"
                 android:textAlignment="center"
                 android:textSize="20sp" />
@@ -45,9 +50,9 @@
             android:id="@+id/gameFrameSkipButton"
             style="@style/Widget.ActivityPlay.Button.OutlinedButton"
             android:layout_gravity="center|bottom"
+            android:layout_margin="16dp"
             android:background="@color/md_grey_700"
             android:onClick="@{() -> viewmodel.nextTeam()}"
-            android:layout_margin="16dp"
             android:text="Done" />
     </FrameLayout>
 </layout>

@@ -20,7 +20,8 @@
             style="@style/Widget.ActivityPlay.Button.OutlinedButton.Grey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
+            android:layout_gravity="start"
+            app:icon="@drawable/ic_arrow_back_grey_800_24dp"
             android:text="Main menu" />
 
         <LinearLayout

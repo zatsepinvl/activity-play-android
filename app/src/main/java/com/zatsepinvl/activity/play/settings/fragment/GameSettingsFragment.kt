@@ -2,8 +2,15 @@ package com.zatsepinvl.activity.play.settings.fragment
 
 import android.app.ProgressDialog
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import android.widget.FrameLayout
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.preference.CheckBoxPreference
 import androidx.preference.ListPreference
 import androidx.preference.SeekBarPreference
@@ -35,6 +42,26 @@ class GameSettingsFragment : DaggerPreferenceFragmentCompat() {
             onDictionaryLanguageChanged(newValue as String)
             true
         }
+    }
+
+    //Hack to add header to preference screen
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val view = super.onCreateView(inflater, container, savedInstanceState)
+
+        val header = layoutInflater.inflate(R.layout.view_settings_header, null)
+        (view as ViewGroup).addView(header, 0,
+            FrameLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT).apply {
+                setMargins(20, 20, 20, 30)
+            }
+        )
+        header.findViewById<View>(R.id.settingsBackButton)
+            .setOnClickListener { findNavController().popBackStack() }
+
+        return view
     }
 
     private fun onDictionaryLanguageChanged(newLangTag: String) {

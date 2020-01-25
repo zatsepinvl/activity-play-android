@@ -39,6 +39,7 @@ class TeamListFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         initStartNewGameButton()
         initAddNewTeamButton()
+        teamListBackButton.setOnClickListener { findNavController().popBackStack() }
         super.onViewCreated(view, savedInstanceState)
     }
 

@@ -30,5 +30,16 @@
     <style name="Widget.ActivityPlay.Button.OutlinedButton.Grey" parent="Widget.ActivityPlay.Button.OutlinedButton">
         <item name="strokeColor">@color/md_grey_600</item>
         <item name="android:textColor">@color/md_grey_600</item>
+        <item name="iconTint">@color/md_grey_600</item>
+    </style>
+
+    <style name="Widget.ActivityPlay.Button.OutlinedButton.Back" parent="Widget.ActivityPlay.Button.OutlinedButton.Grey">
+        <item name="android:layout_width">56dp</item>
+        <item name="icon">@drawable/ic_arrow_back_grey_800_24dp</item>
+    </style>
+
+    <style name="Widget.ActivityPlay.TextView.Header" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
     </style>
 </resources>
