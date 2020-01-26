@@ -19,8 +19,8 @@ import com.zatsepinvl.activity.play.android.DaggerPreferenceFragmentCompat
 import com.zatsepinvl.activity.play.dictionary.DictionaryService
 import com.zatsepinvl.activity.play.dictionary.getSupportedLanguageFromTag
 import com.zatsepinvl.activity.play.settings.ActivityPlayPreference
-import com.zatsepinvl.activity.play.settings.ActivityPlayPreferenceActionKey
-import com.zatsepinvl.activity.play.settings.ActivityPlayPreferenceKey.*
+import com.zatsepinvl.activity.play.settings.model.ActivityPlayPreferenceActionKey
+import com.zatsepinvl.activity.play.settings.model.ActivityPlayPreferenceKey.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -38,9 +38,14 @@ class GameSettingsFragment : DaggerPreferenceFragmentCompat() {
         ActivityPlayPreferenceActionKey.values().toList().forEach {
             findPreference<CheckBoxPreference>(it.key)?.validateAtLeastOneActionEnabled()
         }
-        findPreference<ListPreference>(DICTIONARY_LANGUAGE.key)?.setOnPreferenceChangeListener { _, newValue ->
-            onDictionaryLanguageChanged(newValue as String)
-            true
+        findPreference<ListPreference>(DICTIONARY_LANGUAGE.key)?.apply {
+            setOnPreferenceChangeListener { _, newValue ->
+                onDictionaryLanguageChanged(newValue as String)
+                true
+            }
+            if (value == "default") {
+                value = dictionaryService.getDefaultLanguage().tag
+            }
         }
     }
 

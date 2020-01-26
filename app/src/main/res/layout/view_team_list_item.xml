@@ -6,7 +6,7 @@
 
         <variable
             name="team"
-            type="com.zatsepinvl.activity.play.team.Team" />
+            type="com.zatsepinvl.activity.play.team.model.Team" />
 
         <variable
             name="viewmodel"
@@ -17,7 +17,6 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginBottom="6dp"
-        android:clickable="true"
         app:cardCornerRadius="10dp"
         app:strokeColor="@{team.color}"
         app:strokeWidth="2dp">

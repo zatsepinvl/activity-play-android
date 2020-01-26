@@ -15,6 +15,6 @@ fun getSupportedLanguageFromTag(tag: String): SupportedLanguage {
     return when (tag) {
         "en" -> EN
         "ru" -> RU
-        else -> throw IllegalArgumentException("Unsupported tag $tag")
+        else -> throw IllegalArgumentException("Unsupported language tag: $tag")
     }
 }

@@ -5,7 +5,7 @@
 
         <variable
             name="teamResult"
-            type="com.zatsepinvl.activity.play.game.TeamResult" />
+            type="com.zatsepinvl.activity.play.game.model.TeamResult" />
     </data>
 
     <FrameLayout

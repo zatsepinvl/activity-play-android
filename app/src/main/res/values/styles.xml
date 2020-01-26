@@ -33,7 +33,7 @@
         <item name="iconTint">@color/md_grey_600</item>
     </style>
 
-    <style name="Widget.ActivityPlay.Button.OutlinedButton.Back" parent="Widget.ActivityPlay.Button.OutlinedButton.Grey">
+    <style name="Widget.ActivityPlay.Button.OutlinedButton.Back" parent="Widget.ActivityPlay.Button.OutlinedButton">
         <item name="android:layout_width">56dp</item>
         <item name="icon">@drawable/ic_arrow_back_grey_800_24dp</item>
     </style>
@@ -41,5 +41,12 @@
     <style name="Widget.ActivityPlay.TextView.Header" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">24sp</item>
         <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="Widget.ActivityPlay.Card.Team" parent="CardView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:height">60dp</item>
+        <item name="cardCornerRadius">10dp</item>
+        <item name="android:layout_marginBottom">6dp</item>
     </style>
 </resources>

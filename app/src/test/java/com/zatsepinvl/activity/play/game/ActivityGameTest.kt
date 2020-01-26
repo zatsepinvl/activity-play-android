@@ -1,6 +1,11 @@
 package com.zatsepinvl.activity.play.game
 
-import com.zatsepinvl.activity.play.core.*
+import com.zatsepinvl.activity.play.core.ActivityGame
+import com.zatsepinvl.activity.play.core.Dictionary
+import com.zatsepinvl.activity.play.core.Word
+import com.zatsepinvl.activity.play.core.model.GameAction
+import com.zatsepinvl.activity.play.core.model.GameSettings
+import com.zatsepinvl.activity.play.core.noun
 import createTestGame
 import org.junit.Assert.*
 import org.junit.Test

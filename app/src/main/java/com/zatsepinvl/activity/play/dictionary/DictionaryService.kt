@@ -8,12 +8,14 @@ import com.zatsepinvl.activity.play.core.WordType
 import com.zatsepinvl.activity.play.settings.ActivityPlayPreference
 import java.io.InputStream
 import java.nio.charset.StandardCharsets
+import java.util.*
 import javax.inject.Inject
 
 
 interface DictionaryService {
     fun loadDictionary(): Dictionary
     fun loadDictionary(language: SupportedLanguage): Dictionary
+    fun getDefaultLanguage(): SupportedLanguage
 }
 
 class DictionaryServiceImpl @Inject constructor(
@@ -40,6 +42,12 @@ class DictionaryServiceImpl @Inject constructor(
             )
         }
         return dictionaryCache!!
+    }
+
+    override fun getDefaultLanguage(): SupportedLanguage {
+        return SupportedLanguage.values().toList().find {
+            it.tag == Locale.getDefault().language
+        } ?: SupportedLanguage.EN
     }
 
     private fun getLanguage(): SupportedLanguage {

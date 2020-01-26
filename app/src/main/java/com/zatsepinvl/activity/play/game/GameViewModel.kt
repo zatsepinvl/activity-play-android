@@ -3,17 +3,13 @@ package com.zatsepinvl.activity.play.game
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.zatsepinvl.activity.play.core.ActivityGame
-import com.zatsepinvl.activity.play.core.GameTask
+import com.zatsepinvl.activity.play.core.model.GameTask
 import com.zatsepinvl.activity.play.core.totalScoreForLastRound
-import com.zatsepinvl.activity.play.team.Team
+import com.zatsepinvl.activity.play.game.model.GameStatus
+import com.zatsepinvl.activity.play.game.model.TeamBoardItemData
 import com.zatsepinvl.activity.play.team.TeamService
+import com.zatsepinvl.activity.play.team.model.Team
 import javax.inject.Inject
-
-enum class GameStatus {
-    START,
-    PLAY,
-    FINISH
-}
 
 class GameViewModel @Inject constructor(
     private val gameService: GameService,
@@ -72,8 +68,26 @@ class GameViewModel @Inject constructor(
         gameState.value = GameStatus.START
     }
 
+    fun currentRound(): Int {
+        return game.currentRoundIndex + 1
+    }
+
     fun currentTeamTotalScore(): Int {
         return game.getTeamTotalScore(currentTeam.value!!.index)
+    }
+
+    /**
+     * @return list of teams with their scores sorted by playing order
+     */
+    fun getTeamsBoardItemData(): List<TeamBoardItemData> {
+        val teams = teams()
+        return (0 until game.settings.teamCount)
+            .map {
+                val totalScore = game.getTeamTotalScore(it)
+                TeamBoardItemData(teams[it], totalScore, it == game.currentTeamIndex)
+            }
+            .sortedByDescending { it.totalScore }
+            .toList()
     }
 
     fun isGameFinished() = game.finished

@@ -1,7 +1,10 @@
 package com.zatsepinvl.activity.play.team
 
 import android.content.Context
-import com.zatsepinvl.activity.play.android.*
+import com.zatsepinvl.activity.play.android.getFromJson
+import com.zatsepinvl.activity.play.android.privateSp
+import com.zatsepinvl.activity.play.android.saveJson
+import com.zatsepinvl.activity.play.team.model.Team
 import javax.inject.Inject
 
 interface TeamRepository {

@@ -1,52 +1,10 @@
 package com.zatsepinvl.activity.play.core
 
-import com.zatsepinvl.activity.play.core.GameAction.*
-import com.zatsepinvl.activity.play.core.TaskResultStatus.DONE
-import com.zatsepinvl.activity.play.core.TaskResultStatus.SKIPPED
+import com.zatsepinvl.activity.play.core.model.*
+import com.zatsepinvl.activity.play.core.model.TaskResultStatus.DONE
+import com.zatsepinvl.activity.play.core.model.TaskResultStatus.SKIPPED
 import java.util.*
 
-enum class GameAction {
-    SAY, SHOW, DRAW
-}
-
-enum class TaskResultStatus {
-    DONE, SKIPPED
-}
-
-data class GameSettings(
-    val teamCount: Int = 2,
-    val pointsForDone: Int = 1,
-    val pointsForFail: Int = 0,
-    val maxScore: Int = 20,
-    val actions: Set<GameAction> = setOf(SAY, DRAW, SHOW)
-)
-
-data class CompletedTask(
-    val task: GameTask,
-    var result: TaskResult
-)
-
-data class GameTask(
-    val teamIndex: Int,
-    val roundIndex: Int,
-    val action: GameAction,
-    val word: Word
-) {
-    val frameId = "$roundIndex:$teamIndex"
-}
-
-
-data class TaskResult(
-    val score: Int,
-    val status: TaskResultStatus
-)
-
-data class GameState(
-    val completedTasks: MutableList<CompletedTask>,
-    val finished: Boolean,
-    val currentRoundIndex: Int,
-    val currentTeamIndex: Int
-)
 
 class ActivityGame(
     settings: GameSettings,
@@ -148,7 +106,12 @@ class ActivityGame(
 
     fun finishRound() {
         requireInGame()
-        completedTasks.add(CompletedTask(currentTask!!, TaskResult(0, SKIPPED)))
+        completedTasks.add(
+            CompletedTask(
+                currentTask!!,
+                TaskResult(0, SKIPPED)
+            )
+        )
 
         roundIsPlaying = false
         currentTask = null

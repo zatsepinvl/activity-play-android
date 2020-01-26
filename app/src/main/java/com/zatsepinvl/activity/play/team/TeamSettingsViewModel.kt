@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.zatsepinvl.activity.play.android.SingleLiveEvent
 import com.zatsepinvl.activity.play.color.ColorId
 import com.zatsepinvl.activity.play.team.DeleteTeamErrorCode.AT_LEAST_TWO_TEAMS_REQUIRED
+import com.zatsepinvl.activity.play.team.model.Team
 import javax.inject.Inject
 
 enum class DeleteTeamErrorCode {

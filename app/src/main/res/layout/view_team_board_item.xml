@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.zatsepinvl.activity.play.game.model.TeamBoardItemData" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/teamBoardItemCard"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginBottom="6dp"
+        app:cardCornerRadius="10dp"
+        app:strokeColor="@{data.isCurrentTeam ? data.team.color : @color/md_grey_600}"
+        app:strokeWidth="2dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="10dp"
+            android:hint="Name"
+            android:text="@{data.team.name}"
+            android:textColor="@{data.isCurrentTeam ? data.team.color : @color/md_grey_600}"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/teamBoardItemCurrentTeamHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="18dp"
+            android:text="current playing team"
+            android:textColor="@color/md_grey_600"
+            android:textSize="11sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="10dp"
+            android:hint="1"
+            android:text="@{String.valueOf(data.totalScore)}"
+            android:textColor="@{data.isCurrentTeam ? data.team.color : @color/md_grey_600}"
+            android:textSize="22sp" />
+    </com.google.android.material.card.MaterialCardView>
+</layout>

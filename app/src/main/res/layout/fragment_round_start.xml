@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -12,17 +13,16 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_margin="10dp">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/gameStartRoundExitButton"
-            style="@style/Widget.ActivityPlay.Button.OutlinedButton.Grey"
+            style="@style/Widget.ActivityPlay.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            app:icon="@drawable/ic_arrow_back_grey_800_24dp"
-            android:text="Main menu" />
+            android:text="Main menu"
+            app:icon="@drawable/ic_arrow_back_grey_800_24dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,33 +30,36 @@
             android:layout_gravity="center"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/gameStartCurrentTeamName"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Round"
+                    android:textColor="@{viewmodel.currentTeam.color}"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:hint="1"
+                    android:text="@{String.valueOf(viewmodel.currentRound)}"
+                    android:textColor="@{viewmodel.currentTeam.color}"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/startRoundTeamsBoard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Team name"
-                android:text="@{viewmodel.currentTeam.name}"
-                android:textAlignment="center"
-                android:textColor="@{viewmodel.currentTeam.color}"
-                android:textSize="40sp" />
-
-            <TextView
-                android:id="@+id/gameStartCurrentTeamTotalScoreLabel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Total score"
-                android:textAlignment="center"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/gameStartCurrentTeamTotalScore"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="40"
-                android:text="@{Integer.toString(viewmodel.currentTeamTotalScore())}"
-                android:textAlignment="center"
-                android:textSize="30sp" />
-
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                tools:listitem="@layout/view_team_board_item" />
         </LinearLayout>
 
         <LinearLayout

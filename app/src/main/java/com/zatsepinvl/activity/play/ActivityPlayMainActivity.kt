@@ -8,8 +8,7 @@ import com.zatsepinvl.activity.play.android.TileDrawable
 import com.zatsepinvl.activity.play.color.ColoredView
 import kotlinx.android.synthetic.main.activity_main.*
 
-class ActivityPlayMainActivity : AppCompatActivity(),
-    ColoredView {
+class ActivityPlayMainActivity : AppCompatActivity(), ColoredView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

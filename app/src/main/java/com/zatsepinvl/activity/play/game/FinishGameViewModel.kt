@@ -1,13 +1,8 @@
 package com.zatsepinvl.activity.play.game
 
 import androidx.lifecycle.ViewModel
+import com.zatsepinvl.activity.play.game.model.TeamResult
 import javax.inject.Inject
-
-data class TeamResult(
-    val name: String,
-    val totalScore: Int,
-    val winner: Boolean
-)
 
 class FinishGameViewModel @Inject constructor(
     private val gameService: GameService
