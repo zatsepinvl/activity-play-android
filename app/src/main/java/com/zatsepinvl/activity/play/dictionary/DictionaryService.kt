@@ -25,10 +25,6 @@ class DictionaryServiceImpl @Inject constructor(
     private var dictionaryCache: Dictionary? = null
     private var dictionaryCachedLanguage: SupportedLanguage? = null
 
-    init {
-        loadDictionary()
-    }
-
     override fun loadDictionary(): Dictionary {
         val language = getLanguage()
         return loadDictionary(language)
