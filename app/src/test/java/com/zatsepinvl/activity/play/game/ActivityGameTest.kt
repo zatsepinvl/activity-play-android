@@ -97,13 +97,12 @@ class ActivityGameTest {
         val game = createTestGame(
             dictionary = Dictionary(
                 "en",
-                wordsRange.map { noun("word#$it") }.toList(),
-                defaultRetryCount = 10000
+                wordsRange.map { noun("word#$it") }.toList()
             )
         )
         game.startRound()
         val usedWords = mutableListOf<Word>()
-        repeat(wordsRange.count()) {
+        repeat(wordsRange.count() - 1) {
             val word = game.currentTask!!.word
             assertFalse(
                 "$word has not been used earlier",

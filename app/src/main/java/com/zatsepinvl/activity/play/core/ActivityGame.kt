@@ -94,8 +94,16 @@ class ActivityGame(
 
     private fun completeCurrentTask(done: Boolean): GameTask {
         requireInGame()
+        val score = when {
+            done -> settings.pointsForDone
+            getTeamRoundScore(
+                currentTeamIndex,
+                currentRoundIndex
+            ) + settings.pointsForFail <= 0 -> 0
+            else -> settings.pointsForFail
+        }
         val taskResult = TaskResult(
-            score = if (done) settings.pointsForDone else settings.pointsForFail,
+            score = score,
             status = if (done) DONE else SKIPPED
         )
         val task = CompletedTask(currentTask!!, taskResult)
@@ -136,6 +144,12 @@ class ActivityGame(
 
     fun getTeamTotalScore(teamIndex: Int): Int {
         return getTeamCompletedTasks(teamIndex).totalScore()
+    }
+
+    fun getTeamRoundScore(teamIndex: Int, roundIndex: Int): Int {
+        return getTeamCompletedTasks(teamIndex)
+            .filter { it.task.roundIndex == roundIndex }
+            .sumBy { it.result.score }
     }
 
     fun getWinnerTeamIndex(): Int {
