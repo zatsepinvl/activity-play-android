@@ -27,29 +27,73 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="120dp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
 
-                <TextView
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Round"
-                    android:textColor="@{viewmodel.currentTeam.color}"
-                    android:textSize="20sp" />
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/video_player" />
 
-                <TextView
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:hint="1"
-                    android:text="@{String.valueOf(viewmodel.currentRound)}"
-                    android:textColor="@{viewmodel.currentTeam.color}"
-                    android:textSize="20sp" />
+                    android:orientation="horizontal"
+                    android:layout_marginTop="6dp">
+
+                    <TextView
+                        style="@style/Widget.ActivityPlay.TextView.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Round"
+                        android:textColor="@{viewmodel.currentTeam.color}" />
+
+                    <TextView
+                        style="@style/Widget.ActivityPlay.TextView.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:hint="1"
+                        android:text="@{String.valueOf(viewmodel.currentRound)}"
+                        android:textColor="@{viewmodel.currentTeam.color}"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        style="@style/Widget.ActivityPlay.TextView.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:layout_marginStart="6dp"
+                        android:textColor="@{viewmodel.currentTeam.color}"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        style="@style/Widget.ActivityPlay.TextView.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:hint="Team_name"
+                        android:text="@{viewmodel.currentTeam.name}"
+                        android:textColor="@{viewmodel.currentTeam.color}"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        style="@style/Widget.ActivityPlay.TextView.Body"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:text="plays!"
+                        android:textColor="@{viewmodel.currentTeam.color}"
+                        android:textSize="20sp" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -57,25 +101,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical"
                 tools:listitem="@layout/view_team_board_item" />
         </LinearLayout>
 
-        <LinearLayout
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/gameStartRoundStartButton"
+            style="@style/Widget.ActivityPlay.Button.OutlinedButton"
+            android:onClick="@{() -> viewmodel.startRound()}"
+            android:text="Start round"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:orientation="horizontal">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/gameStartRoundStartButton"
-                style="@style/Widget.ActivityPlay.Button.OutlinedButton"
-                android:layout_weight="1"
-                android:onClick="@{() -> viewmodel.startRound()}"
-                android:text="Start round"
-                android:textColor="@{viewmodel.currentTeam.color}"
-                app:strokeColor="@{viewmodel.currentTeam.color}" />
-        </LinearLayout>
+            android:textColor="@{viewmodel.currentTeam.color}"
+            app:icon="@drawable/ic_play_arrow_black_24dp"
+            app:iconGravity="textStart"
+            app:iconPadding="16dp"
+            app:iconTint="@{viewmodel.currentTeam.color}"
+            app:strokeColor="@{viewmodel.currentTeam.color}" />
     </FrameLayout>
 </layout>

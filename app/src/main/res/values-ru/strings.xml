@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">activity-play</string>
     <string name="loading_dictionary_progress_title">Loading dictionary...</string>
 
     <string-array name="words_languages_values">

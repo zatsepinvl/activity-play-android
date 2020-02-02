@@ -21,6 +21,7 @@ class GameViewModel @Inject constructor(
     val isPlayingRound = MutableLiveData<Boolean>()
     val currentTeam = MutableLiveData<Team>()
     val lastPlayedTeam = MutableLiveData<Team>()
+    val currentTeamRoundScore = MutableLiveData<Int>()
     val gameState = MutableLiveData<GameStatus>()
 
     fun startNewGame() {
@@ -32,20 +33,24 @@ class GameViewModel @Inject constructor(
         game = gameService.getSavedGame()
         currentTeam.value = teams()[game.currentTeamIndex]
         gameState.value = GameStatus.START
+        updateCurrentTeamRoundScore()
     }
 
     fun completeTask() {
         currentTask.value = game.completeCurrentTask()
+        updateCurrentTeamRoundScore()
     }
 
     fun skipTask() {
         currentTask.value = game.skipCurrentTask()
+        updateCurrentTeamRoundScore()
     }
 
     fun startRound() {
         currentTask.value = game.startRound()
         isPlayingRound.value = true
         gameState.value = GameStatus.PLAY
+        updateCurrentTeamRoundScore()
     }
 
     fun lastPlayedTeamScore(): Int {
@@ -72,10 +77,6 @@ class GameViewModel @Inject constructor(
         return game.currentRoundIndex + 1
     }
 
-    fun currentTeamTotalScore(): Int {
-        return game.getTeamTotalScore(currentTeam.value!!.index)
-    }
-
     /**
      * @return list of teams with their scores sorted by playing order
      */
@@ -91,6 +92,13 @@ class GameViewModel @Inject constructor(
     }
 
     fun isGameFinished() = game.finished
+
+    private fun updateCurrentTeamRoundScore() {
+        currentTeamRoundScore.value = game.getTeamRoundScore(
+            game.currentTeamIndex,
+            game.currentRoundIndex
+        )
+    }
 
     private fun teams() = teamService.getTeams()
 }

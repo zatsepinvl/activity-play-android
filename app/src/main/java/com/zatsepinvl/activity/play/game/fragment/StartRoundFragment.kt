@@ -80,11 +80,6 @@ class StartRoundFragment : DaggerFragment() {
     private fun createTeamBoardView(inflater: LayoutInflater, teamBoard: ViewGroup) {
         viewModel.getTeamsBoardItemData().forEach {
             val teamBoardItem = ViewTeamBoardItemBinding.inflate(inflater, teamBoard, true)
-            if (it.isCurrentTeam) {
-
-            } else {
-                teamBoardItem.teamBoardItemCurrentTeamHint.visibility = View.GONE
-            }
             teamBoardItem.data = it
         }
     }

@@ -8,6 +8,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.zatsepinvl.activity.play.R
+import com.zatsepinvl.activity.play.color.ColoredView
 import com.zatsepinvl.activity.play.databinding.FragmentGameFinishBinding
 import com.zatsepinvl.activity.play.databinding.ViewGameFinishTeamScoreItemBinding
 import com.zatsepinvl.activity.play.game.FinishGameViewModel
@@ -31,9 +32,14 @@ class FinishGameFragment : DaggerFragment() {
 
         val teamScoresRootView = dataBinding.fragmentGameFinishTeamsScoreRoot
         viewModel.getTeamResults().forEach {
-            val resultBinding = ViewGameFinishTeamScoreItemBinding.inflate(inflater)
-            resultBinding.teamResult = it
-            teamScoresRootView.addView(resultBinding.root)
+            val resultBinding = ViewGameFinishTeamScoreItemBinding.inflate(
+                inflater, teamScoresRootView, true
+            )
+            resultBinding.data = it
+            if (it.winner) {
+                dataBinding.winner = it
+                (requireActivity() as ColoredView).changeBackgroundColor(it.team.color)
+            }
         }
 
         return dataBinding.root

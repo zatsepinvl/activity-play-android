@@ -1,31 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="winner"
+            type="com.zatsepinvl.activity.play.game.model.TeamResult" />
+    </data>
 
     <FrameLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:layout_margin="10dp"
         tools:context=".game.fragment.FinishGameFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginTop="60dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/medal"
+                android:contentDescription="Medal"
+                android:layout_marginBottom="10dp" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="26sp"
+                    android:textAlignment="center"
+                    android:text="@{winner.team.name}"
+                    android:textColor="@{winner.team.color}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" wins!"
+                    android:textSize="26sp"
+                    android:textColor="@{winner.team.color}" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/fragmentGameFinishTeamsScoreRoot"
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" />
+                android:orientation="vertical"
+                tools:listitem="@layout/view_game_finish_team_score_item" />
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/gameFinishDoneButton"
+            style="@style/Widget.ActivityPlay.Button.OutlinedButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
             android:layout_gravity="bottom"
-            android:text="Done" />
+            android:text="Done"
+            android:textColor="@{winner.team.color}"
+            app:strokeColor="@{winner.team.color}" />
     </FrameLayout>
 </layout>

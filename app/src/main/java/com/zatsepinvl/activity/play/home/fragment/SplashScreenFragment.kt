@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.zatsepinvl.activity.play.R
-import com.zatsepinvl.activity.play.android.DaggerAndroidXFragment
 import com.zatsepinvl.activity.play.dictionary.DictionaryService
+import dagger.android.support.DaggerFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class SplashScreenFragment : DaggerAndroidXFragment() {
+class SplashScreenFragment : DaggerFragment() {
     @Inject
     lateinit var dictionaryService: DictionaryService
 

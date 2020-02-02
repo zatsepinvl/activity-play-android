@@ -20,6 +20,32 @@
             android:layout_gravity="center"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/roundInActionImage"
+                    android:layout_marginEnd="20dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/theater"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:id="@+id/gameFrameAction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:hint="Action"
+                    android:text="@{viewmodel.currentTask.action.name}"
+                    android:textAlignment="center"
+                    android:textColor="@color/md_grey_900"
+                    android:textSize="26sp" />
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/gameFrameWord"
                 android:layout_width="match_parent"
@@ -27,20 +53,35 @@
                 android:hint="Word"
                 android:text="@{viewmodel.currentTask.word.value}"
                 android:textAlignment="center"
-                android:textColor="@{viewmodel.currentTeam.color}"
+                android:textColor="@color/md_grey_900"
                 android:textSize="40sp" />
 
-            <TextView
-                android:id="@+id/gameFrameAction"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Action"
-                android:text="@{viewmodel.currentTask.action.name}"
-                android:textAlignment="center"
-                android:textColor="@{viewmodel.currentTeam.color}"
-                android:textSize="30sp" />
-        </LinearLayout>
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Score"
+                    android:textAlignment="center"
+                    android:textColor="@color/md_grey_600"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_marginStart="4sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:hint="10"
+                    android:text="@{String.valueOf(viewmodel.currentTeamRoundScore)}"
+                    android:textAlignment="center"
+                    android:textColor="@color/md_grey_600"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/gameFrameFinishButton"
@@ -50,8 +91,8 @@
             android:layout_gravity="right"
             android:layout_margin="10dp"
             android:onClick="@{() -> viewmodel.finishRound()}"
-            app:icon="@drawable/ic_stop_black_24dp"
-            android:text="Finish round" />
+            android:text="Finish round"
+            app:icon="@drawable/ic_stop_black_24dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -71,7 +112,7 @@
                     android:layout_margin="10dp"
                     android:layout_weight="1"
                     android:onClick="@{() -> viewmodel.skipTask()}"
-                    android:text="Skip" />
+                    android:text="Skip word" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/gameFrameDoneButton"
@@ -80,11 +121,10 @@
                     android:layout_margin="10dp"
                     android:layout_weight="1"
                     android:onClick="@{() -> viewmodel.completeTask()}"
-                    android:text="Done"
+                    android:text="Next word"
                     android:textColor="@{viewmodel.currentTeam.color}"
                     app:strokeColor="@{viewmodel.currentTeam.color}" />
             </LinearLayout>
-
         </LinearLayout>
     </FrameLayout>
 </layout>

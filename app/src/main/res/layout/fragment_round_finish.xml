@@ -11,7 +11,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,7 +51,6 @@
             android:id="@+id/gameFrameSkipButton"
             style="@style/Widget.ActivityPlay.Button.OutlinedButton"
             android:layout_gravity="center|bottom"
-            android:layout_margin="16dp"
             android:background="@color/md_grey_700"
             android:onClick="@{() -> viewmodel.nextTeam()}"
             android:text="Done" />

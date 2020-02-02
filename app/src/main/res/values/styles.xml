@@ -43,6 +43,11 @@
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
 
+    <style name="Widget.ActivityPlay.TextView.Body" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/md_grey_800</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
     <style name="Widget.ActivityPlay.Card.Team" parent="CardView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:height">60dp</item>

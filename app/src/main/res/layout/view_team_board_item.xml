@@ -29,17 +29,6 @@
             android:textSize="22sp" />
 
         <TextView
-            android:id="@+id/teamBoardItemCurrentTeamHint"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|center_vertical"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="18dp"
-            android:text="current playing team"
-            android:textColor="@color/md_grey_600"
-            android:textSize="11sp"/>
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
