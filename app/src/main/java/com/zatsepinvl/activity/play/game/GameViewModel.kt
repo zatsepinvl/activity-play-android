@@ -69,7 +69,7 @@ class GameViewModel @Inject constructor(
         gameService.saveGame(game)
     }
 
-    fun nextTeam() {
+    fun nextRoundFrame() {
         gameState.value = GameStatus.START
     }
 
