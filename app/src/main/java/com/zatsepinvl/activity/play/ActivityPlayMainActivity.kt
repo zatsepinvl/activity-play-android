@@ -20,8 +20,11 @@ class ActivityPlayMainActivity : AppCompatActivity(), ColoredView {
     }
 
     override fun changeBackgroundColor(color: Int) {
-        val backgroundDrawable = this.getDrawable(R.drawable.bubbles)!!
-        backgroundDrawable.setColorFilter(color, PorterDuff.Mode.MULTIPLY)
+        val backgroundDrawable = this.getDrawable(R.drawable.wallpaper)!!
         mainLayout.background = TileDrawable(backgroundDrawable, Shader.TileMode.REPEAT)
+        mainLayout.background.apply {
+            alpha = 10
+            setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+        }
     }
 }
