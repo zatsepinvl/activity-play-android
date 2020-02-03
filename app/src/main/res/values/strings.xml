@@ -42,4 +42,5 @@
     <string name="inRoundSecondsLeft">%d seconds left</string>
     <string name="roundScore">Score %d</string>
     <string name="winnerTeamTitle">%s wins!</string>
+    <string name="teamNameWithPosition">%d. %s</string>
 </resources>

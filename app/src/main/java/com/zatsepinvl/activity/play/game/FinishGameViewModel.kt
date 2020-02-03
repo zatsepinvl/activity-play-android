@@ -12,14 +12,18 @@ class FinishGameViewModel @Inject constructor(
 
     fun getTeamResults(): List<TeamResult> {
         val game = gameService.getSavedGame()
-        val teams = teamService.getTeams()
-        return (0 until game.settings.teamCount)
-            .map {
-                val totalScore = game.getTeamTotalScore(it)
-                val winner = game.getWinnerTeamIndex() == it
-                TeamResult(teams[it], totalScore, winner)
-            }
-            .sortedByDescending { it.totalScore }
-            .toList()
+        val teams = teamService.getTeams().map {
+            it to game.getTeamTotalScore(it.index)
+        }.sortedByDescending { it.second }
+        return teams.indices.map {
+            val totalScore = teams[it].second
+            val winner = game.getWinnerTeamIndex() == it
+            TeamResult(
+                team = teams[it].first,
+                position = it + 1,
+                totalScore = totalScore,
+                winner = winner
+            )
+        }
     }
 }

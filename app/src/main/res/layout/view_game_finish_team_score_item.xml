@@ -21,7 +21,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{data.team.name}"
+            android:text="@{@string/teamNameWithPosition(data.position, data.team.name)}"
             android:textSize="22sp"
             android:layout_marginStart="10dp"
             android:textColor="@{data.team.color}"
