@@ -3,6 +3,7 @@ package com.zatsepinvl.activity.play
 import android.graphics.PorterDuff
 import android.graphics.Shader
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.zatsepinvl.activity.play.android.TileDrawable
 import com.zatsepinvl.activity.play.color.ColoredView
@@ -12,6 +13,7 @@ class ActivityPlayMainActivity : AppCompatActivity(), ColoredView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         resetBackgroundColor()
     }
 
