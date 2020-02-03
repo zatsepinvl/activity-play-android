@@ -39,6 +39,10 @@ class GameViewModel @Inject constructor(
 
     fun prepare() {
         game = gameService.getSavedGame()
+        val teams = teams()
+        if (game.currentTeamIndex >= teams.size) {
+            game.resetCurrentTeam()
+        }
         currentTeam.value = teams()[game.currentTeamIndex]
         gameState.value = GameStatus.START
         updateCurrentTeamRoundScore()

@@ -92,6 +92,11 @@ class ActivityGame(
         finished = state.finished
     }
 
+    fun resetCurrentTeam() {
+        require(!roundIsPlaying) { "Can not change current team index while game is playing" }
+        currentTeamIndex = 0
+    }
+
     private fun completeCurrentTask(done: Boolean): GameTask {
         requireInGame()
         val score = when {
