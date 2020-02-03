@@ -37,4 +37,9 @@
         <item>Blue grey</item>
         <item>Black</item>
     </string-array>
+
+    <string name="teamPlaysRound">Round %d - %s plays!</string>
+    <string name="inRoundSecondsLeft">%d seconds left</string>
+    <string name="roundScore">Score %d</string>
+    <string name="winnerTeamTitle">%s wins!</string>
 </resources>

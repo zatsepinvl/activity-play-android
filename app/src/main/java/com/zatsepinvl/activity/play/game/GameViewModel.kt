@@ -1,5 +1,6 @@
 package com.zatsepinvl.activity.play.game
 
+import android.os.CountDownTimer
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.zatsepinvl.activity.play.core.ActivityGame
@@ -7,22 +8,29 @@ import com.zatsepinvl.activity.play.core.model.GameTask
 import com.zatsepinvl.activity.play.core.totalScoreForLastRound
 import com.zatsepinvl.activity.play.game.model.GameStatus
 import com.zatsepinvl.activity.play.game.model.TeamBoardItemData
+import com.zatsepinvl.activity.play.settings.GameSettingsService
 import com.zatsepinvl.activity.play.team.TeamService
 import com.zatsepinvl.activity.play.team.model.Team
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class GameViewModel @Inject constructor(
     private val gameService: GameService,
-    private val teamService: TeamService
+    private val teamService: TeamService,
+    private val settingsService: GameSettingsService
 ) : ViewModel() {
     private lateinit var game: ActivityGame
 
-    val currentTask = MutableLiveData<GameTask>()
-    val isPlayingRound = MutableLiveData<Boolean>()
-    val currentTeam = MutableLiveData<Team>()
-    val lastPlayedTeam = MutableLiveData<Team>()
-    val currentTeamRoundScore = MutableLiveData<Int>()
     val gameState = MutableLiveData<GameStatus>()
+    val remainingTimeSeconds = MutableLiveData<Int>()
+
+    val currentTeam = MutableLiveData<Team>()
+    val currentTask = MutableLiveData<GameTask>()
+    val currentTeamRoundScore = MutableLiveData<Int>()
+
+    val lastPlayedTeam = MutableLiveData<Team>()
+
+    private lateinit var timer: CountDownTimer
 
     fun startNewGame() {
         gameService.startNewGame()
@@ -48,10 +56,10 @@ class GameViewModel @Inject constructor(
 
     fun startRound() {
         currentTask.value = game.startRound()
-        isPlayingRound.value = true
         gameState.value = GameStatus.PLAY
-        updateCurrentTeamRoundScore()
+        startTimer()
     }
+
 
     fun lastPlayedTeamScore(): Int {
         if (lastPlayedTeam.value == null) return 0
@@ -61,8 +69,12 @@ class GameViewModel @Inject constructor(
     }
 
     fun finishRound() {
+        doFinishRound()
+        stopTimer()
+    }
+
+    private fun doFinishRound() {
         game.finishRound()
-        isPlayingRound.value = false
         lastPlayedTeam.value = currentTeam.value
         currentTeam.value = teams()[game.currentTeamIndex]
         gameState.value = GameStatus.FINISH
@@ -92,6 +104,29 @@ class GameViewModel @Inject constructor(
     }
 
     fun isGameFinished() = game.finished
+
+    private fun startTimer() {
+        val secondsPerRound = settingsService.getSecondsForRound()
+        remainingTimeSeconds.value = secondsPerRound
+        timer = object : CountDownTimer(
+            TimeUnit.SECONDS.toMillis(secondsPerRound.toLong()),
+            TimeUnit.SECONDS.toMillis(1)
+        ) {
+            override fun onTick(millisUntilFinished: Long) {
+                remainingTimeSeconds.value = TimeUnit.MILLISECONDS
+                    .toSeconds(millisUntilFinished)
+                    .toInt()
+            }
+
+            override fun onFinish() {
+                doFinishRound()
+            }
+        }.start()
+    }
+
+    private fun stopTimer() {
+        timer.cancel()
+    }
 
     private fun updateCurrentTeamRoundScore() {
         currentTeamRoundScore.value = game.getTeamRoundScore(

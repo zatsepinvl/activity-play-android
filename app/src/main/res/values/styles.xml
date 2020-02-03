@@ -6,8 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <!--<item name="alertDialogTheme">@style/Theme.ActivityPlay.AlertDialog</item>
-        <item name="alertDialogStyle">@style/Theme.ActivityPlay.AlertDialog</item>-->
+        <item name="android:textColor">@color/md_grey_900</item>
     </style>
 
     <style name="Widget.ActivityPlay.Button.OutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
@@ -16,15 +15,6 @@
         <item name="cornerRadius">10dp</item>
         <item name="android:layout_height">60dp</item>
         <item name="android:layout_width">200dp</item>
-    </style>
-
-    <style name="Theme.ActivityPlay.AlertDialog" parent="Theme.AppCompat.Dialog.Alert">
-        <item name="android:buttonBarPositiveButtonStyle">
-            @style/Widget.ActivityPlay.Button.OutlinedButton
-        </item>
-        <item name="android:buttonBarNegativeButtonStyle">
-            @style/Widget.ActivityPlay.Button.OutlinedButton.Grey
-        </item>
     </style>
 
     <style name="Widget.ActivityPlay.Button.OutlinedButton.Grey" parent="Widget.ActivityPlay.Button.OutlinedButton">

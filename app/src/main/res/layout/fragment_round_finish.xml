@@ -46,7 +46,6 @@
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
-
             <TextView
                 android:id="@+id/gameFinishTotalScore"
                 android:layout_width="match_parent"
@@ -57,7 +56,6 @@
                 android:textAlignment="center"
                 android:textSize="40sp" />
         </LinearLayout>
-
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/gameFrameSkipButton"

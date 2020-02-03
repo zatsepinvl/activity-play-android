@@ -43,37 +43,6 @@
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/video_player" />
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="6dp">
-
-                    <TextView
-                        style="@style/Widget.ActivityPlay.TextView.Body"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Round"
-                        android:textColor="@{viewmodel.currentTeam.color}" />
-
-                    <TextView
-                        style="@style/Widget.ActivityPlay.TextView.Body"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="6dp"
-                        android:hint="1"
-                        android:text="@{String.valueOf(viewmodel.currentRound)}"
-                        android:textColor="@{viewmodel.currentTeam.color}"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        style="@style/Widget.ActivityPlay.TextView.Body"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="-"
-                        android:layout_marginStart="6dp"
-                        android:textColor="@{viewmodel.currentTeam.color}"
-                        android:textSize="20sp" />
 
                     <TextView
                         style="@style/Widget.ActivityPlay.TextView.Body"
@@ -81,19 +50,11 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="6dp"
                         android:hint="Team_name"
-                        android:text="@{viewmodel.currentTeam.name}"
+                        android:text="@{@string/teamPlaysRound(viewmodel.currentRound(),viewmodel.currentTeam.name)}"
                         android:textColor="@{viewmodel.currentTeam.color}"
                         android:textSize="20sp" />
 
-                    <TextView
-                        style="@style/Widget.ActivityPlay.TextView.Body"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="6dp"
-                        android:text="plays!"
-                        android:textColor="@{viewmodel.currentTeam.color}"
-                        android:textSize="20sp" />
-                </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout

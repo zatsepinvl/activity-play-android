@@ -8,12 +8,16 @@ import javax.inject.Inject
 
 interface GameSettingsService {
     fun getSettings(): GameSettings
+    fun getSecondsForRound(): Int
 }
 
 class GameSettingsServiceImpl @Inject constructor(
     private val context: Context,
     private val teamService: TeamService
 ) : GameSettingsService {
+    override fun getSecondsForRound(): Int {
+        return ActivityPlayPreference.getActivityPlayPreferences(context).roundTimeSeconds
+    }
 
     override fun getSettings(): GameSettings {
         return ActivityPlayPreference.getActivityPlayPreferences(context).run {
