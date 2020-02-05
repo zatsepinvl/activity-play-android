@@ -30,7 +30,11 @@ class GameViewModel @Inject constructor(
 
     val lastPlayedTeam = MutableLiveData<Team>()
 
-    private lateinit var timer: CountDownTimer
+    private var timer: CountDownTimer? = null
+
+    override fun onCleared() {
+        stopTimer()
+    }
 
     fun startNewGame() {
         gameService.startNewGame()
@@ -38,6 +42,7 @@ class GameViewModel @Inject constructor(
     }
 
     fun prepare() {
+        stopTimer()
         game = gameService.getSavedGame()
         val teams = teams()
         if (game.currentTeamIndex >= teams.size) {
@@ -63,7 +68,6 @@ class GameViewModel @Inject constructor(
         gameState.value = GameStatus.PLAY
         startTimer()
     }
-
 
     fun lastPlayedTeamScore(): Int {
         if (lastPlayedTeam.value == null) return 0
@@ -110,6 +114,7 @@ class GameViewModel @Inject constructor(
     fun isGameFinished() = game.finished
 
     private fun startTimer() {
+        stopTimer()
         val secondsPerRound = settingsService.getSecondsForRound()
         remainingTimeSeconds.value = secondsPerRound
         timer = object : CountDownTimer(
@@ -129,7 +134,7 @@ class GameViewModel @Inject constructor(
     }
 
     private fun stopTimer() {
-        timer.cancel()
+        timer?.cancel()
     }
 
     private fun updateCurrentTeamRoundScore() {

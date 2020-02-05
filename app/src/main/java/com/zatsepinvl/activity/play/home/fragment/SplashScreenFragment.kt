@@ -18,7 +18,7 @@ class SplashScreenFragment : DaggerFragment() {
     lateinit var dictionaryService: DictionaryService
 
     init {
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launchWhenStarted {
             withContext(Dispatchers.IO) {
                 dictionaryService.loadDictionary()
             }

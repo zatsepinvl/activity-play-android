@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -46,6 +47,10 @@ class InFrameFragment : DaggerFragment() {
                 DRAW -> R.drawable.art
             }.apply(actionImage::setImageResource)
         })
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            //tbd: nothing to do so far
+        }
 
         return dataBinding.root
     }
