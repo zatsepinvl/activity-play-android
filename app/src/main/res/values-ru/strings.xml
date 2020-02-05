@@ -6,4 +6,59 @@
         <item>Английский</item>
         <item>Русский</item>
     </string-array>
+
+    <array name="capitals">
+        <item>Бойсе</item>
+        <item>Де-Мойн</item>
+        <item>Монтгомери</item>
+        <item>Джуно</item>
+        <item>Финикс</item>
+        <item>Литл-Рок</item>
+        <item>Шайенн</item>
+        <item>Олимпия</item>
+        <item>Монтпилиер</item>
+        <item>Ричмонд</item>
+        <item>Мэдисон</item>
+        <item>Гонолулу</item>
+        <item>Довер</item>
+        <item>Атланта</item>
+        <item>Чарлстон</item>
+        <item>Спрингфилд</item>
+        <item>Индианаполис</item>
+        <item>Сакраменто</item>
+        <item>Топека</item>
+        <item>Франкфорт</item>
+        <item>Денвер</item>
+        <item>Хартфорд</item>
+        <item>Батон-Руж</item>
+        <item>Бостон</item>
+        <item>Сент-Пол</item>
+        <item>Джексон</item>
+        <item>Джефферсон</item>
+        <item>Лэнсинг</item>
+        <item>Хелена</item>
+        <item>Огаста</item>
+        <item>Аннаполис</item>
+        <item>Линкольн</item>
+        <item>Карсон</item>
+        <item>Конкорд</item>
+        <item>Трентон</item>
+        <item>Олбани</item>
+        <item>Санта-Фе</item>
+        <item>Конкорд</item>
+        <item>Колумбус</item>
+        <item>Оклахома</item>
+        <item>Сейлем</item>
+        <item>Гаррис</item>
+        <item>Провиденс</item>
+        <item>Бисмарк</item>
+        <item>Роли</item>
+        <item>Нэшвилл</item>
+        <item>Остин</item>
+        <item>Таллахасси</item>
+        <item>Пирр</item>
+        <item>Колумбия</item>
+        <item>Солт-Лейк</item>
+    </array>
+
 </resources>

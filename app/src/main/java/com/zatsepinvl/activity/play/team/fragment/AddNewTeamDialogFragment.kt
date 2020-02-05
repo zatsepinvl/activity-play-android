@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ListView
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.color.Color
@@ -16,10 +17,12 @@ import com.zatsepinvl.activity.play.color.ColorService
 import com.zatsepinvl.activity.play.databinding.DialogAddNewTeamBinding
 import com.zatsepinvl.activity.play.databinding.ViewAddNewTeamColorItemBinding
 import dagger.android.support.DaggerDialogFragment
+import java.util.*
 import javax.inject.Inject
 
 class AddNewTeamDialogFragment : DaggerDialogFragment() {
 
+    private val random: Random = Random()
     @Inject
     lateinit var colorService: ColorService
 
@@ -27,15 +30,33 @@ class AddNewTeamDialogFragment : DaggerDialogFragment() {
         val activity = requireActivity()
         val inflater = activity.layoutInflater
 
+        val colors = colorService.getAllColors()
+        val names = requireContext().resources.obtainTypedArray(R.array.capitals)
         val binding = DialogAddNewTeamBinding.inflate(inflater)
         val colorsList = binding.addNewTeamColorsList
-        val adapter = ColorListAdapter(colorService.getAllColors(), inflater)
+
+        val adapter = ColorListAdapter(colors, inflater)
         colorsList.adapter = adapter
         colorsList.choiceMode = ListView.CHOICE_MODE_SINGLE
         colorsList.setOnItemClickListener { _, _, position, _ ->
             adapter.selectedIndex = position
             adapter.notifyDataSetChanged()
+
         }
+
+        val selectRandomColorAndName = {
+            val name = names.getText(random.nextInt(names.length()))
+            binding.addNewTeamNameTextInput.setText(name, TextView.BufferType.EDITABLE)
+
+            val colorIndex = random.nextInt(colors.size)
+            adapter.selectedIndex = colorIndex
+            adapter.notifyDataSetChanged()
+            colorsList.smoothScrollToPosition(colorIndex)
+        }
+
+        selectRandomColorAndName()
+
+        binding.addNewTeamLuckyButton.setOnClickListener { selectRandomColorAndName() }
 
         return AlertDialog.Builder(activity)
             .setView(binding.root)
@@ -48,6 +69,7 @@ class AddNewTeamDialogFragment : DaggerDialogFragment() {
                         )
                     )
                 })
+                names.recycle()
             }
             .setNegativeButton("Cancel") { _, _ -> this.dismiss() }
             .setTitle("New team")

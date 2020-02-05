@@ -38,6 +38,60 @@
         <item>Black</item>
     </string-array>
 
+    <array name="capitals">
+        <item>Montgomery</item>
+        <item>Juneau</item>
+        <item>Phoenix</item>
+        <item>Little Rock</item>
+        <item>Sacramento</item>
+        <item>Denver</item>
+        <item>Hartford</item>
+        <item>Dover</item>
+        <item>Tallahassee</item>
+        <item>Des Moines</item>
+        <item>Cheyenne</item>
+        <item>Olympia</item>
+        <item>Montpelier</item>
+        <item>Richmond</item>
+        <item>Madison</item>
+        <item>Honolulu</item>
+        <item>Boise</item>
+        <item>Atlanta</item>
+        <item>Charleston</item>
+        <item>Springfield</item>
+        <item>Indianapolis</item>
+        <item>Topeka</item>
+        <item>Frankfort</item>
+        <item>Baton Rouge</item>
+        <item>Boston</item>
+        <item>Paul</item>
+        <item>Jackson</item>
+        <item>Jefferson</item>
+        <item>Lansing</item>
+        <item>Helena</item>
+        <item>Augusta</item>
+        <item>Annapolis</item>
+        <item>Lincoln</item>
+        <item>Carson</item>
+        <item>Concord</item>
+        <item>Trenton</item>
+        <item>Albany</item>
+        <item>Santa Fe</item>
+        <item>Concord</item>
+        <item>Columbus</item>
+        <item>Oklahoma</item>
+        <item>Salem</item>
+        <item>Harrisburg</item>
+        <item>Providence</item>
+        <item>Bismarck</item>
+        <item>Raleigh</item>
+        <item>Nashville</item>
+        <item>Austin</item>
+        <item>Pierre</item>
+        <item>Columbia</item>
+        <item>Salt Lake</item>
+    </array>
+
     <string name="teamPlaysRound">Round %d - %s plays!</string>
     <string name="inRoundSecondsLeft">%d seconds left</string>
     <string name="roundScore">Score %d</string>
