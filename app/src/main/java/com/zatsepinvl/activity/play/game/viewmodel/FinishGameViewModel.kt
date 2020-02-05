@@ -1,8 +1,8 @@
 package com.zatsepinvl.activity.play.game.viewmodel
 
 import androidx.lifecycle.ViewModel
-import com.zatsepinvl.activity.play.game.service.GameService
 import com.zatsepinvl.activity.play.game.model.TeamResult
+import com.zatsepinvl.activity.play.game.service.GameService
 import com.zatsepinvl.activity.play.team.TeamService
 import javax.inject.Inject
 
@@ -18,9 +18,10 @@ class FinishGameViewModel @Inject constructor(
         }.sortedByDescending { it.second }
         return teams.indices.map {
             val totalScore = teams[it].second
-            val winner = game.getWinnerTeamIndex() == it
+            val team = teams[it].first
+            val winner = game.getWinnerTeamIndex() == team.index
             TeamResult(
-                team = teams[it].first,
+                team = team,
                 position = it + 1,
                 totalScore = totalScore,
                 winner = winner

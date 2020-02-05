@@ -24,7 +24,7 @@
             android:layout_marginTop="6dp"
             app:cardBackgroundColor="@{selected == true ? color.hexCode : @color/md_white_1000}"
             app:strokeColor="@{color.hexCode}"
-            app:strokeWidth="2dp">
+            app:strokeWidth="4dp">
 
             <TextView
                 android:layout_width="wrap_content"

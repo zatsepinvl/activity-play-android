@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.zatsepinvl.activity.play.core.ActivityGame
 import com.zatsepinvl.activity.play.core.model.GameTask
 import com.zatsepinvl.activity.play.core.totalScoreForLastRound
-import com.zatsepinvl.activity.play.game.service.GameService
 import com.zatsepinvl.activity.play.game.model.GameStatus
 import com.zatsepinvl.activity.play.game.model.TeamBoardItemData
+import com.zatsepinvl.activity.play.game.service.GameService
 import com.zatsepinvl.activity.play.settings.GameSettingsService
 import com.zatsepinvl.activity.play.team.TeamService
 import com.zatsepinvl.activity.play.team.model.Team
@@ -55,11 +55,13 @@ class GameViewModel @Inject constructor(
     }
 
     fun completeTask() {
+        if (!game.roundIsPlaying) return
         currentTask.value = game.completeCurrentTask()
         updateCurrentTeamRoundScore()
     }
 
     fun skipTask() {
+        if (!game.roundIsPlaying) return
         currentTask.value = game.skipCurrentTask()
         updateCurrentTeamRoundScore()
     }
@@ -108,7 +110,6 @@ class GameViewModel @Inject constructor(
                 val totalScore = game.getTeamTotalScore(it)
                 TeamBoardItemData(teams[it], totalScore, it == game.currentTeamIndex)
             }
-            .sortedByDescending { it.totalScore }
             .toList()
     }
 

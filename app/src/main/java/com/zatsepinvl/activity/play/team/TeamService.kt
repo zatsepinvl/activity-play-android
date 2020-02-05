@@ -53,6 +53,7 @@ class TeamServiceImpl @Inject constructor(
     override fun getTeams(): List<Team> {
         return teamRepository.getAll()
             ?.map { it.copy(color = colorService.getColorById(it.colorId).hexCode) }
+            ?.sortedBy { it.index }
             ?: throw IllegalStateException("There is no one team created yet")
     }
 
