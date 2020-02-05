@@ -1,4 +1,4 @@
-package com.zatsepinvl.activity.play.game
+package com.zatsepinvl.activity.play.game.viewmodel
 
 import android.os.CountDownTimer
 import androidx.lifecycle.MutableLiveData
@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.zatsepinvl.activity.play.core.ActivityGame
 import com.zatsepinvl.activity.play.core.model.GameTask
 import com.zatsepinvl.activity.play.core.totalScoreForLastRound
+import com.zatsepinvl.activity.play.game.service.GameService
 import com.zatsepinvl.activity.play.game.model.GameStatus
 import com.zatsepinvl.activity.play.game.model.TeamBoardItemData
 import com.zatsepinvl.activity.play.settings.GameSettingsService

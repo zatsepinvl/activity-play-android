@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.core.model.GameAction.*
 import com.zatsepinvl.activity.play.databinding.FragmentRoundInBinding
-import com.zatsepinvl.activity.play.game.GameViewModel
+import com.zatsepinvl.activity.play.game.viewmodel.GameViewModel
 import com.zatsepinvl.activity.play.game.model.GameStatus
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject

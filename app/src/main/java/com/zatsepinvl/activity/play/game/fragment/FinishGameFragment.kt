@@ -11,7 +11,7 @@ import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.color.ColoredView
 import com.zatsepinvl.activity.play.databinding.FragmentGameFinishBinding
 import com.zatsepinvl.activity.play.databinding.ViewGameFinishTeamScoreItemBinding
-import com.zatsepinvl.activity.play.game.FinishGameViewModel
+import com.zatsepinvl.activity.play.game.viewmodel.FinishGameViewModel
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_game_finish.*
 import javax.inject.Inject

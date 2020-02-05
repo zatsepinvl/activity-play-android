@@ -1,4 +1,4 @@
-package com.zatsepinvl.activity.play.game
+package com.zatsepinvl.activity.play.game.service
 
 import android.content.Context
 import com.zatsepinvl.activity.play.android.LocalJsonObjectRepository

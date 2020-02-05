@@ -13,7 +13,7 @@ import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.color.ColoredView
 import com.zatsepinvl.activity.play.databinding.FragmentRoundStartBinding
 import com.zatsepinvl.activity.play.databinding.ViewTeamBoardItemBinding
-import com.zatsepinvl.activity.play.game.GameViewModel
+import com.zatsepinvl.activity.play.game.viewmodel.GameViewModel
 import com.zatsepinvl.activity.play.game.model.GameStatus
 import com.zatsepinvl.activity.play.navigation.NavigationFlow
 import dagger.android.support.DaggerFragment

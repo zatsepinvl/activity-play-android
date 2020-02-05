@@ -1,7 +1,7 @@
 package com.zatsepinvl.activity.play.home
 
 import androidx.lifecycle.ViewModel
-import com.zatsepinvl.activity.play.game.GameService
+import com.zatsepinvl.activity.play.game.service.GameService
 import javax.inject.Inject
 
 

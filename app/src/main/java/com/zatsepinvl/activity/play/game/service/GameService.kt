@@ -1,4 +1,4 @@
-package com.zatsepinvl.activity.play.game
+package com.zatsepinvl.activity.play.game.service
 
 import com.zatsepinvl.activity.play.core.ActivityGame
 import com.zatsepinvl.activity.play.dictionary.DictionaryService

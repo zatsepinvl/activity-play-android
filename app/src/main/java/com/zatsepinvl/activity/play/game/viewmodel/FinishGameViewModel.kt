@@ -1,6 +1,7 @@
-package com.zatsepinvl.activity.play.game
+package com.zatsepinvl.activity.play.game.viewmodel
 
 import androidx.lifecycle.ViewModel
+import com.zatsepinvl.activity.play.game.service.GameService
 import com.zatsepinvl.activity.play.game.model.TeamResult
 import com.zatsepinvl.activity.play.team.TeamService
 import javax.inject.Inject
