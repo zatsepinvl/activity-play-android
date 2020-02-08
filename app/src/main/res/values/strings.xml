@@ -98,4 +98,13 @@
     <string name="roundScore">Score %d</string>
     <string name="winnerTeamTitle">%s wins!</string>
     <string name="teamNameWithPosition">%d. %s</string>
+    <string name="deleteTeamDialogMessage">Do you want to delete team?</string>
+    <string name="delete">Delete</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="deleteTeamDialogNotEnoughTeams">You can not delete team as at least two teams are required for game.</string>
+    <string name="add">Add</string>
+    <string name="save">Save</string>
+    <string name="addTeam">Add team</string>
+    <string name="editTeam">Edit team</string>
 </resources>

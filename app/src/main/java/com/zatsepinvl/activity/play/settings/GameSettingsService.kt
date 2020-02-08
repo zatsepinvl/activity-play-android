@@ -3,7 +3,7 @@ package com.zatsepinvl.activity.play.settings
 import android.content.Context
 import com.zatsepinvl.activity.play.core.model.GameAction
 import com.zatsepinvl.activity.play.core.model.GameSettings
-import com.zatsepinvl.activity.play.team.TeamService
+import com.zatsepinvl.activity.play.team.service.TeamService
 import javax.inject.Inject
 
 interface GameSettingsService {

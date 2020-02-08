@@ -1,4 +1,4 @@
-package com.zatsepinvl.activity.play.team
+package com.zatsepinvl.activity.play.team.service
 
 import com.zatsepinvl.activity.play.color.ColorId
 import com.zatsepinvl.activity.play.color.ColorService
@@ -6,7 +6,8 @@ import com.zatsepinvl.activity.play.team.model.Team
 import javax.inject.Inject
 
 interface TeamService {
-    fun editTeam(team: Team)
+    fun updateTeam(team: Team)
+    fun updateTeam(id: String, name: String, colorId: ColorId)
     fun deleteTeam(id: String)
     fun addTeam(team: Team)
     fun addTeam(name: String, colorId: ColorId)
@@ -19,7 +20,6 @@ class TeamServiceImpl @Inject constructor(
     private val teamRepository: TeamRepository,
     private val colorService: ColorService
 ) : TeamService {
-
     override fun createTeam(name: String, colorId: ColorId): Team {
         val index = getTeamsCount()
         return Team(
@@ -31,9 +31,17 @@ class TeamServiceImpl @Inject constructor(
         )
     }
 
-    override fun editTeam(team: Team) {
+    override fun updateTeam(team: Team) {
         teamRepository.delete(team.id)
         teamRepository.save(team)
+    }
+
+    override fun updateTeam(id: String, name: String, colorId: ColorId) {
+        val updatedTeam = teamRepository.getById(id)?.copy(
+            name = name,
+            colorId = colorId
+        ) ?: throw IllegalArgumentException("Can not find team by id: $id")
+        updateTeam(updatedTeam)
     }
 
     override fun deleteTeam(id: String) {

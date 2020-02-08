@@ -2,6 +2,7 @@ package com.zatsepinvl.activity.play.android
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.DialogInterface
 import android.content.SharedPreferences
 import com.google.gson.Gson
 
@@ -48,3 +49,5 @@ inline fun <reified T> SharedPreferences.containsJson(): Boolean {
 fun <T> SharedPreferences.containsJson(clazz: Class<T>): Boolean {
     return this.contains(clazz.name)
 }
+
+val dismissDialog = { d: DialogInterface, _: Any -> d.dismiss() }

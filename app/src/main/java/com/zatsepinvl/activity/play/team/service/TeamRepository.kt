@@ -1,4 +1,4 @@
-package com.zatsepinvl.activity.play.team
+package com.zatsepinvl.activity.play.team.service
 
 import android.content.Context
 import com.zatsepinvl.activity.play.android.getFromJson
@@ -29,7 +29,8 @@ class LocalTeamRepository @Inject constructor(
     private val wrapper: TeamsWrapper
 
     init {
-        wrapper = context.privateSp(TEAMS_SP_NAME).getFromJson(TeamsWrapper::class.java)
+        wrapper = context.privateSp(TEAMS_SP_NAME).getFromJson(
+            TeamsWrapper::class.java)
             ?: TeamsWrapper(mutableListOf())
     }
 

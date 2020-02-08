@@ -11,8 +11,8 @@ import com.zatsepinvl.activity.play.game.model.GameStatus
 import com.zatsepinvl.activity.play.game.model.TeamBoardItemData
 import com.zatsepinvl.activity.play.game.service.GameService
 import com.zatsepinvl.activity.play.settings.GameSettingsService
-import com.zatsepinvl.activity.play.team.TeamService
 import com.zatsepinvl.activity.play.team.model.Team
+import com.zatsepinvl.activity.play.team.service.TeamService
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 

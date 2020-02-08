@@ -23,8 +23,12 @@
         <item name="iconTint">@color/md_grey_600</item>
     </style>
 
-    <style name="Widget.ActivityPlay.Button.OutlinedButton.Back" parent="Widget.ActivityPlay.Button.OutlinedButton">
+    <style name="Widget.ActivityPlay.Button.OutlinedButton.IconButton" parent="Widget.ActivityPlay.Button.OutlinedButton">
         <item name="android:layout_width">56dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Widget.ActivityPlay.Button.OutlinedButton.Back" parent="Widget.ActivityPlay.Button.OutlinedButton.IconButton">
         <item name="icon">@drawable/ic_arrow_back_grey_800_24dp</item>
     </style>
 

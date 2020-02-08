@@ -1,11 +1,11 @@
-package com.zatsepinvl.activity.play.team
+package com.zatsepinvl.activity.play.team.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.zatsepinvl.activity.play.android.SingleLiveEvent
 import com.zatsepinvl.activity.play.color.ColorId
-import com.zatsepinvl.activity.play.team.DeleteTeamErrorCode.AT_LEAST_TWO_TEAMS_REQUIRED
 import com.zatsepinvl.activity.play.team.model.Team
+import com.zatsepinvl.activity.play.team.service.TeamService
+import com.zatsepinvl.activity.play.team.viewmodel.DeleteTeamErrorCode.AT_LEAST_TWO_TEAMS_REQUIRED
 import javax.inject.Inject
 
 enum class DeleteTeamErrorCode {
@@ -17,8 +17,6 @@ class TeamSettingsViewModel @Inject constructor(
 ) : ViewModel() {
 
     val teams = MutableLiveData<List<Team>>()
-    val deleteTeamErrorEvent = SingleLiveEvent<DeleteTeamErrorCode>()
-
 
     init {
         if (teamService.getTeamsCount() == 0) {
@@ -28,17 +26,25 @@ class TeamSettingsViewModel @Inject constructor(
         syncTeams()
     }
 
-    fun deleteTeam(teamId: String) {
+    fun canDeleteTeam(): DeleteTeamErrorCode? {
         if (teams.value!!.size == 2) {
-            deleteTeamErrorEvent.call(AT_LEAST_TWO_TEAMS_REQUIRED)
-            return
+            return AT_LEAST_TWO_TEAMS_REQUIRED
         }
+        return null
+    }
+
+    fun deleteTeam(teamId: String) {
         teamService.deleteTeam(teamId)
         syncTeams()
     }
 
     fun addTeam(name: String, colorId: ColorId) {
         teamService.addTeam(name, colorId)
+        syncTeams()
+    }
+
+    fun updateTeam(id: String, name: String, colorId: ColorId) {
+        teamService.updateTeam(id, name, colorId)
         syncTeams()
     }
 
