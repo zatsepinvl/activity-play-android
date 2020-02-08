@@ -46,10 +46,10 @@ class TeamListFragment :
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == UpdateTeamDialogCode.REQUEST_NEW.code) {
+        if (requestCode == UpdateTeamDialogRequestCode.REQUEST_NEW.code) {
             val newTeamDto = data!!.getNewTeamDto()
             viewModel.addTeam(newTeamDto.name, newTeamDto.colorId)
-        } else if (requestCode == UpdateTeamDialogCode.REQUEST_UPDATE.code) {
+        } else if (requestCode == UpdateTeamDialogRequestCode.REQUEST_UPDATE.code) {
             val editTeamDto = data!!.getUpdateTeamDto()
             viewModel.updateTeam(editTeamDto.id, editTeamDto.name, editTeamDto.colorId)
         }
@@ -68,7 +68,7 @@ class TeamListFragment :
     private fun initAddNewTeamButton() {
         teamListAddTeamButton.setOnClickListener {
             val addTeamDialog = UpdateTeamDialogFragment()
-            addTeamDialog.setTargetFragment(this, UpdateTeamDialogCode.REQUEST_NEW.code)
+            addTeamDialog.setTargetFragment(this, UpdateTeamDialogRequestCode.REQUEST_NEW.code)
             addTeamDialog.show(requireFragmentManager(), "addTeamDialog")
         }
     }
@@ -106,7 +106,7 @@ class TeamListFragment :
             addTeamDialog.arguments = Bundle().putUpdateTeamDto(
                 UpdateTeamDto(team.id, team.name, team.colorId)
             )
-            addTeamDialog.setTargetFragment(this, UpdateTeamDialogCode.REQUEST_UPDATE.code)
+            addTeamDialog.setTargetFragment(this, UpdateTeamDialogRequestCode.REQUEST_UPDATE.code)
             addTeamDialog.show(requireFragmentManager(), "editTeamDialog")
         }
     }

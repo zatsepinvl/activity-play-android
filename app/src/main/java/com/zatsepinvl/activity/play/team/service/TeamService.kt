@@ -32,8 +32,7 @@ class TeamServiceImpl @Inject constructor(
     }
 
     override fun updateTeam(team: Team) {
-        teamRepository.delete(team.id)
-        teamRepository.save(team)
+        teamRepository.update(team)
     }
 
     override fun updateTeam(id: String, name: String, colorId: ColorId) {

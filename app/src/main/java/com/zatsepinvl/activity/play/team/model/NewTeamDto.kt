@@ -15,7 +15,8 @@ fun Intent.getNewTeamDto(): NewTeamDto {
     )
 }
 
-fun Intent.putNewTeamDto(newTeamDto: NewTeamDto) {
+fun Intent.putNewTeamDto(newTeamDto: NewTeamDto): Intent {
     putExtra("name", newTeamDto.name)
     putExtra("colorId", newTeamDto.colorId)
+    return this
 }

@@ -108,4 +108,6 @@
     <string name="save">Save</string>
     <string name="addTeam">Add team</string>
     <string name="editTeam">Edit team</string>
+    <string name="default_team_1_name">Watermelon</string>
+    <string name="default_team_2_name">Strawberry</string>
 </resources>

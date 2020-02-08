@@ -9,6 +9,7 @@ import javax.inject.Inject
 
 interface TeamRepository {
     fun save(team: Team)
+    fun update(team: Team)
     fun delete(id: String)
     fun getById(id: String): Team?
     fun exists(id: String): Boolean
@@ -30,8 +31,16 @@ class LocalTeamRepository @Inject constructor(
 
     init {
         wrapper = context.privateSp(TEAMS_SP_NAME).getFromJson(
-            TeamsWrapper::class.java)
+            TeamsWrapper::class.java
+        )
             ?: TeamsWrapper(mutableListOf())
+    }
+
+    override fun update(team: Team) {
+        val index = wrapper.teams.indexOfFirst { it.id == team.id }
+        require(index != -1) { "Team not found by id: ${team.id}" }
+        wrapper.teams[index] = team
+        saveWrapper()
     }
 
     override fun save(team: Team) {
