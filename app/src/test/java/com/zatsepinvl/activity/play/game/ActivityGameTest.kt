@@ -177,7 +177,6 @@ class ActivityGameTest {
         assertEquals(1, game.getWinnerTeamIndex())
     }
 
-
     @Test
     fun skip_single_task() {
         val game = createTestGame()
@@ -193,6 +192,7 @@ class ActivityGameTest {
         repeat(doneCount) { this.completeCurrentTask() }
         repeat(failCount) { this.skipCurrentTask() }
         this.finishRound()
+        this.nextTeam()
     }
 
 }

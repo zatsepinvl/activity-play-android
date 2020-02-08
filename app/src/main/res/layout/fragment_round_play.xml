@@ -6,7 +6,7 @@
 
         <variable
             name="viewmodel"
-            type="com.zatsepinvl.activity.play.game.viewmodel.GameViewModel" />
+            type="com.zatsepinvl.activity.play.game.viewmodel.PlayRoundViewModel" />
     </data>
 
     <FrameLayout
@@ -58,10 +58,13 @@
 
             <TextView
                 android:id="@+id/gameFrameWord"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:hint="Word"
-                android:text="@{viewmodel.currentTask.word.value}"
+                android:drawableBottom="@{viewmodel.isWordHidden() ? @drawable/ic_visibility_black_24dp : @drawable/ic_visibility_off_black_24dp}"
+                android:onClick="@{() -> viewmodel.toggleWordVisibility()}"
+                android:text="@{viewmodel.isWordHidden() ? @string/wordMask : viewmodel.currentTask.word.value}"
                 android:textAlignment="center"
                 android:textSize="40sp" />
 
@@ -85,9 +88,9 @@
             android:layout_margin="10dp"
             android:textColor="@{viewmodel.currentTeam.color}"
             android:onClick="@{() -> viewmodel.finishRound()}"
-            app:iconTint="@{viewmodel.currentTeam.color}"
             android:text="Finish round"
             app:icon="@drawable/ic_stop_black_24dp"
+            app:iconTint="@{viewmodel.currentTeam.color}"
             app:strokeColor="@{viewmodel.currentTeam.color}" />
 
         <LinearLayout

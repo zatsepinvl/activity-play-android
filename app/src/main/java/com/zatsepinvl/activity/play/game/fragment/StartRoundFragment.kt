@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -13,8 +13,7 @@ import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.color.ColoredView
 import com.zatsepinvl.activity.play.databinding.FragmentRoundStartBinding
 import com.zatsepinvl.activity.play.databinding.ViewTeamBoardItemBinding
-import com.zatsepinvl.activity.play.game.viewmodel.GameViewModel
-import com.zatsepinvl.activity.play.game.model.GameStatus
+import com.zatsepinvl.activity.play.game.viewmodel.StartRoundViewModel
 import com.zatsepinvl.activity.play.navigation.NavigationFlow
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -25,56 +24,44 @@ class StartRoundFragment : DaggerFragment() {
 
     private val args: StartRoundFragmentArgs by navArgs()
 
-    private val viewModel: GameViewModel by activityViewModels { viewModelFactory }
+    private val viewModel: StartRoundViewModel by activityViewModels { viewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        initViewModel()
-        checkNavigation()
+        startViewModel()
 
         val dataBinding = FragmentRoundStartBinding.inflate(inflater, container, false)
         dataBinding.viewmodel = viewModel
         dataBinding.lifecycleOwner = this
-
         dataBinding.gameStartRoundExitButton.setOnClickListener {
             findNavController().navigate(StartRoundFragmentDirections.backToMenu())
         }
+        dataBinding.gameStartRoundStartButton.setOnClickListener {
+            findNavController().navigate(StartRoundFragmentDirections.playRound())
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            findNavController().navigate(StartRoundFragmentDirections.backToMenu())
+        }
 
-        observeViewModel()
         createTeamBoardView(inflater, dataBinding.startRoundTeamsBoard)
 
         return dataBinding.root
     }
 
 
-    private fun initViewModel() {
+    private fun startViewModel() {
         if (args.navigationFlow == NavigationFlow.NEW_GAME) {
             viewModel.startNewGame()
         } else {
-            viewModel.prepare()
+            viewModel.start()
+            (activity as ColoredView).changeBackgroundColor(viewModel.currentTeam.color)
         }
-    }
-
-    private fun checkNavigation() {
-
         if (viewModel.isGameFinished()) {
             findNavController().navigate(R.id.finishGameFragment)
         }
-    }
-
-    private fun observeViewModel() {
-        viewModel.gameState.observe(viewLifecycleOwner, Observer<GameStatus> { gameState ->
-            if (gameState == GameStatus.PLAY) {
-                findNavController().navigate(R.id.inRoundFragment)
-            }
-        })
-
-        viewModel.currentTeam.observe(this, Observer {
-            (activity as ColoredView).changeBackgroundColor(it.color)
-        })
     }
 
     private fun createTeamBoardView(inflater: LayoutInflater, teamBoard: ViewGroup) {

@@ -6,7 +6,7 @@
 
         <variable
             name="viewmodel"
-            type="com.zatsepinvl.activity.play.game.viewmodel.GameViewModel" />
+            type="com.zatsepinvl.activity.play.game.viewmodel.FinishRoundViewModel" />
     </data>
 
     <FrameLayout
@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:textColor="@{viewmodel.lastPlayedTeam.color}"
+                android:textColor="@{viewmodel.currentTeam.color}"
                 android:text="Round is over" />
 
             <TextView
@@ -42,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Total score"
-                android:textColor="@{viewmodel.lastPlayedTeam.color}"
+                android:textColor="@{viewmodel.currentTeam.color}"
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
@@ -51,19 +51,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="123"
-                android:textColor="@{viewmodel.lastPlayedTeam.color}"
-                android:text="@{Integer.toString(viewmodel.lastPlayedTeamScore())}"
+                android:textColor="@{viewmodel.currentTeam.color}"
+                android:text="@{Integer.toString(viewmodel.currentTeamRoundScore())}"
                 android:textAlignment="center"
                 android:textSize="40sp" />
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/gameFrameSkipButton"
+            android:id="@+id/roundFinishDoneButton"
             style="@style/Widget.ActivityPlay.Button.OutlinedButton"
             android:layout_gravity="center|bottom"
-            android:onClick="@{() -> viewmodel.nextRoundFrame()}"
-            android:textColor="@{viewmodel.lastPlayedTeam.color}"
+            android:textColor="@{viewmodel.currentTeam.color}"
             android:text="Done"
-            app:strokeColor="@{viewmodel.lastPlayedTeam.color}" />
+            app:strokeColor="@{viewmodel.currentTeam.color}" />
     </FrameLayout>
 </layout>

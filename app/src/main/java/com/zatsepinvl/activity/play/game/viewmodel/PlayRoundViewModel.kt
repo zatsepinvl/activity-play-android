@@ -1,0 +1,94 @@
+package com.zatsepinvl.activity.play.game.viewmodel
+
+import android.os.CountDownTimer
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.zatsepinvl.activity.play.android.SingleLiveEvent
+import com.zatsepinvl.activity.play.core.ActivityGame
+import com.zatsepinvl.activity.play.core.model.GameTask
+import com.zatsepinvl.activity.play.game.service.GameService
+import com.zatsepinvl.activity.play.settings.GameSettingsService
+import com.zatsepinvl.activity.play.team.model.Team
+import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+
+class PlayRoundViewModel @Inject constructor(
+    private val gameService: GameService,
+    private val settingsService: GameSettingsService
+) : ViewModel() {
+
+    val remainingTimeSeconds = MutableLiveData<Int>()
+    val currentTask = MutableLiveData<GameTask>()
+    val currentTeamRoundScore = MutableLiveData<Int>()
+    val isWordHidden = MutableLiveData<Boolean>()
+    val finishRoundEvent = SingleLiveEvent<Void>()
+
+    lateinit var currentTeam: Team
+        private set
+
+    private var timer: CountDownTimer? = null
+    private lateinit var game: ActivityGame
+
+    fun toggleWordVisibility() {
+        isWordHidden.value = !(isWordHidden.value ?: false)
+    }
+
+    fun start() {
+        stopTimer()
+        isWordHidden.value = false
+        game = gameService.getSavedGame()
+        currentTask.value = game.startRound()
+        currentTeam = gameService.currentTeam()
+        updateCurrentTeamRoundScore()
+        startTimer()
+    }
+
+    fun completeTask() {
+        if (!game.roundIsPlaying) return
+        currentTask.value = game.completeCurrentTask()
+        updateCurrentTeamRoundScore()
+    }
+
+    fun skipTask() {
+        if (!game.roundIsPlaying) return
+        currentTask.value = game.skipCurrentTask()
+        updateCurrentTeamRoundScore()
+    }
+
+    fun finishRound() {
+        stopTimer()
+        game.finishRound()
+        gameService.saveGame(game)
+        finishRoundEvent.call()
+    }
+
+    private fun startTimer() {
+        val secondsPerRound = settingsService.getSecondsForRound()
+        remainingTimeSeconds.value = secondsPerRound
+        timer = object : CountDownTimer(
+            TimeUnit.SECONDS.toMillis(secondsPerRound.toLong()),
+            TimeUnit.SECONDS.toMillis(1)
+        ) {
+            override fun onTick(millisUntilFinished: Long) {
+                remainingTimeSeconds.value = TimeUnit.MILLISECONDS
+                    .toSeconds(millisUntilFinished)
+                    .toInt()
+            }
+
+            override fun onFinish() {
+                finishRound()
+            }
+        }.start()
+    }
+
+    private fun stopTimer() {
+        timer?.cancel()
+    }
+
+    private fun updateCurrentTeamRoundScore() {
+        currentTeamRoundScore.value = game.getTeamRoundScore(
+            game.currentTeamIndex,
+            game.currentRoundIndex
+        )
+    }
+}

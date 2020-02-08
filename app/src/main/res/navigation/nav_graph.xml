@@ -64,10 +64,10 @@
         android:name="com.zatsepinvl.activity.play.game.fragment.StartRoundFragment"
         android:label="StartGameFragment">
         <action
-            android:id="@+id/action_startGameFragment_to_gameFrameFragment"
-            app:destination="@id/inRoundFragment" />
+            android:id="@+id/playRound"
+            app:destination="@id/playRoundFragment" />
         <action
-            android:id="@+id/action_startGameFragment_to_finishGameFragment2"
+            android:id="@+id/finishGame"
             app:destination="@id/finishGameFragment" />
         <action
             android:id="@+id/backToMenu"
@@ -79,12 +79,13 @@
     </fragment>
 
     <fragment
-        android:id="@+id/inRoundFragment"
-        android:name="com.zatsepinvl.activity.play.game.fragment.InFrameFragment"
+        android:id="@+id/playRoundFragment"
+        android:name="com.zatsepinvl.activity.play.game.fragment.PlayRoundFragment"
         android:label="InGameFragment">
         <action
-            android:id="@+id/action_gameFrameFragment_to_finishGameFragment"
-            app:destination="@id/finishRoundFragment" />
+            android:id="@+id/finishRound"
+            app:destination="@id/finishRoundFragment"
+            app:launchSingleTop="true" />
     </fragment>
 
     <fragment
@@ -92,7 +93,7 @@
         android:name="com.zatsepinvl.activity.play.game.fragment.FinishRoundFragment"
         android:label="FinishGameFragment">
         <action
-            android:id="@+id/action_finishGameFragment_to_startGameFragment"
+            android:id="@+id/nextRound"
             app:destination="@id/startRoundFragment" />
     </fragment>
 
@@ -102,7 +103,7 @@
         android:label="fragment_game_finish"
         tools:layout="@layout/fragment_game_finish">
         <action
-            android:id="@+id/action_finishGameFragment_to_homeFragment"
+            android:id="@+id/backHome"
             app:destination="@id/homeFragment" />
     </fragment>
 

@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.zatsepinvl.activity.play.game.viewmodel.GameViewModel" />
+            type="com.zatsepinvl.activity.play.game.viewmodel.StartRoundViewModel" />
     </data>
 
     <FrameLayout
@@ -80,7 +80,6 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/gameStartRoundStartButton"
             style="@style/Widget.ActivityPlay.Button.OutlinedButton"
-            android:onClick="@{() -> viewmodel.startRound()}"
             android:text="Start round"
             android:layout_width="match_parent"
             android:layout_gravity="bottom"

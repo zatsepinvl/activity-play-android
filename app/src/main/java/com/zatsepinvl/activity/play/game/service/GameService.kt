@@ -3,6 +3,8 @@ package com.zatsepinvl.activity.play.game.service
 import com.zatsepinvl.activity.play.core.ActivityGame
 import com.zatsepinvl.activity.play.dictionary.DictionaryService
 import com.zatsepinvl.activity.play.settings.GameSettingsService
+import com.zatsepinvl.activity.play.team.model.Team
+import com.zatsepinvl.activity.play.team.service.TeamService
 import javax.inject.Inject
 
 interface GameService {
@@ -11,12 +13,14 @@ interface GameService {
     fun getSavedGame(): ActivityGame
     fun isGameSaved(): Boolean
     fun startNewGame()
+    fun currentTeam(): Team
 }
 
 class GameServiceImpl @Inject constructor(
     private val gameStateRepository: GameStateRepository,
     private val gameSettingsService: GameSettingsService,
-    private val dictionaryService: DictionaryService
+    private val dictionaryService: DictionaryService,
+    private val teamService: TeamService
 ) : GameService {
 
     override fun startNewGame() {
@@ -46,6 +50,10 @@ class GameServiceImpl @Inject constructor(
 
     override fun isGameSaved(): Boolean {
         return gameStateRepository.exists()
+    }
+
+    override fun currentTeam(): Team {
+        return teamService.getTeams()[getSavedGame().currentTeamIndex]
     }
 
 

@@ -117,17 +117,7 @@ class ActivityGame(
         return currentTask!!
     }
 
-    fun finishRound() {
-        requireInGame()
-        completedTasks.add(
-            CompletedTask(
-                currentTask!!,
-                TaskResult(0, SKIPPED)
-            )
-        )
-
-        roundIsPlaying = false
-        currentTask = null
+    fun nextTeam() {
         currentTeamIndex++
 
         val lastTeamPlayed = currentTeamIndex == settings.teamCount
@@ -145,6 +135,19 @@ class ActivityGame(
             currentRoundIndex++
             finished = maxScoreReached
         }
+    }
+
+    fun finishRound() {
+        requireInGame()
+        completedTasks.add(
+            CompletedTask(
+                currentTask!!,
+                TaskResult(0, SKIPPED)
+            )
+        )
+
+        roundIsPlaying = false
+        currentTask = null
     }
 
     fun getTeamTotalScore(teamIndex: Int): Int {

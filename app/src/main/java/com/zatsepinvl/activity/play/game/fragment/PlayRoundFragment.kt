@@ -4,39 +4,43 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.zatsepinvl.activity.play.R
+import com.zatsepinvl.activity.play.android.disableBackButton
 import com.zatsepinvl.activity.play.core.model.GameAction.*
-import com.zatsepinvl.activity.play.databinding.FragmentRoundInBinding
-import com.zatsepinvl.activity.play.game.viewmodel.GameViewModel
-import com.zatsepinvl.activity.play.game.model.GameStatus
+import com.zatsepinvl.activity.play.databinding.FragmentRoundPlayBinding
+import com.zatsepinvl.activity.play.game.viewmodel.PlayRoundViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class InFrameFragment : DaggerFragment() {
+class PlayRoundFragment : DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel: GameViewModel by activityViewModels { viewModelFactory }
+    private val viewModel: PlayRoundViewModel by activityViewModels { viewModelFactory }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        disableBackButton()
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val dataBinding = FragmentRoundInBinding.inflate(inflater, container, false)
+        val dataBinding = FragmentRoundPlayBinding.inflate(inflater, container, false)
+        viewModel.start()
         dataBinding.viewmodel = viewModel
         dataBinding.lifecycleOwner = this
 
-        viewModel.gameState.observe(viewLifecycleOwner, Observer<GameStatus> { gameState ->
-            if (gameState == GameStatus.FINISH) {
-                findNavController().navigate(R.id.finishRoundFragment)
-            }
+        viewModel.finishRoundEvent.observe(viewLifecycleOwner, Observer {
+            findNavController().navigate(PlayRoundFragmentDirections.finishRound())
         })
 
         val actionImage = dataBinding.roundInActionImage
@@ -48,11 +52,6 @@ class InFrameFragment : DaggerFragment() {
             }.apply(actionImage::setImageResource)
         })
 
-        requireActivity().onBackPressedDispatcher.addCallback(this) {
-            //tbd: nothing to do so far
-        }
-
         return dataBinding.root
     }
-
 }

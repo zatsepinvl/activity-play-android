@@ -5,13 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.zatsepinvl.activity.play.R
+import com.zatsepinvl.activity.play.android.disableBackButton
 import com.zatsepinvl.activity.play.databinding.FragmentRoundFinishBinding
-import com.zatsepinvl.activity.play.game.viewmodel.GameViewModel
-import com.zatsepinvl.activity.play.game.model.GameStatus
+import com.zatsepinvl.activity.play.game.viewmodel.FinishRoundViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -20,23 +18,28 @@ class FinishRoundFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel: GameViewModel by activityViewModels { viewModelFactory }
+    private val viewModel: FinishRoundViewModel by activityViewModels { viewModelFactory }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        disableBackButton()
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        viewModel.start()
+
         val dataBinding = FragmentRoundFinishBinding.inflate(inflater, container, false)
         dataBinding.viewmodel = viewModel
         dataBinding.lifecycleOwner = this
+        dataBinding.roundFinishDoneButton.setOnClickListener {
+            viewModel.completeRound()
+            findNavController().navigate(FinishRoundFragmentDirections.nextRound())
+        }
 
-        viewModel.gameState.observe(viewLifecycleOwner, Observer<GameStatus> { gameState ->
-            if (gameState == GameStatus.START) {
-                findNavController().navigate(R.id.startRoundFragment)
-            }
-        })
         return dataBinding.root
     }
-
 }

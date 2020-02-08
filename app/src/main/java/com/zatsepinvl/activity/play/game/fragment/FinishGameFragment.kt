@@ -13,7 +13,6 @@ import com.zatsepinvl.activity.play.databinding.FragmentGameFinishBinding
 import com.zatsepinvl.activity.play.databinding.ViewGameFinishTeamScoreItemBinding
 import com.zatsepinvl.activity.play.game.viewmodel.FinishGameViewModel
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_game_finish.*
 import javax.inject.Inject
 
 class FinishGameFragment : DaggerFragment() {
@@ -29,6 +28,9 @@ class FinishGameFragment : DaggerFragment() {
     ): View? {
         val dataBinding = FragmentGameFinishBinding.inflate(inflater, container, false)
         dataBinding.lifecycleOwner = this
+        dataBinding.gameFinishDoneButton.setOnClickListener {
+            findNavController().navigate(R.id.homeFragment)
+        }
 
         val teamScoresRootView = dataBinding.fragmentGameFinishTeamsScoreRoot
         viewModel.getTeamResults().forEach {
@@ -43,13 +45,6 @@ class FinishGameFragment : DaggerFragment() {
         }
 
         return dataBinding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        gameFinishDoneButton.setOnClickListener {
-            findNavController().navigate(R.id.homeFragment)
-        }
-
     }
 
 }

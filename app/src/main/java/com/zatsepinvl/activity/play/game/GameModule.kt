@@ -5,14 +5,16 @@ import com.zatsepinvl.activity.play.di.ViewModelBuilder
 import com.zatsepinvl.activity.play.di.ViewModelKey
 import com.zatsepinvl.activity.play.game.fragment.FinishGameFragment
 import com.zatsepinvl.activity.play.game.fragment.FinishRoundFragment
-import com.zatsepinvl.activity.play.game.fragment.InFrameFragment
+import com.zatsepinvl.activity.play.game.fragment.PlayRoundFragment
 import com.zatsepinvl.activity.play.game.fragment.StartRoundFragment
 import com.zatsepinvl.activity.play.game.service.GameService
 import com.zatsepinvl.activity.play.game.service.GameServiceImpl
 import com.zatsepinvl.activity.play.game.service.GameStateRepository
 import com.zatsepinvl.activity.play.game.service.LocalGameStateRepository
 import com.zatsepinvl.activity.play.game.viewmodel.FinishGameViewModel
-import com.zatsepinvl.activity.play.game.viewmodel.GameViewModel
+import com.zatsepinvl.activity.play.game.viewmodel.FinishRoundViewModel
+import com.zatsepinvl.activity.play.game.viewmodel.PlayRoundViewModel
+import com.zatsepinvl.activity.play.game.viewmodel.StartRoundViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -25,7 +27,7 @@ abstract class GameModule {
     abstract fun startRoundFragment(): StartRoundFragment
 
     @ContributesAndroidInjector(modules = [ViewModelBuilder::class])
-    abstract fun inRoundFragment(): InFrameFragment
+    abstract fun inRoundFragment(): PlayRoundFragment
 
     @ContributesAndroidInjector(modules = [ViewModelBuilder::class])
     abstract fun finishRoundFragment(): FinishRoundFragment
@@ -43,8 +45,18 @@ abstract class GameModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(GameViewModel::class)
-    abstract fun gameViewModel(gameViewModel: GameViewModel): ViewModel
+    @ViewModelKey(StartRoundViewModel::class)
+    abstract fun startRoundViewModel(startRoundViewModel: StartRoundViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(PlayRoundViewModel::class)
+    abstract fun playRoundViewModel(playRoundViewModel: PlayRoundViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FinishRoundViewModel::class)
+    abstract fun finishRoundViewModel(finishRoundViewModel: FinishRoundViewModel): ViewModel
 
     @Binds
     @IntoMap

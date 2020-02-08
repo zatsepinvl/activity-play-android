@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.content.SharedPreferences
+import androidx.activity.addCallback
+import androidx.fragment.app.Fragment
 import com.google.gson.Gson
 
 fun Context.privateSp(name: String): SharedPreferences {
@@ -51,3 +53,9 @@ fun <T> SharedPreferences.containsJson(clazz: Class<T>): Boolean {
 }
 
 val dismissDialog = { d: DialogInterface, _: Any -> d.dismiss() }
+
+
+fun Fragment.disableBackButton() {
+    requireActivity().onBackPressedDispatcher.addCallback(this) {
+    }
+}
