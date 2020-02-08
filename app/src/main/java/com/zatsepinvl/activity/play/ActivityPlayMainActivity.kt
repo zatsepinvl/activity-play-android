@@ -22,6 +22,8 @@ class ActivityPlayMainActivity : AppCompatActivity(), ColoredView {
     }
 
     override fun changeBackgroundColor(color: Int) {
+        window.statusBarColor = color
+        window.navigationBarColor = color
         val backgroundDrawable = this.getDrawable(R.drawable.wallpaper)!!
         mainLayout.background = TileDrawable(backgroundDrawable, Shader.TileMode.REPEAT)
         mainLayout.background.apply {

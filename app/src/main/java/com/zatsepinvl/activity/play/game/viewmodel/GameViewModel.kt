@@ -4,6 +4,7 @@ import android.os.CountDownTimer
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.zatsepinvl.activity.play.core.ActivityGame
+import com.zatsepinvl.activity.play.core.model.GameSettings
 import com.zatsepinvl.activity.play.core.model.GameTask
 import com.zatsepinvl.activity.play.core.totalScoreForLastRound
 import com.zatsepinvl.activity.play.game.model.GameStatus
@@ -77,6 +78,10 @@ class GameViewModel @Inject constructor(
         return game
             .getTeamCompletedTasks(lastPlayedTeam.value!!.index)
             .totalScoreForLastRound()
+    }
+
+    fun gameSettings(): GameSettings {
+        return game.settings
     }
 
     fun finishRound() {

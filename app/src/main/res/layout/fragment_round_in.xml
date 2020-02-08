@@ -81,11 +81,14 @@
             style="@style/Widget.ActivityPlay.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:layout_margin="10dp"
+            android:textColor="@{viewmodel.currentTeam.color}"
             android:onClick="@{() -> viewmodel.finishRound()}"
+            app:iconTint="@{viewmodel.currentTeam.color}"
             android:text="Finish round"
-            app:icon="@drawable/ic_stop_black_24dp" />
+            app:icon="@drawable/ic_stop_black_24dp"
+            app:strokeColor="@{viewmodel.currentTeam.color}" />
 
         <LinearLayout
             android:layout_width="match_parent"

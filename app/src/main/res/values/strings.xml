@@ -93,6 +93,7 @@
     </array>
 
     <string name="teamPlaysRound">Round %d - %s plays!</string>
+    <string name="roundMaxScore">max score is %d</string>
     <string name="inRoundSecondsLeft">%d seconds left</string>
     <string name="roundScore">Score %d</string>
     <string name="winnerTeamTitle">%s wins!</string>
