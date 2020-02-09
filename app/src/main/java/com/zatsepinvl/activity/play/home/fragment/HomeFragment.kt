@@ -26,11 +26,17 @@ class HomeFragment : DaggerFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val dataBinding = FragmentHomeBinding.inflate(inflater, container, false)
-        dataBinding.viewmodel = viewModel
-        dataBinding.lifecycleOwner = this
+        val binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding.viewmodel = viewModel
+        binding.lifecycleOwner = this
         (activity as ColoredView).resetBackgroundColor()
-        return dataBinding.root
+
+        binding.homeContactMeTextView.setOnClickListener {
+            val contactNewDialog = ContactMeDialogFragment()
+            contactNewDialog.show(requireFragmentManager(), "contactMe")
+        }
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
