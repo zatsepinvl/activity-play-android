@@ -3,10 +3,7 @@ package com.zatsepinvl.activity.play.game
 import androidx.lifecycle.ViewModel
 import com.zatsepinvl.activity.play.di.ViewModelBuilder
 import com.zatsepinvl.activity.play.di.ViewModelKey
-import com.zatsepinvl.activity.play.game.fragment.FinishGameFragment
-import com.zatsepinvl.activity.play.game.fragment.FinishRoundFragment
-import com.zatsepinvl.activity.play.game.fragment.PlayRoundFragment
-import com.zatsepinvl.activity.play.game.fragment.StartRoundFragment
+import com.zatsepinvl.activity.play.game.fragment.*
 import com.zatsepinvl.activity.play.game.service.GameService
 import com.zatsepinvl.activity.play.game.service.GameServiceImpl
 import com.zatsepinvl.activity.play.game.service.GameStateRepository
@@ -28,6 +25,9 @@ abstract class GameModule {
 
     @ContributesAndroidInjector(modules = [ViewModelBuilder::class])
     abstract fun inRoundFragment(): PlayRoundFragment
+
+    @ContributesAndroidInjector(modules = [ViewModelBuilder::class])
+    abstract fun canvasFragment(): CanvasFragment
 
     @ContributesAndroidInjector(modules = [ViewModelBuilder::class])
     abstract fun finishRoundFragment(): FinishRoundFragment

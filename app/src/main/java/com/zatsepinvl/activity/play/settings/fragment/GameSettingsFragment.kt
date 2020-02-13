@@ -15,7 +15,7 @@ import androidx.preference.CheckBoxPreference
 import androidx.preference.ListPreference
 import androidx.preference.SeekBarPreference
 import com.zatsepinvl.activity.play.R
-import com.zatsepinvl.activity.play.android.DaggerPreferenceFragmentCompat
+import com.zatsepinvl.activity.play.android.fragment.DaggerPreferenceFragmentCompat
 import com.zatsepinvl.activity.play.dictionary.DictionaryService
 import com.zatsepinvl.activity.play.dictionary.getSupportedLanguageFromTag
 import com.zatsepinvl.activity.play.settings.ActivityPlayPreference

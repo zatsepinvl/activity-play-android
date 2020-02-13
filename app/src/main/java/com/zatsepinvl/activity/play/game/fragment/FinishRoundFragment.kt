@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.zatsepinvl.activity.play.android.disableBackButton
+import com.zatsepinvl.activity.play.android.fragment.disableBackButton
 import com.zatsepinvl.activity.play.databinding.FragmentRoundFinishBinding
 import com.zatsepinvl.activity.play.game.viewmodel.FinishRoundViewModel
 import dagger.android.support.DaggerFragment

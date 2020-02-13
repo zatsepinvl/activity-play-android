@@ -1,4 +1,4 @@
-package com.zatsepinvl.activity.play.android
+package com.zatsepinvl.activity.play.android.resource
 
 import android.graphics.*
 import android.graphics.drawable.BitmapDrawable

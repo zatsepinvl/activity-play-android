@@ -1,6 +1,10 @@
-package com.zatsepinvl.activity.play.android
+package com.zatsepinvl.activity.play.android.service
 
 import android.content.Context
+import com.zatsepinvl.activity.play.android.containsJson
+import com.zatsepinvl.activity.play.android.getFromJson
+import com.zatsepinvl.activity.play.android.privateSp
+import com.zatsepinvl.activity.play.android.saveJson
 
 abstract class LocalJsonObjectRepository<T : Any>(
     private val context: Context,

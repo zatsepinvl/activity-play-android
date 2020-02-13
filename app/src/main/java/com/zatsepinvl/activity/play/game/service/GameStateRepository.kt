@@ -1,8 +1,8 @@
 package com.zatsepinvl.activity.play.game.service
 
 import android.content.Context
-import com.zatsepinvl.activity.play.android.LocalJsonObjectRepository
-import com.zatsepinvl.activity.play.android.ObjectRepository
+import com.zatsepinvl.activity.play.android.service.LocalJsonObjectRepository
+import com.zatsepinvl.activity.play.android.service.ObjectRepository
 import com.zatsepinvl.activity.play.core.model.GameState
 import javax.inject.Inject
 

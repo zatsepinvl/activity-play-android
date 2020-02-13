@@ -3,7 +3,7 @@ package com.zatsepinvl.activity.play.game.viewmodel
 import android.os.CountDownTimer
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.zatsepinvl.activity.play.android.SingleLiveEvent
+import com.zatsepinvl.activity.play.android.viewmodel.SingleLiveEvent
 import com.zatsepinvl.activity.play.core.ActivityGame
 import com.zatsepinvl.activity.play.core.model.GameTask
 import com.zatsepinvl.activity.play.game.service.GameService
@@ -25,9 +25,12 @@ class PlayRoundViewModel @Inject constructor(
 
     lateinit var currentTeam: Team
         private set
+    var roundPlaying = false
+
 
     private var timer: CountDownTimer? = null
     private lateinit var game: ActivityGame
+
 
     fun toggleWordVisibility() {
         isWordHidden.value = !(isWordHidden.value ?: false)
@@ -41,11 +44,13 @@ class PlayRoundViewModel @Inject constructor(
         currentTeam = gameService.currentTeam()
         updateCurrentTeamRoundScore()
         startTimer()
+        roundPlaying = true
     }
 
     fun completeTask() {
         if (!game.roundIsPlaying) return
         currentTask.value = game.completeCurrentTask()
+        isWordHidden.value = false
         updateCurrentTeamRoundScore()
     }
 
@@ -60,6 +65,7 @@ class PlayRoundViewModel @Inject constructor(
         game.finishRound()
         gameService.saveGame(game)
         finishRoundEvent.call()
+        roundPlaying = false
     }
 
     private fun startTimer() {
