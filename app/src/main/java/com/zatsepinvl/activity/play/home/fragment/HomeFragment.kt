@@ -35,11 +35,15 @@ class HomeFragment : DaggerFragment() {
         (activity as ColoredView).resetBackgroundColor()
 
         binding.viewOnGithub.setOnClickListener {
-            val browserIntent = Intent(
-                Intent.ACTION_VIEW,
-                Uri.parse(getString(R.string.github_link))
-            )
-            startActivity(browserIntent)
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.github_link)))
+            startActivity(intent)
+        }
+
+        binding.contactMe.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            val data = Uri.parse(getString(R.string.email_intent_data))
+            intent.data = data
+            startActivity(intent)
         }
 
         return binding.root
