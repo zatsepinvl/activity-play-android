@@ -15,17 +15,15 @@
         android:layout_height="match_parent"
         android:layout_margin="10dp">
 
-        <com.google.android.material.button.MaterialButton
+        <com.zatsepinvl.activity.play.android.view.Button
             android:id="@+id/gameStartRoundExitButton"
             style="@style/Widget.ActivityPlay.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:text="Main menu"
-            app:icon="@drawable/ic_arrow_back_grey_800_24dp"
-            app:iconTint="@{viewmodel.currentTeam.color}"
-            app:strokeColor="@{viewmodel.currentTeam.color}"
-            android:textColor="@{viewmodel.currentTeam.color}"/>
+            android:text="@string/main_menu"
+            app:color="@{viewmodel.currentTeam.color}"
+            app:icon="@drawable/ic_arrow_back_grey_800_24dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,29 +39,24 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/video_player" />
-
                 <TextView
                     style="@style/Widget.ActivityPlay.TextView.Body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Team_name"
+                    android:drawableTop="@drawable/video_player"
                     android:text="@{@string/teamPlaysRound(viewmodel.currentRound(),viewmodel.currentTeam.name)}"
                     android:textColor="@{viewmodel.currentTeam.color}"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    tools:hint="Team name" />
 
                 <TextView
                     style="@style/Widget.ActivityPlay.TextView.Body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="Max score"
                     android:text="@{@string/roundMaxScore(viewmodel.gameSettings().maxScore)}"
                     android:textColor="@{viewmodel.currentTeam.color}"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:hint="Max score" />
 
             </LinearLayout>
 
@@ -77,17 +70,15 @@
                 tools:listitem="@layout/view_team_board_item" />
         </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
+        <com.zatsepinvl.activity.play.android.view.Button
             android:id="@+id/gameStartRoundStartButton"
             style="@style/Widget.ActivityPlay.Button.OutlinedButton"
-            android:text="Start round"
             android:layout_width="match_parent"
             android:layout_gravity="bottom"
-            android:textColor="@{viewmodel.currentTeam.color}"
+            android:text="@string/start_round"
+            app:color="@{viewmodel.currentTeam.color}"
             app:icon="@drawable/ic_play_arrow_black_24dp"
             app:iconGravity="textStart"
-            app:iconPadding="16dp"
-            app:iconTint="@{viewmodel.currentTeam.color}"
-            app:strokeColor="@{viewmodel.currentTeam.color}" />
+            app:iconPadding="16dp" />
     </FrameLayout>
 </layout>

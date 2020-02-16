@@ -5,6 +5,7 @@ import android.graphics.Shader
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import com.zatsepinvl.activity.play.android.color
 import com.zatsepinvl.activity.play.android.resource.TileDrawable
 import com.zatsepinvl.activity.play.color.ColoredView
 import kotlinx.android.synthetic.main.activity_main.*
@@ -18,7 +19,7 @@ class ActivityPlayMainActivity : AppCompatActivity(), ColoredView {
     }
 
     override fun resetBackgroundColor() {
-        changeBackgroundColor(resources.getColor(R.color.colorPrimary))
+        changeBackgroundColor(applicationContext.color(R.color.colorPrimary))
     }
 
     override fun changeBackgroundColor(color: Int) {

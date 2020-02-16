@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -35,13 +36,13 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:textColor="@{viewmodel.currentTeam.color}"
-                android:text="Round is over" />
+                android:text="@string/round_is_over" />
 
             <TextView
                 android:id="@+id/gameFinishTotalScoreLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Total score"
+                android:text="@string/total_score"
                 android:textColor="@{viewmodel.currentTeam.color}"
                 android:textAlignment="center"
                 android:textSize="20sp" />
@@ -50,19 +51,18 @@
                 android:id="@+id/gameFinishTotalScore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="123"
+                tools:hint="123"
                 android:textColor="@{viewmodel.currentTeam.color}"
                 android:text="@{Integer.toString(viewmodel.currentTeamRoundScore())}"
                 android:textAlignment="center"
                 android:textSize="40sp" />
         </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
+        <com.zatsepinvl.activity.play.android.view.Button
             android:id="@+id/roundFinishDoneButton"
             style="@style/Widget.ActivityPlay.Button.OutlinedButton"
             android:layout_gravity="center|bottom"
-            android:textColor="@{viewmodel.currentTeam.color}"
-            android:text="Done"
-            app:strokeColor="@{viewmodel.currentTeam.color}" />
+            android:text="@string/done"
+            app:color="@{viewmodel.currentTeam.color}" />
     </FrameLayout>
 </layout>

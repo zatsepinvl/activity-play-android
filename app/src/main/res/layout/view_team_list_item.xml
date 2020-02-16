@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -14,9 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginBottom="6dp"
-        android:foreground="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
+        android:foreground="?android:attr/selectableItemBackground"
         app:cardCornerRadius="10dp"
         app:strokeColor="@{team.color}"
         app:strokeWidth="2dp">
@@ -26,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|center"
             android:layout_marginStart="8dp"
-            android:hint="Team name"
+            tools:hint="Team name"
             android:text="@{team.name}"
             android:textColor="@{team.color}"
             android:textSize="22sp" />
@@ -35,28 +36,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
-            android:orientation="horizontal"
-            android:layout_marginEnd="8dp">
+            android:layout_marginEnd="8dp"
+            android:orientation="horizontal">
 
-            <com.google.android.material.button.MaterialButton
+            <com.zatsepinvl.activity.play.android.view.Button
                 android:id="@+id/teamListItemEditTeam"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton.IconButton"
                 android:layout_marginEnd="8dp"
-                android:textColor="@{team.color}"
-                app:icon="@drawable/ic_mode_edit_black_24dp"
-                app:iconTint="@{team.color}"
-                app:strokeColor="@{team.color}" />
+                app:color="@{team.color}"
+                app:icon="@drawable/ic_mode_edit_black_24dp" />
 
-            <com.google.android.material.button.MaterialButton
+            <com.zatsepinvl.activity.play.android.view.Button
                 android:id="@+id/teamListItemDeleteTeamButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton.IconButton"
-                android:textColor="@{team.color}"
-                app:icon="@drawable/ic_delete_black_24dp"
-                app:iconTint="@{team.color}"
-                app:strokeColor="@{team.color}" />
-
+                app:color="@{team.color}"
+                app:icon="@drawable/ic_delete_black_24dp" />
         </LinearLayout>
-
-
     </com.google.android.material.card.MaterialCardView>
 </layout>

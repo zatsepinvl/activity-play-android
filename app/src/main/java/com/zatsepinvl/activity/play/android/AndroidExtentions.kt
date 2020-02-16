@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.content.SharedPreferences
+import androidx.core.content.ContextCompat
 import com.google.gson.Gson
 
 fun Context.privateSp(name: String): SharedPreferences {
@@ -52,4 +53,6 @@ fun <T> SharedPreferences.containsJson(clazz: Class<T>): Boolean {
 
 val dismissDialog = { d: DialogInterface, _: Any -> d.dismiss() }
 
-
+fun Context.color(resource: Int): Int {
+    return ContextCompat.getColor(this, resource)
+}

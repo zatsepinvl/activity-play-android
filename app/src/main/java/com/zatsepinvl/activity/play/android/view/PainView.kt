@@ -9,8 +9,9 @@ import android.view.MotionEvent
 import android.view.View
 import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.R.color.colorPrimary
+import com.zatsepinvl.activity.play.android.color
 
-const val DEAFULT_PAINT_STROCK_WIDTH = 3f
+const val DEFAULT_PAINT_STROKE_WIDTH = 3f
 
 class PainView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     private var path = Path()
@@ -29,11 +30,11 @@ class PainView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         try {
             paint.color = attributes.getColor(
                 R.styleable.PaintView_paintColor,
-                resources.getColor(colorPrimary)
+                context.color(colorPrimary)
             )
             paint.strokeWidth = attributes.getFloat(
                 R.styleable.PaintView_paintStrokeWidth,
-                DEAFULT_PAINT_STROCK_WIDTH
+                DEFAULT_PAINT_STROKE_WIDTH
             )
         } finally {
             attributes.recycle()

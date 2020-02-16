@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -24,14 +25,11 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp">
 
-            <com.google.android.material.button.MaterialButton
+            <com.zatsepinvl.activity.play.android.view.Button
                 android:id="@+id/canvasBackButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton.Back"
                 android:layout_gravity="start"
-                android:textColor="@{viewmodel.currentTeam.color}"
-                app:iconTint="@{viewmodel.currentTeam.color}"
-                app:rippleColor="@{viewmodel.currentTeam.color}"
-                app:strokeColor="@{viewmodel.currentTeam.color}" />
+                app:color="@{viewmodel.currentTeam.color}" />
 
             <TextView
                 android:id="@+id/canvasRemainingTime"
@@ -39,21 +37,17 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:hint="00"
                 android:text="@{@string/inRoundSecondsLeft(viewmodel.remainingTimeSeconds)}"
                 android:textAlignment="center"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:hint="12 seconds left" />
 
-            <com.google.android.material.button.MaterialButton
+            <com.zatsepinvl.activity.play.android.view.Button
                 android:id="@+id/canvasClearButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton.IconButton"
                 android:layout_gravity="end"
-                android:textColor="@{viewmodel.currentTeam.color}"
-                app:icon="@drawable/ic_autorenew_black_24dp"
-                app:iconTint="@{viewmodel.currentTeam.color}"
-                app:rippleColor="@{viewmodel.currentTeam.color}"
-                app:strokeColor="@{viewmodel.currentTeam.color}" />
+                app:color="@{viewmodel.currentTeam.color}"
+                app:icon="@drawable/ic_autorenew_black_24dp" />
         </FrameLayout>
-
     </FrameLayout>
 </layout>

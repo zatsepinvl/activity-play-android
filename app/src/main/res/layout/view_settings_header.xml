@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.google.android.material.button.MaterialButton
+    <com.zatsepinvl.activity.play.android.view.Button
         android:id="@+id/settingsBackButton"
         style="@style/Widget.ActivityPlay.Button.OutlinedButton.Back"
         android:layout_height="wrap_content"
@@ -14,6 +14,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Settings" />
-
+        android:text="@string/settings" />
 </FrameLayout>

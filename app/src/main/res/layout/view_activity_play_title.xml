@@ -15,8 +15,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="10dp"
-        android:text="Activity Play"
+        android:layout_marginStart="10dp"
+        android:text="@string/activity_play"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
         android:textSize="30sp" />

@@ -22,19 +22,13 @@
             android:orientation="vertical"
             android:layout_marginTop="60dp">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/medal"
-                android:contentDescription="Medal"
-                android:layout_marginBottom="10dp" />
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="26sp"
-                android:hint="Team wins"
+                tools:hint="Team wins"
                 android:textAlignment="center"
+                android:drawableTop="@drawable/medal"
                 android:text="@{@string/winnerTeamTitle(winner.team.name)}"
                 android:textColor="@{winner.team.color}" />
 
@@ -47,13 +41,11 @@
                 tools:listitem="@layout/view_game_finish_team_score_item" />
         </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
+        <com.zatsepinvl.activity.play.android.view.Button
             android:id="@+id/gameFinishDoneButton"
             style="@style/Widget.ActivityPlay.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_gravity="bottom"
-            android:text="Done"
-            android:textColor="@{winner.team.color}"
-            app:strokeColor="@{winner.team.color}" />
+            android:text="@string/done" />
     </FrameLayout>
 </layout>

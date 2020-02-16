@@ -4,4 +4,8 @@
         <attr name="paintColor" format="color" />
         <attr name="paintStrokeWidth" format="float" />
     </declare-styleable>
+
+    <declare-styleable name="Button">
+        <attr name="color" format="color" />
+    </declare-styleable>
 </resources>

@@ -13,49 +13,46 @@
             android:id="@+id/addNewTeamNameLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_alignParentTop="true"
-            android:text="Name" />
+            android:layout_marginTop="10dp"
+            android:text="@string/name" />
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/addNewTeamNameTextInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/addNewTeamNameLabel"
             android:imeOptions="actionDone"
             android:inputType="text"
-            android:layout_below="@id/addNewTeamNameLabel"
             android:maxLines="1" />
 
         <TextView
             android:id="@+id/addNewTeamColorLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_below="@id/addNewTeamNameTextInput"
-            android:text="Color" />
+            android:layout_marginTop="10dp"
+            android:text="@string/color" />
 
         <ListView
             android:id="@+id/add_new_team_colors_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_above="@id/addNewTeamLuckyButton"
+            android:layout_below="@id/addNewTeamColorLabel"
             android:layout_marginTop="10dp"
             android:orientation="vertical"
-            android:layout_below="@id/addNewTeamColorLabel"
-            android:layout_above="@id/addNewTeamLuckyButton"
             tools:listitem="@layout/view_add_new_team_color_item" />
 
-        <com.google.android.material.button.MaterialButton
+        <com.zatsepinvl.activity.play.android.view.Button
             android:id="@+id/addNewTeamLuckyButton"
             style="@style/Widget.ActivityPlay.Button.OutlinedButton"
-            android:text="I'am Filling lucky"
             android:layout_width="match_parent"
-            android:layout_gravity="bottom"
             android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom"
+            android:text="@string/i_am_filling_lucky"
             app:icon="@drawable/ic_autorenew_black_24dp"
             app:iconGravity="textStart"
             app:iconPadding="16dp" />
-
     </RelativeLayout>
-
-
 </layout>
