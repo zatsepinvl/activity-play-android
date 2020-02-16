@@ -1,5 +1,7 @@
 package com.zatsepinvl.activity.play.home.fragment
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.color.ColoredView
 import com.zatsepinvl.activity.play.databinding.FragmentHomeBinding
 import com.zatsepinvl.activity.play.home.HomeViewModel
@@ -31,9 +34,12 @@ class HomeFragment : DaggerFragment() {
         binding.lifecycleOwner = this
         (activity as ColoredView).resetBackgroundColor()
 
-        binding.homeContactMeTextView.setOnClickListener {
-            val contactNewDialog = ContactMeDialogFragment()
-            contactNewDialog.show(requireFragmentManager(), "contactMe")
+        binding.viewOnGithub.setOnClickListener {
+            val browserIntent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse(getString(R.string.github_link))
+            )
+            startActivity(browserIntent)
         }
 
         return binding.root

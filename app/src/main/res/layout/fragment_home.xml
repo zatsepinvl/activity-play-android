@@ -11,6 +11,7 @@
     <FrameLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="10dp"
         tools:context=".home.fragment.HomeFragment">
 
         <FrameLayout
@@ -50,16 +51,17 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/homeContactMeTextView"
+            android:id="@+id/viewOnGithub"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_margin="20dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:layout_margin="10dp"
+            android:layout_marginStart="10dp"
             android:autoLink="all"
-            android:drawableEnd="@drawable/ic_email_black_18dp"
+            android:drawableStart="@drawable/github_18dp"
+            android:drawableEnd="@drawable/ic_link_amber_900_18dp"
             android:drawablePadding="6dp"
-            android:gravity="center"
-            android:text="@string/created_by"
+            android:text="@string/view_on_github"
             android:textColor="@color/colorPrimary"
             android:textSize="12sp" />
     </FrameLayout>
