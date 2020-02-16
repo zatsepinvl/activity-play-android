@@ -7,7 +7,7 @@ import com.zatsepinvl.activity.play.android.viewmodel.SingleLiveEvent
 import com.zatsepinvl.activity.play.core.ActivityGame
 import com.zatsepinvl.activity.play.core.model.GameTask
 import com.zatsepinvl.activity.play.game.service.GameService
-import com.zatsepinvl.activity.play.settings.GameSettingsService
+import com.zatsepinvl.activity.play.settings.service.GameSettingsService
 import com.zatsepinvl.activity.play.team.model.Team
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject

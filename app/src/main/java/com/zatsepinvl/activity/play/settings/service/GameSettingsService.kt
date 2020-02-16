@@ -1,4 +1,4 @@
-package com.zatsepinvl.activity.play.settings
+package com.zatsepinvl.activity.play.settings.service
 
 import android.content.Context
 import com.zatsepinvl.activity.play.core.model.GameAction
@@ -16,11 +16,15 @@ class GameSettingsServiceImpl @Inject constructor(
     private val teamService: TeamService
 ) : GameSettingsService {
     override fun getSecondsForRound(): Int {
-        return ActivityPlayPreference.getActivityPlayPreferences(context).roundTimeSeconds
+        return ActivityPlayPreference.getActivityPlayPreferences(
+            context
+        ).roundTimeSeconds
     }
 
     override fun getSettings(): GameSettings {
-        return ActivityPlayPreference.getActivityPlayPreferences(context).run {
+        return ActivityPlayPreference.getActivityPlayPreferences(
+            context
+        ).run {
             val actions = if (enabledActions.isNotEmpty()) {
                 enabledActions
             } else {

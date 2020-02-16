@@ -12,7 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.color.ColoredView
 import com.zatsepinvl.activity.play.databinding.FragmentHomeBinding
-import com.zatsepinvl.activity.play.home.HomeViewModel
+import com.zatsepinvl.activity.play.home.viewmodel.HomeViewModel
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 import javax.inject.Inject

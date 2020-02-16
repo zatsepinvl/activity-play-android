@@ -1,4 +1,4 @@
-package com.zatsepinvl.activity.play.settings
+package com.zatsepinvl.activity.play.settings.service
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -22,7 +22,9 @@ object ActivityPlayPreference {
                 ),
                 roundTimeSeconds = getInt(ActivityPlayPreferenceKey.ROUND_TIME_SECONDS.key, 60),
                 maxScore = getInt(ActivityPlayPreferenceKey.MAX_SCORE.key, 20),
-                enabledActions = getEnabledActionPreferenceKeys(context).map { it.action }.toSet()
+                enabledActions = getEnabledActionPreferenceKeys(
+                    context
+                ).map { it.action }.toSet()
             )
         }
     }

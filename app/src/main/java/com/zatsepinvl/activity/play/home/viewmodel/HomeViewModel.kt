@@ -1,4 +1,4 @@
-package com.zatsepinvl.activity.play.home
+package com.zatsepinvl.activity.play.home.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.zatsepinvl.activity.play.game.service.GameService

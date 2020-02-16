@@ -5,6 +5,7 @@ import com.zatsepinvl.activity.play.di.ViewModelBuilder
 import com.zatsepinvl.activity.play.di.ViewModelKey
 import com.zatsepinvl.activity.play.home.fragment.HomeFragment
 import com.zatsepinvl.activity.play.home.fragment.SplashScreenFragment
+import com.zatsepinvl.activity.play.home.viewmodel.HomeViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

@@ -1,6 +1,5 @@
 package com.zatsepinvl.activity.play.settings.fragment
 
-import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,17 +7,20 @@ import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.preference.CheckBoxPreference
 import androidx.preference.ListPreference
 import androidx.preference.SeekBarPreference
+import com.google.android.material.snackbar.Snackbar
 import com.zatsepinvl.activity.play.R
+import com.zatsepinvl.activity.play.android.color
 import com.zatsepinvl.activity.play.android.fragment.DaggerPreferenceFragmentCompat
 import com.zatsepinvl.activity.play.dictionary.DictionaryService
 import com.zatsepinvl.activity.play.dictionary.getSupportedLanguageFromTag
-import com.zatsepinvl.activity.play.settings.ActivityPlayPreference
+import com.zatsepinvl.activity.play.settings.service.ActivityPlayPreference
 import com.zatsepinvl.activity.play.settings.model.ActivityPlayPreferenceActionKey
 import com.zatsepinvl.activity.play.settings.model.ActivityPlayPreferenceKey.*
 import kotlinx.coroutines.Dispatchers
@@ -71,14 +73,19 @@ class GameSettingsFragment : DaggerPreferenceFragmentCompat() {
 
     private fun onDictionaryLanguageChanged(newLangTag: String) {
         viewLifecycleOwner.lifecycleScope.launch {
-            //fuck off, i wanna it, i use it.
-            val progress = ProgressDialog(context).apply {
-                setTitle(R.string.loading_dictionary_progress_title)
-                setCancelable(false)
+            val snackbar = Snackbar.make(
+                view!!,
+                R.string.loading_dictionary_progress_title,
+                Snackbar.LENGTH_INDEFINITE
+            ).apply {
+                view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+                    .setTextColor(
+                        context.color(R.color.md_white_1000)
+                    )
             }
-            progress.show()
+            snackbar.show()
             uploadDictionary(newLangTag)
-            progress.dismiss()
+            snackbar.dismiss()
         }
     }
 

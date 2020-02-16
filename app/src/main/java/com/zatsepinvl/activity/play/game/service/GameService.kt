@@ -2,7 +2,7 @@ package com.zatsepinvl.activity.play.game.service
 
 import com.zatsepinvl.activity.play.core.ActivityGame
 import com.zatsepinvl.activity.play.dictionary.DictionaryService
-import com.zatsepinvl.activity.play.settings.GameSettingsService
+import com.zatsepinvl.activity.play.settings.service.GameSettingsService
 import com.zatsepinvl.activity.play.team.model.Team
 import com.zatsepinvl.activity.play.team.service.TeamService
 import javax.inject.Inject
