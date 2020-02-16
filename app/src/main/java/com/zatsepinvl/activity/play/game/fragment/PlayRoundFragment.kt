@@ -58,7 +58,7 @@ class PlayRoundFragment : DaggerFragment() {
                     R.drawable.karaoke
                 }
                 DRAW -> {
-                    showDrawButton
+                    showDrawButton()
                     R.drawable.art
                 }
             }.apply(actionImage::setImageResource)

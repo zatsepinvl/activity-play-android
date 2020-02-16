@@ -134,6 +134,7 @@
                     android:onClick="@{() -> viewmodel.completeTask()}"
                     android:text="@string/next_word"
                     app:color="@{viewmodel.currentTeam.color}" />
+
             </LinearLayout>
         </LinearLayout>
     </FrameLayout>

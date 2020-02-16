@@ -23,9 +23,7 @@ class PainView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         paint.strokeJoin = Paint.Join.ROUND
 
         val attributes = context.theme.obtainStyledAttributes(
-            attrs,
-            R.styleable.PaintView,
-            0, 0
+            attrs, R.styleable.PaintView, 0, 0
         )
         try {
             paint.color = attributes.getColor(
