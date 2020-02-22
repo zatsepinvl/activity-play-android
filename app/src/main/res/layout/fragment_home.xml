@@ -47,6 +47,12 @@
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton"
                 android:layout_marginTop="20dp"
                 android:text="@string/settings" />
+
+            <com.zatsepinvl.activity.play.android.view.Button
+                android:id="@+id/homeTutorialButton"
+                style="@style/Widget.ActivityPlay.Button.OutlinedButton"
+                android:layout_marginTop="20dp"
+                android:text="@string/tutorial" />
         </LinearLayout>
 
         <LinearLayout

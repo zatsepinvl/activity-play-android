@@ -11,6 +11,7 @@ import com.zatsepinvl.activity.play.color.ColoredView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class ActivityPlayMainActivity : AppCompatActivity(), ColoredView {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -23,8 +24,6 @@ class ActivityPlayMainActivity : AppCompatActivity(), ColoredView {
     }
 
     override fun changeBackgroundColor(color: Int) {
-        window.statusBarColor = color
-        window.navigationBarColor = color
         val backgroundDrawable = this.getDrawable(R.drawable.wallpaper)!!
         mainLayout.background = TileDrawable(
             backgroundDrawable,
@@ -34,5 +33,12 @@ class ActivityPlayMainActivity : AppCompatActivity(), ColoredView {
             alpha = 10
             setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         }
+        changeBarsColor(color)
     }
+
+    override fun changeBarsColor(color: Int) {
+        window.statusBarColor = color
+        window.navigationBarColor = color
+    }
+
 }

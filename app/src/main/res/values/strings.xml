@@ -137,5 +137,17 @@
     <string name="team_list">Team List</string>
     <string name="view_on_github">View on GitHub</string>
     <string name="contact_me">Contact me</string>
+    <string name="tutorial">Tutorial</string>
+
+    <string name="slide_welcome_title">Welcome to Activity Play</string>
+    <string name="slide_welcome_description">Do you like funny parties or intellectual games? Can you explain word so that your friends guess it? Let’s try!</string>
+    <string name="slide_participants_title">Step 1: Participants</string>
+    <string name="slide_participants_description">Meet your friends and split into teams at least 2 members in each</string>
+    <string name="slide_teams_title">Step 2: Teams</string>
+    <string name="slide_teams_description">Choose name and color for each team</string>
+    <string name="slide_game_title">Step 3: Game</string>
+    <string name="slide_game_description">One player has to act pantomime or to describe or to paint a phrase given on a screen and the other members of his team have to find out what that should be</string>
+    <string name="slide_enjoy_title">Step 4: Play and enjoy</string>
+    <string name="slide_enjoy_description"/>
 
 </resources>

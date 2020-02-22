@@ -30,6 +30,8 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".IntroActivity" />
     </application>
 
 </manifest>

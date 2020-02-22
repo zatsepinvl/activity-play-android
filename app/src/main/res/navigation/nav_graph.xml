@@ -34,6 +34,9 @@
         <action
             android:id="@+id/settings"
             app:destination="@id/gameSettingsFragment" />
+        <action
+            android:id="@+id/intro"
+            app:destination="@id/introFragment" />
     </fragment>
 
     <fragment
@@ -116,6 +119,14 @@
         <action
             android:id="@+id/finishRound"
             app:destination="@id/finishRoundFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/introFragment"
+        android:name="com.zatsepinvl.activity.play.intro.fragment.IntroFragment"
+        android:label="IntroFragment" >
+        <action
+            android:id="@+id/mainMenu"
+            app:destination="@id/homeFragment" />
     </fragment>
 
 </navigation>

@@ -33,19 +33,6 @@ class HomeFragment : DaggerFragment() {
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
         (activity as ColoredView).resetBackgroundColor()
-
-        binding.viewOnGithub.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.github_link)))
-            startActivity(intent)
-        }
-
-        binding.contactMe.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW)
-            val data = Uri.parse(getString(R.string.email_intent_data))
-            intent.data = data
-            startActivity(intent)
-        }
-
         return binding.root
     }
 
@@ -60,6 +47,22 @@ class HomeFragment : DaggerFragment() {
 
         homeSettingsButton.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.settings())
+        }
+
+        homeTutorialButton.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.intro())
+        }
+
+        viewOnGithub.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.github_link)))
+            startActivity(intent)
+        }
+
+        contactMe.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            val data = Uri.parse(getString(R.string.email_intent_data))
+            intent.data = data
+            startActivity(intent)
         }
     }
 }

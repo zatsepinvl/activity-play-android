@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:id="@+id/introContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:background="@color/colorPrimary">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/introViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="80dp" />
+
+        <com.zatsepinvl.activity.play.android.view.Button
+            android:id="@+id/introNextButton"
+            style="@style/Widget.ActivityPlay.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_add_white_24dp"
+            android:text="Next"
+            app:color="@color/md_white_1000" />
+
+        <com.zatsepinvl.activity.play.android.view.Button
+            android:id="@+id/introFinishButton"
+            style="@style/Widget.ActivityPlay.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_margin="10dp"
+            android:src="@drawable/ic_add_white_24dp"
+            android:text="get fun"
+            app:color="@color/md_white_1000" />
+    </FrameLayout>
+</layout>

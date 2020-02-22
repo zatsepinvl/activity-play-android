@@ -1,7 +1,6 @@
 package com.zatsepinvl.activity.play.home.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,9 +21,7 @@ class SplashScreenFragment : DaggerFragment() {
         lifecycleScope.launchWhenStarted {
             withContext(Dispatchers.IO) {
                 dictionaryService.loadDictionary()
-                Log.d("activityplay","loaded")
             }
-            Log.d("activityplay","navigated")
             findNavController().navigate(SplashScreenFragmentDirections.home())
         }
     }
