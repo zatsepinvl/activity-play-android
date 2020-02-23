@@ -24,7 +24,7 @@ class CanvasFragment : DaggerFragment() {
         inflater: LayoutInflater, container: ViewGroup?, bundle: Bundle?
     ): View? {
         viewModel.finishRoundEvent.observe(viewLifecycleOwner, Observer {
-            findNavController().navigate(CanvasFragmentDirections.finishRound())
+            findNavController().navigate(CanvasFragmentDirections.askLastWord())
         })
 
         val binding = FragmentCanvasBinding.inflate(inflater, container, false)

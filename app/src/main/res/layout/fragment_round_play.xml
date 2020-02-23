@@ -87,7 +87,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:onClick="@{() -> viewmodel.finishRound()}"
             android:text="@string/finish_round"
             android:textColor="@{viewmodel.currentTeam.color}"
             app:icon="@drawable/ic_stop_black_24dp"

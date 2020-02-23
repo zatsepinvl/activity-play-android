@@ -39,7 +39,7 @@ class PainView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         }
     }
 
-    var paintColor: Int = resources.getColor(colorPrimary)
+    var paintColor: Int = context.color(colorPrimary)
         set(value) {
             paint.color = value
             field = value

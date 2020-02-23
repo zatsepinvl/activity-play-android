@@ -149,5 +149,6 @@
     <string name="slide_game_description">One player has to act pantomime or to describe or to paint a phrase given on a screen and the other members of his team have to find out what that should be</string>
     <string name="slide_enjoy_title">Step 4: Play and enjoy</string>
     <string name="slide_enjoy_description"/>
+    <string name="managed_to_guess_last_word">Managed to guess last word?</string>
 
 </resources>

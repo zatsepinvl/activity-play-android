@@ -40,8 +40,8 @@ class PlayRoundViewModel @Inject constructor(
         stopTimer()
         isWordHidden.value = false
         game = gameService.getSavedGame()
-        currentTask.value = game.startRound()
         currentTeam = gameService.currentTeam()
+        currentTask.value = game.startRound()
         updateCurrentTeamRoundScore()
         startTimer()
         roundPlaying = true
@@ -60,12 +60,20 @@ class PlayRoundViewModel @Inject constructor(
         updateCurrentTeamRoundScore()
     }
 
-    fun finishRound() {
+    fun stopRound() {
         stopTimer()
-        game.finishRound()
-        gameService.saveGame(game)
         finishRoundEvent.call()
         roundPlaying = false
+    }
+
+    fun completeLastWord() {
+        game.completeCurrentTask()
+        updateCurrentTeamRoundScore()
+    }
+
+    fun finishRound() {
+        game.finishRound()
+        gameService.saveGame(game)
     }
 
     private fun startTimer() {
@@ -82,7 +90,7 @@ class PlayRoundViewModel @Inject constructor(
             }
 
             override fun onFinish() {
-                finishRound()
+                stopRound()
             }
         }.start()
     }

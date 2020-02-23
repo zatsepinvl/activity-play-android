@@ -184,7 +184,7 @@ class ActivityGameTest {
         game.startRound()
         game.finishRound()
 
-        assertEquals(1, game.getTeamCompletedTasks(0).size)
+        assertEquals(0, game.getTeamCompletedTasks(0).size)
     }
 
     private fun ActivityGame.playOneFrame(doneCount: Int = 0, failCount: Int = 0) {
@@ -192,7 +192,6 @@ class ActivityGameTest {
         repeat(doneCount) { this.completeCurrentTask() }
         repeat(failCount) { this.skipCurrentTask() }
         this.finishRound()
-        this.nextTeam()
     }
 
 }

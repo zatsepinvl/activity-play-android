@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -40,7 +41,8 @@
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton"
                 android:layout_marginTop="20dp"
                 android:enabled="@{viewmodel.canContinueGame()}"
-                android:text="@string/continue_str" />
+                android:text="@string/continue_str"
+                app:color="@{viewmodel.canContinueGame() ? @color/colorPrimary : @color/md_grey_600}" />
 
             <com.zatsepinvl.activity.play.android.view.Button
                 android:id="@+id/homeSettingsButton"

@@ -40,10 +40,6 @@ class PlayRoundFragment : DaggerFragment() {
         dataBinding.viewmodel = viewModel
         dataBinding.lifecycleOwner = this
 
-        viewModel.finishRoundEvent.observe(viewLifecycleOwner, Observer {
-            findNavController().navigate(PlayRoundFragmentDirections.finishRound())
-        })
-
         val hideDrawButton = { dataBinding.gameFrameDrawButton.visibility = View.GONE }
         val showDrawButton = { dataBinding.gameFrameDrawButton.visibility = View.VISIBLE }
         val actionImage = dataBinding.roundInActionImage
@@ -64,6 +60,13 @@ class PlayRoundFragment : DaggerFragment() {
             }.apply(actionImage::setImageResource)
         })
 
+        viewModel.finishRoundEvent.observe(viewLifecycleOwner, Observer {
+            findNavController().navigate(PlayRoundFragmentDirections.askLastWord())
+        })
+
+        dataBinding.gameFrameFinishButton.setOnClickListener {
+            viewModel.stopRound()
+        }
         dataBinding.gameFrameDrawButton.setOnClickListener {
             findNavController().navigate(PlayRoundFragmentDirections.canvas())
         }

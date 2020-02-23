@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.zatsepinvl.activity.play.android.fragment.disableBackButton
 import com.zatsepinvl.activity.play.databinding.FragmentRoundFinishBinding
-import com.zatsepinvl.activity.play.game.viewmodel.FinishRoundViewModel
+import com.zatsepinvl.activity.play.game.viewmodel.PlayRoundViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -18,7 +18,7 @@ class FinishRoundFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel: FinishRoundViewModel by activityViewModels { viewModelFactory }
+    private val viewModel: PlayRoundViewModel by activityViewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         disableBackButton()
@@ -30,13 +30,11 @@ class FinishRoundFragment : DaggerFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel.start()
-
         val dataBinding = FragmentRoundFinishBinding.inflate(inflater, container, false)
         dataBinding.viewmodel = viewModel
         dataBinding.lifecycleOwner = this
         dataBinding.roundFinishDoneButton.setOnClickListener {
-            viewModel.completeRound()
+            viewModel.finishRound()
             findNavController().navigate(FinishRoundFragmentDirections.nextRound())
         }
 

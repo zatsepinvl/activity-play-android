@@ -7,21 +7,21 @@
 
         <variable
             name="viewmodel"
-            type="com.zatsepinvl.activity.play.game.viewmodel.FinishRoundViewModel" />
+            type="com.zatsepinvl.activity.play.game.viewmodel.PlayRoundViewModel" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_margin="10dp">
+        android:layout_margin="10dp"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_gravity="center"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
             android:orientation="vertical">
 
             <ImageView
@@ -32,30 +32,23 @@
 
             <TextView
                 style="@style/Widget.ActivityPlay.TextView.Header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textColor="@{viewmodel.currentTeam.color}"
-                android:text="@string/round_is_over" />
-
-            <TextView
                 android:id="@+id/gameFinishTotalScoreLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/total_score"
-                android:textColor="@{viewmodel.currentTeam.color}"
                 android:textAlignment="center"
-                android:textSize="20sp" />
+                android:textColor="@{viewmodel.currentTeam.color}"
+                android:textSize="26sp" />
 
             <TextView
                 android:id="@+id/gameFinishTotalScore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:hint="123"
-                android:textColor="@{viewmodel.currentTeam.color}"
-                android:text="@{Integer.toString(viewmodel.currentTeamRoundScore())}"
+                android:text="@{Integer.toString(viewmodel.currentTeamRoundScore)}"
                 android:textAlignment="center"
-                android:textSize="40sp" />
+                android:textColor="@{viewmodel.currentTeam.color}"
+                android:textSize="40sp"
+                tools:hint="123" />
         </LinearLayout>
 
         <com.zatsepinvl.activity.play.android.view.Button

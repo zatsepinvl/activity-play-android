@@ -9,7 +9,6 @@ import com.zatsepinvl.activity.play.game.service.GameServiceImpl
 import com.zatsepinvl.activity.play.game.service.GameStateRepository
 import com.zatsepinvl.activity.play.game.service.LocalGameStateRepository
 import com.zatsepinvl.activity.play.game.viewmodel.FinishGameViewModel
-import com.zatsepinvl.activity.play.game.viewmodel.FinishRoundViewModel
 import com.zatsepinvl.activity.play.game.viewmodel.PlayRoundViewModel
 import com.zatsepinvl.activity.play.game.viewmodel.StartRoundViewModel
 import dagger.Binds
@@ -28,6 +27,9 @@ abstract class GameModule {
 
     @ContributesAndroidInjector(modules = [ViewModelBuilder::class])
     abstract fun canvasFragment(): CanvasFragment
+
+    @ContributesAndroidInjector(modules = [ViewModelBuilder::class])
+    abstract fun lastWordRoundFragment(): LastWordRoundFragment
 
     @ContributesAndroidInjector(modules = [ViewModelBuilder::class])
     abstract fun finishRoundFragment(): FinishRoundFragment
@@ -52,11 +54,6 @@ abstract class GameModule {
     @IntoMap
     @ViewModelKey(PlayRoundViewModel::class)
     abstract fun playRoundViewModel(playRoundViewModel: PlayRoundViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(FinishRoundViewModel::class)
-    abstract fun finishRoundViewModel(finishRoundViewModel: FinishRoundViewModel): ViewModel
 
     @Binds
     @IntoMap

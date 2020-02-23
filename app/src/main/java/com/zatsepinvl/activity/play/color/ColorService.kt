@@ -3,6 +3,7 @@ package com.zatsepinvl.activity.play.color
 import android.content.Context
 import androidx.core.content.res.getResourceIdOrThrow
 import com.zatsepinvl.activity.play.R
+import com.zatsepinvl.activity.play.android.color
 import java.util.*
 import javax.inject.Inject
 
@@ -45,9 +46,7 @@ class ColorService @Inject constructor(context: Context) {
         val colorIdMap = ColorId.values().map { it.name.toLowerCase(Locale.ROOT) to it }.toMap()
         colors = (0 until resourceColors.length())
             .map {
-                val resource = context.resources.getColor(
-                    resourceColors.getResourceIdOrThrow(it)
-                )
+                val resource = context.color(resourceColors.getResourceIdOrThrow(it))
                 val id = colorIdMap[resourceColorIds.getString(it) ?: ""]
                     ?: throw IllegalStateException("Can not find color by index $it")
                 val name = resourceColorNames.getString(it) ?: ""

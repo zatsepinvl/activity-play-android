@@ -92,8 +92,8 @@
         android:name="com.zatsepinvl.activity.play.game.fragment.PlayRoundFragment"
         android:label="InGameFragment">
         <action
-            android:id="@+id/finishRound"
-            app:destination="@id/finishRoundFragment"
+            android:id="@+id/askLastWord"
+            app:destination="@+id/lastWordRoundFragment"
             app:launchSingleTop="true" />
         <action
             android:id="@+id/canvas"
@@ -123,8 +123,8 @@
         android:name="com.zatsepinvl.activity.play.game.fragment.CanvasFragment"
         android:label="CanvasFragment" >
         <action
-            android:id="@+id/finishRound"
-            app:destination="@id/finishRoundFragment" />
+            android:id="@+id/askLastWord"
+            app:destination="@+id/lastWordRoundFragment" />
     </fragment>
     <fragment
         android:id="@+id/introFragment"
@@ -133,6 +133,14 @@
         <action
             android:id="@+id/mainMenu"
             app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/lastWordRoundFragment"
+        android:name="com.zatsepinvl.activity.play.game.fragment.LastWordRoundFragment"
+        android:label="LastWordRoundFragment" >
+        <action
+            android:id="@+id/finishRound"
+            app:destination="@id/finishRoundFragment" />
     </fragment>
 
 </navigation>
