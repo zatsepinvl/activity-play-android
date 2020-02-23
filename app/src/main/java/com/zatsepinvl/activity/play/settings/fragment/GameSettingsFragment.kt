@@ -18,11 +18,12 @@ import com.google.android.material.snackbar.Snackbar
 import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.android.color
 import com.zatsepinvl.activity.play.android.fragment.DaggerPreferenceFragmentCompat
+import com.zatsepinvl.activity.play.databinding.ViewSettingsHeaderBinding
 import com.zatsepinvl.activity.play.dictionary.DictionaryService
 import com.zatsepinvl.activity.play.dictionary.getSupportedLanguageFromTag
-import com.zatsepinvl.activity.play.settings.service.ActivityPlayPreference
 import com.zatsepinvl.activity.play.settings.model.ActivityPlayPreferenceActionKey
 import com.zatsepinvl.activity.play.settings.model.ActivityPlayPreferenceKey.*
+import com.zatsepinvl.activity.play.settings.service.ActivityPlayPreference
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -51,26 +52,6 @@ class GameSettingsFragment : DaggerPreferenceFragmentCompat() {
         }
     }
 
-    //Hack to add header to preference screen
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val view = super.onCreateView(inflater, container, savedInstanceState)
-
-        val header = layoutInflater.inflate(R.layout.view_settings_header, null)
-        (view as ViewGroup).addView(header, 0,
-            FrameLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT).apply {
-                setMargins(20, 20, 20, 30)
-            }
-        )
-        header.findViewById<View>(R.id.settingsBackButton)
-            .setOnClickListener { findNavController().popBackStack() }
-
-        return view
-    }
-
     private fun onDictionaryLanguageChanged(newLangTag: String) {
         viewLifecycleOwner.lifecycleScope.launch {
             val snackbar = Snackbar.make(
@@ -95,6 +76,21 @@ class GameSettingsFragment : DaggerPreferenceFragmentCompat() {
                 getSupportedLanguageFromTag(newLangTag)
             )
         }
+    }
+
+    //Workaround to add header to preference screen
+    override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View? {
+        val view = super.onCreateView(inflater, root, state) as ViewGroup
+        val dinging = ViewSettingsHeaderBinding.inflate(inflater)
+        val header = dinging.root
+        view.addView(header, 0,
+            FrameLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT).apply {
+                setMargins(20, 20, 20, 30)
+            }
+        )
+        dinging.settingsBackButton.setOnClickListener { findNavController().popBackStack() }
+
+        return view
     }
 
 }
