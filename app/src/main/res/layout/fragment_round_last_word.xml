@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewmodel"
+            type="com.zatsepinvl.activity.play.game.viewmodel.PlayRoundViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="26dp"
+                android:src="@drawable/finish" />
+
+            <TextView
+                style="@style/Widget.ActivityPlay.TextView.Header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/round_is_over"
+                android:textColor="@{viewmodel.currentTeam.color}" />
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/managed_to_guess_last_word"
+                android:textAlignment="center"
+                android:textSize="22sp"
+                tools:text="Managed to guess last word?" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{viewmodel.currentTask.word.value}"
+                android:textAlignment="center"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                tools:text="Word" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:orientation="horizontal">
+
+            <com.zatsepinvl.activity.play.android.view.Button
+                android:id="@+id/roundLastWordNoButton"
+                style="@style/Widget.ActivityPlay.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1"
+                android:text="No"
+                app:color="@color/md_grey_600" />
+
+            <com.zatsepinvl.activity.play.android.view.Button
+                android:id="@+id/roundLastWordYesButton"
+                style="@style/Widget.ActivityPlay.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_gravity="center|bottom"
+                android:layout_weight="1"
+                android:text="YES"
+                app:color="@{viewmodel.currentTeam.color}" />
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>
