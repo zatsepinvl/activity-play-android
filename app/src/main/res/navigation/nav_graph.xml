@@ -12,6 +12,9 @@
         <action
             android:id="@+id/home"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/intro"
+            app:destination="@id/introFragment" />
     </fragment>
 
     <fragment
@@ -55,6 +58,9 @@
                 android:defaultValue="NEW_GAME"
                 app:argType="com.zatsepinvl.activity.play.navigation.NavigationFlow" />
         </action>
+        <action
+            android:id="@+id/gameSettings"
+            app:destination="@id/gameSettingsFragment" />
     </fragment>
 
     <fragment

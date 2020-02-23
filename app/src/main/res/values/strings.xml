@@ -128,7 +128,7 @@
     <string name="total_score">Total score</string>
     <string name="done">Done</string>
     <string name="add_new">Add new</string>
-    <string name="start_new_game">Start new game</string>
+    <string name="start_game">Start game</string>
     <string name="activity_play">Activity Play</string>
     <string name="name">Name</string>
     <string name="i_am_filling_lucky">I\'am Filling lucky</string>
@@ -144,7 +144,7 @@
     <string name="slide_participants_title">Step 1: Participants</string>
     <string name="slide_participants_description">Meet your friends and split into teams at least 2 members in each</string>
     <string name="slide_teams_title">Step 2: Teams</string>
-    <string name="slide_teams_description">Choose name and color for each team</string>
+    <string name="slide_teams_description">Choose name and color of each team</string>
     <string name="slide_game_title">Step 3: Game</string>
     <string name="slide_game_description">One player has to act pantomime or to describe or to paint a phrase given on a screen and the other members of his team have to find out what that should be</string>
     <string name="slide_enjoy_title">Step 4: Play and enjoy</string>

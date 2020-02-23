@@ -6,12 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.preference.PreferenceManager
 import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.dictionary.DictionaryService
 import dagger.android.support.DaggerFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
+
+
+const val FIRST_VISIT_SP_NAME = "firstVisit"
 
 class SplashScreenFragment : DaggerFragment() {
     @Inject
@@ -22,7 +26,14 @@ class SplashScreenFragment : DaggerFragment() {
             withContext(Dispatchers.IO) {
                 dictionaryService.loadDictionary()
             }
-            findNavController().navigate(SplashScreenFragmentDirections.home())
+
+            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            if (preferences.getBoolean(FIRST_VISIT_SP_NAME, true)) {
+                preferences.edit().putBoolean(FIRST_VISIT_SP_NAME, false).apply()
+                findNavController().navigate(SplashScreenFragmentDirections.intro())
+            } else {
+                findNavController().navigate(SplashScreenFragmentDirections.home())
+            }
         }
     }
 

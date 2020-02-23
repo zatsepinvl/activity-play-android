@@ -57,8 +57,8 @@ class StartRoundFragment : DaggerFragment() {
             viewModel.startNewGame()
         } else {
             viewModel.start()
-            (activity as ColoredView).changeBackgroundColor(viewModel.currentTeam.color)
         }
+        (activity as ColoredView).changeBackgroundColor(viewModel.currentTeam.color)
         if (viewModel.isGameFinished()) {
             findNavController().navigate(R.id.finishGameFragment)
         }

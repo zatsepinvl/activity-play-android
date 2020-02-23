@@ -52,10 +52,27 @@
                 app:icon="@drawable/ic_add_white_24dp" />
         </LinearLayout>
 
-        <com.zatsepinvl.activity.play.android.view.Button
-            android:id="@+id/teamListStartNewGameButton"
-            style="@style/Widget.ActivityPlay.Button.OutlinedButton"
-            android:layout_gravity="bottom|center"
-            android:text="@string/start_new_game" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="horizontal">
+
+            <com.zatsepinvl.activity.play.android.view.Button
+                android:id="@+id/teamListSettingsButton"
+                style="@style/Widget.ActivityPlay.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_marginEnd="20dp"
+                android:layout_weight="1"
+                android:text="@string/settings" />
+
+            <com.zatsepinvl.activity.play.android.view.Button
+                android:id="@+id/teamListStartNewGameButton"
+                style="@style/Widget.ActivityPlay.Button.OutlinedButton"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/start_game" />
+        </LinearLayout>
+
     </FrameLayout>
 </layout>

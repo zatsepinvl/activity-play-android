@@ -14,7 +14,6 @@ import com.zatsepinvl.activity.play.android.dismissDialog
 import com.zatsepinvl.activity.play.databinding.FragmentTeamListBinding
 import com.zatsepinvl.activity.play.databinding.ViewTeamListItemBinding
 import com.zatsepinvl.activity.play.di.ViewModelAwareFragment
-import com.zatsepinvl.activity.play.navigation.NavigationFlow.NEW_GAME
 import com.zatsepinvl.activity.play.team.model.*
 import com.zatsepinvl.activity.play.team.viewmodel.DeleteTeamErrorCode.AT_LEAST_TWO_TEAMS_REQUIRED
 import com.zatsepinvl.activity.play.team.viewmodel.TeamSettingsViewModel
@@ -39,9 +38,8 @@ class TeamListFragment :
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initStartNewGameButton()
+        initNavButton()
         initAddNewTeamButton()
-        teamListBackButton.setOnClickListener { findNavController().popBackStack() }
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -55,13 +53,15 @@ class TeamListFragment :
         }
     }
 
-    private fun initStartNewGameButton() {
-        if (args.navigationFlow != NEW_GAME) {
-            teamListStartNewGameButton.visibility = View.GONE
-        } else {
-            teamListStartNewGameButton.setOnClickListener {
-                findNavController().navigate(TeamListFragmentDirections.startRound())
-            }
+    private fun initNavButton() {
+        teamListSettingsButton.setOnClickListener {
+            findNavController().navigate(TeamListFragmentDirections.gameSettings())
+        }
+        teamListStartNewGameButton.setOnClickListener {
+            findNavController().navigate(TeamListFragmentDirections.startRound())
+        }
+        teamListBackButton.setOnClickListener {
+            findNavController().popBackStack()
         }
     }
 
