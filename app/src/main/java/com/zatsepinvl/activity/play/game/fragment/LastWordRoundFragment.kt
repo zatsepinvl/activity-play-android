@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.zatsepinvl.activity.play.android.fragment.disableBackButton
@@ -29,16 +30,19 @@ class LastWordRoundFragment : DaggerFragment() {
         val dataBinding = FragmentRoundLastWordBinding.inflate(inflater, root, false)
         dataBinding.viewmodel = viewModel
         dataBinding.lifecycleOwner = this
-
-        dataBinding.roundLastWordNoButton.setOnClickListener {
-            findNavController().navigate(LastWordRoundFragmentDirections.finishRound())
-        }
+        viewModel.startLastWordTimer()
 
         dataBinding.roundLastWordYesButton.setOnClickListener {
             viewModel.completeLastWord()
-            findNavController().navigate(LastWordRoundFragmentDirections.finishRound())
+            finishRound()
         }
+        dataBinding.roundLastWordNoButton.setOnClickListener { finishRound() }
+        viewModel.lastWordTimerFinishedEvent.observe(this, Observer { finishRound() })
 
         return dataBinding.root
+    }
+
+    private fun finishRound() {
+        findNavController().navigate(LastWordRoundFragmentDirections.finishRound())
     }
 }

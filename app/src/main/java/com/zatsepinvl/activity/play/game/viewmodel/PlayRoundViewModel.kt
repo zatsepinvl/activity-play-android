@@ -12,6 +12,8 @@ import com.zatsepinvl.activity.play.team.model.Team
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
+const val SECONDS_FOR_LAST_WORD = 10
+
 class PlayRoundViewModel @Inject constructor(
     private val gameService: GameService,
     private val settingsService: GameSettingsService
@@ -22,6 +24,7 @@ class PlayRoundViewModel @Inject constructor(
     val currentTeamRoundScore = MutableLiveData<Int>()
     val isWordHidden = MutableLiveData<Boolean>()
     val finishRoundEvent = SingleLiveEvent<Void>()
+    val lastWordTimerFinishedEvent = SingleLiveEvent<Void>()
 
     lateinit var currentTeam: Team
         private set
@@ -43,7 +46,7 @@ class PlayRoundViewModel @Inject constructor(
         currentTeam = gameService.currentTeam()
         currentTask.value = game.startRound()
         updateCurrentTeamRoundScore()
-        startTimer()
+        startGameTimer()
         roundPlaying = true
     }
 
@@ -76,11 +79,24 @@ class PlayRoundViewModel @Inject constructor(
         gameService.saveGame(game)
     }
 
-    private fun startTimer() {
+    private fun startGameTimer() {
         val secondsPerRound = settingsService.getSecondsForRound()
-        remainingTimeSeconds.value = secondsPerRound
+        startTimer(secondsPerRound) {
+            stopRound()
+        }
+    }
+
+    fun startLastWordTimer() {
+        val secondsForLastWord = SECONDS_FOR_LAST_WORD
+        startTimer(secondsForLastWord) {
+            lastWordTimerFinishedEvent.call()
+        }
+    }
+
+    private fun startTimer(durationSeconds: Int, onFinish: () -> Unit) {
+        remainingTimeSeconds.value = durationSeconds
         timer = object : CountDownTimer(
-            TimeUnit.SECONDS.toMillis(secondsPerRound.toLong()),
+            TimeUnit.SECONDS.toMillis(durationSeconds.toLong()),
             TimeUnit.SECONDS.toMillis(1)
         ) {
             override fun onTick(millisUntilFinished: Long) {
@@ -90,7 +106,7 @@ class PlayRoundViewModel @Inject constructor(
             }
 
             override fun onFinish() {
-                stopRound()
+                onFinish()
             }
         }.start()
     }

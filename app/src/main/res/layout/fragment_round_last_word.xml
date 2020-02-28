@@ -55,6 +55,17 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 tools:text="Word" />
+
+            <TextView
+                android:id="@+id/gameFrameRemainingTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                tools:hint="10 seconds left"
+                android:text="@{@string/inRoundSecondsLeft(viewmodel.remainingTimeSeconds)}"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
         </LinearLayout>
 
         <LinearLayout
