@@ -53,7 +53,7 @@ class GameSettingsFragment : DaggerPreferenceFragmentCompat() {
     }
 
     private fun onDictionaryLanguageChanged(newLangTag: String) {
-        viewLifecycleOwner.lifecycleScope.launch {
+        requireActivity().lifecycleScope.launch {
             val snackbar = Snackbar.make(
                 view!!,
                 R.string.loading_dictionary_progress_title,
@@ -65,8 +65,11 @@ class GameSettingsFragment : DaggerPreferenceFragmentCompat() {
                     )
             }
             snackbar.show()
-            uploadDictionary(newLangTag)
-            snackbar.dismiss()
+            try {
+                uploadDictionary(newLangTag)
+            } finally {
+                snackbar.dismiss()
+            }
         }
     }
 

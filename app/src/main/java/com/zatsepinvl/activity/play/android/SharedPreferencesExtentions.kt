@@ -2,9 +2,7 @@ package com.zatsepinvl.activity.play.android
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.DialogInterface
 import android.content.SharedPreferences
-import androidx.core.content.ContextCompat
 import com.google.gson.Gson
 
 fun Context.privateSp(name: String): SharedPreferences {
@@ -41,7 +39,6 @@ fun <T> SharedPreferences.getFromJson(key: String, clazz: Class<T>): T? {
     return Gson().fromJson(json, clazz)
 }
 
-
 inline fun <reified T> SharedPreferences.containsJson(): Boolean {
     val clazz = T::class.java
     return this.contains(clazz.name)
@@ -49,10 +46,4 @@ inline fun <reified T> SharedPreferences.containsJson(): Boolean {
 
 fun <T> SharedPreferences.containsJson(clazz: Class<T>): Boolean {
     return this.contains(clazz.name)
-}
-
-val dismissDialog = { d: DialogInterface, _: Any -> d.dismiss() }
-
-fun Context.color(resource: Int): Int {
-    return ContextCompat.getColor(this, resource)
 }

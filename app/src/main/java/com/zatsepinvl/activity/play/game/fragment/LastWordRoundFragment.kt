@@ -37,7 +37,7 @@ class LastWordRoundFragment : DaggerFragment() {
             finishRound()
         }
         dataBinding.roundLastWordNoButton.setOnClickListener { finishRound() }
-        viewModel.lastWordTimerFinishedEvent.observe(this, Observer { finishRound() })
+        viewModel.lastWordTimerFinishedEvent.observe(viewLifecycleOwner, Observer { finishRound() })
 
         return dataBinding.root
     }
