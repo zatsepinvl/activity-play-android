@@ -15,6 +15,7 @@ import androidx.preference.CheckBoxPreference
 import androidx.preference.ListPreference
 import androidx.preference.SeekBarPreference
 import com.google.android.material.snackbar.Snackbar
+import com.yariksoffice.lingver.Lingver
 import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.android.color
 import com.zatsepinvl.activity.play.android.fragment.DaggerPreferenceFragmentCompat
@@ -54,22 +55,28 @@ class GameSettingsFragment : DaggerPreferenceFragmentCompat() {
 
     private fun onDictionaryLanguageChanged(newLangTag: String) {
         requireActivity().lifecycleScope.launch {
-            val snackbar = Snackbar.make(
-                view!!,
-                R.string.loading_dictionary_progress_title,
-                Snackbar.LENGTH_INDEFINITE
-            ).apply {
-                view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
-                    .setTextColor(
-                        context.color(R.color.md_white_1000)
-                    )
-            }
+            Lingver.getInstance().setLocale(requireContext(), newLangTag)
+            findNavController().navigate(GameSettingsFragmentDirections.refresh())
+            val snackbar = createLoadDictionarySnackbar()
             snackbar.show()
             try {
                 uploadDictionary(newLangTag)
             } finally {
                 snackbar.dismiss()
             }
+        }
+    }
+
+    private fun createLoadDictionarySnackbar(): Snackbar {
+        return Snackbar.make(
+            view!!,
+            R.string.loading_dictionary_progress_title,
+            Snackbar.LENGTH_INDEFINITE
+        ).apply {
+            view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+                .setTextColor(
+                    context.color(R.color.md_white_1000)
+                )
         }
     }
 

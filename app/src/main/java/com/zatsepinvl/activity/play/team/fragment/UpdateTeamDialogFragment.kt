@@ -7,7 +7,7 @@ import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.zatsepinvl.activity.play.R
-import com.zatsepinvl.activity.play.android.dismissDialog
+import com.zatsepinvl.activity.play.android.fragment.dismissDialog
 import com.zatsepinvl.activity.play.color.ColorId
 import com.zatsepinvl.activity.play.color.ColorService
 import com.zatsepinvl.activity.play.databinding.DialogAddNewTeamBinding
@@ -104,7 +104,9 @@ class UpdateTeamDialogFragment : DaggerDialogFragment() {
             .setPositiveButton(dialog.positiveButtonRes) { _, _ ->
                 targetFragment?.onActivityResult(targetRequestCode, RESULT_OK.code, dialog.intent)
             }
-            .setNegativeButton(R.string.cancel, dismissDialog)
+            .setNegativeButton(R.string.cancel,
+                dismissDialog
+            )
             .setTitle(dialog.dialogTitleRes)
             .create()
     }

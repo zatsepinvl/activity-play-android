@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.zatsepinvl.activity.play.R
-import com.zatsepinvl.activity.play.android.dismissDialog
+import com.zatsepinvl.activity.play.android.fragment.dismissDialog
 import com.zatsepinvl.activity.play.databinding.FragmentTeamListBinding
 import com.zatsepinvl.activity.play.databinding.ViewTeamListItemBinding
 import com.zatsepinvl.activity.play.di.ViewModelAwareFragment
@@ -91,12 +91,16 @@ class TeamListFragment :
             when (viewModel.canDeleteTeam()) {
                 AT_LEAST_TWO_TEAMS_REQUIRED -> AlertDialog.Builder(requireContext())
                     .setMessage(R.string.deleteTeamDialogNotEnoughTeams)
-                    .setPositiveButton(R.string.ok, dismissDialog)
+                    .setPositiveButton(R.string.ok,
+                        dismissDialog
+                    )
                     .show()
                 else -> AlertDialog.Builder(requireContext())
                     .setMessage(R.string.deleteTeamDialogMessage)
                     .setPositiveButton(R.string.delete) { _, _ -> viewModel.deleteTeam(team.id) }
-                    .setNegativeButton(R.string.cancel, dismissDialog)
+                    .setNegativeButton(R.string.cancel,
+                        dismissDialog
+                    )
                     .show()
             }
         }

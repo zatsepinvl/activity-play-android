@@ -10,7 +10,7 @@
             android:summary="%s"
             app:defaultValue="default"
             app:key="dictionaryLanguage"
-            app:title="Dictionary language" />
+            app:title="@string/settings_language" />
 
         <SwitchPreferenceCompat
             app:defaultValue="false"

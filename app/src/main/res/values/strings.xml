@@ -150,5 +150,6 @@
     <string name="slide_enjoy_title">Step 4: Play and Enjoy!</string>
     <string name="slide_enjoy_description" />
     <string name="managed_to_guess_last_word">Managed to guess the last word?</string>
+    <string name="settings_language">Language</string>
 
 </resources>
