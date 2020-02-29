@@ -30,7 +30,7 @@ class GameServiceImpl @Inject constructor(
     override fun createNewGame(): ActivityGame {
         return ActivityGame(
             gameSettingsService.getSettings(),
-            dictionaryService.loadDictionary()
+            dictionaryService.getDictionary()
         )
     }
 

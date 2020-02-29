@@ -11,7 +11,6 @@
         <item>Russian</item>
     </string-array>
 
-    <string name="title_activity_game" translatable="false">GameActivity</string>
     <string name="wordMask" translatable="false">*****</string>
 
     <string name="loading_dictionary_progress_title">Loading dictionary...</string>
@@ -93,16 +92,15 @@
         <item>Salt Lake</item>
     </array>
 
-    <string name="created_by"><u>Created by Vladimir Zatsepin</u></string>
     <string name="teamPlaysRound">Round %d - %s plays!</string>
     <string name="roundMaxScore">max score is %d</string>
     <string name="inRoundSecondsLeft">%d seconds left</string>
     <string name="roundScore">Score %d</string>
     <string name="winnerTeamTitle">%s wins!</string>
-    <string name="teamNameWithPosition">%d. %s</string>
+    <string name="teamNameWithPosition" translatable="false">%d. %s</string>
     <string name="deleteTeamDialogMessage">Do you want to delete team?</string>
     <string name="delete">Delete</string>
-    <string name="ok">OK</string>
+    <string name="ok" translatable="false">OK</string>
     <string name="cancel">Cancel</string>
     <string name="deleteTeamDialogNotEnoughTeams">You can not delete team as at least two teams are required for game.</string>
     <string name="add">Add</string>
@@ -111,25 +109,22 @@
     <string name="editTeam">Edit team</string>
     <string name="default_team_1_name">Watermelon</string>
     <string name="default_team_2_name">Strawberry</string>
-    <string name="open_github_page">Open GitHub Page</string>
-    <string name="send_email">Send email</string>
-    <string name="github_link">https://github.com/zatsepinvl/activity-play-android</string>
-    <string name="email_intent_data">mailto:zatsepin.vl@gmail.com?subject=ActivityPlay Feedback</string>
-    <string name="contact_me_main_text">Hello! My name is Vladimir Zatsepin. I am the creator of Activity Play. Thank you for playing the app. I hope you really like it. If you have any questions, please do not hesitate to contact me by email of visit official project\'s GitHub page.</string>
-    <string name="new_game">New game</string>
-    <string name="continue_str">Continue</string>
+    <string name="github_link" translatable="false">https://github.com/zatsepinvl/activity-play-android</string>
+    <string name="email_intent_data" translatable="false">mailto:zatsepin.vl@gmail.com?subject=ActivityPlay Feedback</string>
+    <string name="home_new_game">New game</string>
+    <string name="home_continue">Continue</string>
     <string name="start_round">Start round</string>
     <string name="main_menu">Main menu</string>
-    <string name="draw">DRAW</string>
+    <string name="draw">Paint</string>
     <string name="finish_round">Finish round</string>
     <string name="skip_word">Skip word</string>
-    <string name="next_word">Next word</string>
+    <string name="next_word">Guessed</string>
     <string name="round_is_over">Round is over</string>
     <string name="total_score">Total score</string>
     <string name="done">Done</string>
     <string name="add_new">Add new</string>
     <string name="start_game">Start game</string>
-    <string name="activity_play">Activity Play</string>
+    <string name="activity_play" translatable="false">Activity Play</string>
     <string name="name">Name</string>
     <string name="i_am_filling_lucky">I\'am Filling lucky</string>
     <string name="color">Color</string>
@@ -142,14 +137,19 @@
     <string name="slide_welcome_title">Welcome to Activity Play</string>
     <string name="slide_welcome_description">Do you like funny parties or intellectual games? Can you explain word so that your friends guess it? Let’s try!</string>
     <string name="slide_participants_title">Step 1: Participants</string>
-    <string name="slide_participants_description">Meet your friends and split into teams at least 2 members in each</string>
+    <string name="slide_participants_description">Meet your friends and split into teams at least 2 members in each.</string>
     <string name="slide_teams_title">Step 2: Teams</string>
-    <string name="slide_teams_description">Choose name and color of each team</string>
+    <string name="slide_teams_description">Choose name and color of each team.</string>
     <string name="slide_game_title">Step 3: Game</string>
-    <string name="slide_game_description">One player has to act pantomime or to describe or to paint a phrase given on a screen and the other members of his team have to find out what that should be</string>
-    <string name="slide_enjoy_title">Step 4: Play and Enjoy!</string>
-    <string name="slide_enjoy_description" />
+    <string name="slide_game_description">One player has to act pantomime or to describe or to paint a phrase given on a screen and the other members of his team have to find out what that should be.</string>
+    <string name="slide_enjoy_title">Step 4</string>
+    <string name="slide_enjoy_description" >Play and Enjoy!</string>
     <string name="managed_to_guess_last_word">Managed to guess the last word?</string>
     <string name="settings_language">Language</string>
+    <string name="last_word_yes">YES</string>
+    <string name="last_word_no">No</string>
+    <string name="game_action_draw">Paint</string>
+    <string name="game_action_show">Pantomime</string>
+    <string name="game_action_say">Describe</string>
 
 </resources>

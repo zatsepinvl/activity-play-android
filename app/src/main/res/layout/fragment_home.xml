@@ -34,14 +34,14 @@
             <com.zatsepinvl.activity.play.android.view.Button
                 android:id="@+id/homeNewGameButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton"
-                android:text="@string/new_game" />
+                android:text="@string/home_new_game" />
 
             <com.zatsepinvl.activity.play.android.view.Button
                 android:id="@+id/homeContinueButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton"
                 android:layout_marginTop="20dp"
                 android:enabled="@{viewmodel.canContinueGame()}"
-                android:text="@string/continue_str"
+                android:text="@string/home_continue"
                 app:color="@{viewmodel.canContinueGame() ? @color/colorPrimary : @color/md_grey_600}" />
 
             <com.zatsepinvl.activity.play.android.view.Button
@@ -69,7 +69,7 @@
                 android:id="@+id/viewOnGithub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="80dp"
+                android:layout_marginEnd="60dp"
                 android:autoLink="all"
                 android:drawableStart="@drawable/ic_github_18dp"
                 android:drawablePadding="4dp"

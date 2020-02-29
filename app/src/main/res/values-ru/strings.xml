@@ -61,5 +61,57 @@
         <item>Колумбия</item>
         <item>Солт-Лейк</item>
     </array>
+    <string name="add">Добавить</string>
+    <string name="addTeam">Добавить команду</string>
+    <string name="add_new">Новая команда</string>
+    <string name="cancel">Отменить</string>
+    <string name="color">Цвет</string>
+    <string name="contact_me">Отправить email</string>
+    <string name="default_team_1_name">Арбузики</string>
+    <string name="default_team_2_name">Малинки</string>
+    <string name="delete">Удалить</string>
+    <string name="deleteTeamDialogMessage">Вы действительно хотите удалить команду?</string>
+    <string name="deleteTeamDialogNotEnoughTeams">Вы не можете удалить команду. Для игры нужны хотя бы две команды.</string>
+    <string name="done">Готово</string>
+    <string name="draw">Нарисовать</string>
+    <string name="editTeam">Редактировать команду</string>
+    <string name="finish_round">Закончить раунд</string>
+    <string name="home_continue">Продолжить</string>
+    <string name="home_new_game">Новая игра</string>
+    <string name="i_am_filling_lucky">Мне повезет</string>
+    <string name="inRoundSecondsLeft">%d</string>
+    <string name="main_menu">Главное меню</string>
+    <string name="managed_to_guess_last_word">Угадали последнее слово?</string>
+    <string name="name">Название</string>
+    <string name="next_word">Угадали</string>
+    <string name="roundMaxScore">игра идет до %d очков</string>
+    <string name="roundScore">Счет %d</string>
+    <string name="round_is_over">Раунд окончен</string>
+    <string name="save">Сохранить</string>
+    <string name="settings">Настройки</string>
+    <string name="skip_word">Пропустить</string>
+    <string name="slide_enjoy_title">Шаг 4</string>
+    <string name="slide_game_description">Один игрок должен объйснить слово рисуя, показывая или объясняя его другим членам команды, который должны его отгадать.</string>
+    <string name="slide_game_title">Шаг 3: Игра</string>
+    <string name="slide_participants_description">Соберите друзей, и разделитесь на команды по 2 человека в каждой минимум.</string>
+    <string name="slide_participants_title">Шаг 1: Участники</string>
+    <string name="slide_teams_description">Укажите название и цвет для каждой команды. Цвет подскажет какая команда играет в данным момент.</string>
+    <string name="slide_teams_title">Шаг 2: Команды</string>
+    <string name="slide_welcome_description">Любите интелектуальные игры? Можете объяснить слово друзьям так, чтобы они его угадали? Давайте проверим!</string>
+    <string name="slide_welcome_title">Добро пожаловать в ActivityPlay</string>
+    <string name="start_game">Начать игру</string>
+    <string name="start_round">Начать раунд</string>
+    <string name="teamPlaysRound">Раунд %d - %s играют!</string>
+    <string name="team_list">Список Команд</string>
+    <string name="total_score">Общий счет</string>
+    <string name="tutorial">Инструкция</string>
+    <string name="view_on_github">Открыть на GitHub</string>
+    <string name="winnerTeamTitle">Команда %s побеждает!</string>
+    <string name="slide_enjoy_description">Играйте и наслаждайтесь!</string>
+    <string name="last_word_no">Нет</string>
+    <string name="last_word_yes">Да</string>
+    <string name="game_action_draw">Нарисовать</string>
+    <string name="game_action_say">Объяснить</string>
+    <string name="game_action_show">Показать</string>
 
 </resources>

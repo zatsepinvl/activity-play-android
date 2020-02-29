@@ -41,8 +41,9 @@
 
                 <TextView
                     style="@style/Widget.ActivityPlay.TextView.Body"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textAlignment="center"
                     android:drawableTop="@drawable/video_player"
                     android:text="@{@string/teamPlaysRound(viewmodel.currentRound(),viewmodel.currentTeam.name)}"
                     android:textColor="@{viewmodel.currentTeam.color}"
@@ -51,7 +52,8 @@
 
                 <TextView
                     style="@style/Widget.ActivityPlay.TextView.Body"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
+                    android:textAlignment="center"
                     android:layout_height="wrap_content"
                     android:text="@{@string/roundMaxScore(viewmodel.gameSettings().maxScore)}"
                     android:textColor="@{viewmodel.currentTeam.color}"

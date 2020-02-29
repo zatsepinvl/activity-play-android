@@ -39,9 +39,19 @@
                 android:textColor="@{viewmodel.currentTeam.color}" />
 
             <TextView
-                android:layout_marginTop="20dp"
+                android:id="@+id/gameFrameRemainingTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@{@string/inRoundSecondsLeft(viewmodel.remainingTimeSeconds)}"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                tools:hint="10 seconds left" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:text="@string/managed_to_guess_last_word"
                 android:textAlignment="center"
                 android:textSize="22sp"
@@ -56,15 +66,6 @@
                 android:textStyle="bold"
                 tools:text="Word" />
 
-            <TextView
-                android:id="@+id/gameFrameRemainingTime"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="40dp"
-                tools:hint="10 seconds left"
-                android:text="@{@string/inRoundSecondsLeft(viewmodel.remainingTimeSeconds)}"
-                android:textAlignment="center"
-                android:textSize="20sp" />
 
         </LinearLayout>
 
@@ -80,7 +81,7 @@
                 android:layout_width="0dp"
                 android:layout_marginEnd="20dp"
                 android:layout_weight="1"
-                android:text="No"
+                android:text="@string/last_word_no"
                 app:color="@color/md_grey_600" />
 
             <com.zatsepinvl.activity.play.android.view.Button
@@ -89,7 +90,7 @@
                 android:layout_width="0dp"
                 android:layout_gravity="center|bottom"
                 android:layout_weight="1"
-                android:text="YES"
+                android:text="@string/last_word_yes"
                 app:color="@{viewmodel.currentTeam.color}" />
         </LinearLayout>
 

@@ -5,7 +5,6 @@ import android.content.res.AssetManager
 import com.zatsepinvl.activity.play.core.Dictionary
 import com.zatsepinvl.activity.play.core.Word
 import com.zatsepinvl.activity.play.core.WordType
-import com.zatsepinvl.activity.play.settings.service.ActivityPlayPreference
 import java.io.InputStream
 import java.nio.charset.StandardCharsets
 import java.util.*
@@ -13,31 +12,30 @@ import javax.inject.Inject
 
 
 interface DictionaryService {
-    fun loadDictionary(): Dictionary
     fun loadDictionary(language: SupportedLanguage): Dictionary
+    fun getDictionary(): Dictionary
     fun getDefaultLanguage(): SupportedLanguage
 }
 
 class DictionaryServiceImpl @Inject constructor(
     private val context: Context
 ) : DictionaryService {
-
-    private var dictionaryCache: Dictionary? = null
-    private var dictionaryCachedLanguage: SupportedLanguage? = null
-
-    override fun loadDictionary(): Dictionary {
-        val language = getLanguage()
-        return loadDictionary(language)
-    }
+    private var dictionary: Dictionary? = null
+    private var dictionaryLanguage: SupportedLanguage? = null
 
     override fun loadDictionary(language: SupportedLanguage): Dictionary {
-        if (dictionaryCache == null || language != dictionaryCachedLanguage) {
-            dictionaryCachedLanguage = language
-            dictionaryCache = context.assets.dictionary(
+        if (dictionary == null || language != dictionaryLanguage) {
+            dictionaryLanguage = language
+            dictionary = context.assets.dictionary(
                 WordFile("words/words_${language.tag}.txt")
             )
         }
-        return dictionaryCache!!
+        return dictionary!!
+    }
+
+    override fun getDictionary(): Dictionary {
+        checkNotNull(dictionary) { "Dictionary is null, load it first." }
+        return dictionary!!
     }
 
     override fun getDefaultLanguage(): SupportedLanguage {
@@ -45,11 +43,6 @@ class DictionaryServiceImpl @Inject constructor(
             it.tag == Locale.getDefault().language
         } ?: SupportedLanguage.EN
     }
-
-    private fun getLanguage(): SupportedLanguage {
-        return ActivityPlayPreference.getActivityPlayPreferences(context).dictionaryLanguage
-    }
-
 }
 
 data class WordFile(val file: String) {

@@ -4,10 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.zatsepinvl.activity.play.di.ViewModelBuilder
 import com.zatsepinvl.activity.play.di.ViewModelKey
 import com.zatsepinvl.activity.play.game.fragment.*
-import com.zatsepinvl.activity.play.game.service.GameService
-import com.zatsepinvl.activity.play.game.service.GameServiceImpl
-import com.zatsepinvl.activity.play.game.service.GameStateRepository
-import com.zatsepinvl.activity.play.game.service.LocalGameStateRepository
+import com.zatsepinvl.activity.play.game.service.*
 import com.zatsepinvl.activity.play.game.viewmodel.FinishGameViewModel
 import com.zatsepinvl.activity.play.game.viewmodel.PlayRoundViewModel
 import com.zatsepinvl.activity.play.game.viewmodel.StartRoundViewModel
@@ -44,6 +41,10 @@ abstract class GameModule {
     @Binds
     @Singleton
     abstract fun gameService(service: GameServiceImpl): GameService
+
+    @Binds
+    @Singleton
+    abstract fun gameActionService(service: GameActionServiceImpl): GameActionService
 
     @Binds
     @IntoMap
