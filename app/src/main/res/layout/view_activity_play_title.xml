@@ -11,7 +11,7 @@
         android:layout_marginStart="10dp"
         android:drawableStart="@drawable/ic_activity_play_50dp"
         android:drawablePadding="10dp"
-        android:text="@string/activity_play"
+        android:text="@string/app_name"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
         android:textSize="30sp" />

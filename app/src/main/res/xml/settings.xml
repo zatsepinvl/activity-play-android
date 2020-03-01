@@ -2,7 +2,8 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory app:title="General">
+    <PreferenceCategory app:title="@string/settings_general_title">
+
         <ListPreference
             android:defaultValue="false"
             android:entries="@array/words_languages_values"
@@ -15,8 +16,8 @@
         <SwitchPreferenceCompat
             app:defaultValue="false"
             app:key="fineForSkipping"
-            app:summary="If enabled, team will be fined with 1 point for each skipped word"
-            app:title="Make a fine for skipped word" />
+            app:summary="@string/settings_fine_for_skipped_word_summary"
+            app:title="@string/settings_fine_for_skipped_word_title" />
 
         <SeekBarPreference
             android:max="200"
@@ -24,7 +25,7 @@
             app:key="roundTimeSeconds"
             app:min="10"
             app:showSeekBarValue="true"
-            app:title="Seconds for one round"
+            app:title="@string/settings_round_time_seconds_title"
             app:updatesContinuously="true" />
 
         <SeekBarPreference
@@ -33,28 +34,28 @@
             app:key="maxScore"
             app:min="10"
             app:showSeekBarValue="true"
-            app:title="Total score to win"
+            app:title="@string/settings_max_score_title"
             app:updatesContinuously="true" />
-
     </PreferenceCategory>
 
-    <PreferenceCategory app:title="Game actions">
+    <PreferenceCategory app:title="@string/settings_game_actions_title">
+
         <CheckBoxPreference
             app:defaultValue="true"
             app:key="actionSay"
-            app:summary="You have to explain a word saying it`s definition without using root words"
-            app:title="Describe" />
+            app:summary="@string/settings_action_say_summary"
+            app:title="@string/settings_action_say_title" />
 
         <CheckBoxPreference
             app:defaultValue="true"
             app:key="actionDraw"
-            app:summary="You have to explain a word drawing it`s definition without using letters and digits"
-            app:title="Paint" />
+            app:summary="@string/settings_action_draw_summary"
+            app:title="@string/settings_action_draw_title" />
 
         <CheckBoxPreference
             app:defaultValue="true"
             app:key="actionShow"
-            app:summary="You have to explain a word using gestures and body language only"
-            app:title="Act" />
+            app:summary="@string/settings_action_show_summary"
+            app:title="@string/settings_action_show_title" />
     </PreferenceCategory>
 </PreferenceScreen>

@@ -15,6 +15,7 @@ import androidx.preference.CheckBoxPreference
 import androidx.preference.ListPreference
 import androidx.preference.SeekBarPreference
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.snackbar.Snackbar.LENGTH_INDEFINITE
 import com.yariksoffice.lingver.Lingver
 import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.android.color
@@ -68,16 +69,11 @@ class GameSettingsFragment : DaggerPreferenceFragmentCompat() {
     }
 
     private fun createLoadDictionarySnackbar(): Snackbar {
-        return Snackbar.make(
-            view!!,
-            R.string.loading_dictionary_progress_title,
-            Snackbar.LENGTH_INDEFINITE
-        ).apply {
-            view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
-                .setTextColor(
-                    context.color(R.color.md_white_1000)
-                )
-        }
+        return Snackbar.make(view!!, R.string.loading_dictionary_progress_title, LENGTH_INDEFINITE)
+            .apply {
+                view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+                    .setTextColor(context.color(R.color.md_white_1000))
+            }
     }
 
     private suspend fun uploadDictionary(newLangTag: String) {
@@ -114,8 +110,8 @@ private fun CheckBoxPreference.validateAtLeastOneActionEnabled() {
 
         if (!canChangeValue) {
             AlertDialog.Builder(context)
-                .setMessage("You can not disable this action. At least one enabled action is required.")
-                .setPositiveButton("OK") { _, _ -> }
+                .setMessage(R.string.settings_dialog_one_action_required)
+                .setPositiveButton(R.string.ok) { _, _ -> }
                 .show()
         }
 

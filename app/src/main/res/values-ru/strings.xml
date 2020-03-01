@@ -113,5 +113,19 @@
     <string name="game_action_draw">Нарисовать</string>
     <string name="game_action_say">Объяснить</string>
     <string name="game_action_show">Показать</string>
+    <string name="settings_action_draw_summary">Вы должны объяснить слово нарисовав его без использоввания букв и цифр</string>
+    <string name="settings_action_draw_title">Рисовать</string>
+    <string name="settings_action_say_summary">Вы должны объяснить слово устно без использования однокоренных слов</string>
+    <string name="settings_action_say_title">Объяснять словами</string>
+    <string name="settings_action_show_title">Пантомима</string>
+    <string name="settings_action_show_summary">Вы должны объяснить слово молча показав его (крокодил)</string>
+    <string name="settings_fine_for_skipped_word_summary">Команда будет ошрафована на 1 бал, если пропустит слово</string>
+    <string name="settings_fine_for_skipped_word_title">Штраф за пропуск слова</string>
+    <string name="settings_game_actions_title">Действия в игре</string>
+    <string name="settings_general_title">Общие</string>
+    <string name="settings_max_score_title">Кол-во очков до победы</string>
+    <string name="settings_round_time_seconds_title">Кол-во секунд на раунд</string>
+    <string name="ok">Хорошо</string>
+    <string name="settings_dialog_one_action_required">Вы не можете отключить это действие, т.к. хотя бы одно требуется для игры.</string>
 
 </resources>
