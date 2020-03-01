@@ -71,7 +71,7 @@
     <string name="default_team_2_name">Малинки</string>
     <string name="delete">Удалить</string>
     <string name="deleteTeamDialogMessage">Вы действительно хотите удалить команду?</string>
-    <string name="deleteTeamDialogNotEnoughTeams">Вы не можете удалить команду. Для игры нужны хотя бы две команды.</string>
+    <string name="deleteTeamDialogNotEnoughTeams">Вы не можете удалить команду. Для игры нужны хотя бы две.</string>
     <string name="done">Готово</string>
     <string name="draw">Нарисовать</string>
     <string name="editTeam">Редактировать команду</string>
@@ -97,7 +97,7 @@
     <string name="slide_participants_title">Шаг 1: Участники</string>
     <string name="slide_teams_description">Укажите название и цвет для каждой команды. Цвет подскажет какая команда играет в данным момент.</string>
     <string name="slide_teams_title">Шаг 2: Команды</string>
-    <string name="slide_welcome_description">Любите интелектуальные игры? Можете объяснить слово друзьям так, чтобы они его угадали? Давайте проверим!</string>
+    <string name="slide_welcome_description">Любите интеллектуальные игры? Можете объяснить слово друзьям так, чтобы они его угадали? Давайте проверим!</string>
     <string name="slide_welcome_title">Добро пожаловать в ActivityPlay</string>
     <string name="start_game">Начать игру</string>
     <string name="start_round">Начать раунд</string>
