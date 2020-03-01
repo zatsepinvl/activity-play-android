@@ -25,7 +25,7 @@
             android:layout_gravity="end|bottom"
             android:layout_margin="10dp"
             android:src="@drawable/ic_add_white_24dp"
-            android:text="Next"
+            android:text="@string/intro_next_button"
             app:color="@color/md_white_1000" />
 
         <com.zatsepinvl.activity.play.android.view.Button
@@ -35,7 +35,7 @@
             android:layout_gravity="bottom|center_horizontal"
             android:layout_margin="10dp"
             android:src="@drawable/ic_add_white_24dp"
-            android:text="get fun"
+            android:text="@string/intro_finish_button"
             app:color="@color/md_white_1000" />
     </FrameLayout>
 </layout>

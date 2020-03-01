@@ -163,5 +163,7 @@
     <string name="settings_action_show_title">Pantomime</string>
     <string name="settings_action_show_summary">You have to explain a word using gestures and body language only</string>
     <string name="settings_dialog_one_action_required">You can not disable this action. At least one enabled action is required.</string>
+    <string name="intro_finish_button">Get fun</string>
+    <string name="intro_next_button">Next</string>
 
 </resources>

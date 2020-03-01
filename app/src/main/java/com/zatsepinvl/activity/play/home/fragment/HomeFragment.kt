@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.zatsepinvl.activity.play.R
+import com.zatsepinvl.activity.play.android.fragment.disableBackButton
 import com.zatsepinvl.activity.play.color.ColoredView
 import com.zatsepinvl.activity.play.databinding.FragmentHomeBinding
 import com.zatsepinvl.activity.play.home.viewmodel.HomeViewModel
@@ -23,6 +24,11 @@ class HomeFragment : DaggerFragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val viewModel: HomeViewModel by activityViewModels { viewModelFactory }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        disableBackButton()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

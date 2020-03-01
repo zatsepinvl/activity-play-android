@@ -127,5 +127,7 @@
     <string name="settings_round_time_seconds_title">Кол-во секунд на раунд</string>
     <string name="ok">Хорошо</string>
     <string name="settings_dialog_one_action_required">Вы не можете отключить это действие, т.к. хотя бы одно требуется для игры.</string>
+    <string name="intro_finish_button">Повеселимся</string>
+    <string name="intro_next_button">Далее</string>
 
 </resources>
