@@ -1,4 +1,4 @@
-package com.zatsepinvl.activity.play.android.service
+package com.zatsepinvl.activity.play.android.storage
 
 import android.content.Context
 import com.zatsepinvl.activity.play.android.containsJson

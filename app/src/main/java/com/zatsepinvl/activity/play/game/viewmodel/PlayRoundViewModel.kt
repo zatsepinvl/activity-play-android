@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.zatsepinvl.activity.play.android.viewmodel.SingleLiveEvent
 import com.zatsepinvl.activity.play.core.ActivityGame
 import com.zatsepinvl.activity.play.core.model.GameTask
+import com.zatsepinvl.activity.play.effects.EffectsService
 import com.zatsepinvl.activity.play.game.service.GameActionService
 import com.zatsepinvl.activity.play.game.service.GameService
 import com.zatsepinvl.activity.play.settings.service.GameSettingsService
@@ -18,7 +19,8 @@ const val SECONDS_FOR_LAST_WORD = 10
 class PlayRoundViewModel @Inject constructor(
     private val gameService: GameService,
     private val settingsService: GameSettingsService,
-    private val gameActionService: GameActionService
+    private val gameActionService: GameActionService,
+    private val effectsService: EffectsService
 ) : ViewModel() {
 
     val remainingTimeSeconds = MutableLiveData<Int>()
@@ -63,35 +65,40 @@ class PlayRoundViewModel @Inject constructor(
         currentTask.value = game.completeCurrentTask()
         isWordHidden.value = false
         updateCurrentTeamRoundScore()
+        effectsService.playPlusCoinTrack()
+        effectsService.vibrate()
     }
 
     fun skipTask() {
         if (!game.roundIsPlaying) return
         currentTask.value = game.skipCurrentTask()
         updateCurrentTeamRoundScore()
+        effectsService.vibrate()
     }
 
     fun stopRound() {
         stopTimer()
         finishRoundEvent.call()
         roundPlaying = false
+        effectsService.playTimeIsOverTrack()
+        effectsService.vibrate()
     }
 
     fun completeLastWord() {
         game.completeCurrentTask()
         updateCurrentTeamRoundScore()
+        effectsService.playPlusCoinTrack()
     }
 
     fun finishRound() {
         game.finishRound()
         gameService.saveGame(game)
+        stopTimer()
     }
 
     private fun startGameTimer() {
         val secondsPerRound = settingsService.getSecondsForRound()
-        startTimer(secondsPerRound) {
-            stopRound()
-        }
+        startTimer(secondsPerRound) { stopRound() }
     }
 
     fun startLastWordTimer() {
@@ -99,6 +106,10 @@ class PlayRoundViewModel @Inject constructor(
         startTimer(secondsForLastWord) {
             lastWordTimerFinishedEvent.call()
         }
+    }
+
+    override fun onCleared() {
+        stopTimer()
     }
 
     private fun startTimer(durationSeconds: Int, onFinish: () -> Unit) {

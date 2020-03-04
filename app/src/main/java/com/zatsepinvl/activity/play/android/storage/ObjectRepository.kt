@@ -1,4 +1,4 @@
-package com.zatsepinvl.activity.play.android.service
+package com.zatsepinvl.activity.play.android.storage
 
 interface ObjectRepository<T> {
     fun save(obj: T)
