@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.zatsepinvl.activity.play.android.viewmodel.SingleLiveEvent
 import com.zatsepinvl.activity.play.core.ActivityGame
+import com.zatsepinvl.activity.play.core.model.GameAction
 import com.zatsepinvl.activity.play.core.model.GameTask
 import com.zatsepinvl.activity.play.effects.EffectsService
 import com.zatsepinvl.activity.play.game.service.GameActionService
@@ -42,12 +43,9 @@ class PlayRoundViewModel @Inject constructor(
         isWordHidden.value = !(isWordHidden.value ?: false)
     }
 
-    val currentTaskActionLocalName: String
-        get() {
-            return gameActionService.getActionLocalName(
-                currentTask.value!!.action
-            )
-        }
+    fun actionLocalName(action:GameAction):String {
+        return gameActionService.getActionLocalName(action)
+    }
 
     fun start() {
         stopTimer()
