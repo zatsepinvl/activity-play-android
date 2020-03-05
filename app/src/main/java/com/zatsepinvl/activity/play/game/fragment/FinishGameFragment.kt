@@ -11,13 +11,18 @@ import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.color.ColoredView
 import com.zatsepinvl.activity.play.databinding.FragmentGameFinishBinding
 import com.zatsepinvl.activity.play.databinding.ViewGameFinishTeamScoreItemBinding
+import com.zatsepinvl.activity.play.effects.EffectsService
 import com.zatsepinvl.activity.play.game.viewmodel.FinishGameViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 class FinishGameFragment : DaggerFragment() {
+
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    @Inject
+    lateinit var effectsService: EffectsService
 
     private val viewModel: FinishGameViewModel by activityViewModels { viewModelFactory }
 
@@ -44,7 +49,8 @@ class FinishGameFragment : DaggerFragment() {
             }
         }
 
+        effectsService.playGameOverTrack()
+
         return dataBinding.root
     }
-
 }

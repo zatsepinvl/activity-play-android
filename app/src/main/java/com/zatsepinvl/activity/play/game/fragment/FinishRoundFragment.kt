@@ -34,7 +34,6 @@ class FinishRoundFragment : DaggerFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        effectsService.playRandomFinishTrack()
         val dataBinding = FragmentRoundFinishBinding.inflate(inflater, container, false)
         dataBinding.viewmodel = viewModel
         dataBinding.lifecycleOwner = this
@@ -42,6 +41,8 @@ class FinishRoundFragment : DaggerFragment() {
             viewModel.finishRound()
             findNavController().navigate(FinishRoundFragmentDirections.nextRound())
         }
+
+        effectsService.playFinishTrack()
 
         return dataBinding.root
     }

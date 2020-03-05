@@ -6,6 +6,7 @@ import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.android.color
 import java.util.*
 import javax.inject.Inject
+import javax.inject.Singleton
 
 data class Color(
     val id: ColorId,
@@ -36,6 +37,7 @@ enum class ColorId {
     BLACK
 }
 
+@Singleton
 class ColorService @Inject constructor(context: Context) {
     private val colors: Map<ColorId, Color>
 
