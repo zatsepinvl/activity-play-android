@@ -21,7 +21,7 @@ import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.android.color
 import com.zatsepinvl.activity.play.android.fragment.DaggerPreferenceFragmentCompat
 import com.zatsepinvl.activity.play.databinding.ViewSettingsHeaderBinding
-import com.zatsepinvl.activity.play.dictionary.DictionaryService
+import com.zatsepinvl.activity.play.dictionary.DictionaryHolder
 import com.zatsepinvl.activity.play.dictionary.getSupportedLanguageFromTag
 import com.zatsepinvl.activity.play.settings.model.ActivityPlayPreferenceActionKey
 import com.zatsepinvl.activity.play.settings.model.ActivityPlayPreferenceKey.*
@@ -34,7 +34,7 @@ import javax.inject.Inject
 class GameSettingsFragment : DaggerPreferenceFragmentCompat() {
 
     @Inject
-    lateinit var dictionaryService: DictionaryService
+    lateinit var dictionaryHolder: DictionaryHolder
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.settings, rootKey)
@@ -49,7 +49,7 @@ class GameSettingsFragment : DaggerPreferenceFragmentCompat() {
                 true
             }
             if (value == "default") {
-                value = dictionaryService.getDefaultLanguage().tag
+                value = dictionaryHolder.getDefaultLanguage().tag
             }
         }
     }
@@ -78,7 +78,7 @@ class GameSettingsFragment : DaggerPreferenceFragmentCompat() {
 
     private suspend fun uploadDictionary(newLangTag: String) {
         withContext(Dispatchers.IO) {
-            dictionaryService.loadDictionary(
+            dictionaryHolder.loadDictionary(
                 getSupportedLanguageFromTag(newLangTag)
             )
         }

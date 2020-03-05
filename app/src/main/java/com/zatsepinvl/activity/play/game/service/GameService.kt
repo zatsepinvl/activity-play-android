@@ -1,7 +1,7 @@
 package com.zatsepinvl.activity.play.game.service
 
 import com.zatsepinvl.activity.play.core.ActivityGame
-import com.zatsepinvl.activity.play.dictionary.DictionaryService
+import com.zatsepinvl.activity.play.dictionary.DictionaryHolder
 import com.zatsepinvl.activity.play.settings.service.GameSettingsService
 import com.zatsepinvl.activity.play.team.model.Team
 import com.zatsepinvl.activity.play.team.service.TeamService
@@ -19,7 +19,7 @@ interface GameService {
 class GameServiceImpl @Inject constructor(
     private val gameStateRepository: GameStateRepository,
     private val gameSettingsService: GameSettingsService,
-    private val dictionaryService: DictionaryService,
+    private val dictionaryHolder: DictionaryHolder,
     private val teamService: TeamService
 ) : GameService {
 
@@ -30,7 +30,7 @@ class GameServiceImpl @Inject constructor(
     override fun createNewGame(): ActivityGame {
         return ActivityGame(
             gameSettingsService.getSettings(),
-            dictionaryService.getDictionary()
+            dictionaryHolder.getDictionary()
         )
     }
 

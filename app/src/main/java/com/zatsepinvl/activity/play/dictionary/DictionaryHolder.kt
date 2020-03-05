@@ -9,17 +9,19 @@ import java.io.InputStream
 import java.nio.charset.StandardCharsets
 import java.util.*
 import javax.inject.Inject
+import javax.inject.Singleton
 
 
-interface DictionaryService {
+interface DictionaryHolder {
     fun loadDictionary(language: SupportedLanguage): Dictionary
     fun getDictionary(): Dictionary
     fun getDefaultLanguage(): SupportedLanguage
 }
 
-class DictionaryServiceImpl @Inject constructor(
+@Singleton
+class DictionaryHolderImpl @Inject constructor(
     private val context: Context
-) : DictionaryService {
+) : DictionaryHolder {
     private var dictionary: Dictionary? = null
     private var dictionaryLanguage: SupportedLanguage? = null
 

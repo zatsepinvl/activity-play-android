@@ -9,7 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.yariksoffice.lingver.Lingver
 import com.zatsepinvl.activity.play.R
-import com.zatsepinvl.activity.play.dictionary.DictionaryService
+import com.zatsepinvl.activity.play.dictionary.DictionaryHolder
 import com.zatsepinvl.activity.play.settings.service.ActivityPlayPreference
 import dagger.android.support.DaggerFragment
 import kotlinx.coroutines.Dispatchers
@@ -22,7 +22,7 @@ const val FIRST_VISIT_SP_NAME = "firstVisit"
 
 class SplashScreenFragment : DaggerFragment() {
     @Inject
-    lateinit var dictionaryService: DictionaryService
+    lateinit var dictionaryHolder: DictionaryHolder
 
     init {
         lifecycleScope.launchWhenStarted {
@@ -32,7 +32,7 @@ class SplashScreenFragment : DaggerFragment() {
                 .dictionaryLanguage
             Lingver.getInstance().setLocale(context, Locale.forLanguageTag(language.tag))
             withContext(Dispatchers.IO) {
-                dictionaryService.loadDictionary(language)
+                dictionaryHolder.loadDictionary(language)
             }
 
             val preferences = PreferenceManager.getDefaultSharedPreferences(context)
