@@ -12,16 +12,20 @@ import javax.inject.Singleton
 @Singleton
 class EffectsService @Inject constructor(private val context: Context) {
 
+    fun playStartRoundTrack(){
+        playTrack(R.raw.grand_opening)
+    }
+
     fun playPlusCoinTrack() {
-        playTrack(R.raw.plus_coin)
+        playTrack(R.raw.fruit)
     }
 
     fun playTimeIsOverTrack() {
-        playTrack(R.raw.time_is_over)
+        playTrack(R.raw.roots)
     }
 
     fun playFinishTrack() {
-        playTrack(R.raw.finish_round)
+        playTrack(R.raw.flower)
     }
 
     fun playGameOverTrack() {

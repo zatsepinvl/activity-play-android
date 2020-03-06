@@ -38,10 +38,14 @@ enum class ColorId {
 }
 
 @Singleton
-class ColorService @Inject constructor(context: Context) {
-    private val colors: Map<ColorId, Color>
+class ColorService @Inject constructor(private val context: Context) {
+    private var colors: Map<ColorId, Color> = mapOf()
+        get() {
+            require(field.isNotEmpty()) { "Load colors first" }
+            return field
+        }
 
-    init {
+    fun loadColors() {
         val resourceColors = context.resources.obtainTypedArray(R.array.colors)
         val resourceColorNames = context.resources.obtainTypedArray(R.array.color_names)
         val resourceColorIds = context.resources.obtainTypedArray(R.array.colorIds)

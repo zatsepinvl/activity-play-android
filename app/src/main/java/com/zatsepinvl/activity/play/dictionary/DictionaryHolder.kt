@@ -5,6 +5,7 @@ import android.content.res.AssetManager
 import com.zatsepinvl.activity.play.core.Dictionary
 import com.zatsepinvl.activity.play.core.Word
 import com.zatsepinvl.activity.play.core.WordType
+import com.zatsepinvl.activity.play.language.SupportedLanguage
 import java.io.InputStream
 import java.nio.charset.StandardCharsets
 import java.util.*

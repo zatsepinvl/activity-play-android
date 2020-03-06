@@ -5,8 +5,8 @@ import android.content.SharedPreferences
 import android.content.res.Resources
 import androidx.core.os.ConfigurationCompat
 import androidx.preference.PreferenceManager
-import com.zatsepinvl.activity.play.dictionary.SupportedLanguage
-import com.zatsepinvl.activity.play.dictionary.getSupportedLanguageFromTag
+import com.zatsepinvl.activity.play.language.SupportedLanguage
+import com.zatsepinvl.activity.play.language.getSupportedLanguageFromTag
 import com.zatsepinvl.activity.play.settings.model.ActivityPlayPreferenceActionKey
 import com.zatsepinvl.activity.play.settings.model.ActivityPlayPreferenceKey
 import com.zatsepinvl.activity.play.settings.model.ActivityPlayPreferences

@@ -30,10 +30,10 @@ class StartRoundViewModel @Inject constructor(
 
     fun startNewGame() {
         gameService.startNewGame()
-        start()
+        continueGame()
     }
 
-    fun start() {
+    fun continueGame() {
         game = gameService.getSavedGame()
         val teams = teams()
         if (game.currentTeamIndex >= teams.size) {

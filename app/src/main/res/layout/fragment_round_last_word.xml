@@ -79,7 +79,6 @@
                 android:id="@+id/roundLastWordNoButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton"
                 android:layout_width="0dp"
-                android:layout_marginEnd="20dp"
                 android:layout_weight="1"
                 android:text="@string/last_word_no"
                 app:color="@color/md_grey_600" />
@@ -89,6 +88,7 @@
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton"
                 android:layout_width="0dp"
                 android:layout_gravity="center|bottom"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:text="@string/last_word_yes"
                 app:color="@{viewmodel.currentTeam.color}" />

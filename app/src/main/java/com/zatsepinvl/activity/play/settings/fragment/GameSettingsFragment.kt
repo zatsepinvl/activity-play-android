@@ -22,7 +22,8 @@ import com.zatsepinvl.activity.play.android.color
 import com.zatsepinvl.activity.play.android.fragment.DaggerPreferenceFragmentCompat
 import com.zatsepinvl.activity.play.databinding.ViewSettingsHeaderBinding
 import com.zatsepinvl.activity.play.dictionary.DictionaryHolder
-import com.zatsepinvl.activity.play.dictionary.getSupportedLanguageFromTag
+import com.zatsepinvl.activity.play.language.getSupportedLanguageFromTag
+import com.zatsepinvl.activity.play.language.service.AppLanguageService
 import com.zatsepinvl.activity.play.settings.model.ActivityPlayPreferenceActionKey
 import com.zatsepinvl.activity.play.settings.model.ActivityPlayPreferenceKey.*
 import com.zatsepinvl.activity.play.settings.service.ActivityPlayPreference
@@ -35,6 +36,9 @@ class GameSettingsFragment : DaggerPreferenceFragmentCompat() {
 
     @Inject
     lateinit var dictionaryHolder: DictionaryHolder
+
+    @Inject
+    lateinit var languageService: AppLanguageService
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.settings, rootKey)
@@ -61,7 +65,7 @@ class GameSettingsFragment : DaggerPreferenceFragmentCompat() {
             val snackbar = createLoadDictionarySnackbar()
             snackbar.show()
             try {
-                uploadDictionary(newLangTag)
+                updateLanguage(newLangTag)
             } finally {
                 snackbar.dismiss()
             }
@@ -76,11 +80,10 @@ class GameSettingsFragment : DaggerPreferenceFragmentCompat() {
             }
     }
 
-    private suspend fun uploadDictionary(newLangTag: String) {
+    private suspend fun updateLanguage(newLangTag: String) {
         withContext(Dispatchers.IO) {
-            dictionaryHolder.loadDictionary(
-                getSupportedLanguageFromTag(newLangTag)
-            )
+            val language = getSupportedLanguageFromTag(newLangTag)
+            languageService.updateLanguage(language)
         }
     }
 

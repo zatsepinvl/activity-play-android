@@ -55,6 +55,7 @@
             android:id="@+id/roundFinishDoneButton"
             style="@style/Widget.ActivityPlay.Button.OutlinedButton"
             android:layout_gravity="center|bottom"
+            android:layout_width="match_parent"
             android:text="@string/done"
             app:color="@{viewmodel.currentTeam.color}" />
     </FrameLayout>

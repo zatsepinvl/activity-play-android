@@ -151,7 +151,7 @@
     <string name="game_action_show">Pantomime</string>
     <string name="game_action_say">Describe</string>
     <string name="settings_general_title">General</string>
-    <string name="settings_fine_for_skipped_word_title">A skipped word fine</string>
+    <string name="settings_fine_for_skipped_word_title">Skipped word fine</string>
     <string name="settings_fine_for_skipped_word_summary">If enabled, team will be fined 1 point for each skipped word</string>
     <string name="settings_round_time_seconds_title">Seconds per round</string>
     <string name="settings_max_score_title">Points for victory</string>

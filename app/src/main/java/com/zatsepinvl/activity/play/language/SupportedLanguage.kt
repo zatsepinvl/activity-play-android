@@ -1,7 +1,7 @@
-package com.zatsepinvl.activity.play.dictionary
+package com.zatsepinvl.activity.play.language
 
-import com.zatsepinvl.activity.play.dictionary.SupportedLanguage.EN
-import com.zatsepinvl.activity.play.dictionary.SupportedLanguage.RU
+import com.zatsepinvl.activity.play.language.SupportedLanguage.EN
+import com.zatsepinvl.activity.play.language.SupportedLanguage.RU
 import java.util.*
 
 enum class SupportedLanguage {

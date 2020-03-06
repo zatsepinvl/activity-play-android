@@ -13,7 +13,7 @@ import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.color.ColoredView
 import com.zatsepinvl.activity.play.databinding.FragmentRoundStartBinding
 import com.zatsepinvl.activity.play.databinding.ViewTeamBoardItemBinding
-import com.zatsepinvl.activity.play.game.service.GameActionService
+import com.zatsepinvl.activity.play.effects.EffectsService
 import com.zatsepinvl.activity.play.game.viewmodel.StartRoundViewModel
 import com.zatsepinvl.activity.play.navigation.NavigationFlow
 import dagger.android.support.DaggerFragment
@@ -24,7 +24,7 @@ class StartRoundFragment : DaggerFragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     @Inject
-    lateinit var gameActionService: GameActionService
+    lateinit var effectsService: EffectsService
 
     private val args: StartRoundFragmentArgs by navArgs()
 
@@ -35,7 +35,7 @@ class StartRoundFragment : DaggerFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        startViewModel()
+        initViewModel()
 
         val dataBinding = FragmentRoundStartBinding.inflate(inflater, container, false)
         dataBinding.viewmodel = viewModel
@@ -44,6 +44,7 @@ class StartRoundFragment : DaggerFragment() {
             findNavController().navigate(StartRoundFragmentDirections.backToMenu())
         }
         dataBinding.gameStartRoundStartButton.setOnClickListener {
+            effectsService.playStartRoundTrack()
             findNavController().navigate(StartRoundFragmentDirections.playRound())
         }
         requireActivity().onBackPressedDispatcher.addCallback(this) {
@@ -56,16 +57,16 @@ class StartRoundFragment : DaggerFragment() {
     }
 
 
-    private fun startViewModel() {
+    private fun initViewModel() {
         if (args.navigationFlow == NavigationFlow.NEW_GAME) {
             viewModel.startNewGame()
         } else {
-            viewModel.start()
+            viewModel.continueGame()
         }
-        (activity as ColoredView).changeBackgroundColor(viewModel.currentTeam.color)
         if (viewModel.isGameFinished()) {
             findNavController().navigate(R.id.finishGameFragment)
         }
+        (activity as ColoredView).changeBackgroundColor(viewModel.currentTeam.color)
     }
 
     private fun createTeamBoardView(inflater: LayoutInflater, teamBoard: ViewGroup) {
