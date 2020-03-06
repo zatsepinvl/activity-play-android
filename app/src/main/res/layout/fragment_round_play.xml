@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="40dp"
-                android:text="@{@string/inRoundSecondsLeft(viewmodel.remainingTimeSeconds)}"
+                android:text="@{@string/in_round_seconds_left(viewmodel.remainingTimeSeconds)}"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 tools:hint="10 seonds left" />
@@ -41,18 +41,19 @@
 
                 <ImageView
                     android:id="@+id/roundInActionImage"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:layout_marginEnd="10dp"
-                    android:src="@drawable/theater" />
+                    android:src="@{viewmodel.actionDrawable}"
+                    tools:src="@drawable/theater" />
 
                 <TextView
                     android:id="@+id/gameFrameAction"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="@{viewmodel.actionLocalName(viewmodel.currentTask.action)}"
+                    android:text="@{viewmodel.actionLocalName}"
                     android:textAlignment="center"
                     android:textSize="26sp"
                     tools:hint="Action" />
@@ -65,7 +66,7 @@
                 android:layout_gravity="center"
                 android:drawableBottom="@{viewmodel.isWordHidden() ? @drawable/ic_visibility_black_24dp : @drawable/ic_visibility_off_black_24dp}"
                 android:onClick="@{() -> viewmodel.toggleWordVisibility()}"
-                android:text="@{viewmodel.isWordHidden() ? @string/wordMask : viewmodel.currentTask.word.value}"
+                android:text="@{viewmodel.isWordHidden() ? @string/word_mask : viewmodel.currentTask.word.value}"
                 android:textAlignment="center"
                 android:textSize="40sp"
                 tools:hint="Word" />
@@ -75,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4sp"
                 android:layout_marginTop="20dp"
-                android:text="@{@string/roundScore(viewmodel.currentTeamRoundScore)}"
+                android:text="@{@string/round_score(viewmodel.currentTeamRoundScore)}"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 tools:hint="10" />

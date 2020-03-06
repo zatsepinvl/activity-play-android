@@ -8,6 +8,29 @@
         <item>Русский</item>
     </string-array>
 
+    <string-array name="color_names">
+        <item>Красный</item>
+        <item>Розовый</item>
+        <item>Фиолетовый</item>
+        <item>Темно-фиолетовый</item>
+        <item>Индиго</item>
+        <item>Синий</item>
+        <item>Голубой</item>
+        <item>Циан</item>
+        <item>Чирк</item>
+        <item>Зеленый</item>
+        <item>Светло-зеленый</item>
+        <item>Лаймовый</item>
+        <item>Желтый</item>
+        <item>Янтарный</item>
+        <item>Оранжевый</item>
+        <item>Темно-оранжевый</item>
+        <item>Коричневый</item>
+        <item>Серый</item>
+        <item>Серо-голубой</item>
+        <item>Черный</item>
+    </string-array>
+
     <array name="capitals">
         <item>Бойсе</item>
         <item>Де-Мойн</item>
@@ -62,7 +85,7 @@
         <item>Солт-Лейк</item>
     </array>
     <string name="add">Добавить</string>
-    <string name="addTeam">Добавить команду</string>
+    <string name="add_team">Добавить команду</string>
     <string name="add_new">Новая команда</string>
     <string name="cancel">Отменить</string>
     <string name="color">Цвет</string>
@@ -70,28 +93,28 @@
     <string name="default_team_1_name">Арбузики</string>
     <string name="default_team_2_name">Малинки</string>
     <string name="delete">Удалить</string>
-    <string name="deleteTeamDialogMessage">Вы действительно хотите удалить команду?</string>
-    <string name="deleteTeamDialogNotEnoughTeams">Вы не можете удалить команду. Для игры нужны хотя бы две.</string>
+    <string name="delete_team_dialog_message">Вы действительно хотите удалить команду?</string>
+    <string name="delete_team_dialog_not_enough_teams">Вы не можете удалить команду. Для игры нужны хотя бы две.</string>
     <string name="done">Готово</string>
     <string name="draw">Нарисовать</string>
-    <string name="editTeam">Редактировать команду</string>
+    <string name="edit_team">Редактировать команду</string>
     <string name="finish_round">Закончить раунд</string>
     <string name="home_continue">Продолжить</string>
     <string name="home_new_game">Новая игра</string>
     <string name="i_am_filling_lucky">Мне повезет</string>
-    <string name="inRoundSecondsLeft">%d</string>
+    <string name="in_round_seconds_left">%d</string>
     <string name="main_menu">Главное меню</string>
     <string name="managed_to_guess_last_word">Угадали последнее слово?</string>
     <string name="name">Название</string>
     <string name="next_word">Угадали</string>
-    <string name="roundMaxScore">игра идет до %d очков</string>
-    <string name="roundScore">Счет %d</string>
+    <string name="round_max_score">игра идет до %d очков</string>
+    <string name="round_score">Счет %d</string>
     <string name="round_is_over">Раунд окончен</string>
     <string name="save">Сохранить</string>
     <string name="settings">Настройки</string>
     <string name="skip_word">Пропустить</string>
     <string name="slide_enjoy_title">Шаг 4</string>
-    <string name="slide_game_description">Один игрок должен объйснить слово рисуя, показывая или объясняя его другим членам команды, который должны его отгадать.</string>
+    <string name="slide_game_description">Один игрок должен объяснить слово рисуя, показывая или объясняя его другим членам команды, которые должны его отгадать.</string>
     <string name="slide_game_title">Шаг 3: Игра</string>
     <string name="slide_participants_description">Соберите друзей, и разделитесь на команды по 2 человека в каждой минимум.</string>
     <string name="slide_participants_title">Шаг 1: Участники</string>
@@ -101,12 +124,12 @@
     <string name="slide_welcome_title">Добро пожаловать в ActivityPlay</string>
     <string name="start_game">Начать игру</string>
     <string name="start_round">Начать раунд</string>
-    <string name="teamPlaysRound">Раунд %d - %s играют!</string>
+    <string name="team_plays_round">Раунд %d - %s играют!</string>
     <string name="team_list">Список Команд</string>
     <string name="total_score">Общий счет</string>
     <string name="tutorial">Инструкция</string>
     <string name="view_on_github">Открыть на GitHub</string>
-    <string name="winnerTeamTitle">Команда %s побеждает!</string>
+    <string name="winner_team_title">Команда %s побеждает!</string>
     <string name="slide_enjoy_description">Играйте и наслаждайтесь!</string>
     <string name="last_word_no">Нет</string>
     <string name="last_word_yes">Да</string>
@@ -129,5 +152,6 @@
     <string name="settings_dialog_one_action_required">Вы не можете отключить это действие, т.к. хотя бы одно требуется для игры.</string>
     <string name="intro_finish_button">Повеселимся</string>
     <string name="intro_next_button">Далее</string>
+    <string name="next_game_action">Следующее действие - %s</string>
 
 </resources>

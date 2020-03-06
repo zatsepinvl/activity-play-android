@@ -134,7 +134,7 @@ interface TeamDialog {
 private class NewTeamDialog(
     private val context: TeamDialogContext,
     override val positiveButtonRes: Int = R.string.save,
-    override val dialogTitleRes: Int = R.string.editTeam
+    override val dialogTitleRes: Int = R.string.edit_team
 ) : TeamDialog {
 
     init {
@@ -151,7 +151,7 @@ private class NewTeamDialog(
 private class UpdateTeamDialog(
     private val context: TeamDialogContext,
     override val positiveButtonRes: Int = R.string.save,
-    override val dialogTitleRes: Int = R.string.editTeam
+    override val dialogTitleRes: Int = R.string.edit_team
 ) : TeamDialog {
 
     private val teamId: String

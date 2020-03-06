@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
             android:layout_marginStart="10dp"
-            android:text="@{@string/teamNameWithPosition(data.position, data.team.name)}"
+            android:text="@{@string/team_name_with_position(data.position, data.team.name)}"
             android:textColor="@{data.team.color}"
             android:textSize="22sp"
             tools:hint="Name" />

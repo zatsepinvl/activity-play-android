@@ -4,6 +4,7 @@ import com.zatsepinvl.activity.play.color.ColorId
 import com.zatsepinvl.activity.play.color.ColorService
 import com.zatsepinvl.activity.play.team.model.Team
 import javax.inject.Inject
+import javax.inject.Singleton
 
 interface TeamService {
     fun updateTeam(team: Team)
@@ -16,6 +17,7 @@ interface TeamService {
     fun createTeam(name: String, colorId: ColorId): Team
 }
 
+@Singleton
 class TeamServiceImpl @Inject constructor(
     private val teamRepository: TeamRepository,
     private val colorService: ColorService

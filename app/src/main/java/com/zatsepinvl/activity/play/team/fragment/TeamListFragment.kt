@@ -90,13 +90,13 @@ class TeamListFragment :
         binding.teamListItemDeleteTeamButton.setOnClickListener {
             when (viewModel.canDeleteTeam()) {
                 AT_LEAST_TWO_TEAMS_REQUIRED -> AlertDialog.Builder(requireContext())
-                    .setMessage(R.string.deleteTeamDialogNotEnoughTeams)
+                    .setMessage(R.string.delete_team_dialog_not_enough_teams)
                     .setPositiveButton(R.string.ok,
                         dismissDialog
                     )
                     .show()
                 else -> AlertDialog.Builder(requireContext())
-                    .setMessage(R.string.deleteTeamDialogMessage)
+                    .setMessage(R.string.delete_team_dialog_message)
                     .setPositiveButton(R.string.delete) { _, _ -> viewModel.deleteTeam(team.id) }
                     .setNegativeButton(R.string.cancel,
                         dismissDialog

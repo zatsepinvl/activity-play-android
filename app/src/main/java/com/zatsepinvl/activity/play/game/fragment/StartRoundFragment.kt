@@ -13,6 +13,7 @@ import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.color.ColoredView
 import com.zatsepinvl.activity.play.databinding.FragmentRoundStartBinding
 import com.zatsepinvl.activity.play.databinding.ViewTeamBoardItemBinding
+import com.zatsepinvl.activity.play.game.service.GameActionService
 import com.zatsepinvl.activity.play.game.viewmodel.StartRoundViewModel
 import com.zatsepinvl.activity.play.navigation.NavigationFlow
 import dagger.android.support.DaggerFragment
@@ -21,6 +22,9 @@ import javax.inject.Inject
 class StartRoundFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    @Inject
+    lateinit var gameActionService: GameActionService
 
     private val args: StartRoundFragmentArgs by navArgs()
 

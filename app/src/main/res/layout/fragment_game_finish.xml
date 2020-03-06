@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableTop="@drawable/medal"
-                android:text="@{@string/winnerTeamTitle(winner.team.name)}"
+                android:text="@{@string/winner_team_title(winner.team.name)}"
                 android:textAlignment="center"
                 android:textColor="@{winner.team.color}"
                 android:textSize="26sp"

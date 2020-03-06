@@ -5,12 +5,14 @@ import com.zatsepinvl.activity.play.core.model.GameAction
 import com.zatsepinvl.activity.play.core.model.GameSettings
 import com.zatsepinvl.activity.play.team.service.TeamService
 import javax.inject.Inject
+import javax.inject.Singleton
 
 interface GameSettingsService {
     fun getSettings(): GameSettings
     fun getSecondsForRound(): Int
 }
 
+@Singleton
 class GameSettingsServiceImpl @Inject constructor(
     private val context: Context,
     private val teamService: TeamService

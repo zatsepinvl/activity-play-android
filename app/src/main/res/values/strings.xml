@@ -11,11 +11,11 @@
         <item>Russian</item>
     </string-array>
 
-    <string name="wordMask" translatable="false">*****</string>
+    <string name="word_mask" translatable="false">*****</string>
 
     <string name="loading_dictionary_progress_title">Loading dictionary...</string>
     <!--Relates to colors-->
-    <string-array name="colorNames">
+    <string-array name="color_names">
         <item>Red</item>
         <item>Pink</item>
         <item>Purple</item>
@@ -92,21 +92,21 @@
         <item>Salt Lake</item>
     </array>
 
-    <string name="teamPlaysRound">Round %d - %s plays!</string>
-    <string name="roundMaxScore">max score is %d</string>
-    <string name="inRoundSecondsLeft">%d seconds left</string>
-    <string name="roundScore">Score %d</string>
-    <string name="winnerTeamTitle">%s wins!</string>
-    <string name="teamNameWithPosition" translatable="false">%d. %s</string>
-    <string name="deleteTeamDialogMessage">Do you want to delete team?</string>
+    <string name="team_plays_round">Round %d - %s plays!</string>
+    <string name="round_max_score">max score is %d</string>
+    <string name="in_round_seconds_left">%d seconds left</string>
+    <string name="round_score">Score %d</string>
+    <string name="winner_team_title">%s wins!</string>
+    <string name="team_name_with_position" translatable="false">%d. %s</string>
+    <string name="delete_team_dialog_message">Do you want to delete team?</string>
     <string name="delete">Delete</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-    <string name="deleteTeamDialogNotEnoughTeams">You can not delete team as at least two teams are required for game.</string>
+    <string name="delete_team_dialog_not_enough_teams">You can not delete team as at least two teams are required for game.</string>
     <string name="add">Add</string>
     <string name="save">Save</string>
-    <string name="addTeam">Add team</string>
-    <string name="editTeam">Edit team</string>
+    <string name="add_team">Add team</string>
+    <string name="edit_team">Edit team</string>
     <string name="default_team_1_name">Watermelon</string>
     <string name="default_team_2_name">Strawberry</string>
     <string name="github_link" translatable="false">https://github.com/zatsepinvl/activity-play-android</string>
@@ -165,5 +165,6 @@
     <string name="settings_dialog_one_action_required">You can not disable this action. At least one enabled action is required.</string>
     <string name="intro_finish_button">Get fun</string>
     <string name="intro_next_button">Next</string>
+    <string name="next_game_action">Be ready to %s</string>
 
 </resources>

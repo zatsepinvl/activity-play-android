@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:text="@{@string/inRoundSecondsLeft(viewmodel.remainingTimeSeconds)}"
+                android:text="@{@string/in_round_seconds_left(viewmodel.remainingTimeSeconds)}"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 tools:hint="12 seconds left" />

@@ -8,7 +8,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.android.fragment.disableBackButton
 import com.zatsepinvl.activity.play.core.model.GameAction.*
 import com.zatsepinvl.activity.play.databinding.FragmentRoundPlayBinding
@@ -42,22 +41,13 @@ class PlayRoundFragment : DaggerFragment() {
 
         val hideDrawButton = { dataBinding.gameFrameDrawButton.visibility = View.GONE }
         val showDrawButton = { dataBinding.gameFrameDrawButton.visibility = View.VISIBLE }
-        val actionImage = dataBinding.roundInActionImage
+
         viewModel.currentTask.observe(viewLifecycleOwner, Observer { task ->
             when (task.action) {
-                SHOW -> {
-                    hideDrawButton()
-                    R.drawable.theater
-                }
-                SAY -> {
-                    hideDrawButton()
-                    R.drawable.karaoke
-                }
-                DRAW -> {
-                    showDrawButton()
-                    R.drawable.art
-                }
-            }.apply(actionImage::setImageResource)
+                SHOW -> hideDrawButton()
+                SAY -> hideDrawButton()
+                DRAW -> showDrawButton()
+            }
         })
 
         viewModel.finishRoundEvent.observe(viewLifecycleOwner, Observer {

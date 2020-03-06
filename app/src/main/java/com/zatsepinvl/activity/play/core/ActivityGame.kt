@@ -37,6 +37,9 @@ class ActivityGame(
     var currentTeamIndex = 0
         private set
 
+    var currentGameAction: GameAction = nextRandomAction()
+        private set
+
     var currentFrameId = currentTask?.frameId
 
     var roundIsPlaying = false
@@ -123,6 +126,7 @@ class ActivityGame(
         currentTask = null
 
         currentTeamIndex++
+        currentGameAction = nextAction()
         val lastTeamPlayed = currentTeamIndex == settings.teamCount
 
         if (lastTeamPlayed) {
@@ -170,7 +174,7 @@ class ActivityGame(
         return GameTask(
             currentTeamIndex,
             currentRoundIndex,
-            nextAction(),
+            currentGameAction,
             nextWord()
         )
     }

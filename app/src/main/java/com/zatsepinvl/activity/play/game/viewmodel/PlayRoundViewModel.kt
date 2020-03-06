@@ -1,11 +1,11 @@
 package com.zatsepinvl.activity.play.game.viewmodel
 
+import android.graphics.drawable.Drawable
 import android.os.CountDownTimer
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.zatsepinvl.activity.play.android.viewmodel.SingleLiveEvent
 import com.zatsepinvl.activity.play.core.ActivityGame
-import com.zatsepinvl.activity.play.core.model.GameAction
 import com.zatsepinvl.activity.play.core.model.GameTask
 import com.zatsepinvl.activity.play.effects.EffectsService
 import com.zatsepinvl.activity.play.game.service.GameActionService
@@ -39,12 +39,14 @@ class PlayRoundViewModel @Inject constructor(
     private var timer: CountDownTimer? = null
     private lateinit var game: ActivityGame
 
+    val actionLocalName: String
+        get() = gameActionService.getActionLocalName(game.currentGameAction)
+
+    val actionDrawable: Drawable
+        get() = gameActionService.getActionDrawable(game.currentGameAction)
+
     fun toggleWordVisibility() {
         isWordHidden.value = !(isWordHidden.value ?: false)
-    }
-
-    fun actionLocalName(action:GameAction):String {
-        return gameActionService.getActionLocalName(action)
     }
 
     fun start() {
