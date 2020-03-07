@@ -19,11 +19,6 @@ class ActivityGame(
     var dictionary: Dictionary = dictionary
         private set
 
-    init {
-        validateSettings(settings)
-        state?.apply(::load)
-    }
-
     var finished = false
         private set
 
@@ -39,13 +34,19 @@ class ActivityGame(
     var currentTeamIndex = 0
         private set
 
-    var currentGameAction: GameAction = randomAction()
+    var currentGameAction: GameAction
         private set
 
     var currentFrameId = currentTask?.frameId
 
     var roundIsPlaying = false
         private set
+
+    init {
+        validateSettings(settings)
+        currentGameAction = randomAction()
+        state?.apply(::load)
+    }
 
     fun resetSettings(settings: GameSettings) {
         validateSettings(settings)
@@ -95,9 +96,7 @@ class ActivityGame(
         }
         currentRoundIndex = state.currentRoundIndex
         currentTeamIndex = state.currentTeamIndex
-        if (state.currentGameAction != null
-            && settings.actions.contains(state.currentGameAction)
-        ) {
+        if (state.currentGameAction != null && settings.actions.contains(state.currentGameAction)) {
             currentGameAction = state.currentGameAction
         }
         finished = state.finished

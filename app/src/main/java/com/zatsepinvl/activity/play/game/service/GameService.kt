@@ -35,7 +35,8 @@ class GameServiceImpl @Inject constructor(
     private fun createGame(state: GameState? = null): ActivityGame {
         return ActivityGame(
             gameSettingsService.getSettings(),
-            dictionaryHolder.getDictionary()
+            dictionaryHolder.getDictionary(),
+            state
         )
     }
 
