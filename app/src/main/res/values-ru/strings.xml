@@ -154,6 +154,6 @@
     <string name="intro_next_button">Далее</string>
     <string name="next_game_action">Следующее действие - %s</string>
     <string name="settings_sound_effects_title">Звуки</string>
-    <string name="home_support">Поддержите приложение посмотрев рекламу</string>
+    <string name="home_support">Поддержать приложение посмотрев рекламу</string>
 
 </resources>

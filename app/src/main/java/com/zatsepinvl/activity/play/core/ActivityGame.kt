@@ -34,7 +34,7 @@ class ActivityGame(
     var currentTeamIndex = 0
         private set
 
-    var currentGameAction: GameAction
+    var currentGameAction: GameAction = randomAction()
         private set
 
     var currentFrameId = currentTask?.frameId
@@ -44,7 +44,6 @@ class ActivityGame(
 
     init {
         validateSettings(settings)
-        currentGameAction = randomAction()
         state?.apply(::load)
     }
 
