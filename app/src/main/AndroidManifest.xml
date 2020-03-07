@@ -3,7 +3,6 @@
     package="com.zatsepinvl.activity.play">
 
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".ActivityPlayApplication"
@@ -29,7 +28,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
