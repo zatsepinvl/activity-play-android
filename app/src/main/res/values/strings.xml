@@ -1,6 +1,4 @@
 <resources>
-    <string name="app_name" translatable="false">Activity Play</string>
-
     <string-array name="words_languages_keys" translatable="false">
         <item>en</item>
         <item>ru</item>
