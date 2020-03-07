@@ -7,10 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.zatsepinvl.activity.play.android.fragment.disableBackButton
+import com.zatsepinvl.activity.play.android.fragment.navigate
 import com.zatsepinvl.activity.play.core.model.GameAction.*
 import com.zatsepinvl.activity.play.databinding.FragmentRoundPlayBinding
+import com.zatsepinvl.activity.play.game.fragment.PlayRoundFragmentDirections.Companion.askLastWord
+import com.zatsepinvl.activity.play.game.fragment.PlayRoundFragmentDirections.Companion.canvas
 import com.zatsepinvl.activity.play.game.viewmodel.PlayRoundViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -50,16 +52,10 @@ class PlayRoundFragment : DaggerFragment() {
             }
         })
 
-        viewModel.finishRoundEvent.observe(viewLifecycleOwner, Observer {
-            findNavController().navigate(PlayRoundFragmentDirections.askLastWord())
-        })
+        viewModel.finishRoundEvent.observe(viewLifecycleOwner, Observer { navigate(askLastWord()) })
 
-        dataBinding.gameFrameFinishButton.setOnClickListener {
-            viewModel.stopRound()
-        }
-        dataBinding.gameFrameDrawButton.setOnClickListener {
-            findNavController().navigate(PlayRoundFragmentDirections.canvas())
-        }
+        dataBinding.gameFrameFinishButton.setOnClickListener { viewModel.stopRound() }
+        dataBinding.gameFrameDrawButton.setOnClickListener { navigate(canvas()) }
 
         return dataBinding.root
     }

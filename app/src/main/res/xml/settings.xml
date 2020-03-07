@@ -10,11 +10,19 @@
             android:entryValues="@array/words_languages_keys"
             android:summary="%s"
             app:defaultValue="default"
+            app:icon="@drawable/ic_language_amber_24dp"
             app:key="dictionaryLanguage"
             app:title="@string/settings_language" />
 
         <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:icon="@drawable/ic_music_note_amber_24dp"
+            app:key="soundEffects"
+            app:title="@string/settings_sound_effects_title" />
+
+        <SwitchPreferenceCompat
             app:defaultValue="false"
+            app:icon="@drawable/ic_skip_next_amber_24dp"
             app:key="fineForSkipping"
             app:summary="@string/settings_fine_for_skipped_word_summary"
             app:title="@string/settings_fine_for_skipped_word_title" />
@@ -22,6 +30,7 @@
         <SeekBarPreference
             android:max="200"
             app:defaultValue="60"
+            app:icon="@drawable/ic_timer_amber_24dp"
             app:key="roundTimeSeconds"
             app:min="1"
             app:showSeekBarValue="true"
@@ -31,6 +40,7 @@
         <SeekBarPreference
             android:max="200"
             app:defaultValue="40"
+            app:icon="@drawable/ic_add_amber_24dp"
             app:key="maxScore"
             app:min="10"
             app:showSeekBarValue="true"
@@ -42,18 +52,21 @@
 
         <CheckBoxPreference
             app:defaultValue="true"
+            app:icon="@drawable/ic_mic_amber_24dp"
             app:key="actionSay"
             app:summary="@string/settings_action_say_summary"
             app:title="@string/settings_action_say_title" />
 
         <CheckBoxPreference
             app:defaultValue="true"
+            app:icon="@drawable/ic_format_paint_amber_24dp"
             app:key="actionDraw"
             app:summary="@string/settings_action_draw_summary"
             app:title="@string/settings_action_draw_title" />
 
         <CheckBoxPreference
             app:defaultValue="true"
+            app:icon="@drawable/ic_accessibility_amber_24dp"
             app:key="actionShow"
             app:summary="@string/settings_action_show_summary"
             app:title="@string/settings_action_show_title" />

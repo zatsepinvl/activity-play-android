@@ -8,11 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.android.fragment.disableBackButton
+import com.zatsepinvl.activity.play.android.fragment.navigate
 import com.zatsepinvl.activity.play.color.ColoredView
 import com.zatsepinvl.activity.play.databinding.FragmentHomeBinding
+import com.zatsepinvl.activity.play.home.fragment.HomeFragmentDirections.Companion.continueGame
+import com.zatsepinvl.activity.play.home.fragment.HomeFragmentDirections.Companion.intro
+import com.zatsepinvl.activity.play.home.fragment.HomeFragmentDirections.Companion.newGame
+import com.zatsepinvl.activity.play.home.fragment.HomeFragmentDirections.Companion.settings
 import com.zatsepinvl.activity.play.home.viewmodel.HomeViewModel
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -43,21 +47,10 @@ class HomeFragment : DaggerFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        homeNewGameButton.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.newGame())
-        }
-
-        homeContinueButton.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.continueGame())
-        }
-
-        homeSettingsButton.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.settings())
-        }
-
-        homeTutorialButton.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.intro())
-        }
+        homeNewGameButton.setOnClickListener { navigate(newGame()) }
+        homeContinueButton.setOnClickListener { navigate(continueGame()) }
+        homeSettingsButton.setOnClickListener { navigate(settings()) }
+        homeTutorialButton.setOnClickListener { navigate(intro()) }
 
         viewOnGithub.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.github_link)))

@@ -8,7 +8,8 @@ import java.util.*
 
 class ActivityGame(
     settings: GameSettings,
-    dictionary: Dictionary
+    dictionary: Dictionary,
+    state: GameState? = null
 ) {
     private val completedTasks = mutableListOf<CompletedTask>()
     private val random = Random()
@@ -20,6 +21,7 @@ class ActivityGame(
 
     init {
         validateSettings(settings)
+        state?.apply(::load)
     }
 
     var finished = false
@@ -37,7 +39,7 @@ class ActivityGame(
     var currentTeamIndex = 0
         private set
 
-    var currentGameAction: GameAction = nextRandomAction()
+    var currentGameAction: GameAction = randomAction()
         private set
 
     var currentFrameId = currentTask?.frameId
@@ -80,7 +82,8 @@ class ActivityGame(
             completedTasks,
             finished,
             currentRoundIndex,
-            currentTeamIndex
+            currentTeamIndex,
+            currentGameAction
         )
     }
 
@@ -92,6 +95,11 @@ class ActivityGame(
         }
         currentRoundIndex = state.currentRoundIndex
         currentTeamIndex = state.currentTeamIndex
+        if (state.currentGameAction != null
+            && settings.actions.contains(state.currentGameAction)
+        ) {
+            currentGameAction = state.currentGameAction
+        }
         finished = state.finished
     }
 
@@ -126,7 +134,6 @@ class ActivityGame(
         currentTask = null
 
         currentTeamIndex++
-        currentGameAction = nextAction()
         val lastTeamPlayed = currentTeamIndex == settings.teamCount
 
         if (lastTeamPlayed) {
@@ -140,6 +147,7 @@ class ActivityGame(
 
             currentTeamIndex = 0
             currentRoundIndex++
+            currentGameAction = nextAction()
             finished = maxScoreReached
         }
     }
@@ -170,6 +178,13 @@ class ActivityGame(
         checkNotNull(currentTask) { "Current task must not be null" }
     }
 
+    private fun nextAction(): GameAction {
+        val actions = settings.actions.filter { it !== currentGameAction }
+        if (actions.isEmpty()) return currentGameAction
+        val index = random.nextInt(actions.size)
+        return actions.elementAt(index)
+    }
+
     private fun nextTask(): GameTask {
         return GameTask(
             currentTeamIndex,
@@ -179,30 +194,25 @@ class ActivityGame(
         )
     }
 
-    private fun nextAction(): GameAction {
-        if (completedTasks.isEmpty()) {
-            return nextRandomAction()
-        }
-        val lastTask = completedTasks.last().task
-        val nextRound = lastTask.frameId != currentFrameId
-        return if (nextRound) {
-            nextRandomAction()
-        } else {
-            lastTask.action
-        }
-    }
-
-    private fun nextRandomAction(): GameAction {
+    private fun randomAction(): GameAction {
         val index = random.nextInt(settings.actions.size)
         return settings.actions.elementAt(index)
     }
 
     private fun getUsedWords(): Set<Word> {
-        return completedTasks.map { it.task.word }.toSet()
+        return completedTasks
+            .filter { it.result.status == DONE }
+            .map { it.task.word }
+            .toSet()
     }
 
     private fun nextWord(): Word {
-        return dictionary.getRandomWord(getUsedWords())
+        return try {
+            dictionary.getRandomWord(getUsedWords())
+        } catch (ex: NoWordsFoundException) {
+            //should never happen
+            dictionary.getRandomWord(setOf())
+        }
     }
 }
 

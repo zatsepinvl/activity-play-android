@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.zatsepinvl.activity.play.android.fragment.disableBackButton
+import com.zatsepinvl.activity.play.android.fragment.navigate
 import com.zatsepinvl.activity.play.databinding.FragmentRoundLastWordBinding
 import com.zatsepinvl.activity.play.game.viewmodel.PlayRoundViewModel
 import dagger.android.support.DaggerFragment
@@ -43,6 +43,6 @@ class LastWordRoundFragment : DaggerFragment() {
     }
 
     private fun finishRound() {
-        findNavController().navigate(LastWordRoundFragmentDirections.finishRound())
+        navigate(LastWordRoundFragmentDirections.finishRound())
     }
 }

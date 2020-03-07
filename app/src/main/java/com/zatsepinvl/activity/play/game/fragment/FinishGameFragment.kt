@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import com.zatsepinvl.activity.play.R
+import com.zatsepinvl.activity.play.android.fragment.navigate
 import com.zatsepinvl.activity.play.color.ColoredView
 import com.zatsepinvl.activity.play.databinding.FragmentGameFinishBinding
 import com.zatsepinvl.activity.play.databinding.ViewGameFinishTeamScoreItemBinding
 import com.zatsepinvl.activity.play.effects.EffectsService
+import com.zatsepinvl.activity.play.game.fragment.FinishGameFragmentDirections.Companion.backHome
 import com.zatsepinvl.activity.play.game.viewmodel.FinishGameViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -33,9 +33,8 @@ class FinishGameFragment : DaggerFragment() {
     ): View? {
         val dataBinding = FragmentGameFinishBinding.inflate(inflater, container, false)
         dataBinding.lifecycleOwner = this
-        dataBinding.gameFinishDoneButton.setOnClickListener {
-            findNavController().navigate(R.id.homeFragment)
-        }
+
+        dataBinding.gameFinishDoneButton.setOnClickListener { navigate(backHome()) }
 
         val teamScoresRootView = dataBinding.fragmentGameFinishTeamsScoreRoot
         viewModel.getTeamResults().forEach {

@@ -30,12 +30,8 @@ class CanvasFragment : DaggerFragment() {
         val binding = FragmentCanvasBinding.inflate(inflater, container, false)
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
-        binding.canvasBackButton.setOnClickListener {
-            findNavController().popBackStack()
-        }
-        binding.canvasClearButton.setOnClickListener {
-            binding.canvasPaintView.clear()
-        }
+        binding.canvasBackButton.setOnClickListener { findNavController().popBackStack() }
+        binding.canvasClearButton.setOnClickListener { binding.canvasPaintView.clear() }
 
         return binding.root
     }

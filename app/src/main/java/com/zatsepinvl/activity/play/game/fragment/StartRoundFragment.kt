@@ -7,13 +7,16 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.zatsepinvl.activity.play.R
+import com.zatsepinvl.activity.play.android.fragment.navigate
 import com.zatsepinvl.activity.play.color.ColoredView
 import com.zatsepinvl.activity.play.databinding.FragmentRoundStartBinding
 import com.zatsepinvl.activity.play.databinding.ViewTeamBoardItemBinding
 import com.zatsepinvl.activity.play.effects.EffectsService
+import com.zatsepinvl.activity.play.game.fragment.StartRoundFragmentDirections.Companion.backToMenu
+import com.zatsepinvl.activity.play.game.fragment.StartRoundFragmentDirections.Companion.finishGame
+import com.zatsepinvl.activity.play.game.fragment.StartRoundFragmentDirections.Companion.playRound
+import com.zatsepinvl.activity.play.game.fragment.StartRoundFragmentDirections.Companion.settings
 import com.zatsepinvl.activity.play.game.viewmodel.StartRoundViewModel
 import com.zatsepinvl.activity.play.navigation.NavigationFlow
 import dagger.android.support.DaggerFragment
@@ -40,16 +43,14 @@ class StartRoundFragment : DaggerFragment() {
         val dataBinding = FragmentRoundStartBinding.inflate(inflater, container, false)
         dataBinding.viewmodel = viewModel
         dataBinding.lifecycleOwner = this
-        dataBinding.gameStartRoundExitButton.setOnClickListener {
-            findNavController().navigate(StartRoundFragmentDirections.backToMenu())
-        }
+
         dataBinding.gameStartRoundStartButton.setOnClickListener {
             effectsService.playStartRoundTrack()
-            findNavController().navigate(StartRoundFragmentDirections.playRound())
+            navigate(playRound())
         }
-        requireActivity().onBackPressedDispatcher.addCallback(this) {
-            findNavController().navigate(StartRoundFragmentDirections.backToMenu())
-        }
+        dataBinding.gameStartRoundExitButton.setOnClickListener { navigate(backToMenu()) }
+        dataBinding.gameSettingsButton.setOnClickListener { navigate(settings()) }
+        requireActivity().onBackPressedDispatcher.addCallback(this) { navigate(backToMenu()) }
 
         createTeamBoardView(inflater, dataBinding.startRoundTeamsBoard)
 
@@ -64,7 +65,7 @@ class StartRoundFragment : DaggerFragment() {
             viewModel.continueGame()
         }
         if (viewModel.isGameFinished()) {
-            findNavController().navigate(R.id.finishGameFragment)
+            navigate(finishGame())
         }
         (activity as ColoredView).changeBackgroundColor(viewModel.currentTeam.color)
     }

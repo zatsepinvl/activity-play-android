@@ -6,13 +6,14 @@ import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
 import com.zatsepinvl.activity.play.R
+import com.zatsepinvl.activity.play.settings.service.ActivityPlayPreference
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class EffectsService @Inject constructor(private val context: Context) {
 
-    fun playStartRoundTrack(){
+    fun playStartRoundTrack() {
         playTrack(R.raw.grand_opening)
     }
 
@@ -42,6 +43,9 @@ class EffectsService @Inject constructor(private val context: Context) {
     }
 
     private fun playTrack(track: Int) {
+        if (!ActivityPlayPreference.getSoundsEnabled(context)) {
+            return
+        }
         val mediaPlayer: MediaPlayer = MediaPlayer.create(context, track) ?: return
         mediaPlayer.start()
     }

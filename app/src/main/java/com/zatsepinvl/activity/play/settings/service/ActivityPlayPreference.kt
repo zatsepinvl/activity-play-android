@@ -8,7 +8,7 @@ import androidx.preference.PreferenceManager
 import com.zatsepinvl.activity.play.language.SupportedLanguage
 import com.zatsepinvl.activity.play.language.getSupportedLanguageFromTag
 import com.zatsepinvl.activity.play.settings.model.ActivityPlayPreferenceActionKey
-import com.zatsepinvl.activity.play.settings.model.ActivityPlayPreferenceKey
+import com.zatsepinvl.activity.play.settings.model.ActivityPlayPreferenceKey.*
 import com.zatsepinvl.activity.play.settings.model.ActivityPlayPreferences
 
 object ActivityPlayPreference {
@@ -20,22 +20,19 @@ object ActivityPlayPreference {
         return PreferenceManager.getDefaultSharedPreferences(context).run {
             ActivityPlayPreferences(
                 dictionaryLanguage = getSupportedLanguageFromTag(
-                    getString(
-                        ActivityPlayPreferenceKey.DICTIONARY_LANGUAGE.key,
-                        defaultLanguage.tag
-                    )!!
+                    getString(DICTIONARY_LANGUAGE.key, defaultLanguage.tag)!!
                 ),
-                fineForSkipping = getBoolean(
-                    ActivityPlayPreferenceKey.FINE_FOR_SKIPPING.key,
-                    false
-                ),
-                roundTimeSeconds = getInt(ActivityPlayPreferenceKey.ROUND_TIME_SECONDS.key, 60),
-                maxScore = getInt(ActivityPlayPreferenceKey.MAX_SCORE.key, 20),
-                enabledActions = getEnabledActionPreferenceKeys(
-                    context
-                ).map { it.action }.toSet()
+                fineForSkipping = getBoolean(FINE_FOR_SKIPPING.key, false),
+                roundTimeSeconds = getInt(ROUND_TIME_SECONDS.key, 60),
+                maxScore = getInt(MAX_SCORE.key, 20),
+                enabledActions = getEnabledActionPreferenceKeys(context).map { it.action }.toSet(),
+                soundsEnabled = getBoolean(SOUND_EFFECTS.key, true)
             )
         }
+    }
+
+    fun getSoundsEnabled(context: Context):Boolean {
+        return getSharedPreferences(context).getBoolean(SOUND_EFFECTS.key, true)
     }
 
     private fun getDefaultLanguageTag(): String {

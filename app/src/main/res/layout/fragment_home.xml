@@ -34,27 +34,40 @@
             <com.zatsepinvl.activity.play.android.view.Button
                 android:id="@+id/homeNewGameButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton"
-                android:text="@string/home_new_game" />
+                android:text="@string/home_new_game"
+                app:icon="@drawable/ic_videogame_asset_amber_24dp" />
 
             <com.zatsepinvl.activity.play.android.view.Button
                 android:id="@+id/homeContinueButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:enabled="@{viewmodel.canContinueGame()}"
                 android:text="@string/home_continue"
-                app:color="@{viewmodel.canContinueGame() ? @color/colorPrimary : @color/md_grey_600}" />
+                app:color="@{viewmodel.canContinueGame() ? @color/colorPrimary : @color/md_grey_600}"
+                app:icon="@drawable/ic_play_arrow_amber_24dp" />
 
             <com.zatsepinvl.activity.play.android.view.Button
                 android:id="@+id/homeSettingsButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton"
-                android:layout_marginTop="20dp"
-                android:text="@string/settings" />
+                android:layout_marginTop="10dp"
+                android:text="@string/settings"
+                app:icon="@drawable/ic_settings_amber_24dp" />
 
             <com.zatsepinvl.activity.play.android.view.Button
                 android:id="@+id/homeTutorialButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton"
-                android:layout_marginTop="20dp"
-                android:text="@string/tutorial" />
+                android:layout_marginTop="10dp"
+                android:text="@string/tutorial"
+                app:icon="@drawable/ic_help_amber_24dp" />
+
+            <com.zatsepinvl.activity.play.android.view.Button
+                android:id="@+id/homeSupportButton"
+                style="@style/Widget.ActivityPlay.Button.OutlinedButton"
+                android:layout_marginTop="10dp"
+                android:text="@string/home_support"
+                android:textSize="10sp"
+                app:icon="@drawable/ic_favorite_amber_24dp"
+                tools:text="Support the developer by watching an ad" />
         </LinearLayout>
 
         <LinearLayout

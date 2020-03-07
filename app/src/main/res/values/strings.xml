@@ -127,7 +127,7 @@
     <string name="name">Name</string>
     <string name="i_am_filling_lucky">I\'am Filling lucky</string>
     <string name="color">Color</string>
-    <string name="settings">Settings</string>
+
     <string name="team_list">Team List</string>
     <string name="view_on_github">View on GitHub</string>
     <string name="contact_me">Contact me</string>
@@ -144,13 +144,21 @@
     <string name="slide_enjoy_title">Step 4</string>
     <string name="slide_enjoy_description" >Play and Enjoy!</string>
     <string name="managed_to_guess_last_word">Managed to guess the last word?</string>
-    <string name="settings_language">Language</string>
     <string name="last_word_yes">YES</string>
     <string name="last_word_no">No</string>
     <string name="game_action_draw">Paint</string>
     <string name="game_action_show">Pantomime</string>
     <string name="game_action_say">Describe</string>
+
+    <string name="intro_finish_button">Get fun</string>
+    <string name="intro_next_button">Next</string>
+    <string name="next_game_action">Be ready to %s</string>
+
+
+    <string name="settings">Settings</string>
     <string name="settings_general_title">General</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_sound_effects_title">Sound effects</string>
     <string name="settings_fine_for_skipped_word_title">Skipped word fine</string>
     <string name="settings_fine_for_skipped_word_summary">If enabled, team will be fined 1 point for each skipped word</string>
     <string name="settings_round_time_seconds_title">Seconds per round</string>
@@ -163,8 +171,6 @@
     <string name="settings_action_show_title">Pantomime</string>
     <string name="settings_action_show_summary">You have to explain a word using gestures and body language only</string>
     <string name="settings_dialog_one_action_required">You can not disable this action. At least one enabled action is required.</string>
-    <string name="intro_finish_button">Get fun</string>
-    <string name="intro_next_button">Next</string>
-    <string name="next_game_action">Be ready to %s</string>
+    <string name="home_support">Support the developer by watching an ad</string>
 
 </resources>

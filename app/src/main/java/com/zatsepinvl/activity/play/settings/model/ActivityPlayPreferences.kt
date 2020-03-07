@@ -8,5 +8,6 @@ data class ActivityPlayPreferences(
     val fineForSkipping: Boolean,
     val roundTimeSeconds: Int,
     val maxScore: Int,
+    val soundsEnabled: Boolean,
     val enabledActions: Set<GameAction>
 )

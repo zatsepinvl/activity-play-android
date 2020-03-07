@@ -25,6 +25,13 @@
             app:color="@{viewmodel.currentTeam.color}"
             app:icon="@drawable/ic_arrow_back_grey_800_24dp" />
 
+        <com.zatsepinvl.activity.play.android.view.Button
+            android:id="@+id/gameSettingsButton"
+            style="@style/Widget.ActivityPlay.Button.OutlinedButton.IconButton"
+            android:layout_gravity="end"
+            app:color="@{viewmodel.currentTeam.color}"
+            app:icon="@drawable/ic_settings_black_24dp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -54,7 +61,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
 
                     <TextView
                         android:id="@+id/gameFrameAction"
@@ -64,32 +72,20 @@
                         android:text="@{@string/next_game_action(viewmodel.actionLocalName)}"
                         android:textAlignment="center"
                         android:textColor="@{viewmodel.currentTeam.color}"
-                        android:textSize="18sp"
+                        android:textSize="16sp"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="4dp"
-                        tools:hint="Be ready to " />
+                        tools:hint="Be ready to Act" />
 
                     <ImageView
                         android:id="@+id/startRoundNextActionImage"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center"
-                        android:layout_marginStart="10dp"
+                        android:layout_marginStart="6dp"
                         android:src="@{viewmodel.actionDrawable}"
                         tools:src="@drawable/theater" />
-
-
                 </LinearLayout>
-
-                <TextView
-                    style="@style/Widget.ActivityPlay.TextView.Body"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{@string/round_max_score(viewmodel.gameSettings().maxScore)}"
-                    android:textAlignment="center"
-                    android:textColor="@{viewmodel.currentTeam.color}"
-                    android:textSize="16sp"
-                    tools:hint="Max score" />
 
             </LinearLayout>
 
@@ -101,6 +97,16 @@
                 android:layout_marginTop="20dp"
                 android:orientation="vertical"
                 tools:listitem="@layout/view_team_board_item" />
+
+            <TextView
+                style="@style/Widget.ActivityPlay.TextView.Body"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{@string/round_max_score(viewmodel.gameSettings().maxScore)}"
+                android:textAlignment="textEnd"
+                android:textColor="@{viewmodel.currentTeam.color}"
+                android:textSize="16sp"
+                tools:hint="max score is 10" />
         </LinearLayout>
 
         <com.zatsepinvl.activity.play.android.view.Button

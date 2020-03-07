@@ -6,5 +6,6 @@ enum class ActivityPlayPreferenceKey(
     DICTIONARY_LANGUAGE("dictionaryLanguage"),
     FINE_FOR_SKIPPING("fineForSkipping"),
     ROUND_TIME_SECONDS("roundTimeSeconds"),
-    MAX_SCORE("maxScore");
+    MAX_SCORE("maxScore"),
+    SOUND_EFFECTS("soundEffects")
 }

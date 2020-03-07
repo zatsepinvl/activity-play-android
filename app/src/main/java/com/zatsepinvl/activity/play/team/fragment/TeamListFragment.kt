@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.android.fragment.dismissDialog
+import com.zatsepinvl.activity.play.android.fragment.navigate
 import com.zatsepinvl.activity.play.databinding.FragmentTeamListBinding
 import com.zatsepinvl.activity.play.databinding.ViewTeamListItemBinding
 import com.zatsepinvl.activity.play.di.ViewModelAwareFragment
+import com.zatsepinvl.activity.play.team.fragment.TeamListFragmentDirections.Companion.gameSettings
+import com.zatsepinvl.activity.play.team.fragment.TeamListFragmentDirections.Companion.startRound
 import com.zatsepinvl.activity.play.team.model.*
 import com.zatsepinvl.activity.play.team.viewmodel.DeleteTeamErrorCode.AT_LEAST_TWO_TEAMS_REQUIRED
 import com.zatsepinvl.activity.play.team.viewmodel.TeamSettingsViewModel
@@ -21,8 +23,6 @@ import kotlinx.android.synthetic.main.fragment_team_list.*
 
 class TeamListFragment :
     ViewModelAwareFragment<TeamSettingsViewModel>(TeamSettingsViewModel::class) {
-
-    private val args: TeamListFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,15 +54,9 @@ class TeamListFragment :
     }
 
     private fun initNavButton() {
-        teamListSettingsButton.setOnClickListener {
-            findNavController().navigate(TeamListFragmentDirections.gameSettings())
-        }
-        teamListStartNewGameButton.setOnClickListener {
-            findNavController().navigate(TeamListFragmentDirections.startRound())
-        }
-        teamListBackButton.setOnClickListener {
-            findNavController().popBackStack()
-        }
+        teamListSettingsButton.setOnClickListener { navigate(gameSettings()) }
+        teamListStartNewGameButton.setOnClickListener { navigate(startRound()) }
+        teamListBackButton.setOnClickListener { findNavController().popBackStack() }
     }
 
     private fun initAddNewTeamButton() {
@@ -91,14 +85,16 @@ class TeamListFragment :
             when (viewModel.canDeleteTeam()) {
                 AT_LEAST_TWO_TEAMS_REQUIRED -> AlertDialog.Builder(requireContext())
                     .setMessage(R.string.delete_team_dialog_not_enough_teams)
-                    .setPositiveButton(R.string.ok,
+                    .setPositiveButton(
+                        R.string.ok,
                         dismissDialog
                     )
                     .show()
                 else -> AlertDialog.Builder(requireContext())
                     .setMessage(R.string.delete_team_dialog_message)
                     .setPositiveButton(R.string.delete) { _, _ -> viewModel.deleteTeam(team.id) }
-                    .setNegativeButton(R.string.cancel,
+                    .setNegativeButton(
+                        R.string.cancel,
                         dismissDialog
                     )
                     .show()

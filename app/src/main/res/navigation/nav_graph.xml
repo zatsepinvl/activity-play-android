@@ -91,6 +91,9 @@
             android:name="navigationFlow"
             android:defaultValue="DEFAULT"
             app:argType="com.zatsepinvl.activity.play.navigation.NavigationFlow" />
+        <action
+            android:id="@+id/settings"
+            app:destination="@id/gameSettingsFragment" />
     </fragment>
 
     <fragment

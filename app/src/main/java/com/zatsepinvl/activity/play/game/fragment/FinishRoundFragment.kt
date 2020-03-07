@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import com.zatsepinvl.activity.play.android.fragment.disableBackButton
+import com.zatsepinvl.activity.play.android.fragment.navigate
 import com.zatsepinvl.activity.play.databinding.FragmentRoundFinishBinding
 import com.zatsepinvl.activity.play.effects.EffectsService
+import com.zatsepinvl.activity.play.game.fragment.FinishRoundFragmentDirections.Companion.nextRound
 import com.zatsepinvl.activity.play.game.viewmodel.PlayRoundViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -39,7 +40,7 @@ class FinishRoundFragment : DaggerFragment() {
         dataBinding.lifecycleOwner = this
         dataBinding.roundFinishDoneButton.setOnClickListener {
             viewModel.finishRound()
-            findNavController().navigate(FinishRoundFragmentDirections.nextRound())
+            navigate(nextRound())
         }
 
         effectsService.playFinishTrack()

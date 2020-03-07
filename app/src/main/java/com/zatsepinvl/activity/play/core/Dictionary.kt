@@ -22,9 +22,12 @@ class Dictionary(
         excludeWords: Set<Word> = setOf(),
         wordTypes: Set<WordType> = setOf(NOUN)
     ): Word {
-        val filteredWords =
-            words.filter { wordTypes.contains(it.type) && !excludeWords.contains(it) }
-        require(filteredWords.isNotEmpty()) { "No words found matching request." }
+        val filteredWords = words
+            .filter { wordTypes.contains(it.type) }
+            .filter { !excludeWords.contains(it) }
+        if (filteredWords.isEmpty()) {
+            throw NoWordsFoundException("No words found matching request.")
+        }
         return filteredWords[random.nextInt(filteredWords.size)]
     }
 }
@@ -32,3 +35,5 @@ class Dictionary(
 fun noun(word: String) = Word(word, NOUN)
 fun verb(word: String) = Word(word, VERB)
 fun adjective(word: String) = Word(word, ADJECTIVE)
+
+class NoWordsFoundException(message: String?) : Exception(message)

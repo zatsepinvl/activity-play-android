@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.yariksoffice.lingver.Lingver
 import com.zatsepinvl.activity.play.R
+import com.zatsepinvl.activity.play.android.fragment.navigate
+import com.zatsepinvl.activity.play.home.fragment.SplashScreenFragmentDirections.Companion.home
+import com.zatsepinvl.activity.play.home.fragment.SplashScreenFragmentDirections.Companion.intro
 import com.zatsepinvl.activity.play.language.service.AppLanguageService
 import com.zatsepinvl.activity.play.settings.service.ActivityPlayPreference
 import dagger.android.support.DaggerFragment
@@ -32,15 +34,15 @@ class SplashScreenFragment : DaggerFragment() {
                 .dictionaryLanguage
             Lingver.getInstance().setLocale(context, Locale.forLanguageTag(language.tag))
             withContext(Dispatchers.IO) {
-               languageService.updateLanguage(language)
+                languageService.updateLanguage(language)
             }
 
             val preferences = PreferenceManager.getDefaultSharedPreferences(context)
             if (preferences.getBoolean(FIRST_VISIT_SP_NAME, true)) {
                 preferences.edit().putBoolean(FIRST_VISIT_SP_NAME, false).apply()
-                findNavController().navigate(SplashScreenFragmentDirections.intro())
+                navigate(intro())
             } else {
-                findNavController().navigate(SplashScreenFragmentDirections.home())
+                navigate(home())
             }
         }
     }

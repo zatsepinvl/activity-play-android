@@ -20,10 +20,12 @@ import com.yariksoffice.lingver.Lingver
 import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.android.color
 import com.zatsepinvl.activity.play.android.fragment.DaggerPreferenceFragmentCompat
+import com.zatsepinvl.activity.play.android.fragment.navigate
 import com.zatsepinvl.activity.play.databinding.ViewSettingsHeaderBinding
 import com.zatsepinvl.activity.play.dictionary.DictionaryHolder
 import com.zatsepinvl.activity.play.language.getSupportedLanguageFromTag
 import com.zatsepinvl.activity.play.language.service.AppLanguageService
+import com.zatsepinvl.activity.play.settings.fragment.GameSettingsFragmentDirections.Companion.refresh
 import com.zatsepinvl.activity.play.settings.model.ActivityPlayPreferenceActionKey
 import com.zatsepinvl.activity.play.settings.model.ActivityPlayPreferenceKey.*
 import com.zatsepinvl.activity.play.settings.service.ActivityPlayPreference
@@ -61,7 +63,7 @@ class GameSettingsFragment : DaggerPreferenceFragmentCompat() {
     private fun onDictionaryLanguageChanged(newLangTag: String) {
         requireActivity().lifecycleScope.launch {
             Lingver.getInstance().setLocale(requireContext(), newLangTag)
-            findNavController().navigate(GameSettingsFragmentDirections.refresh())
+            navigate(refresh())
             val snackbar = createLoadDictionarySnackbar()
             snackbar.show()
             try {

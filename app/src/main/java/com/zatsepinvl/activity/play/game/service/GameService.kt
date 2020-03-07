@@ -1,6 +1,7 @@
 package com.zatsepinvl.activity.play.game.service
 
 import com.zatsepinvl.activity.play.core.ActivityGame
+import com.zatsepinvl.activity.play.core.model.GameState
 import com.zatsepinvl.activity.play.dictionary.DictionaryHolder
 import com.zatsepinvl.activity.play.settings.service.GameSettingsService
 import com.zatsepinvl.activity.play.team.model.Team
@@ -28,6 +29,10 @@ class GameServiceImpl @Inject constructor(
     }
 
     override fun createNewGame(): ActivityGame {
+        return createGame()
+    }
+
+    private fun createGame(state: GameState? = null): ActivityGame {
         return ActivityGame(
             gameSettingsService.getSettings(),
             dictionaryHolder.getDictionary()
@@ -43,9 +48,7 @@ class GameServiceImpl @Inject constructor(
         check(isGameSaved()) {
             "Game has not been saved yet. Create it and save before using this method."
         }
-        val game = createNewGame()
-        gameStateRepository.get()!!.apply(game::load)
-        return game
+        return createGame(gameStateRepository.get()!!)
     }
 
     override fun isGameSaved(): Boolean {
