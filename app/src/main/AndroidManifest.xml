@@ -3,6 +3,7 @@
     package="com.zatsepinvl.activity.play">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".ActivityPlayApplication"
@@ -12,6 +13,10 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.ActivityPlay">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-5369622084298684~2837732700"/>
 
         <activity
             android:name=".ActivityPlayMainActivity"
@@ -32,8 +37,6 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".IntroActivity" />
     </application>
 
 </manifest>

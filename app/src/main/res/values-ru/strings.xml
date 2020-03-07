@@ -155,5 +155,10 @@
     <string name="next_game_action">Следующее действие - %s</string>
     <string name="settings_sound_effects_title">Звуки</string>
     <string name="home_support">Поддержать приложение посмотрев рекламу</string>
+    <string name="ad_error_try_later">Пожалуйста, попробуйте снова позже.</string>
+    <string name="ad_just_a_second">Секундочку...</string>
+    <string name="ad_thank_you">Спасибо!</string>
+    <string name="ad_error_check_internet">Пожалуйста, проверьте Интернет соединение и попробуйте снова.</string>
+    <string name="error">Ошибка</string>
 
 </resources>

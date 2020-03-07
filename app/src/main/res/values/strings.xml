@@ -172,5 +172,10 @@
     <string name="settings_action_show_summary">You have to explain a word using gestures and body language only</string>
     <string name="settings_dialog_one_action_required">You can not disable this action. At least one enabled action is required.</string>
     <string name="home_support">Support the developer by watching an ad</string>
+    <string name="ad_error_check_internet">Please, check your Internet connection and try again.</string>
+    <string name="ad_error_try_later">Please, try again later</string>
+    <string name="error">Error</string>
+    <string name="ad_thank_you">Thank You!</string>
+    <string name="ad_just_a_second">Just a second....</string>
 
 </resources>
