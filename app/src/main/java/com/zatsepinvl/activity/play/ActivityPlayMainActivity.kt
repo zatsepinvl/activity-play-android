@@ -1,6 +1,7 @@
 package com.zatsepinvl.activity.play
 
-import android.graphics.PorterDuff
+import android.graphics.BlendMode
+import android.graphics.BlendModeColorFilter
 import android.graphics.Shader
 import android.os.Bundle
 import android.view.WindowManager
@@ -9,6 +10,7 @@ import com.zatsepinvl.activity.play.android.color
 import com.zatsepinvl.activity.play.android.resource.TileDrawable
 import com.zatsepinvl.activity.play.color.ColoredView
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class ActivityPlayMainActivity : AppCompatActivity(), ColoredView {
 
@@ -31,7 +33,7 @@ class ActivityPlayMainActivity : AppCompatActivity(), ColoredView {
         )
         mainLayout.background.apply {
             alpha = 10
-            setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
+            colorFilter = BlendModeColorFilter(color, BlendMode.SRC_ATOP)
         }
         changeBarsColor(color)
     }
