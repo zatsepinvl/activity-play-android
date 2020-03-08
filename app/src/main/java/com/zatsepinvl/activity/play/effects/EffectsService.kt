@@ -10,6 +10,8 @@ import com.zatsepinvl.activity.play.settings.service.ActivityPlayPreference
 import javax.inject.Inject
 import javax.inject.Singleton
 
+private const val VIBRATION_DURATION = 100L
+
 @Singleton
 class EffectsService @Inject constructor(private val context: Context) {
 
@@ -34,11 +36,18 @@ class EffectsService @Inject constructor(private val context: Context) {
     }
 
     fun vibrate() {
+        if (!ActivityPlayPreference.getVibrationEnabled(context)) {
+            return
+        }
         val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
         if (Build.VERSION.SDK_INT >= 26) {
-            vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
+            val effect = VibrationEffect.createOneShot(
+                VIBRATION_DURATION,
+                VibrationEffect.DEFAULT_AMPLITUDE
+            )
+            vibrator.vibrate(effect)
         } else {
-            vibrator.vibrate(200)
+            vibrator.vibrate(VIBRATION_DURATION)
         }
     }
 
@@ -48,5 +57,6 @@ class EffectsService @Inject constructor(private val context: Context) {
         }
         val mediaPlayer: MediaPlayer = MediaPlayer.create(context, track) ?: return
         mediaPlayer.start()
+        mediaPlayer.setOnCompletionListener { mediaPlayer.release() }
     }
 }

@@ -3,14 +3,17 @@ package com.zatsepinvl.activity.play
 import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.ads.RequestConfiguration
 import com.google.android.gms.ads.RequestConfiguration.TAG_FOR_CHILD_DIRECTED_TREATMENT_TRUE
-import com.yariksoffice.lingver.Lingver
 import com.zatsepinvl.activity.play.di.DaggerApplicationComponent
+import com.zatsepinvl.activity.play.language.service.AppLanguageService
 import dagger.android.AndroidInjector
 import dagger.android.support.DaggerApplication
-import java.util.*
+import javax.inject.Inject
 
 
 open class ActivityPlayApplication : DaggerApplication() {
+
+    @Inject
+    lateinit var languageService: AppLanguageService
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
         return DaggerApplicationComponent.factory().create(applicationContext)
@@ -18,8 +21,8 @@ open class ActivityPlayApplication : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
+        languageService.init(this)
         initAds()
-        Lingver.init(this, Locale.getDefault().displayLanguage)
     }
 
     private fun initAds() {

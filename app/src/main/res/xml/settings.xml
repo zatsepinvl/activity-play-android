@@ -21,6 +21,12 @@
             app:title="@string/settings_sound_effects_title" />
 
         <SwitchPreferenceCompat
+            app:defaultValue="true"
+            app:icon="@drawable/ic_vibration_amber_24dp"
+            app:key="vibration"
+            app:title="@string/settings_vibration_title" />
+
+        <SwitchPreferenceCompat
             app:defaultValue="false"
             app:icon="@drawable/ic_skip_next_amber_24dp"
             app:key="fineForSkipping"

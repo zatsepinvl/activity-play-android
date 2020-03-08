@@ -7,5 +7,6 @@ enum class ActivityPlayPreferenceKey(
     FINE_FOR_SKIPPING("fineForSkipping"),
     ROUND_TIME_SECONDS("roundTimeSeconds"),
     MAX_SCORE("maxScore"),
-    SOUND_EFFECTS("soundEffects")
+    SOUND_EFFECTS("soundEffects"),
+    VIBRATION("vibration")
 }

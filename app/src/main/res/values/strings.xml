@@ -157,6 +157,7 @@
     <string name="settings_general_title">General</string>
     <string name="settings_language">Language</string>
     <string name="settings_sound_effects_title">Sound effects</string>
+    <string name="settings_vibration_title">Vibration</string>
     <string name="settings_fine_for_skipped_word_title">Skipped word fine</string>
     <string name="settings_fine_for_skipped_word_summary">If enabled, team will be fined 1 point for each skipped word</string>
     <string name="settings_round_time_seconds_title">Seconds per round</string>

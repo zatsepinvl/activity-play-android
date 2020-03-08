@@ -9,5 +9,6 @@ data class ActivityPlayPreferences(
     val roundTimeSeconds: Int,
     val maxScore: Int,
     val soundsEnabled: Boolean,
+    val vibrationEnabled: Boolean,
     val enabledActions: Set<GameAction>
 )

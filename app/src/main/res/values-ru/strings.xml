@@ -160,5 +160,6 @@
     <string name="ad_thank_you">Спасибо!</string>
     <string name="ad_error_check_internet">Пожалуйста, проверьте Интернет соединение и попробуйте снова.</string>
     <string name="error">Ошибка</string>
+    <string name="settings_vibration_title">Вибрация</string>
 
 </resources>

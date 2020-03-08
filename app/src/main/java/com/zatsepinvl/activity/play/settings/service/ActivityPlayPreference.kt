@@ -26,13 +26,26 @@ object ActivityPlayPreference {
                 roundTimeSeconds = getInt(ROUND_TIME_SECONDS.key, 60),
                 maxScore = getInt(MAX_SCORE.key, 20),
                 enabledActions = getEnabledActionPreferenceKeys(context).map { it.action }.toSet(),
-                soundsEnabled = getBoolean(SOUND_EFFECTS.key, true)
+                soundsEnabled = soundsEnabled(),
+                vibrationEnabled = vibrationEnabled()
             )
         }
     }
 
-    fun getSoundsEnabled(context: Context):Boolean {
-        return getSharedPreferences(context).getBoolean(SOUND_EFFECTS.key, true)
+    fun getSoundsEnabled(context: Context): Boolean {
+        return getSharedPreferences(context).soundsEnabled()
+    }
+
+    fun getVibrationEnabled(context: Context): Boolean {
+        return getSharedPreferences(context).vibrationEnabled()
+    }
+
+    fun SharedPreferences.soundsEnabled(): Boolean {
+        return getBoolean(SOUND_EFFECTS.key, true)
+    }
+
+    fun SharedPreferences.vibrationEnabled(): Boolean {
+        return getBoolean(VIBRATION.key, true)
     }
 
     private fun getDefaultLanguageTag(): String {
