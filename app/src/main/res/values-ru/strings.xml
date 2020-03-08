@@ -136,7 +136,7 @@
     <string name="game_action_draw">Нарисовать</string>
     <string name="game_action_say">Объяснить</string>
     <string name="game_action_show">Показать</string>
-    <string name="settings_action_draw_summary">Вы должны объяснить слово нарисовав его без использоввания букв и цифр</string>
+    <string name="settings_action_draw_summary">Вы должны объяснить слово, нарисовав его без использования букв и цифр</string>
     <string name="settings_action_draw_title">Рисовать</string>
     <string name="settings_action_say_summary">Вы должны объяснить слово устно без использования однокоренных слов</string>
     <string name="settings_action_say_title">Объяснять словами</string>
@@ -146,8 +146,8 @@
     <string name="settings_fine_for_skipped_word_title">Штраф за пропуск слова</string>
     <string name="settings_game_actions_title">Действия в игре</string>
     <string name="settings_general_title">Общие</string>
-    <string name="settings_max_score_title">Кол-во очков до победы</string>
-    <string name="settings_round_time_seconds_title">Кол-во секунд на раунд</string>
+    <string name="settings_max_score_title">Кол-во очков для победы</string>
+    <string name="settings_round_time_seconds_title">Продолжительность раунда</string>
     <string name="ok">Хорошо</string>
     <string name="settings_dialog_one_action_required">Вы не можете отключить это действие, т.к. хотя бы одно требуется для игры.</string>
     <string name="intro_finish_button">Повеселимся</string>
@@ -156,7 +156,7 @@
     <string name="settings_sound_effects_title">Звуки</string>
     <string name="home_support">Поддержать приложение посмотрев рекламу</string>
     <string name="ad_error_try_later">Пожалуйста, попробуйте снова позже.</string>
-    <string name="ad_just_a_second">Секундочку...</string>
+    <string name="ad_just_a_second">Секундочку…</string>
     <string name="ad_thank_you">Спасибо!</string>
     <string name="ad_error_check_internet">Пожалуйста, проверьте Интернет соединение и попробуйте снова.</string>
     <string name="error">Ошибка</string>

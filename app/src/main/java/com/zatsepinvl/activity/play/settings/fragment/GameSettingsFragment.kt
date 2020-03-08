@@ -16,13 +16,13 @@ import androidx.preference.ListPreference
 import androidx.preference.SeekBarPreference
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.snackbar.Snackbar.LENGTH_INDEFINITE
-import com.yariksoffice.lingver.Lingver
 import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.android.color
 import com.zatsepinvl.activity.play.android.fragment.DaggerPreferenceFragmentCompat
 import com.zatsepinvl.activity.play.android.fragment.navigate
 import com.zatsepinvl.activity.play.databinding.ViewSettingsHeaderBinding
 import com.zatsepinvl.activity.play.dictionary.DictionaryHolder
+import com.zatsepinvl.activity.play.language.SupportedLanguage
 import com.zatsepinvl.activity.play.language.getSupportedLanguageFromTag
 import com.zatsepinvl.activity.play.language.service.AppLanguageService
 import com.zatsepinvl.activity.play.settings.fragment.GameSettingsFragmentDirections.Companion.refresh
@@ -51,7 +51,8 @@ class GameSettingsFragment : DaggerPreferenceFragmentCompat() {
         }
         findPreference<ListPreference>(DICTIONARY_LANGUAGE.key)?.apply {
             setOnPreferenceChangeListener { _, newValue ->
-                onDictionaryLanguageChanged(newValue as String)
+                val language = getSupportedLanguageFromTag(newValue as String)
+                setAppLanguage(language)
                 true
             }
             if (value == "default") {
@@ -60,14 +61,16 @@ class GameSettingsFragment : DaggerPreferenceFragmentCompat() {
         }
     }
 
-    private fun onDictionaryLanguageChanged(newLangTag: String) {
-        requireActivity().lifecycleScope.launch {
-            Lingver.getInstance().setLocale(requireContext(), newLangTag)
-            navigate(refresh())
+    private fun setAppLanguage(language: SupportedLanguage) {
+        val activity = requireActivity()
+        activity.lifecycleScope.launch {
             val snackbar = createLoadDictionarySnackbar()
             snackbar.show()
             try {
-                updateLanguage(newLangTag)
+                withContext(Dispatchers.IO) {
+                    languageService.resetLanguage(activity, language)
+                }
+                navigate(refresh())
             } finally {
                 snackbar.dismiss()
             }
@@ -80,13 +83,6 @@ class GameSettingsFragment : DaggerPreferenceFragmentCompat() {
                 view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
                     .setTextColor(context.color(R.color.md_white_1000))
             }
-    }
-
-    private suspend fun updateLanguage(newLangTag: String) {
-        withContext(Dispatchers.IO) {
-            val language = getSupportedLanguageFromTag(newLangTag)
-            languageService.updateLanguage(language)
-        }
     }
 
     //Workaround to add header to preference screen

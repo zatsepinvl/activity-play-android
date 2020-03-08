@@ -4,9 +4,9 @@ import com.zatsepinvl.activity.play.language.SupportedLanguage.EN
 import com.zatsepinvl.activity.play.language.SupportedLanguage.RU
 import java.util.*
 
-enum class SupportedLanguage {
-    EN,
-    RU;
+enum class SupportedLanguage(val locale: Locale) {
+    EN(Locale.ENGLISH),
+    RU(Locale("ru", "RU"));
 
     val tag = this.name.toLowerCase(Locale.ROOT)
 }

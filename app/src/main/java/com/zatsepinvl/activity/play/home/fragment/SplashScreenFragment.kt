@@ -6,17 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
-import com.yariksoffice.lingver.Lingver
 import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.android.fragment.navigate
 import com.zatsepinvl.activity.play.home.fragment.SplashScreenFragmentDirections.Companion.home
 import com.zatsepinvl.activity.play.home.fragment.SplashScreenFragmentDirections.Companion.intro
 import com.zatsepinvl.activity.play.language.service.AppLanguageService
-import com.zatsepinvl.activity.play.settings.service.ActivityPlayPreference
 import dagger.android.support.DaggerFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.util.*
 import javax.inject.Inject
 
 
@@ -28,16 +25,13 @@ class SplashScreenFragment : DaggerFragment() {
 
     init {
         lifecycleScope.launchWhenStarted {
-            val context = requireContext()
-            val language = ActivityPlayPreference
-                .getActivityPlayPreferences(context)
-                .dictionaryLanguage
-            Lingver.getInstance().setLocale(context, Locale.forLanguageTag(language.tag))
+            val activity = requireActivity()
+
             withContext(Dispatchers.IO) {
-                languageService.updateLanguage(language)
+                languageService.resetLanguage(activity)
             }
 
-            val preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            val preferences = PreferenceManager.getDefaultSharedPreferences(activity)
             if (preferences.getBoolean(FIRST_VISIT_SP_NAME, true)) {
                 preferences.edit().putBoolean(FIRST_VISIT_SP_NAME, false).apply()
                 navigate(intro())

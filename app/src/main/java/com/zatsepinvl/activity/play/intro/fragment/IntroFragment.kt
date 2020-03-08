@@ -5,15 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.navigation.fragment.findNavController
 import androidx.viewpager.widget.ViewPager
 import com.zatsepinvl.activity.play.R
 import com.zatsepinvl.activity.play.android.color
+import com.zatsepinvl.activity.play.android.fragment.navigate
 import com.zatsepinvl.activity.play.color.ColoredView
 import com.zatsepinvl.activity.play.databinding.FragmentIntroBinding
+import com.zatsepinvl.activity.play.intro.fragment.IntroFragmentDirections.Companion.mainMenu
 import com.zatsepinvl.activity.play.intro.model.IntroSlideModel
 import kotlinx.android.synthetic.main.fragment_intro.*
 
@@ -81,6 +83,9 @@ class IntroFragment : Fragment() {
     ): View? {
         val binding = FragmentIntroBinding.inflate(inflater)
         binding.introViewPager.adapter = pageAdapter
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            navigate(mainMenu())
+        }
         return binding.root
     }
 
@@ -105,7 +110,7 @@ class IntroFragment : Fragment() {
             introViewPager.arrowScroll(FOCUS_RIGHT)
         }
         introFinishButton.setOnClickListener {
-            findNavController().navigate(IntroFragmentDirections.mainMenu())
+            navigate(mainMenu())
         }
     }
 
