@@ -23,7 +23,7 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
 
     private val TAG = "SingleLiveEvent"
 
-    private val mPending = AtomicBoolean(false)
+    private val pendingForEvent = AtomicBoolean(false)
 
     @MainThread
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
@@ -34,7 +34,7 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
 
         // Observe the internal MutableLiveData
         super.observe(owner, Observer<T> {
-            if (mPending.compareAndSet(true, false)) {
+            if (pendingForEvent.compareAndSet(true, false)) {
                 observer.onChanged(it)
             }
         })
@@ -42,7 +42,7 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
 
     @MainThread
     override fun setValue(t: T?) {
-        mPending.set(true)
+        pendingForEvent.set(true)
         super.setValue(t)
     }
 
@@ -54,9 +54,9 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
         this.setValue(null)
     }
 
-    @MainThread
-    fun call(t: T?) {
-        this.setValue(t)
+    fun reset() {
+        pendingForEvent.set(false)
     }
+
 }
 

@@ -51,6 +51,7 @@ class PlayRoundViewModel @Inject constructor(
 
     fun start() {
         stopTimer()
+        finishRoundEvent.reset()
         isWordHidden.value = false
         game = gameService.getSavedGame()
         currentTeam = gameService.currentTeam()
@@ -102,6 +103,7 @@ class PlayRoundViewModel @Inject constructor(
     }
 
     fun startLastWordTimer() {
+        lastWordTimerFinishedEvent.reset()
         val secondsForLastWord = SECONDS_FOR_LAST_WORD
         startTimer(secondsForLastWord) {
             lastWordTimerFinishedEvent.call()
