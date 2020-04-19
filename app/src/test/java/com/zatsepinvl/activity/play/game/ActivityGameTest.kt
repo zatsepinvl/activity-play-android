@@ -83,7 +83,7 @@ class ActivityGameTest {
 
         game.playOneFrame(doneCount = 1)
         val state = game.save()
-        val loadedGame = createTestGame(settings = settings, state =  state)
+        val loadedGame = createTestGame(settings = settings, state = state)
 
         loadedGame.playOneFrame(doneCount = 2)
 
@@ -188,7 +188,7 @@ class ActivityGameTest {
     }
 
     @Test
-    fun different_actions_between_round(){
+    fun different_actions_between_round() {
         val game = createTestGame()
 
         repeat(10) {
@@ -205,7 +205,7 @@ class ActivityGameTest {
     }
 
     @Test
-    fun same_action_between_round(){
+    fun same_action_between_round() {
         val game = createTestGame(
             settings = GameSettings(actions = setOf(GameAction.SAY))
         )
@@ -217,6 +217,25 @@ class ActivityGameTest {
             val newAction = game.currentGameAction
             assertEquals(oldAction, newAction)
         }
+    }
+
+    @Test
+    fun skip_complete_tasks() {
+        val game = createTestGame(
+            settings = GameSettings(
+                pointsForFail = -1
+            )
+        )
+
+        game.startRound()
+        game.skipCurrentTask()
+        game.completeCurrentTask()
+        game.skipCurrentTask()
+        game.completeCurrentTask()
+
+        game.finishRound()
+
+        assertEquals(1, game.getTeamRoundScore(0, 0))
     }
 
     private fun ActivityGame.playOneFrame(doneCount: Int = 0, failCount: Int = 0) {

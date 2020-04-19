@@ -108,13 +108,14 @@ class ActivityGame(
 
     private fun completeCurrentTask(done: Boolean): GameTask {
         requireInGame()
-        val score = when {
-            done -> settings.pointsForDone
-            getTeamRoundScore(
-                currentTeamIndex,
-                currentRoundIndex
-            ) + settings.pointsForFail <= 0 -> 0
-            else -> settings.pointsForFail
+        val score = if (done) {
+            settings.pointsForDone
+        } else {
+            if (getTeamRoundScore(currentTeamIndex, currentRoundIndex) > 0) {
+                settings.pointsForFail
+            } else {
+                0
+            }
         }
         val taskResult = TaskResult(
             score = score,
