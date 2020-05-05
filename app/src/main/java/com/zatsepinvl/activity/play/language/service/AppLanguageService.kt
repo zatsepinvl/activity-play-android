@@ -18,7 +18,12 @@ class AppLanguageService @Inject constructor(
 ) {
     fun init(application: Application) {
         val language = getCurrentLanguage(application)
-        Lingver.init(application, language.locale)
+        //Have to do this as there is no valid way to check whether lingver has been initialized
+        try {
+            Lingver.getInstance()
+        } catch(_:Exception) {
+            Lingver.init(application, language.locale)
+        }
     }
 
     fun resetLanguage(activity: Activity, language: SupportedLanguage? = null) {

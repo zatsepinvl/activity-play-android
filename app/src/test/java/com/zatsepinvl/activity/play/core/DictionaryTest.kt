@@ -1,10 +1,8 @@
-package com.zatsepinvl.activity.play.game
+package com.zatsepinvl.activity.play.core
 
 import com.zatsepinvl.activity.play.core.WordType.NOUN
-import com.zatsepinvl.activity.play.core.noun
-import com.zatsepinvl.activity.play.core.verb
 import createTestDictionary
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class DictionaryTest {
