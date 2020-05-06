@@ -8,6 +8,7 @@ import com.zatsepinvl.activity.play.color.ColorService
 import com.zatsepinvl.activity.play.dictionary.DictionaryHolder
 import com.zatsepinvl.activity.play.language.SupportedLanguage
 import com.zatsepinvl.activity.play.settings.service.ActivityPlayPreference
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -21,7 +22,7 @@ class AppLanguageService @Inject constructor(
         //Have to do this as there is no valid way to check whether lingver has been initialized
         try {
             Lingver.getInstance()
-        } catch(_:Exception) {
+        } catch (_: Exception) {
             Lingver.init(application, language.locale)
         }
     }
@@ -30,6 +31,12 @@ class AppLanguageService @Inject constructor(
         val lang = language ?: getCurrentLanguage(activity)
         Lingver.getInstance().setLocale(activity, lang.locale)
         resetServiceLanguages(lang)
+    }
+
+    fun getDefaultLanguage(): SupportedLanguage {
+        return SupportedLanguage.values().toList().find {
+            it.tag == Locale.getDefault().language
+        } ?: SupportedLanguage.EN
     }
 
     private fun resetServiceLanguages(language: SupportedLanguage) {

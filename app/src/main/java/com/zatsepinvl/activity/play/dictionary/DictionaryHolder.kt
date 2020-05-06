@@ -8,7 +8,6 @@ import com.zatsepinvl.activity.play.core.WordType
 import com.zatsepinvl.activity.play.language.SupportedLanguage
 import java.io.InputStream
 import java.nio.charset.StandardCharsets
-import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -16,7 +15,6 @@ import javax.inject.Singleton
 interface DictionaryHolder {
     fun loadDictionary(language: SupportedLanguage): Dictionary
     fun getDictionary(): Dictionary
-    fun getDefaultLanguage(): SupportedLanguage
 }
 
 @Singleton
@@ -39,12 +37,6 @@ class DictionaryHolderImpl @Inject constructor(
     override fun getDictionary(): Dictionary {
         checkNotNull(dictionary) { "Dictionary is null, load it first." }
         return dictionary!!
-    }
-
-    override fun getDefaultLanguage(): SupportedLanguage {
-        return SupportedLanguage.values().toList().find {
-            it.tag == Locale.getDefault().language
-        } ?: SupportedLanguage.EN
     }
 }
 

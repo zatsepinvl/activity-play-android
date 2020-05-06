@@ -21,7 +21,6 @@ import com.zatsepinvl.activity.play.android.color
 import com.zatsepinvl.activity.play.android.fragment.DaggerPreferenceFragmentCompat
 import com.zatsepinvl.activity.play.android.fragment.navigate
 import com.zatsepinvl.activity.play.databinding.ViewSettingsHeaderBinding
-import com.zatsepinvl.activity.play.dictionary.DictionaryHolder
 import com.zatsepinvl.activity.play.language.SupportedLanguage
 import com.zatsepinvl.activity.play.language.getSupportedLanguageFromTag
 import com.zatsepinvl.activity.play.language.service.AppLanguageService
@@ -35,9 +34,6 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class GameSettingsFragment : DaggerPreferenceFragmentCompat() {
-
-    @Inject
-    lateinit var dictionaryHolder: DictionaryHolder
 
     @Inject
     lateinit var languageService: AppLanguageService
@@ -56,7 +52,7 @@ class GameSettingsFragment : DaggerPreferenceFragmentCompat() {
                 true
             }
             if (value == "default") {
-                value = dictionaryHolder.getDefaultLanguage().tag
+                value = languageService.getDefaultLanguage().tag
             }
         }
     }

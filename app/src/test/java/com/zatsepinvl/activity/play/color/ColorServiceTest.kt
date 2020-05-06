@@ -10,8 +10,8 @@ import org.robolectric.RobolectricTestRunner
 @RunWith(RobolectricTestRunner::class)
 class ColorServiceTest {
 
-    val context = ApplicationProvider.getApplicationContext<Context>()
-    var colorService = ColorService(context).apply { loadColors() }
+    private val context = ApplicationProvider.getApplicationContext<Context>()
+    private val colorService = ColorService(context).apply { loadColors() }
 
     @Test
     fun get_all_colors() {
