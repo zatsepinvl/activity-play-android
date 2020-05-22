@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="loading_dictionary_progress_title">Загрзука словаря…</string>
+    <string name="loading_dictionary_progress_title">Загрузка словаря…</string>
     <string name="settings_language">Язык</string>
 
     <string-array name="words_languages_values">
@@ -116,9 +116,9 @@
     <string name="slide_enjoy_title">Шаг 4</string>
     <string name="slide_game_description">Один игрок должен объяснить слово рисуя, показывая или объясняя его другим членам команды, которые должны его отгадать.</string>
     <string name="slide_game_title">Шаг 3: Игра</string>
-    <string name="slide_participants_description">Соберите друзей, и разделитесь на команды по 2 человека в каждой минимум.</string>
+    <string name="slide_participants_description">Соберите друзей и разделитесь на команды по 2 и более человека в каждой.</string>
     <string name="slide_participants_title">Шаг 1: Участники</string>
-    <string name="slide_teams_description">Укажите название и цвет для каждой команды. Цвет подскажет какая команда играет в данным момент.</string>
+    <string name="slide_teams_description">Укажите название и цвет для каждой команды. Цвет подскажет, какая команда играет в данный момент.</string>
     <string name="slide_teams_title">Шаг 2: Команды</string>
     <string name="slide_welcome_description">Любите интеллектуальные игры? Можете объяснить слово друзьям так, чтобы они его угадали? Давайте проверим!</string>
     <string name="slide_welcome_title">Добро пожаловать в ActivityPlay</string>
@@ -142,7 +142,7 @@
     <string name="settings_action_say_title">Объяснять словами</string>
     <string name="settings_action_show_title">Пантомима</string>
     <string name="settings_action_show_summary">Вы должны объяснить слово молча показав его (крокодил)</string>
-    <string name="settings_fine_for_skipped_word_summary">Команда будет ошрафована на 1 бал, если пропустит слово</string>
+    <string name="settings_fine_for_skipped_word_summary">Команда будет ошрафована на 1 балл, если пропустит слово</string>
     <string name="settings_fine_for_skipped_word_title">Штраф за пропуск слова</string>
     <string name="settings_game_actions_title">Действия в игре</string>
     <string name="settings_general_title">Общие</string>
