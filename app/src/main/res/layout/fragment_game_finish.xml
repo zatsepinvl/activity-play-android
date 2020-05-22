@@ -5,7 +5,7 @@
 
         <variable
             name="winner"
-            type="com.zatsepinvl.activity.play.game.model.TeamResult" />
+            type="com.zatsepinvl.activityplay.game.model.TeamResult" />
     </data>
 
     <FrameLayout xmlns:tools="http://schemas.android.com/tools"
@@ -40,7 +40,7 @@
                 tools:listitem="@layout/view_game_finish_team_score_item" />
         </LinearLayout>
 
-        <com.zatsepinvl.activity.play.android.view.Button
+        <com.zatsepinvl.activityplay.android.view.Button
             android:id="@+id/gameFinishDoneButton"
             style="@style/Widget.ActivityPlay.Button.OutlinedButton"
             android:layout_width="match_parent"

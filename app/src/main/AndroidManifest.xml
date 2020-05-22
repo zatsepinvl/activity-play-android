@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zatsepinvl.activity.play">
+    package="com.zatsepinvl.activityplay">
 
     <uses-permission android:name="android.permission.VIBRATE" />
 
@@ -31,7 +31,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="activity-play"
+                    android:host="activity-play.com"
                     android:scheme="https" />
             </intent-filter>
         </activity>

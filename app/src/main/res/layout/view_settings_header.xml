@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.zatsepinvl.activity.play.android.view.Button
+        <com.zatsepinvl.activityplay.android.view.Button
             android:id="@+id/settingsBackButton"
             style="@style/Widget.ActivityPlay.Button.OutlinedButton.Back"
             android:layout_height="wrap_content"

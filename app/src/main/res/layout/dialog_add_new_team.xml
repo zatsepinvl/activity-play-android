@@ -44,7 +44,7 @@
             android:orientation="vertical"
             tools:listitem="@layout/view_add_new_team_color_item" />
 
-        <com.zatsepinvl.activity.play.android.view.Button
+        <com.zatsepinvl.activityplay.android.view.Button
             android:id="@+id/addNewTeamLuckyButton"
             style="@style/Widget.ActivityPlay.Button.OutlinedButton"
             android:layout_width="match_parent"

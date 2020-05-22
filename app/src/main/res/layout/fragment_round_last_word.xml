@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.zatsepinvl.activity.play.game.viewmodel.PlayRoundViewModel" />
+            type="com.zatsepinvl.activityplay.game.viewmodel.PlayRoundViewModel" />
     </data>
 
     <FrameLayout
@@ -75,7 +75,7 @@
             android:layout_gravity="center|bottom"
             android:orientation="horizontal">
 
-            <com.zatsepinvl.activity.play.android.view.Button
+            <com.zatsepinvl.activityplay.android.view.Button
                 android:id="@+id/roundLastWordNoButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton"
                 android:layout_width="0dp"
@@ -83,7 +83,7 @@
                 android:text="@string/last_word_no"
                 app:color="@color/md_grey_600" />
 
-            <com.zatsepinvl.activity.play.android.view.Button
+            <com.zatsepinvl.activityplay.android.view.Button
                 android:id="@+id/roundLastWordYesButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton"
                 android:layout_width="0dp"

@@ -19,7 +19,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30dp">
 
-                <com.zatsepinvl.activity.play.android.view.Button
+                <com.zatsepinvl.activityplay.android.view.Button
                     android:id="@+id/teamListBackButton"
                     style="@style/Widget.ActivityPlay.Button.OutlinedButton.Back"
                     android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
                 android:orientation="vertical"
                 tools:listitem="@layout/view_team_list_item" />
 
-            <com.zatsepinvl.activity.play.android.view.Button
+            <com.zatsepinvl.activityplay.android.view.Button
                 android:id="@+id/teamListAddTeamButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton"
                 android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
             android:layout_gravity="bottom"
             android:orientation="horizontal">
 
-            <com.zatsepinvl.activity.play.android.view.Button
+            <com.zatsepinvl.activityplay.android.view.Button
                 android:id="@+id/teamListSettingsButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton"
                 android:layout_width="0dp"
@@ -66,7 +66,7 @@
                 android:layout_weight="1"
                 android:text="@string/settings" />
 
-            <com.zatsepinvl.activity.play.android.view.Button
+            <com.zatsepinvl.activityplay.android.view.Button
                 android:id="@+id/teamListStartNewGameButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton"
                 android:layout_width="0dp"

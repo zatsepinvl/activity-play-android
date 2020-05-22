@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.zatsepinvl.activity.play.game.viewmodel.StartRoundViewModel" />
+            type="com.zatsepinvl.activityplay.game.viewmodel.StartRoundViewModel" />
     </data>
 
     <FrameLayout
@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:layout_margin="10dp">
 
-        <com.zatsepinvl.activity.play.android.view.Button
+        <com.zatsepinvl.activityplay.android.view.Button
             android:id="@+id/gameStartRoundExitButton"
             style="@style/Widget.ActivityPlay.Button.OutlinedButton"
             android:layout_width="wrap_content"
@@ -25,7 +25,7 @@
             app:color="@{viewmodel.currentTeam.color}"
             app:icon="@drawable/ic_arrow_back_grey_800_24dp" />
 
-        <com.zatsepinvl.activity.play.android.view.Button
+        <com.zatsepinvl.activityplay.android.view.Button
             android:id="@+id/gameSettingsButton"
             style="@style/Widget.ActivityPlay.Button.OutlinedButton.IconButton"
             android:layout_gravity="end"
@@ -109,7 +109,7 @@
                 tools:hint="max score is 10" />
         </LinearLayout>
 
-        <com.zatsepinvl.activity.play.android.view.Button
+        <com.zatsepinvl.activityplay.android.view.Button
             android:id="@+id/gameStartRoundStartButton"
             style="@style/Widget.ActivityPlay.Button.OutlinedButton"
             android:layout_width="match_parent"

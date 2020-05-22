@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.zatsepinvl.activity.play.game.viewmodel.PlayRoundViewModel" />
+            type="com.zatsepinvl.activityplay.game.viewmodel.PlayRoundViewModel" />
     </data>
 
     <FrameLayout
@@ -101,7 +101,7 @@
             android:layout_gravity="bottom"
             android:orientation="vertical">
 
-            <com.zatsepinvl.activity.play.android.view.Button
+            <com.zatsepinvl.activityplay.android.view.Button
                 android:id="@+id/gameFrameDrawButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton"
                 android:layout_width="match_parent"
@@ -117,7 +117,7 @@
                 android:orientation="horizontal">
 
 
-                <com.zatsepinvl.activity.play.android.view.Button
+                <com.zatsepinvl.activityplay.android.view.Button
                     android:id="@+id/gameFrameSkipButton"
                     style="@style/Widget.ActivityPlay.Button.OutlinedButton"
                     android:layout_width="0dp"
@@ -126,7 +126,7 @@
                     android:text="@string/skip_word"
                     app:color="@color/md_grey_600" />
 
-                <com.zatsepinvl.activity.play.android.view.Button
+                <com.zatsepinvl.activityplay.android.view.Button
                     android:id="@+id/gameFrameDoneButton"
                     style="@style/Widget.ActivityPlay.Button.OutlinedButton"
                     android:layout_width="0dp"

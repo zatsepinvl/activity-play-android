@@ -5,7 +5,7 @@
 
         <variable
             name="color"
-            type="com.zatsepinvl.activity.play.color.Color" />
+            type="com.zatsepinvl.activityplay.color.Color" />
 
         <variable
             name="selected"

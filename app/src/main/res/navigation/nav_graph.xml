@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashScreenFragment"
-        android:name="com.zatsepinvl.activity.play.home.fragment.SplashScreenFragment"
+        android:name="com.zatsepinvl.activityplay.home.fragment.SplashScreenFragment"
         android:label="SplashScreenFragment">
         <action
             android:id="@+id/home"
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.zatsepinvl.activity.play.home.fragment.HomeFragment"
+        android:name="com.zatsepinvl.activityplay.home.fragment.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home">
         <action
@@ -31,7 +31,7 @@
             <argument
                 android:name="navigationFlow"
                 android:defaultValue="NEW_GAME"
-                app:argType="com.zatsepinvl.activity.play.navigation.NavigationFlow" />
+                app:argType="com.zatsepinvl.activityplay.navigation.NavigationFlow" />
         </action>
 
         <action
@@ -44,19 +44,19 @@
 
     <fragment
         android:id="@+id/teamSettingsFragment"
-        android:name="com.zatsepinvl.activity.play.team.fragment.TeamListFragment"
+        android:name="com.zatsepinvl.activityplay.team.fragment.TeamListFragment"
         android:label="TeamSettingsFragment">
         <argument
             android:name="navigationFlow"
             android:defaultValue="DEFAULT"
-            app:argType="com.zatsepinvl.activity.play.navigation.NavigationFlow" />
+            app:argType="com.zatsepinvl.activityplay.navigation.NavigationFlow" />
         <action
             android:id="@+id/startRound"
             app:destination="@id/startRoundFragment">
             <argument
                 android:name="navigationFlow"
                 android:defaultValue="NEW_GAME"
-                app:argType="com.zatsepinvl.activity.play.navigation.NavigationFlow" />
+                app:argType="com.zatsepinvl.activityplay.navigation.NavigationFlow" />
         </action>
         <action
             android:id="@+id/gameSettings"
@@ -65,7 +65,7 @@
 
     <fragment
         android:id="@+id/gameSettingsFragment"
-        android:name="com.zatsepinvl.activity.play.settings.fragment.GameSettingsFragment"
+        android:name="com.zatsepinvl.activityplay.settings.fragment.GameSettingsFragment"
         android:label="GameSettingsFragment" >
         <action
             android:id="@+id/refresh"
@@ -76,7 +76,7 @@
 
     <fragment
         android:id="@+id/startRoundFragment"
-        android:name="com.zatsepinvl.activity.play.game.fragment.StartRoundFragment"
+        android:name="com.zatsepinvl.activityplay.game.fragment.StartRoundFragment"
         android:label="StartGameFragment">
         <action
             android:id="@+id/playRound"
@@ -90,7 +90,7 @@
         <argument
             android:name="navigationFlow"
             android:defaultValue="DEFAULT"
-            app:argType="com.zatsepinvl.activity.play.navigation.NavigationFlow" />
+            app:argType="com.zatsepinvl.activityplay.navigation.NavigationFlow" />
         <action
             android:id="@+id/settings"
             app:destination="@id/gameSettingsFragment" />
@@ -98,7 +98,7 @@
 
     <fragment
         android:id="@+id/playRoundFragment"
-        android:name="com.zatsepinvl.activity.play.game.fragment.PlayRoundFragment"
+        android:name="com.zatsepinvl.activityplay.game.fragment.PlayRoundFragment"
         android:label="InGameFragment">
         <action
             android:id="@+id/askLastWord"
@@ -111,7 +111,7 @@
 
     <fragment
         android:id="@+id/finishRoundFragment"
-        android:name="com.zatsepinvl.activity.play.game.fragment.FinishRoundFragment"
+        android:name="com.zatsepinvl.activityplay.game.fragment.FinishRoundFragment"
         android:label="FinishGameFragment">
         <action
             android:id="@+id/nextRound"
@@ -120,7 +120,7 @@
 
     <fragment
         android:id="@+id/finishGameFragment"
-        android:name="com.zatsepinvl.activity.play.game.fragment.FinishGameFragment"
+        android:name="com.zatsepinvl.activityplay.game.fragment.FinishGameFragment"
         android:label="fragment_game_finish"
         tools:layout="@layout/fragment_game_finish">
         <action
@@ -129,7 +129,7 @@
     </fragment>
     <fragment
         android:id="@+id/canvasFragment"
-        android:name="com.zatsepinvl.activity.play.game.fragment.CanvasFragment"
+        android:name="com.zatsepinvl.activityplay.game.fragment.CanvasFragment"
         android:label="CanvasFragment" >
         <action
             android:id="@+id/askLastWord"
@@ -137,7 +137,7 @@
     </fragment>
     <fragment
         android:id="@+id/introFragment"
-        android:name="com.zatsepinvl.activity.play.intro.fragment.IntroFragment"
+        android:name="com.zatsepinvl.activityplay.intro.fragment.IntroFragment"
         android:label="IntroFragment" >
         <action
             android:id="@+id/mainMenu"
@@ -145,7 +145,7 @@
     </fragment>
     <fragment
         android:id="@+id/lastWordRoundFragment"
-        android:name="com.zatsepinvl.activity.play.game.fragment.LastWordRoundFragment"
+        android:name="com.zatsepinvl.activityplay.game.fragment.LastWordRoundFragment"
         android:label="LastWordRoundFragment" >
         <action
             android:id="@+id/finishRound"

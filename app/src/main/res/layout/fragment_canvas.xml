@@ -7,14 +7,14 @@
 
         <variable
             name="viewmodel"
-            type="com.zatsepinvl.activity.play.game.viewmodel.PlayRoundViewModel" />
+            type="com.zatsepinvl.activityplay.game.viewmodel.PlayRoundViewModel" />
     </data>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.zatsepinvl.activity.play.android.view.PainView
+        <com.zatsepinvl.activityplay.android.view.PainView
             android:id="@+id/canvasPaintView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -25,7 +25,7 @@
             android:layout_height="match_parent"
             android:layout_margin="10dp">
 
-            <com.zatsepinvl.activity.play.android.view.Button
+            <com.zatsepinvl.activityplay.android.view.Button
                 android:id="@+id/canvasBackButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton.Back"
                 android:layout_gravity="start"
@@ -42,7 +42,7 @@
                 android:textSize="20sp"
                 tools:hint="12 seconds left" />
 
-            <com.zatsepinvl.activity.play.android.view.Button
+            <com.zatsepinvl.activityplay.android.view.Button
                 android:id="@+id/canvasClearButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton.IconButton"
                 android:layout_gravity="end"

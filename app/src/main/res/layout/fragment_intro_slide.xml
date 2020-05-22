@@ -8,7 +8,7 @@
 
         <variable
             name="model"
-            type="com.zatsepinvl.activity.play.intro.model.IntroSlideModel" />
+            type="com.zatsepinvl.activityplay.intro.model.IntroSlideModel" />
     </data>
 
     <RelativeLayout

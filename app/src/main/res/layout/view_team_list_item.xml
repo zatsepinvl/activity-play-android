@@ -7,7 +7,7 @@
 
         <variable
             name="team"
-            type="com.zatsepinvl.activity.play.team.model.Team" />
+            type="com.zatsepinvl.activityplay.team.model.Team" />
 
     </data>
 
@@ -39,14 +39,14 @@
             android:layout_marginEnd="8dp"
             android:orientation="horizontal">
 
-            <com.zatsepinvl.activity.play.android.view.Button
+            <com.zatsepinvl.activityplay.android.view.Button
                 android:id="@+id/teamListItemEditTeam"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton.IconButton"
                 android:layout_marginEnd="8dp"
                 app:color="@{team.color}"
                 app:icon="@drawable/ic_mode_edit_black_24dp" />
 
-            <com.zatsepinvl.activity.play.android.view.Button
+            <com.zatsepinvl.activityplay.android.view.Button
                 android:id="@+id/teamListItemDeleteTeamButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton.IconButton"
                 app:color="@{team.color}"

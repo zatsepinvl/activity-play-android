@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.zatsepinvl.activity.play.game.viewmodel.PlayRoundViewModel" />
+            type="com.zatsepinvl.activityplay.game.viewmodel.PlayRoundViewModel" />
     </data>
 
     <FrameLayout
@@ -51,7 +51,7 @@
                 tools:hint="123" />
         </LinearLayout>
 
-        <com.zatsepinvl.activity.play.android.view.Button
+        <com.zatsepinvl.activityplay.android.view.Button
             android:id="@+id/roundFinishDoneButton"
             style="@style/Widget.ActivityPlay.Button.OutlinedButton"
             android:layout_gravity="center|bottom"

@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="com.zatsepinvl.activity.play.loading.LoadingData" />
+            type="com.zatsepinvl.activityplay.loading.LoadingData" />
     </data>
 
     <LinearLayout
