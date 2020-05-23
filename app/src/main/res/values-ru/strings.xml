@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!DOCTYPE resources [<!ENTITY appname "AliasPlay">]>
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE resources [<!ENTITY appname "ActivityPlay">]>
 
 <resources>
     <string name="loading_dictionary_progress_title">Загрузка словаря…</string>

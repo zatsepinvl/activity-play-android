@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><!DOCTYPE resources [<!ENTITY appname "AliasPlay">]>
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE resources [<!ENTITY appname "ActivityPlay">]>
 
 <resources>
     <string-array name="words_languages_keys" translatable="false">
