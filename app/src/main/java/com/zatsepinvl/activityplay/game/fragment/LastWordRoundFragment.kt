@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.zatsepinvl.activityplay.android.fragment.disableBackButton
 import com.zatsepinvl.activityplay.android.fragment.navigate
+import com.zatsepinvl.activityplay.android.onClick
 import com.zatsepinvl.activityplay.databinding.FragmentRoundLastWordBinding
 import com.zatsepinvl.activityplay.game.viewmodel.PlayRoundViewModel
 import com.zatsepinvl.activityplay.game.viewmodel.TimerViewModel
@@ -33,8 +34,8 @@ class LastWordRoundFragment : DaggerFragment() {
         binding.apply {
             playViewmodel = playViewModel
             timerViewmodel = timerViewModel
-            roundLastWordNoButton.setOnClickListener { finishRound() }
-            roundLastWordYesButton.setOnClickListener {
+            roundLastWordNoButton.onClick { finishRound() }
+            roundLastWordYesButton.onClick {
                 playViewModel.completeTask()
                 finishRound()
             }

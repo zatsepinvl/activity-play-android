@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.zatsepinvl.activityplay.android.fragment.navigate
+import com.zatsepinvl.activityplay.android.onClick
 import com.zatsepinvl.activityplay.color.ColoredView
 import com.zatsepinvl.activityplay.databinding.FragmentRoundStartBinding
 import com.zatsepinvl.activityplay.databinding.ViewTeamBoardItemBinding
@@ -40,12 +41,12 @@ class StartRoundFragment : DaggerFragment() {
         dataBinding.viewmodel = viewModel
         dataBinding.lifecycleOwner = this
 
-        dataBinding.gameStartRoundStartButton.setOnClickListener {
+        dataBinding.gameStartRoundStartButton.onClick {
             effectsService.playStartRoundTrack()
             navigate(playRound())
         }
-        dataBinding.gameStartRoundExitButton.setOnClickListener { navigate(backToMenu()) }
-        dataBinding.gameSettingsButton.setOnClickListener { navigate(settings()) }
+        dataBinding.gameStartRoundExitButton.onClick { navigate(backToMenu()) }
+        dataBinding.gameSettingsButton.onClick { navigate(settings()) }
         requireActivity().onBackPressedDispatcher.addCallback(this) { navigate(backToMenu()) }
 
         createTeamBoardView(inflater, dataBinding.startRoundTeamsBoard)
