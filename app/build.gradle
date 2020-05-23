@@ -36,11 +36,11 @@ android {
             dimension "version"
             applicationIdSuffix ".dev"
             versionNameSuffix "-dev"
-            resValue "string", "app_name", "ActivityPlay Dev"
+            resValue "string", "app_name", "AliasPlay Dev"
         }
         prod {
             dimension "version"
-            resValue "string", "app_name", "ActivityPlay"
+            resValue "string", "app_name", "AliasPlay"
         }
     }
     bundle {
