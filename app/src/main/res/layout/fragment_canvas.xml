@@ -6,7 +6,11 @@
     <data>
 
         <variable
-            name="viewmodel"
+            name="timerViewmodel"
+            type="com.zatsepinvl.activityplay.game.viewmodel.TimerViewModel" />
+
+        <variable
+            name="playViewmodel"
             type="com.zatsepinvl.activityplay.game.viewmodel.PlayRoundViewModel" />
     </data>
 
@@ -18,7 +22,7 @@
             android:id="@+id/canvasPaintView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:paintColor="@{viewmodel.currentTeam.color}" />
+            app:paintColor="@{playViewmodel.currentTeam.color}" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -29,7 +33,7 @@
                 android:id="@+id/canvasBackButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton.Back"
                 android:layout_gravity="start"
-                app:color="@{viewmodel.currentTeam.color}" />
+                app:color="@{playViewmodel.currentTeam.color}" />
 
             <TextView
                 android:id="@+id/canvasRemainingTime"
@@ -37,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:text="@{@string/in_round_seconds_left(viewmodel.remainingTimeSeconds)}"
+                android:text="@{@string/in_round_seconds_left(timerViewmodel.remainingTimeSeconds)}"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 tools:hint="12 seconds left" />
@@ -46,7 +50,7 @@
                 android:id="@+id/canvasClearButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton.IconButton"
                 android:layout_gravity="end"
-                app:color="@{viewmodel.currentTeam.color}"
+                app:color="@{playViewmodel.currentTeam.color}"
                 app:icon="@drawable/ic_autorenew_black_24dp" />
         </FrameLayout>
     </FrameLayout>

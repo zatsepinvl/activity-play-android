@@ -20,21 +20,17 @@ class FinishGameFragment : DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val viewModel: FinishGameViewModel by activityViewModels { viewModelFactory }
 
     @Inject
     lateinit var effectsService: EffectsService
 
-    private val viewModel: FinishGameViewModel by activityViewModels { viewModelFactory }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val dataBinding = FragmentGameFinishBinding.inflate(inflater, container, false)
+    override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View? {
+        val dataBinding = FragmentGameFinishBinding.inflate(inflater, root, false)
         dataBinding.lifecycleOwner = this
-
-        dataBinding.gameFinishDoneButton.setOnClickListener { navigate(backHome()) }
+        dataBinding.apply {
+            gameFinishDoneButton.setOnClickListener { navigate(backHome()) }
+        }
 
         val teamScoresRootView = dataBinding.fragmentGameFinishTeamsScoreRoot
         viewModel.getTeamResults().forEach {
@@ -47,7 +43,6 @@ class FinishGameFragment : DaggerFragment() {
                 (requireActivity() as ColoredView).changeBackgroundColor(it.team.color)
             }
         }
-
         effectsService.playGameOverTrack()
 
         return dataBinding.root

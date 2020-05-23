@@ -19,32 +19,28 @@ class FinishRoundFragment : DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val viewModel: PlayRoundViewModel by activityViewModels { viewModelFactory }
 
     @Inject
     lateinit var effectsService: EffectsService
-
-    private val viewModel: PlayRoundViewModel by activityViewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         disableBackButton()
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val dataBinding = FragmentRoundFinishBinding.inflate(inflater, container, false)
-        dataBinding.viewmodel = viewModel
-        dataBinding.lifecycleOwner = this
-        dataBinding.roundFinishDoneButton.setOnClickListener {
-            viewModel.finishRound()
-            navigate(nextRound())
+    override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View? {
+        val binding = FragmentRoundFinishBinding.inflate(inflater, root, false)
+        binding.lifecycleOwner = this
+        binding.apply {
+            viewmodel = viewModel
+            roundFinishDoneButton.setOnClickListener {
+                viewModel.finishRound()
+                navigate(nextRound())
+            }
         }
-
         effectsService.playFinishTrack()
 
-        return dataBinding.root
+        return binding.root
     }
 }

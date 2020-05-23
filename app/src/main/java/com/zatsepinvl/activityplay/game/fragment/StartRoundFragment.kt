@@ -33,14 +33,10 @@ class StartRoundFragment : DaggerFragment() {
 
     private val viewModel: StartRoundViewModel by activityViewModels { viewModelFactory }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View? {
         initViewModel()
 
-        val dataBinding = FragmentRoundStartBinding.inflate(inflater, container, false)
+        val dataBinding = FragmentRoundStartBinding.inflate(inflater, root, false)
         dataBinding.viewmodel = viewModel
         dataBinding.lifecycleOwner = this
 

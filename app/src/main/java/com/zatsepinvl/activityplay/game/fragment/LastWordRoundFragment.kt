@@ -11,6 +11,7 @@ import com.zatsepinvl.activityplay.android.fragment.disableBackButton
 import com.zatsepinvl.activityplay.android.fragment.navigate
 import com.zatsepinvl.activityplay.databinding.FragmentRoundLastWordBinding
 import com.zatsepinvl.activityplay.game.viewmodel.PlayRoundViewModel
+import com.zatsepinvl.activityplay.game.viewmodel.TimerViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -18,8 +19,8 @@ class LastWordRoundFragment : DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private val viewModel: PlayRoundViewModel by activityViewModels { viewModelFactory }
+    private val playViewModel: PlayRoundViewModel by activityViewModels { viewModelFactory }
+    private val timerViewModel: TimerViewModel by activityViewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         disableBackButton()
@@ -27,22 +28,26 @@ class LastWordRoundFragment : DaggerFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View? {
-        val dataBinding = FragmentRoundLastWordBinding.inflate(inflater, root, false)
-        dataBinding.viewmodel = viewModel
-        dataBinding.lifecycleOwner = this
-        viewModel.startLastWordTimer()
-
-        dataBinding.roundLastWordYesButton.setOnClickListener {
-            viewModel.completeLastWord()
-            finishRound()
+        val binding = FragmentRoundLastWordBinding.inflate(inflater, root, false)
+        binding.lifecycleOwner = this
+        binding.apply {
+            playViewmodel = playViewModel
+            timerViewmodel = timerViewModel
+            roundLastWordNoButton.setOnClickListener { finishRound() }
+            roundLastWordYesButton.setOnClickListener {
+                playViewModel.completeTask()
+                finishRound()
+            }
         }
-        dataBinding.roundLastWordNoButton.setOnClickListener { finishRound() }
-        viewModel.lastWordTimerFinishedEvent.observe(viewLifecycleOwner, Observer { finishRound() })
 
-        return dataBinding.root
+        timerViewModel.timerFinishedEvent.observe(viewLifecycleOwner, Observer { finishRound() })
+        timerViewModel.startLastWordTimer()
+
+        return binding.root
     }
 
     private fun finishRound() {
+        timerViewModel.stopTimer()
         navigate(LastWordRoundFragmentDirections.finishRound())
     }
 }

@@ -8,6 +8,7 @@ import com.zatsepinvl.activityplay.game.service.*
 import com.zatsepinvl.activityplay.game.viewmodel.FinishGameViewModel
 import com.zatsepinvl.activityplay.game.viewmodel.PlayRoundViewModel
 import com.zatsepinvl.activityplay.game.viewmodel.StartRoundViewModel
+import com.zatsepinvl.activityplay.game.viewmodel.TimerViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -60,4 +61,9 @@ abstract class GameModule {
     @IntoMap
     @ViewModelKey(FinishGameViewModel::class)
     abstract fun finishGameViewModel(finishGameViewModel: FinishGameViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(TimerViewModel::class)
+    abstract fun timerViewModel(timerViewModel: TimerViewModel): ViewModel
 }
