@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE resources [<!ENTITY appname "AliasPlay">]>
+
 <resources>
     <string-array name="words_languages_keys" translatable="false">
         <item>en</item>
@@ -131,7 +133,7 @@
     <string name="contact_me">Contact me</string>
     <string name="tutorial">Tutorial</string>
 
-    <string name="slide_welcome_title">Welcome to Activity Play</string>
+    <string name="slide_welcome_title">Welcome to &appname;</string>
     <string name="slide_welcome_description">Do you like funny parties or intellectual games? Can you explain word so that your friends guess it? Let’s try!</string>
     <string name="slide_participants_title">Step 1: Participants</string>
     <string name="slide_participants_description">Meet your friends and split into teams at least 2 members in each.</string>
@@ -140,7 +142,7 @@
     <string name="slide_game_title">Step 3: Game</string>
     <string name="slide_game_description">One player has to act pantomime or to describe or to paint a word given on a screen and the other members of his team have to find out what that should be.</string>
     <string name="slide_enjoy_title">Step 4</string>
-    <string name="slide_enjoy_description" >Play and Enjoy!</string>
+    <string name="slide_enjoy_description">Play and Enjoy!</string>
     <string name="managed_to_guess_last_word">Managed to guess the last word?</string>
     <string name="last_word_yes">YES</string>
     <string name="last_word_no">No</string>
