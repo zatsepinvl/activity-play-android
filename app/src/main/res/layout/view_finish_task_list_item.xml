@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.zatsepinvl.activityplay.core.model.TaskResultStatus" />
+
+        <variable
+            name="team"
+            type="com.zatsepinvl.activityplay.team.model.Team" />
+
+        <variable
+            name="task"
+            type="com.zatsepinvl.activityplay.core.model.CompletedTask" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="6dp"
+            app:cardCornerRadius="10dp"
+            app:strokeColor="@{task.result.status==TaskResultStatus.DONE ? team.color : @color/md_grey_400}"
+            app:strokeWidth="1dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="10dp"
+                android:text="@{task.task.word.value}"
+                android:textSize="16sp"
+                tools:text="Word" />
+
+            <com.google.android.material.button.MaterialButton
+                style="@style/Widget.ActivityPlay.Button.OutlinedButton.IconButton"
+                android:layout_gravity="end|center_vertical"
+                app:icon="@{task.result.status==TaskResultStatus.DONE ? @drawable/ic_thumb_up : @drawable/ic_thumb_down}"
+                app:iconTint="@{task.result.status==TaskResultStatus.DONE ? team.color : @color/md_grey_400}"
+                app:strokeColor="@color/md_white_1000"
+                tools:icon="@drawable/ic_thumb_up"
+                tools:iconColor="@color/colorPrimary" />
+        </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
+</layout>

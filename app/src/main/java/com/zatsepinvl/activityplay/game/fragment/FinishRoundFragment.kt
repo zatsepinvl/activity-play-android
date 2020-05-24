@@ -6,10 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.zatsepinvl.activityplay.android.fragment.disableBackButton
 import com.zatsepinvl.activityplay.android.fragment.navigate
+import com.zatsepinvl.activityplay.android.onClick
+import com.zatsepinvl.activityplay.core.getCurrentRoundCompletedTasks
 import com.zatsepinvl.activityplay.databinding.FragmentRoundFinishBinding
 import com.zatsepinvl.activityplay.effects.EffectsService
+import com.zatsepinvl.activityplay.game.adapter.FinishTaskListAdapter
 import com.zatsepinvl.activityplay.game.fragment.FinishRoundFragmentDirections.Companion.nextRound
 import com.zatsepinvl.activityplay.game.viewmodel.PlayRoundViewModel
 import dagger.android.support.DaggerFragment
@@ -34,13 +39,26 @@ class FinishRoundFragment : DaggerFragment() {
         binding.lifecycleOwner = this
         binding.apply {
             viewmodel = viewModel
-            roundFinishDoneButton.setOnClickListener {
+            roundFinishDoneButton.onClick {
                 viewModel.finishRound()
                 navigate(nextRound())
             }
+            createTaskList(roundFinishTaskListRecyclerView)
         }
         effectsService.playFinishTrack()
 
         return binding.root
+    }
+
+    private fun createTaskList(recyclerView: RecyclerView) {
+        val viewAdapter = FinishTaskListAdapter(
+            viewModel.currentTeam,
+            viewModel.game.getCurrentRoundCompletedTasks()
+        )
+        val viewManager = LinearLayoutManager(requireContext())
+        recyclerView.apply {
+            adapter = viewAdapter
+            layoutManager = viewManager
+        }
     }
 }

@@ -38,8 +38,8 @@
             android:id="@+id/add_new_team_colors_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/addNewTeamLuckyButton"
             android:layout_below="@id/addNewTeamColorLabel"
+            android:layout_above="@id/addNewTeamLuckyButton"
             android:layout_marginTop="10dp"
             android:orientation="vertical"
             tools:listitem="@layout/view_add_new_team_color_item" />

@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.zatsepinvl.activityplay.core.ActivityGame
 import com.zatsepinvl.activityplay.core.model.GameTask
-import com.zatsepinvl.activityplay.effects.EffectsService
 import com.zatsepinvl.activityplay.game.service.GameActionService
 import com.zatsepinvl.activityplay.game.service.GameService
 import com.zatsepinvl.activityplay.team.model.Team
@@ -15,8 +14,7 @@ const val SECONDS_FOR_LAST_WORD = 10
 
 class PlayRoundViewModel @Inject constructor(
     private val gameService: GameService,
-    private val gameActionService: GameActionService,
-    private val effectsService: EffectsService
+    private val gameActionService: GameActionService
 ) : ViewModel() {
 
     val currentTask = MutableLiveData<GameTask>()
@@ -26,7 +24,7 @@ class PlayRoundViewModel @Inject constructor(
     lateinit var currentTeam: Team
         private set
 
-    private lateinit var game: ActivityGame
+    lateinit var game: ActivityGame
 
     val actionLocalName: String
         get() = gameActionService.getActionLocalName(game.currentGameAction)

@@ -120,7 +120,7 @@
     <string name="skip_word">Skip word</string>
     <string name="next_word">Guessed</string>
     <string name="round_is_over">Round is over</string>
-    <string name="total_score">Total score</string>
+    <string name="total_score">Total score %d</string>
     <string name="done">Done</string>
     <string name="add_new">Add new</string>
     <string name="start_game">Start game</string>
