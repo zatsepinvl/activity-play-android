@@ -5,7 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.zatsepinvl.activityplay.R
+import com.zatsepinvl.activityplay.android.onClick
 import com.zatsepinvl.activityplay.core.model.CompletedTask
+import com.zatsepinvl.activityplay.core.model.TaskResult
+import com.zatsepinvl.activityplay.core.model.TaskResultStatus.DONE
+import com.zatsepinvl.activityplay.core.model.TaskResultStatus.SKIPPED
 import com.zatsepinvl.activityplay.databinding.ViewFinishTaskListItemBinding
 import com.zatsepinvl.activityplay.team.model.Team
 
@@ -13,6 +17,8 @@ class FinishTaskListAdapter(
     private val team: Team,
     private val tasks: List<CompletedTask>
 ) : RecyclerView.Adapter<FinishTaskListAdapter.TaskListViewHolder>() {
+
+    private var taskResultChangedListener: ((CompletedTask) -> Unit)? = null
 
     class TaskListViewHolder(
         val dataBinding: ViewFinishTaskListItemBinding,
@@ -28,12 +34,25 @@ class FinishTaskListAdapter(
     }
 
     override fun onBindViewHolder(holder: TaskListViewHolder, position: Int) {
+        val completedTask = tasks[position]
         holder.dataBinding.apply {
             team = this@FinishTaskListAdapter.team
-            task = tasks[position]
+            task = completedTask
+            root.onClick {
+                completedTask.result = when (completedTask.result.status) {
+                    DONE -> TaskResult(0, SKIPPED)
+                    SKIPPED -> TaskResult(1, DONE)
+                }
+                notifyItemChanged(position)
+                taskResultChangedListener?.invoke(completedTask)
+            }
         }
     }
 
     override fun getItemCount() = tasks.size
+
+    fun onTaskResultChanged(listener: (CompletedTask) -> Unit) {
+        this.taskResultChangedListener = listener
+    }
 }
 

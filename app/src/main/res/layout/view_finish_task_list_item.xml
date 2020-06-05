@@ -34,17 +34,18 @@
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="10dp"
                 android:text="@{task.task.word.value}"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 tools:text="Word" />
 
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.ActivityPlay.Button.OutlinedButton.IconButton"
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:layout_gravity="end|center_vertical"
-                app:icon="@{task.result.status==TaskResultStatus.DONE ? @drawable/ic_thumb_up : @drawable/ic_thumb_down}"
-                app:iconTint="@{task.result.status==TaskResultStatus.DONE ? team.color : @color/md_grey_400}"
-                app:strokeColor="@color/md_white_1000"
-                tools:icon="@drawable/ic_thumb_up"
-                tools:iconColor="@color/colorPrimary" />
+                android:layout_marginEnd="20dp"
+                android:src="@{task.result.status==TaskResultStatus.DONE ? @drawable/ic_thumb_up : @drawable/ic_thumb_down}"
+                android:tint="@{task.result.status==TaskResultStatus.DONE ? team.color : @color/md_grey_400}"
+                tools:src="@drawable/ic_thumb_up"
+                tools:tint="@color/colorPrimary" />
         </com.google.android.material.card.MaterialCardView>
     </FrameLayout>
 </layout>

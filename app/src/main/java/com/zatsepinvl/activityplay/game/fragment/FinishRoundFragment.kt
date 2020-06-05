@@ -55,6 +55,9 @@ class FinishRoundFragment : DaggerFragment() {
             viewModel.currentTeam,
             viewModel.game.getCurrentRoundCompletedTasks()
         )
+        viewAdapter.onTaskResultChanged {
+            viewModel.updateCurrentTeamRoundScore()
+        }
         val viewManager = LinearLayoutManager(requireContext())
         recyclerView.apply {
             adapter = viewAdapter
