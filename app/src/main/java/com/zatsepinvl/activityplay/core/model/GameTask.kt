@@ -9,4 +9,5 @@ data class GameTask(
     val word: Word
 ) {
     val frameId = "$roundIndex:$teamIndex"
+    val taskId = "$frameId:${word.value}"
 }

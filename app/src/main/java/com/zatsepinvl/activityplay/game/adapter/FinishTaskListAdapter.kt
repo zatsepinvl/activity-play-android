@@ -6,19 +6,28 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.zatsepinvl.activityplay.R
 import com.zatsepinvl.activityplay.android.onClick
-import com.zatsepinvl.activityplay.core.model.CompletedTask
-import com.zatsepinvl.activityplay.core.model.TaskResult
 import com.zatsepinvl.activityplay.core.model.TaskResultStatus.DONE
 import com.zatsepinvl.activityplay.core.model.TaskResultStatus.SKIPPED
+import com.zatsepinvl.activityplay.core.model.TeamResult
 import com.zatsepinvl.activityplay.databinding.ViewFinishTaskListItemBinding
+import com.zatsepinvl.activityplay.game.viewmodel.PlayRoundViewModel
 import com.zatsepinvl.activityplay.team.model.Team
 
 class FinishTaskListAdapter(
-    private val team: Team,
-    private val tasks: List<CompletedTask>
+    private val viewModel: PlayRoundViewModel
 ) : RecyclerView.Adapter<FinishTaskListAdapter.TaskListViewHolder>() {
 
-    private var taskResultChangedListener: ((CompletedTask) -> Unit)? = null
+    private lateinit var teamResult: TeamResult
+    private val team: Team
+
+    init {
+        team = viewModel.currentTeam
+        updateTasks()
+    }
+
+    private fun updateTasks() {
+        teamResult = viewModel.game.getCurrentTeamResultForCurrentRound()
+    }
 
     class TaskListViewHolder(
         val dataBinding: ViewFinishTaskListItemBinding,
@@ -34,25 +43,23 @@ class FinishTaskListAdapter(
     }
 
     override fun onBindViewHolder(holder: TaskListViewHolder, position: Int) {
-        val completedTask = tasks[position]
+        val completedTask = teamResult.tasks[position]
         holder.dataBinding.apply {
             team = this@FinishTaskListAdapter.team
             task = completedTask
+            score = completedTask.result.score
             root.onClick {
-                completedTask.result = when (completedTask.result.status) {
-                    DONE -> TaskResult(0, SKIPPED)
-                    SKIPPED -> TaskResult(1, DONE)
+                val newStatus = when (completedTask.result.status) {
+                    DONE -> SKIPPED
+                    SKIPPED -> DONE
                 }
+                viewModel.updateTask(completedTask, newStatus)
+                updateTasks()
                 notifyItemChanged(position)
-                taskResultChangedListener?.invoke(completedTask)
             }
         }
     }
 
-    override fun getItemCount() = tasks.size
-
-    fun onTaskResultChanged(listener: (CompletedTask) -> Unit) {
-        this.taskResultChangedListener = listener
-    }
+    override fun getItemCount() = teamResult.tasks.size
 }
 

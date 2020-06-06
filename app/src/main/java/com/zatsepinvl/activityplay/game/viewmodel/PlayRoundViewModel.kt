@@ -4,7 +4,9 @@ import android.graphics.drawable.Drawable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.zatsepinvl.activityplay.core.ActivityGame
+import com.zatsepinvl.activityplay.core.model.CompletedTask
 import com.zatsepinvl.activityplay.core.model.GameTask
+import com.zatsepinvl.activityplay.core.model.TaskResultStatus
 import com.zatsepinvl.activityplay.game.service.GameActionService
 import com.zatsepinvl.activityplay.game.service.GameService
 import com.zatsepinvl.activityplay.team.model.Team
@@ -21,10 +23,12 @@ class PlayRoundViewModel @Inject constructor(
     val currentTeamRoundScore = MutableLiveData<Int>()
     val isWordHidden = MutableLiveData<Boolean>()
 
+    lateinit var game: ActivityGame
+
     lateinit var currentTeam: Team
         private set
 
-    lateinit var game: ActivityGame
+    var isPlaying: Boolean = false
 
     val actionLocalName: String
         get() = gameActionService.getActionLocalName(game.currentGameAction)
@@ -37,11 +41,12 @@ class PlayRoundViewModel @Inject constructor(
     }
 
     fun startRound() {
-        isWordHidden.value = false
         game = gameService.getSavedGame()
         currentTeam = gameService.currentTeam()
+        isWordHidden.value = false
         currentTask.value = game.startRound()
         updateCurrentTeamRoundScore()
+        isPlaying = true
     }
 
     fun completeTask() {
@@ -58,14 +63,20 @@ class PlayRoundViewModel @Inject constructor(
     }
 
     fun finishRound() {
+        isPlaying = false
         game.finishRound()
         gameService.saveGame(game)
     }
 
-    fun updateCurrentTeamRoundScore() {
-        currentTeamRoundScore.value = game.getTeamRoundScore(
+    fun updateTask(task: CompletedTask, status: TaskResultStatus) {
+        game.updateCompletedTaskResult(task, status)
+        updateCurrentTeamRoundScore()
+    }
+
+    private fun updateCurrentTeamRoundScore() {
+        currentTeamRoundScore.value = game.getTeamResult(
             game.currentTeamIndex,
             game.currentRoundIndex
-        )
+        ).score
     }
 }

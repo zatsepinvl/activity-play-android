@@ -162,5 +162,6 @@
     <string name="ad_error_check_internet">Пожалуйста, проверьте Интернет соединение и попробуйте снова.</string>
     <string name="error">Ошибка</string>
     <string name="settings_vibration_title">Вибрация</string>
+    <string name="round_is_over_helper">Проверьте, правильно ли все подсчитано:</string>
 
 </resources>

@@ -21,22 +21,49 @@
             android:layout_height="match_parent"
             android:layout_gravity="center">
 
-            <ImageView
-                android:id="@+id/roundFinishImageFlag"
-                android:layout_width="60dp"
-                android:layout_height="80dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
-                android:src="@drawable/finish" />
+            <LinearLayout
+                android:id="@+id/roundFinishTitleFrame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="14dp"
+                    android:src="@drawable/finish" />
+
+                <TextView
+                    android:id="@+id/roundFinishTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:text="@string/round_is_over"
+                    android:textColor="@{viewmodel.currentTeam.color}"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/roundFinishHelperTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/roundFinishTitleFrame"
+                android:layout_margin="6dp"
+                android:text="@string/round_is_over_helper"
+                android:textColor="@{viewmodel.currentTeam.color}"
+                android:textSize="14sp"
+                tools:text="Change the result in case of any mistake happened in the game" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/roundFinishTaskListRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                tools:listitem="@layout/view_finish_task_list_item"
                 android:layout_above="@id/gameFinishTotalScore"
-                android:layout_below="@id/roundFinishImageFlag" />
+                android:layout_below="@id/roundFinishHelperTextView"
+                android:orientation="vertical"
+                tools:listitem="@layout/view_finish_task_list_item" />
 
             <TextView
                 android:id="@+id/gameFinishTotalScore"

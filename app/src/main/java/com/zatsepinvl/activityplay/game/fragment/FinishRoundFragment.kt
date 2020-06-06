@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zatsepinvl.activityplay.android.fragment.disableBackButton
 import com.zatsepinvl.activityplay.android.fragment.navigate
 import com.zatsepinvl.activityplay.android.onClick
-import com.zatsepinvl.activityplay.core.getCurrentRoundCompletedTasks
 import com.zatsepinvl.activityplay.databinding.FragmentRoundFinishBinding
 import com.zatsepinvl.activityplay.effects.EffectsService
 import com.zatsepinvl.activityplay.game.adapter.FinishTaskListAdapter
@@ -51,13 +50,7 @@ class FinishRoundFragment : DaggerFragment() {
     }
 
     private fun createTaskList(recyclerView: RecyclerView) {
-        val viewAdapter = FinishTaskListAdapter(
-            viewModel.currentTeam,
-            viewModel.game.getCurrentRoundCompletedTasks()
-        )
-        viewAdapter.onTaskResultChanged {
-            viewModel.updateCurrentTeamRoundScore()
-        }
+        val viewAdapter = FinishTaskListAdapter(viewModel)
         val viewManager = LinearLayoutManager(requireContext())
         recyclerView.apply {
             adapter = viewAdapter

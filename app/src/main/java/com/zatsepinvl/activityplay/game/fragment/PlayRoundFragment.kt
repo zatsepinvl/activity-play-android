@@ -36,8 +36,10 @@ class PlayRoundFragment : DaggerFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View? {
-        playViewModel.startRound()
-        timerViewModel.startRoundTimer()
+        if (!playViewModel.isPlaying) {
+            playViewModel.startRound()
+            timerViewModel.startRoundTimer()
+        }
 
         val dataBinding = FragmentRoundPlayBinding.inflate(inflater, root, false)
         dataBinding.playViewmodel = playViewModel
