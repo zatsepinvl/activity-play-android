@@ -7,6 +7,7 @@ import com.zatsepinvl.activityplay.game.GameModule
 import com.zatsepinvl.activityplay.home.HomeModule
 import com.zatsepinvl.activityplay.settings.SettingsModule
 import com.zatsepinvl.activityplay.team.TeamModule
+import com.zatsepinvl.activityplay.timer.TimerModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
@@ -22,7 +23,8 @@ import javax.inject.Singleton
         DictionaryModule::class,
         GameModule::class,
         HomeModule::class,
-        TeamModule::class
+        TeamModule::class,
+        TimerModule::class
     ]
 )
 interface ApplicationComponent : AndroidInjector<ActivityPlayApplication> {

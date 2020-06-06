@@ -18,8 +18,7 @@ class ColorListAdapter(
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val colorItemBinding = if (convertView == null) {
             val view = inflater.inflate(R.layout.view_add_new_team_color_item, null)
-            val binding =
-                ViewAddNewTeamColorItemBinding.bind(view)
+            val binding = ViewAddNewTeamColorItemBinding.bind(view)
             view.tag = binding
             binding
         } else {
@@ -31,7 +30,6 @@ class ColorListAdapter(
     }
 
     override fun getItem(position: Int) = colors[position]
-
 
     override fun getItemId(position: Int) = position.toLong()
 

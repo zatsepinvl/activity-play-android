@@ -127,7 +127,7 @@
     <string name="start_round">Начать раунд</string>
     <string name="team_plays_round">Раунд %d - %s играют!</string>
     <string name="team_list">Список Команд</string>
-    <string name="total_score">Общий счет</string>
+    <string name="total_score">Общий счет %d</string>
     <string name="tutorial">Инструкция</string>
     <string name="view_on_github">Открыть на GitHub</string>
     <string name="winner_team_title">Команда %s побеждает!</string>
@@ -162,5 +162,6 @@
     <string name="ad_error_check_internet">Пожалуйста, проверьте Интернет соединение и попробуйте снова.</string>
     <string name="error">Ошибка</string>
     <string name="settings_vibration_title">Вибрация</string>
+    <string name="round_is_over_helper">Проверьте, правильно ли все подсчитано:</string>
 
 </resources>

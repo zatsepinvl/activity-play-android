@@ -5,5 +5,7 @@ data class GameState(
     val finished: Boolean,
     val currentRoundIndex: Int,
     val currentTeamIndex: Int,
-    val currentGameAction: GameAction?
+    val currentGameAction: GameAction?,
+    val currentTask: GameTask?,
+    val roundIsPlaying: Boolean?
 )

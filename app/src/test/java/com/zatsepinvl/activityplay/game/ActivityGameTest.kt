@@ -5,6 +5,7 @@ import com.zatsepinvl.activityplay.core.Dictionary
 import com.zatsepinvl.activityplay.core.Word
 import com.zatsepinvl.activityplay.core.model.GameAction
 import com.zatsepinvl.activityplay.core.model.GameSettings
+import com.zatsepinvl.activityplay.core.model.TaskResultStatus
 import com.zatsepinvl.activityplay.core.noun
 import createTestGame
 import org.junit.Assert.*
@@ -184,7 +185,7 @@ class ActivityGameTest {
         game.startRound()
         game.finishRound()
 
-        assertEquals(0, game.getTeamCompletedTasks(0).size)
+        assertEquals(0, game.getTeamResult(0).tasks.size)
     }
 
     @Test
@@ -228,14 +229,102 @@ class ActivityGameTest {
         )
 
         game.startRound()
-        game.skipCurrentTask()
-        game.completeCurrentTask()
-        game.skipCurrentTask()
-        game.completeCurrentTask()
+        game.skipCurrentTask()//-1
+        game.completeCurrentTask()//+1
+        game.skipCurrentTask()//-1
+        game.completeCurrentTask()//+1
+        game.completeCurrentTask()//+1
 
         game.finishRound()
 
-        assertEquals(1, game.getTeamRoundScore(0, 0))
+        game.assertTotalScore(1)
+    }
+
+    @Test
+    fun check_words_during_the_round() {
+        val game = createTestGame()
+        val expectedWords = mutableListOf<String>()
+        game.playOneFrame(10, 10)
+        game.startRound()
+
+        repeat(10) {
+            val task = game.currentTask!!
+            expectedWords.add(task.word.value)
+            game.completeCurrentTask()
+        }
+
+        val completedTasks = game.getCurrentTeamResultForCurrentRound().tasks
+        val actualWords = completedTasks.map {
+            it.task.word.value
+        }
+
+        assertEquals(expectedWords, actualWords)
+    }
+
+    @Test
+    fun check_total_with_first_skipped_words() {
+        val game = createTestGame(settings = GameSettings(pointsForFail = -1))
+
+        game.startRound()
+        game.skipCurrentTask() //-1
+        game.skipCurrentTask() //-1
+        game.completeCurrentTask()//+1
+        game.skipCurrentTask()//-1
+        game.completeCurrentTask()//+1
+        game.finishRound()
+
+        game.assertTotalScore(0)
+    }
+
+    @Test
+    fun update_completed_task() {
+        val game = createTestGame()
+
+        game.startRound()
+        game.skipCurrentTask()
+        game.completeCurrentTask()
+        val task = game.getTeamResult(0).tasks[0]
+
+        game.updateCompletedTaskResult(task, TaskResultStatus.DONE)
+
+        game.finishRound()
+
+        game.assertTotalScore(2)
+    }
+
+    @Test(expected = IllegalStateException::class)
+    fun can_not_update_result_if_round_is_finished() {
+        val game = createTestGame()
+
+        game.startRound()
+        game.completeCurrentTask()
+        game.finishRound()
+
+        val task = game.getTeamResult(0).tasks[0]
+        game.updateCompletedTaskResult(task, TaskResultStatus.SKIPPED)
+    }
+
+    @Test
+    fun update_task_after_save_load_game() {
+        val game = createTestGame()
+
+        game.startRound()
+        game.skipCurrentTask()
+        game.completeCurrentTask()
+        val task = game.getTeamResult(0).tasks[0]
+
+        val state = game.save()
+        val loadedGame = createTestGame(state = state)
+        loadedGame.updateCompletedTaskResult(task, TaskResultStatus.DONE)
+
+        loadedGame.finishRound()
+
+        loadedGame.assertTotalScore(2)
+    }
+
+    private fun ActivityGame.assertTotalScore(expectedScore: Int, teamIndex: Int = 0) {
+        val actualScore = this.getTeamTotalScore(teamIndex)
+        assertEquals(expectedScore, actualScore)
     }
 
     private fun ActivityGame.playOneFrame(doneCount: Int = 0, failCount: Int = 0) {

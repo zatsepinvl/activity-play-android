@@ -8,8 +8,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.zatsepinvl.activityplay.android.fragment.navigate
+import com.zatsepinvl.activityplay.android.onClick
 import com.zatsepinvl.activityplay.databinding.FragmentCanvasBinding
+import com.zatsepinvl.activityplay.effects.EffectsService
 import com.zatsepinvl.activityplay.game.viewmodel.PlayRoundViewModel
+import com.zatsepinvl.activityplay.game.viewmodel.TimerViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -17,21 +21,26 @@ class CanvasFragment : DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val playRoundViewModel: PlayRoundViewModel by activityViewModels { viewModelFactory }
+    private val timerViewModel: TimerViewModel by activityViewModels { viewModelFactory }
 
-    private val viewModel: PlayRoundViewModel by activityViewModels { viewModelFactory }
+    @Inject
+    lateinit var effectsService: EffectsService
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, bundle: Bundle?
-    ): View? {
-        viewModel.finishRoundEvent.observe(viewLifecycleOwner, Observer {
-            findNavController().navigate(CanvasFragmentDirections.askLastWord())
-        })
-
-        val binding = FragmentCanvasBinding.inflate(inflater, container, false)
-        binding.viewmodel = viewModel
+    override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View? {
+        val binding = FragmentCanvasBinding.inflate(inflater, root, false)
         binding.lifecycleOwner = this
-        binding.canvasBackButton.setOnClickListener { findNavController().popBackStack() }
-        binding.canvasClearButton.setOnClickListener { binding.canvasPaintView.clear() }
+        binding.apply {
+            playViewmodel = playRoundViewModel
+            timerViewmodel = timerViewModel
+            canvasBackButton.onClick { findNavController().popBackStack() }
+            canvasClearButton.onClick { canvasPaintView.clear() }
+        }
+
+        timerViewModel.timerFinishedEvent.observe(viewLifecycleOwner, Observer {
+            effectsService.playTimeIsOverTrack()
+            navigate(CanvasFragmentDirections.askLastWord())
+        })
 
         return binding.root
     }

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.zatsepinvl.activityplay.core.model.TaskResultStatus" />
+
+        <variable
+            name="team"
+            type="com.zatsepinvl.activityplay.team.model.Team" />
+
+        <variable
+            name="task"
+            type="com.zatsepinvl.activityplay.core.model.CompletedTask" />
+
+        <variable
+            name="score"
+            type="Integer" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="6dp"
+            app:cardCornerRadius="10dp"
+            app:strokeColor="@{task.result.status==TaskResultStatus.DONE ? team.color : @color/md_grey_400}"
+            app:strokeWidth="1dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:layout_marginStart="10dp"
+                android:text="@{task.task.word.value}"
+                android:textSize="18sp"
+                tools:text="Word" />
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="50dp"
+                android:src="@{task.result.status==TaskResultStatus.DONE ? @drawable/ic_thumb_up : @drawable/ic_thumb_down}"
+                android:tint="@{task.result.status==TaskResultStatus.DONE ? team.color : @color/md_grey_400}"
+                tools:src="@drawable/ic_thumb_up"
+                tools:tint="@color/colorPrimary" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center_vertical"
+                android:layout_marginEnd="16dp"
+                android:text='@{(score > 0 ? "+" : "") + score}'
+                android:textSize="18sp"
+                tools:text="+1" />
+        </com.google.android.material.card.MaterialCardView>
+    </FrameLayout>
+</layout>

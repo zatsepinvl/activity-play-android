@@ -57,13 +57,13 @@ class ActivityGame(
     }
 
     private fun validateSettings(settings: GameSettings) {
-        require(settings.teamCount > 1) { "At least 2 teams are required." }
+        require(settings.teamCount > 1) { "At least 2 teams are required" }
         require(settings.actions.isNotEmpty()) { "At least 1 action should be enabled" }
     }
 
     fun startRound(): GameTask {
-        require(!roundIsPlaying)
-        require(!finished)
+        require(!roundIsPlaying) { "The last round should be finished to start it again" }
+        require(!finished) { "Game is finished" }
         roundIsPlaying = true
         currentTask = nextTask()
         return currentTask!!
@@ -83,7 +83,9 @@ class ActivityGame(
             finished,
             currentRoundIndex,
             currentTeamIndex,
-            currentGameAction
+            currentGameAction,
+            currentTask,
+            roundIsPlaying
         )
     }
 
@@ -95,10 +97,16 @@ class ActivityGame(
         }
         currentRoundIndex = state.currentRoundIndex
         currentTeamIndex = state.currentTeamIndex
-        if (state.currentGameAction != null && settings.actions.contains(state.currentGameAction)) {
-            currentGameAction = state.currentGameAction
-        }
+        state.currentGameAction
+            ?.takeIf { action -> settings.actions.contains(action) }
+            ?.let { action -> currentGameAction = action }
         finished = state.finished
+        currentTask = state.currentTask
+        roundIsPlaying = state.roundIsPlaying ?: false
+    }
+
+    fun reset() {
+        roundIsPlaying = false
     }
 
     fun resetCurrentTeam() {
@@ -108,18 +116,10 @@ class ActivityGame(
 
     private fun completeCurrentTask(done: Boolean): GameTask {
         requireInGame()
-        val score = if (done) {
-            settings.pointsForDone
-        } else {
-            if (getTeamRoundScore(currentTeamIndex, currentRoundIndex) > 0) {
-                settings.pointsForFail
-            } else {
-                0
-            }
-        }
+        val status = if (done) DONE else SKIPPED
         val taskResult = TaskResult(
-            score = score,
-            status = if (done) DONE else SKIPPED
+            score = taskStatusToScore(status),
+            status = status
         )
         val task = CompletedTask(currentTask!!, taskResult)
         completedTasks.add(task)
@@ -151,14 +151,20 @@ class ActivityGame(
         }
     }
 
-    fun getTeamTotalScore(teamIndex: Int): Int {
-        return getTeamCompletedTasks(teamIndex).totalScore()
-    }
-
-    fun getTeamRoundScore(teamIndex: Int, roundIndex: Int): Int {
-        return getTeamCompletedTasks(teamIndex)
-            .filter { it.task.roundIndex == roundIndex }
-            .sumBy { it.result.score }
+    fun updateCompletedTaskResult(task: CompletedTask, status: TaskResultStatus) {
+        check(task.task.roundIndex == currentRoundIndex) {
+            "Task can be updated only during the current playing round"
+        }
+        check(task.task.teamIndex == currentTeamIndex) {
+            "Task can be updated only by the current playing team"
+        }
+        val taskIndex = completedTasks.indexOf(task)
+        completedTasks[taskIndex] = task.copy(
+            result = TaskResult(
+                score = taskStatusToScore(status),
+                status = status
+            )
+        )
     }
 
     fun getWinnerTeamIndex(): Int {
@@ -168,12 +174,40 @@ class ActivityGame(
             .maxBy { it.second }?.first ?: 0
     }
 
-    fun getTeamCompletedTasks(teamIndex: Int): List<CompletedTask> {
-        return completedTasks.filter { it.task.teamIndex == teamIndex }
+    fun getTeamResult(teamIndex: Int): TeamResult {
+        return completedTasks
+            .filter { it.task.teamIndex == teamIndex }
+            .run(this::convertToTeamResult)
+    }
+
+    fun getTeamResult(teamIndex: Int, roundIndex: Int): TeamResult {
+        return completedTasks
+            .filter { it.task.teamIndex == teamIndex }
+            .filter { it.task.roundIndex == roundIndex }
+            .run(this::convertToTeamResult)
+    }
+
+    fun getTeamTotalScore(teamIndex: Int): Int {
+        return getTeamResult(teamIndex).score
+    }
+
+    fun getCurrentTeamResultForCurrentRound(): TeamResult {
+        return getTeamResult(currentTeamIndex, currentRoundIndex)
+    }
+
+    private fun convertToTeamResult(tasks: List<CompletedTask>): TeamResult {
+        return TeamResult(tasks)
+    }
+
+    private fun taskStatusToScore(status: TaskResultStatus): Int {
+        return when (status) {
+            DONE -> settings.pointsForDone
+            SKIPPED -> settings.pointsForFail
+        }
     }
 
     private fun requireInGame() {
-        require(roundIsPlaying) { "Round must be playing to complete task" }
+        require(roundIsPlaying) { "Round must be playing" }
         checkNotNull(currentTask) { "Current task must not be null" }
     }
 
@@ -213,19 +247,4 @@ class ActivityGame(
             dictionary.getRandomWord(setOf())
         }
     }
-}
-
-
-fun List<CompletedTask>.totalScore(): Int {
-    return this.sumBy { it.result.score }
-}
-
-fun List<CompletedTask>.totalScoreForRound(roundIndex: Int): Int {
-    return this.filter { it.task.roundIndex == roundIndex }
-        .sumBy { it.result.score }
-}
-
-fun List<CompletedTask>.totalScoreForLastRound(): Int {
-    val lastRound: Int = this.map { it.task.roundIndex }.max() ?: 0
-    return totalScoreForRound(lastRound)
 }

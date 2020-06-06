@@ -16,46 +16,73 @@
         android:layout_margin="10dp"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="30dp"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="26dp"
-                android:src="@drawable/finish" />
-
-            <TextView
-                style="@style/Widget.ActivityPlay.TextView.Header"
-                android:id="@+id/gameFinishTotalScoreLabel"
+            <LinearLayout
+                android:id="@+id/roundFinishTitleFrame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/total_score"
-                android:textAlignment="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="60dp"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="14dp"
+                    android:src="@drawable/finish" />
+
+                <TextView
+                    android:id="@+id/roundFinishTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:text="@string/round_is_over"
+                    android:textColor="@{viewmodel.currentTeam.color}"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/roundFinishHelperTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/roundFinishTitleFrame"
+                android:layout_margin="6dp"
+                android:text="@string/round_is_over_helper"
                 android:textColor="@{viewmodel.currentTeam.color}"
-                android:textSize="26sp" />
+                android:textSize="14sp"
+                tools:text="Change the result in case of any mistake happened in the game" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/roundFinishTaskListRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/gameFinishTotalScore"
+                android:layout_below="@id/roundFinishHelperTextView"
+                android:orientation="vertical"
+                tools:listitem="@layout/view_finish_task_list_item" />
 
             <TextView
                 android:id="@+id/gameFinishTotalScore"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{Integer.toString(viewmodel.currentTeamRoundScore)}"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="70dp"
+                android:text="@{@string/total_score(viewmodel.currentTeamRoundScore)}"
                 android:textAlignment="center"
                 android:textColor="@{viewmodel.currentTeam.color}"
-                android:textSize="40sp"
-                tools:hint="123" />
-        </LinearLayout>
+                android:textSize="22sp"
+                tools:text="Total score 123" />
+        </RelativeLayout>
 
         <com.zatsepinvl.activityplay.android.view.Button
             android:id="@+id/roundFinishDoneButton"
             style="@style/Widget.ActivityPlay.Button.OutlinedButton"
-            android:layout_gravity="center|bottom"
             android:layout_width="match_parent"
+            android:layout_gravity="center|bottom"
             android:text="@string/done"
             app:color="@{viewmodel.currentTeam.color}" />
     </FrameLayout>

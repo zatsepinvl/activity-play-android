@@ -6,8 +6,12 @@
     <data>
 
         <variable
-            name="viewmodel"
+            name="playViewmodel"
             type="com.zatsepinvl.activityplay.game.viewmodel.PlayRoundViewModel" />
+
+        <variable
+            name="timerViewmodel"
+            type="com.zatsepinvl.activityplay.game.viewmodel.TimerViewModel" />
     </data>
 
     <FrameLayout
@@ -36,14 +40,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/round_is_over"
-                android:textColor="@{viewmodel.currentTeam.color}" />
+                android:textColor="@{playViewmodel.currentTeam.color}" />
 
             <TextView
                 android:id="@+id/gameFrameRemainingTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="@{@string/in_round_seconds_left(viewmodel.remainingTimeSeconds)}"
+                android:text="@{@string/in_round_seconds_left(timerViewmodel.remainingTimeSeconds)}"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 tools:hint="10 seconds left" />
@@ -60,7 +64,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{viewmodel.currentTask.word.value}"
+                android:text="@{playViewmodel.currentTask.word.value}"
                 android:textAlignment="center"
                 android:textSize="22sp"
                 android:textStyle="bold"
@@ -91,7 +95,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:text="@string/last_word_yes"
-                app:color="@{viewmodel.currentTeam.color}" />
+                app:color="@{playViewmodel.currentTeam.color}" />
         </LinearLayout>
 
     </FrameLayout>
