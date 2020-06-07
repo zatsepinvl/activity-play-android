@@ -34,17 +34,24 @@ class LastWordRoundFragment : DaggerFragment() {
         binding.apply {
             playViewmodel = playViewModel
             timerViewmodel = timerViewModel
-            roundLastWordNoButton.onClick { finishRound() }
-            roundLastWordYesButton.onClick {
-                playViewModel.completeTask()
-                finishRound()
-            }
+            roundLastWordNoButton.onClick { skipLastWord() }
+            roundLastWordYesButton.onClick { completeLastWord() }
         }
 
-        timerViewModel.timerFinishedEvent.observe(viewLifecycleOwner, Observer { finishRound() })
+        timerViewModel.timerFinishedEvent.observe(viewLifecycleOwner, Observer { skipLastWord() })
         timerViewModel.startLastWordTimer()
 
         return binding.root
+    }
+
+    private fun completeLastWord() {
+        playViewModel.completeTask()
+        finishRound()
+    }
+
+    private fun skipLastWord() {
+        playViewModel.skipTask()
+        finishRound()
     }
 
     private fun finishRound() {
