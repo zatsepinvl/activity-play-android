@@ -11,11 +11,14 @@ class ActivityGame(
     dictionary: Dictionary,
     state: GameState? = null
 ) {
+    private val usedWords = mutableSetOf<Word>()
     private val completedTasks = mutableListOf<CompletedTask>()
+    private val teamScores = mutableMapOf<Int, Int>()
     private val random = Random()
 
     var settings: GameSettings = settings
         private set
+
     var dictionary: Dictionary = dictionary
         private set
 
@@ -36,8 +39,6 @@ class ActivityGame(
 
     var currentGameAction: GameAction = randomAction()
         private set
-
-    var currentFrameId = currentTask?.frameId
 
     var roundIsPlaying = false
         private set
@@ -64,6 +65,7 @@ class ActivityGame(
     fun startRound(): GameTask {
         require(!roundIsPlaying) { "The last round should be finished to start it again" }
         require(!finished) { "Game is finished" }
+        completedTasks.clear()
         roundIsPlaying = true
         currentTask = nextTask()
         return currentTask!!
@@ -80,6 +82,7 @@ class ActivityGame(
     fun save(): GameState {
         return GameState(
             completedTasks,
+            teamScores,
             finished,
             currentRoundIndex,
             currentTeamIndex,
@@ -94,6 +97,10 @@ class ActivityGame(
         completedTasks.apply {
             clear()
             addAll(state.completedTasks)
+        }
+        state.teamScores?.let { scores ->
+            teamScores.clear()
+            teamScores.putAll(scores)
         }
         currentRoundIndex = state.currentRoundIndex
         currentTeamIndex = state.currentTeamIndex
@@ -122,6 +129,9 @@ class ActivityGame(
             status = status
         )
         val task = CompletedTask(currentTask!!, taskResult)
+        if (task.result.status == DONE) {
+            usedWords.add(task.task.word)
+        }
         completedTasks.add(task)
         currentTask = nextTask()
         return currentTask!!
@@ -129,12 +139,12 @@ class ActivityGame(
 
     fun finishRound() {
         requireInGame()
+        updateCurrentTeamTotalScore()
         roundIsPlaying = false
         currentTask = null
-
         currentTeamIndex++
-        val lastTeamPlayed = currentTeamIndex == settings.teamCount
 
+        val lastTeamPlayed = currentTeamIndex == settings.teamCount
         if (lastTeamPlayed) {
             val scores = (0..settings.teamCount)
                 .map { i -> getTeamTotalScore(i) }
@@ -149,6 +159,12 @@ class ActivityGame(
             currentGameAction = nextAction()
             finished = maxScoreReached
         }
+    }
+
+    private fun updateCurrentTeamTotalScore() {
+        val plusScore = getCurrentTeamRoundResult().score
+        val currentScore = teamScores[currentTeamIndex] ?: 0
+        teamScores[currentTeamIndex] = currentScore + plusScore
     }
 
     fun updateCompletedTaskResult(task: CompletedTask, status: TaskResultStatus) {
@@ -174,29 +190,16 @@ class ActivityGame(
             .maxBy { it.second }?.first ?: 0
     }
 
-    fun getTeamResult(teamIndex: Int): TeamResult {
-        return completedTasks
-            .filter { it.task.teamIndex == teamIndex }
-            .run(this::convertToTeamResult)
-    }
-
-    fun getTeamResult(teamIndex: Int, roundIndex: Int): TeamResult {
-        return completedTasks
-            .filter { it.task.teamIndex == teamIndex }
-            .filter { it.task.roundIndex == roundIndex }
-            .run(this::convertToTeamResult)
-    }
-
     fun getTeamTotalScore(teamIndex: Int): Int {
-        return getTeamResult(teamIndex).score
+        return teamScores[teamIndex] ?: 0
     }
 
-    fun getCurrentTeamResultForCurrentRound(): TeamResult {
-        return getTeamResult(currentTeamIndex, currentRoundIndex)
+    fun getCurrentTeamRoundResult(): TeamRoundResult {
+        return completedTasks.run(this::convertToTeamResult)
     }
 
-    private fun convertToTeamResult(tasks: List<CompletedTask>): TeamResult {
-        return TeamResult(tasks)
+    private fun convertToTeamResult(tasks: List<CompletedTask>): TeamRoundResult {
+        return TeamRoundResult(tasks)
     }
 
     private fun taskStatusToScore(status: TaskResultStatus): Int {
@@ -232,16 +235,9 @@ class ActivityGame(
         return settings.actions.elementAt(index)
     }
 
-    private fun getUsedWords(): Set<Word> {
-        return completedTasks
-            .filter { it.result.status == DONE }
-            .map { it.task.word }
-            .toSet()
-    }
-
     private fun nextWord(): Word {
         return try {
-            dictionary.getRandomWord(getUsedWords())
+            dictionary.getRandomWord(usedWords)
         } catch (ex: NoWordsFoundException) {
             //should never happen
             dictionary.getRandomWord(setOf())

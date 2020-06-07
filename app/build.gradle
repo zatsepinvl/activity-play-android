@@ -3,6 +3,7 @@ apply plugin: "kotlin-android"
 apply plugin: "kotlin-android-extensions"
 apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: "kotlin-kapt"
+apply plugin: "com.google.gms.google-services"
 
 android {
     compileSdkVersion 29
@@ -75,6 +76,9 @@ dependencies {
 
     implementation "com.github.YarikSOffice:lingver:1.2.1"
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+
+    implementation 'com.google.firebase:firebase-analytics:17.2.2'
+    implementation 'com.google.firebase:firebase-firestore-ktx:21.4.3'
 
     testImplementation "junit:junit:4.12"
 

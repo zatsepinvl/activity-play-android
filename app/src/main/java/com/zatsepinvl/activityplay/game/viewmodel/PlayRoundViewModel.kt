@@ -74,9 +74,6 @@ class PlayRoundViewModel @Inject constructor(
     }
 
     private fun updateCurrentTeamRoundScore() {
-        currentTeamRoundScore.value = game.getTeamResult(
-            game.currentTeamIndex,
-            game.currentRoundIndex
-        ).score
+        currentTeamRoundScore.value = game.getCurrentTeamRoundResult().score
     }
 }

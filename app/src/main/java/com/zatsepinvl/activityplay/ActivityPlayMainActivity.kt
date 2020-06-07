@@ -5,6 +5,8 @@ import android.graphics.Shader
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.zatsepinvl.activityplay.android.color
 import com.zatsepinvl.activityplay.android.resource.TileDrawable
 import com.zatsepinvl.activityplay.color.ColoredView
@@ -17,6 +19,12 @@ class ActivityPlayMainActivity : AppCompatActivity(), ColoredView {
         setContentView(R.layout.activity_main)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         resetBackgroundColor()
+        val db = Firebase.firestore
+        db.collection("rooms")
+            .document("1")
+            .get().addOnSuccessListener {
+                println(it.data)
+            }
     }
 
     override fun resetBackgroundColor() {

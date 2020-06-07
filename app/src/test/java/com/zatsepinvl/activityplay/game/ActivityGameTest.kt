@@ -55,15 +55,29 @@ class ActivityGameTest {
             )
         )
 
-        //team 1 then 2
+        //round 1
         game.playOneFrame(doneCount = 2, failCount = 1)
         game.playOneFrame(doneCount = 3, failCount = 1)
-        //team 1 then 2
+        //round 2
         game.playOneFrame(doneCount = 2, failCount = 1)
         game.playOneFrame(doneCount = 3, failCount = 1)
 
-        assertEquals(4, game.getTeamTotalScore(0))
-        assertEquals(6, game.getTeamTotalScore(1))
+        game.assertTotalScore(4, 0)
+        game.assertTotalScore(6, 1)
+    }
+
+    @Test
+    fun play_1_frame_save_load() {
+        val game = createTestGame()
+
+        //round 1
+        game.playOneFrame(doneCount = 2)
+        game.playOneFrame(doneCount = 3)
+
+        val loadedGame = createTestGame(state = game.save())
+
+        loadedGame.assertTotalScore(2, 0)
+        loadedGame.assertTotalScore(3, 1)
     }
 
     @Test
@@ -115,7 +129,7 @@ class ActivityGameTest {
     }
 
     @Test
-    fun test_actions_different_between_frames() {
+    fun check_actions_different_between_frames() {
         val game = createTestGame()
 
         val actions = mutableSetOf<GameAction>()
@@ -131,7 +145,7 @@ class ActivityGameTest {
     }
 
     @Test
-    fun test_the_same_score_after_the_round() {
+    fun check_the_same_score_after_the_round() {
         val game = createTestGame(
             settings = GameSettings(maxScore = 1)
         )
@@ -146,7 +160,7 @@ class ActivityGameTest {
     }
 
     @Test
-    fun test_game_finishes_after_extra_round() {
+    fun check_game_finishes_after_extra_round() {
         val game = createTestGame(
             settings = GameSettings(maxScore = 1)
         )
@@ -163,7 +177,7 @@ class ActivityGameTest {
     }
 
     @Test
-    fun test_game_finishes_after_extra_round_second_team_wins() {
+    fun check_game_finishes_after_extra_round_second_team_wins() {
         val game = createTestGame(
             settings = GameSettings(maxScore = 1)
         )
@@ -185,7 +199,7 @@ class ActivityGameTest {
         game.startRound()
         game.finishRound()
 
-        assertEquals(0, game.getTeamResult(0).tasks.size)
+        assertEquals(0, game.getCurrentTeamRoundResult().tasks.size)
     }
 
     @Test
@@ -253,12 +267,27 @@ class ActivityGameTest {
             game.completeCurrentTask()
         }
 
-        val completedTasks = game.getCurrentTeamResultForCurrentRound().tasks
+        val completedTasks = game.getCurrentTeamRoundResult().tasks
         val actualWords = completedTasks.map {
             it.task.word.value
         }
 
         assertEquals(expectedWords, actualWords)
+    }
+
+    @Test
+    fun check_total_score() {
+        val game = createTestGame(settings = GameSettings(pointsForFail = -1))
+
+        game.startRound()
+        game.skipCurrentTask() //-1
+        game.skipCurrentTask() //-1
+        game.completeCurrentTask()//+1
+        game.skipCurrentTask()//-1
+        game.completeCurrentTask()//+1
+        game.finishRound()
+
+        game.assertTotalScore(0)
     }
 
     @Test
@@ -283,7 +312,7 @@ class ActivityGameTest {
         game.startRound()
         game.skipCurrentTask()
         game.completeCurrentTask()
-        val task = game.getTeamResult(0).tasks[0]
+        val task = game.getCurrentTeamRoundResult().tasks[0]
 
         game.updateCompletedTaskResult(task, TaskResultStatus.DONE)
 
@@ -300,7 +329,7 @@ class ActivityGameTest {
         game.completeCurrentTask()
         game.finishRound()
 
-        val task = game.getTeamResult(0).tasks[0]
+        val task = game.getCurrentTeamRoundResult().tasks[0]
         game.updateCompletedTaskResult(task, TaskResultStatus.SKIPPED)
     }
 
@@ -311,7 +340,7 @@ class ActivityGameTest {
         game.startRound()
         game.skipCurrentTask()
         game.completeCurrentTask()
-        val task = game.getTeamResult(0).tasks[0]
+        val task = game.getCurrentTeamRoundResult().tasks[0]
 
         val state = game.save()
         val loadedGame = createTestGame(state = state)

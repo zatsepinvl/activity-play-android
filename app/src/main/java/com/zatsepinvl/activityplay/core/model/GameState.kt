@@ -1,7 +1,11 @@
 package com.zatsepinvl.activityplay.core.model
 
+/**
+ * Nullability is used in order to keep backward compatibility
+ */
 data class GameState(
-    val completedTasks: MutableList<CompletedTask>,
+    val completedTasks: List<CompletedTask>,
+    val teamScores: Map<Int, Int>?,
     val finished: Boolean,
     val currentRoundIndex: Int,
     val currentTeamIndex: Int,
