@@ -1,4 +1,4 @@
-package com.zatsepinvl.activityplay.online.room.model
+package com.zatsepinvl.activityplay.multiplayer.room.model
 
 data class Device(
     val id: String,

@@ -40,6 +40,9 @@
         <action
             android:id="@+id/intro"
             app:destination="@id/introFragment" />
+        <action
+            android:id="@+id/multiplayerLobby"
+            app:destination="@id/multiplayerLobbyFragment" />
     </fragment>
 
     <fragment
@@ -151,5 +154,9 @@
             android:id="@+id/finishRound"
             app:destination="@id/finishRoundFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/multiplayerLobbyFragment"
+        android:name="com.zatsepinvl.activityplay.multiplayer.fragment.MultiplayerLobbyFragment"
+        android:label="MultiplayerLobbyFragment" />
 
 </navigation>

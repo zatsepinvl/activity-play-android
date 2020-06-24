@@ -20,10 +20,12 @@ import com.zatsepinvl.activityplay.BuildConfig
 import com.zatsepinvl.activityplay.R
 import com.zatsepinvl.activityplay.android.fragment.disableBackButton
 import com.zatsepinvl.activityplay.android.fragment.navigate
+import com.zatsepinvl.activityplay.android.viewmodel.EventObserver
 import com.zatsepinvl.activityplay.color.ColoredView
 import com.zatsepinvl.activityplay.databinding.FragmentHomeBinding
 import com.zatsepinvl.activityplay.home.fragment.HomeFragmentDirections.Companion.continueGame
 import com.zatsepinvl.activityplay.home.fragment.HomeFragmentDirections.Companion.intro
+import com.zatsepinvl.activityplay.home.fragment.HomeFragmentDirections.Companion.multiplayerLobby
 import com.zatsepinvl.activityplay.home.fragment.HomeFragmentDirections.Companion.newGame
 import com.zatsepinvl.activityplay.home.fragment.HomeFragmentDirections.Companion.settings
 import com.zatsepinvl.activityplay.home.viewmodel.HomeViewModel
@@ -49,15 +51,12 @@ class HomeFragment : DaggerFragment() {
         disableBackButton()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val binding = FragmentHomeBinding.inflate(inflater, container, false)
+    override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View? {
+        val binding = FragmentHomeBinding.inflate(inflater, root, false)
         binding.viewmodel = viewModel
         binding.lifecycleOwner = this
         (activity as ColoredView).resetBackgroundColor()
+        setupNavigation()
         return binding.root
     }
 
@@ -79,6 +78,12 @@ class HomeFragment : DaggerFragment() {
             intent.data = data
             startActivity(intent)
         }
+    }
+
+    private fun setupNavigation() {
+        viewModel.homePageEvent.observe(this, EventObserver {
+            navigate(multiplayerLobby())
+        })
     }
 
     private fun loadAdd() {

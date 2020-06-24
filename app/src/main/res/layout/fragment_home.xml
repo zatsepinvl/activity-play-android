@@ -47,6 +47,15 @@
                 app:icon="@drawable/ic_play_arrow_amber_24dp" />
 
             <com.zatsepinvl.activityplay.android.view.Button
+                android:id="@+id/homeMultiplayerButton"
+                style="@style/Widget.ActivityPlay.Button.OutlinedButton"
+                android:layout_marginTop="10dp"
+                android:enabled="@{viewmodel.canContinueGame()}"
+                android:text="@string/multiplayer"
+                app:icon="@drawable/ic_people_amber_24dp"
+                android:onClick="@{() -> viewmodel.setupMultiPlayerGame()}"/>
+
+            <com.zatsepinvl.activityplay.android.view.Button
                 android:id="@+id/homeSettingsButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton"
                 android:layout_marginTop="10dp"

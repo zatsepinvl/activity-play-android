@@ -1,4 +1,4 @@
-package com.zatsepinvl.activityplay.online.storage
+package com.zatsepinvl.activityplay.multiplayer.storage
 
 typealias  ItemChangedListener<T> = (item: T) -> Unit
 

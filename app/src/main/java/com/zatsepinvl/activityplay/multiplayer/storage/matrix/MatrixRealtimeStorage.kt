@@ -1,7 +1,7 @@
-package com.zatsepinvl.activityplay.online.storage.matrix
+package com.zatsepinvl.activityplay.multiplayer.storage.matrix
 
-import com.zatsepinvl.activityplay.online.storage.ItemChangedListener
-import com.zatsepinvl.activityplay.online.storage.RealtimeStorage
+import com.zatsepinvl.activityplay.multiplayer.storage.ItemChangedListener
+import com.zatsepinvl.activityplay.multiplayer.storage.RealtimeStorage
 
 class MatrixRealtimeStorage<T> : RealtimeStorage<T> {
     override fun getItem(id: String): T {
