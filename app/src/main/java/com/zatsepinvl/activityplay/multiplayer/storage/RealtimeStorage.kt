@@ -1,9 +1,10 @@
 package com.zatsepinvl.activityplay.multiplayer.storage
 
-typealias  ItemChangedListener<T> = (item: T) -> Unit
-
 interface RealtimeStorage<T> {
-    fun getItem(id: String): T
-    fun save(item: T)
-    fun onItemChanged(listener: ItemChangedListener<T>)
+    suspend fun getItem(itemId: String): T?
+    suspend fun saveItem(itemId: String, item: T)
+    fun addOnItemChangedListener(
+        itemId: String,
+        listener: ItemChangedListener<T>
+    ): ItemChangedSubscription
 }

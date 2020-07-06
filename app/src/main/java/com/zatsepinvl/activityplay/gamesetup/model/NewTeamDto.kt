@@ -1,4 +1,4 @@
-package com.zatsepinvl.activityplay.team.model
+package com.zatsepinvl.activityplay.gamesetup.model
 
 import android.content.Intent
 import com.zatsepinvl.activityplay.color.ColorId

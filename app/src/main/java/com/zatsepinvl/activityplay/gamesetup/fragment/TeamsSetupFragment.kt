@@ -1,4 +1,4 @@
-package com.zatsepinvl.activityplay.team.fragment
+package com.zatsepinvl.activityplay.gamesetup.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,28 +8,35 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.zatsepinvl.activityplay.R
 import com.zatsepinvl.activityplay.android.fragment.dismissDialog
 import com.zatsepinvl.activityplay.android.fragment.navigate
-import com.zatsepinvl.activityplay.databinding.FragmentTeamListBinding
+import com.zatsepinvl.activityplay.databinding.FragmentTeamsSetupBinding
 import com.zatsepinvl.activityplay.databinding.ViewTeamListItemBinding
 import com.zatsepinvl.activityplay.di.ViewModelAwareFragment
-import com.zatsepinvl.activityplay.team.fragment.TeamListFragmentDirections.Companion.gameSettings
-import com.zatsepinvl.activityplay.team.fragment.TeamListFragmentDirections.Companion.startRound
-import com.zatsepinvl.activityplay.team.model.*
-import com.zatsepinvl.activityplay.team.viewmodel.DeleteTeamErrorCode.AT_LEAST_TWO_TEAMS_REQUIRED
-import com.zatsepinvl.activityplay.team.viewmodel.TeamSettingsViewModel
-import kotlinx.android.synthetic.main.fragment_team_list.*
+import com.zatsepinvl.activityplay.gamesetup.fragment.TeamsSetupFragmentDirections.Companion.gameSettings
+import com.zatsepinvl.activityplay.gamesetup.fragment.TeamsSetupFragmentDirections.Companion.startRound
+import com.zatsepinvl.activityplay.gamesetup.model.UpdateTeamDto
+import com.zatsepinvl.activityplay.gamesetup.model.getNewTeamDto
+import com.zatsepinvl.activityplay.gamesetup.model.getUpdateTeamDto
+import com.zatsepinvl.activityplay.gamesetup.model.putUpdateTeamDto
+import com.zatsepinvl.activityplay.gamesetup.viewmodel.DeleteTeamErrorCode.AT_LEAST_TWO_TEAMS_REQUIRED
+import com.zatsepinvl.activityplay.gamesetup.viewmodel.TeamsSetupViewModel
+import com.zatsepinvl.activityplay.team.model.Team
+import kotlinx.android.synthetic.main.fragment_teams_setup.*
 
-class TeamListFragment :
-    ViewModelAwareFragment<TeamSettingsViewModel>(TeamSettingsViewModel::class) {
+class TeamsSetupFragment :
+    ViewModelAwareFragment<TeamsSetupViewModel>(TeamsSetupViewModel::class) {
+
+    private val args: TeamsSetupFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentTeamListBinding.inflate(inflater, container, false)
+        val binding = FragmentTeamsSetupBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
 
         observeTeams(binding.teamList, inflater)
@@ -38,8 +45,8 @@ class TeamListFragment :
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initNavButton()
-        initAddNewTeamButton()
+        setupNavigation()
+        setupAddNewTeamButton()
         super.onViewCreated(view, savedInstanceState)
     }
 
@@ -53,13 +60,13 @@ class TeamListFragment :
         }
     }
 
-    private fun initNavButton() {
+    private fun setupNavigation() {
         teamListSettingsButton.setOnClickListener { navigate(gameSettings()) }
-        teamListStartNewGameButton.setOnClickListener { navigate(startRound()) }
+        teamListStartNewGameButton.setOnClickListener { navigate(startRound(args.navigationFlow)) }
         teamListBackButton.setOnClickListener { findNavController().popBackStack() }
     }
 
-    private fun initAddNewTeamButton() {
+    private fun setupAddNewTeamButton() {
         teamListAddTeamButton.setOnClickListener {
             val addTeamDialog = UpdateTeamDialogFragment()
             addTeamDialog.setTargetFragment(this, UpdateTeamDialogRequestCode.REQUEST_NEW.code)

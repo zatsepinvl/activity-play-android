@@ -1,4 +1,4 @@
-package com.zatsepinvl.activityplay.team.fragment
+package com.zatsepinvl.activityplay.gamesetup.fragment
 
 import android.app.Dialog
 import android.content.Intent
@@ -11,11 +11,11 @@ import com.zatsepinvl.activityplay.android.fragment.dismissDialog
 import com.zatsepinvl.activityplay.color.ColorId
 import com.zatsepinvl.activityplay.color.ColorService
 import com.zatsepinvl.activityplay.databinding.DialogAddNewTeamBinding
-import com.zatsepinvl.activityplay.team.adapter.ColorListAdapter
-import com.zatsepinvl.activityplay.team.fragment.UpdateTeamDialogRequestCode.REQUEST_NEW
-import com.zatsepinvl.activityplay.team.fragment.UpdateTeamDialogRequestCode.REQUEST_UPDATE
-import com.zatsepinvl.activityplay.team.fragment.UpdateTeamDialogResultCode.RESULT_OK
-import com.zatsepinvl.activityplay.team.model.*
+import com.zatsepinvl.activityplay.gamesetup.adapter.ColorListAdapter
+import com.zatsepinvl.activityplay.gamesetup.fragment.UpdateTeamDialogRequestCode.REQUEST_NEW
+import com.zatsepinvl.activityplay.gamesetup.fragment.UpdateTeamDialogRequestCode.REQUEST_UPDATE
+import com.zatsepinvl.activityplay.gamesetup.fragment.UpdateTeamDialogResultCode.RESULT_OK
+import com.zatsepinvl.activityplay.gamesetup.model.*
 import dagger.android.support.DaggerDialogFragment
 import java.util.*
 import javax.inject.Inject

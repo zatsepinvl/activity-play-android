@@ -1,4 +1,4 @@
-package com.zatsepinvl.activityplay.team.adapter
+package com.zatsepinvl.activityplay.gamesetup.adapter
 
 import android.view.LayoutInflater
 import android.view.View

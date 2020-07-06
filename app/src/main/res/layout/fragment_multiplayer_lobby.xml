@@ -4,6 +4,9 @@
 
     <data>
 
+        <variable
+            name="viewmodel"
+            type="com.zatsepinvl.activityplay.multiplayer.lobby.viewmodel.MultiplayerLobbyViewModel" />
     </data>
 
     <FrameLayout
@@ -51,6 +54,7 @@
                     <com.google.android.material.button.MaterialButton
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:onClick="@{() -> viewmodel.createNewGame()}"
                         android:text="Create new game"
                         app:icon="@drawable/ic_add_white_24dp" />
                 </LinearLayout>
@@ -103,6 +107,7 @@
                     <com.google.android.material.button.MaterialButton
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:onClick="@{() -> viewmodel.joinGame(multiplayerLobbyGameIdInput.getText().toString())}"
                         android:text="Join game"
                         app:icon="@drawable/ic_group_add_white_24dp" />
                 </LinearLayout>

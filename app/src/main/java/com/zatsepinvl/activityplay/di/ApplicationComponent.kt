@@ -4,6 +4,7 @@ import android.content.Context
 import com.zatsepinvl.activityplay.ActivityPlayApplication
 import com.zatsepinvl.activityplay.dictionary.DictionaryModule
 import com.zatsepinvl.activityplay.game.GameModule
+import com.zatsepinvl.activityplay.gamesetup.GameSetupModule
 import com.zatsepinvl.activityplay.home.HomeModule
 import com.zatsepinvl.activityplay.multiplayer.MultiplayerModule
 import com.zatsepinvl.activityplay.settings.SettingsModule
@@ -23,8 +24,9 @@ import javax.inject.Singleton
         SettingsModule::class,
         DictionaryModule::class,
         GameModule::class,
-        HomeModule::class,
         TeamModule::class,
+        HomeModule::class,
+        GameSetupModule::class,
         TimerModule::class,
         MultiplayerModule::class
     ]

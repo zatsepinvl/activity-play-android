@@ -35,7 +35,7 @@ class StartRoundFragment : DaggerFragment() {
     private val viewModel: StartRoundViewModel by activityViewModels { viewModelFactory }
 
     override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View? {
-        initViewModel()
+        setupViewModel()
 
         val dataBinding = FragmentRoundStartBinding.inflate(inflater, root, false)
         dataBinding.viewmodel = viewModel
@@ -55,7 +55,7 @@ class StartRoundFragment : DaggerFragment() {
     }
 
 
-    private fun initViewModel() {
+    private fun setupViewModel() {
         if (args.navigationFlow == NavigationFlow.NEW_GAME) {
             viewModel.startNewGame()
         } else {
