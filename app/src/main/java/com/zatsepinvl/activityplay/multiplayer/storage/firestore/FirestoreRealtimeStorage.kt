@@ -2,10 +2,11 @@ package com.zatsepinvl.activityplay.multiplayer.storage.firestore
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
+import com.zatsepinvl.activityplay.firebase.await
+import com.zatsepinvl.activityplay.firebase.firestore.FirestoreProvider
 import com.zatsepinvl.activityplay.multiplayer.storage.ItemChangedListener
 import com.zatsepinvl.activityplay.multiplayer.storage.ItemChangedSubscription
 import com.zatsepinvl.activityplay.multiplayer.storage.RealtimeStorage
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import kotlin.reflect.KClass
 

@@ -3,6 +3,7 @@ package com.zatsepinvl.activityplay.di
 import android.content.Context
 import com.zatsepinvl.activityplay.ActivityPlayApplication
 import com.zatsepinvl.activityplay.dictionary.DictionaryModule
+import com.zatsepinvl.activityplay.firebase.FirebaseModule
 import com.zatsepinvl.activityplay.game.GameModule
 import com.zatsepinvl.activityplay.gamesetup.GameSetupModule
 import com.zatsepinvl.activityplay.home.HomeModule
@@ -22,6 +23,7 @@ import javax.inject.Singleton
         AndroidSupportInjectionModule::class,
         ApplicationModule::class,
         SettingsModule::class,
+        FirebaseModule::class,
         DictionaryModule::class,
         GameModule::class,
         TeamModule::class,

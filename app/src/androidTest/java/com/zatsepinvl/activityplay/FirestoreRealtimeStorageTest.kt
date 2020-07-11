@@ -2,13 +2,8 @@ package com.zatsepinvl.activityplay
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
-import com.google.firebase.FirebaseApp
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreSettings
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import com.zatsepinvl.activityplay.firebase.firestore.FirestoreLocalProvider
 import com.zatsepinvl.activityplay.multiplayer.storage.ItemChangedListener
-import com.zatsepinvl.activityplay.multiplayer.storage.firestore.FirestoreProvider
 import com.zatsepinvl.activityplay.multiplayer.storage.firestore.FirestoreRealtimeStorage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -32,24 +27,10 @@ data class TestItem(
 class FirestoreRealtimeStorageTest {
     private val context = ApplicationProvider.getApplicationContext<Context>()
 
-    companion object
-    class TestFirestoreProvider(private val context: Context) : FirestoreProvider {
-        override fun firestore(): FirebaseFirestore {
-            FirebaseApp.initializeApp(context)
-            val settings = FirebaseFirestoreSettings.Builder()
-                //10.0.2.2 - IP address of the host machine for the Android Emulator
-                .setHost("10.0.2.2:8348")
-                .setSslEnabled(false)
-                .setPersistenceEnabled(false)
-                .build()
-
-            val firestore = FirebaseFirestore.getInstance()
-            firestore.firestoreSettings = settings
-            return Firebase.firestore
-        }
-    }
-
-    private val firestoreProvider = TestFirestoreProvider(context)
+    private val firestoreProvider =
+        FirestoreLocalProvider(
+            context
+        )
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
     private val storage = FirestoreRealtimeStorage(firestoreProvider, TestItem::class)
 
@@ -68,7 +49,6 @@ class FirestoreRealtimeStorageTest {
     fun save_get_item() = runBlocking {
         val testItem = TestItem("id", "payload")
         storage.saveItem(testItem.id, testItem)
-
         val actualItem = storage.getItem(testItem.id)
         assertEquals(testItem, actualItem)
     }

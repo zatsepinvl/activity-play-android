@@ -22,10 +22,10 @@ open class ActivityPlayApplication : DaggerApplication() {
     override fun onCreate() {
         super.onCreate()
         languageService.init(this)
-        initAds()
+        setupAds()
     }
 
-    private fun initAds() {
+    private fun setupAds() {
         val config = RequestConfiguration.Builder()
             .setTagForChildDirectedTreatment(TAG_FOR_CHILD_DIRECTED_TREATMENT_TRUE)
             .build()

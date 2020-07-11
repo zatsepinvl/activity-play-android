@@ -16,8 +16,11 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            debuggable true
+        }
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
         }
     }
@@ -51,7 +54,7 @@ android {
     }
     testOptions {
         unitTests.includeAndroidResources = true
-        //due to bug in kotlinx-coroutines-test: https://github.com/Kotlin/kotlinx.coroutines/issues/2023
+        //due to the bug in kotlinx-coroutines-test: https://github.com/Kotlin/kotlinx.coroutines/issues/2023
         packagingOptions {
             exclude 'META-INF/AL2.0'
             exclude 'META-INF/LGPL2.1'

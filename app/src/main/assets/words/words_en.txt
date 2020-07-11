@@ -1009,7 +1009,7 @@ matter	n	3	3	3
 leaf	n	2	3	3
 intelligent	a	4	4	4
 negotiate	v	3	3	3
-await	v	4	4	4
+com.zatsepinvl.activityplay.firebase.await	v	4	4	4
 prove	v	2	2	2
 adviser	n	3	3	4
 gene	n	3	3	2

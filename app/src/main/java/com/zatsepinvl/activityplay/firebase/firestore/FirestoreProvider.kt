@@ -1,4 +1,4 @@
-package com.zatsepinvl.activityplay.multiplayer.storage.firestore
+package com.zatsepinvl.activityplay.firebase.firestore
 
 import com.google.firebase.firestore.FirebaseFirestore
 

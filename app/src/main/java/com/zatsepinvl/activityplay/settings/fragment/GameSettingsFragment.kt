@@ -78,7 +78,7 @@ class GameSettingsFragment : DaggerPreferenceFragmentCompat() {
     }
 
     private fun createLoadDictionarySnackbar(): Snackbar {
-        return Snackbar.make(view!!, R.string.loading_dictionary_progress_title, LENGTH_INDEFINITE)
+        return Snackbar.make(requireView(), R.string.loading_dictionary_progress_title, LENGTH_INDEFINITE)
             .apply {
                 view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
                     .setTextColor(context.color(R.color.md_white_1000))
