@@ -1,9 +1,8 @@
-package com.zatsepinvl.activityplay.multiplayer.storage.firestore
+package com.zatsepinvl.activityplay.firebase.firestore
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.zatsepinvl.activityplay.firebase.await
-import com.zatsepinvl.activityplay.firebase.firestore.FirestoreProvider
 import com.zatsepinvl.activityplay.multiplayer.storage.ItemChangedListener
 import com.zatsepinvl.activityplay.multiplayer.storage.ItemChangedSubscription
 import com.zatsepinvl.activityplay.multiplayer.storage.RealtimeStorage
@@ -14,18 +13,14 @@ private const val COLLECTION = "rooms"
 private const val LOG_TAG = "AP_FirestoreRealStorage"
 
 class FirestoreRealtimeStorage<T : Any> @Inject constructor(
-    private val firestoreProvider: FirestoreProvider,
+    firestoreProvider: FirestoreProvider,
     private val dataType: KClass<T>
 ) : RealtimeStorage<T> {
 
-    private val firestore: FirebaseFirestore
+    private val firestore: FirebaseFirestore = firestoreProvider.firestore()
 
     private val collection
         get() = firestore.collection(COLLECTION)
-
-    init {
-        firestore = firestoreProvider.firestore()
-    }
 
     override suspend fun getItem(itemId: String): T? {
         val document = collection.document(itemId).get().await()

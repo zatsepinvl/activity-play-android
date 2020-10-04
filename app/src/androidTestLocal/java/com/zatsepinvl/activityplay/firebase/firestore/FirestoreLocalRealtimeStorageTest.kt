@@ -1,10 +1,8 @@
-package com.zatsepinvl.activityplay
+package com.zatsepinvl.activityplay.firebase.firestore
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
-import com.zatsepinvl.activityplay.firebase.firestore.FirestoreLocalProvider
 import com.zatsepinvl.activityplay.multiplayer.storage.ItemChangedListener
-import com.zatsepinvl.activityplay.multiplayer.storage.firestore.FirestoreRealtimeStorage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.newSingleThreadContext
@@ -24,15 +22,17 @@ data class TestItem(
 )
 
 @ExperimentalCoroutinesApi
-class FirestoreRealtimeStorageTest {
+class FirestoreLocalRealtimeStorageTest {
     private val context = ApplicationProvider.getApplicationContext<Context>()
 
     private val firestoreProvider =
-        FirestoreLocalProvider(
-            context
-        )
+        FirestoreLocalProvider()
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
-    private val storage = FirestoreRealtimeStorage(firestoreProvider, TestItem::class)
+    private val storage =
+        FirestoreRealtimeStorage(
+            firestoreProvider,
+            TestItem::class
+        )
 
     @Before
     fun setUp() {
@@ -47,7 +47,10 @@ class FirestoreRealtimeStorageTest {
 
     @Test
     fun save_get_item() = runBlocking {
-        val testItem = TestItem("id", "payload")
+        val testItem = TestItem(
+            "id",
+            "payload"
+        )
         storage.saveItem(testItem.id, testItem)
         val actualItem = storage.getItem(testItem.id)
         assertEquals(testItem, actualItem)
@@ -55,7 +58,10 @@ class FirestoreRealtimeStorageTest {
 
     @Test
     fun listen_for_changes() = runBlocking {
-        val testItem = TestItem("id", "payload")
+        val testItem = TestItem(
+            "id",
+            "payload"
+        )
         storage.saveItem(testItem.id, testItem)
 
         val lock = CountDownLatch(1)
