@@ -12,7 +12,7 @@ import kotlin.reflect.KClass
 private const val COLLECTION = "rooms"
 private const val LOG_TAG = "AP_FirestoreRealStorage"
 
-class FirestoreRealtimeStorage<T : Any> @Inject constructor(
+open class FirestoreRealtimeStorage<T : Any> @Inject constructor(
     firestoreProvider: FirestoreProvider,
     private val dataType: KClass<T>
 ) : RealtimeStorage<T> {

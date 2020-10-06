@@ -4,7 +4,7 @@ import com.zatsepinvl.activityplay.core.model.GameSettings
 import com.zatsepinvl.activityplay.core.model.GameState
 import com.zatsepinvl.activityplay.team.model.Team
 
-data class MutiplayerRoomState(
+data class MultiplayerRoomState(
     val id: String,
     val host: Device,
     val gameState: GameState? = null,

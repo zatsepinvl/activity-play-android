@@ -1,7 +1,5 @@
 package com.zatsepinvl.activityplay.firebase.firestore
 
-import android.content.Context
-import androidx.test.core.app.ApplicationProvider
 import com.zatsepinvl.activityplay.multiplayer.storage.ItemChangedListener
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -15,6 +13,7 @@ import org.junit.Before
 import org.junit.Test
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 data class TestItem(
     val id: String = "",
@@ -22,21 +21,19 @@ data class TestItem(
 )
 
 @ExperimentalCoroutinesApi
-class FirestoreLocalRealtimeStorageTest {
-    private val context = ApplicationProvider.getApplicationContext<Context>()
+class FirestoreRealtimeStorageTest {
 
-    private val firestoreProvider =
-        FirestoreLocalProvider()
+    @Inject
+    lateinit var firestoreProvider: FirestoreProvider
+
+    private lateinit var storage: FirestoreRealtimeStorage<TestItem>
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
-    private val storage =
-        FirestoreRealtimeStorage(
-            firestoreProvider,
-            TestItem::class
-        )
 
     @Before
     fun setUp() {
         Dispatchers.setMain(mainThreadSurrogate)
+        DaggerFirestoreRealtimeStorageTestComponent.create().inject(this)
+        storage = FirestoreRealtimeStorage(firestoreProvider, TestItem::class)
     }
 
     @After
