@@ -33,7 +33,11 @@ class FirestoreRealtimeStorageTest {
     fun setUp() {
         Dispatchers.setMain(mainThreadSurrogate)
         DaggerFirestoreRealtimeStorageTestComponent.create().inject(this)
-        storage = FirestoreRealtimeStorage(firestoreProvider, TestItem::class)
+        storage = FirestoreRealtimeStorage(
+            firestoreProvider,
+            TestItem::class,
+            "test_collection"
+        )
     }
 
     @After
@@ -59,21 +63,20 @@ class FirestoreRealtimeStorageTest {
             "id",
             "payload"
         )
-        storage.saveItem(testItem.id, testItem)
 
-        val lock = CountDownLatch(1)
+        val lock = CountDownLatch(2)
         val changedItem = testItem.copy(payload = "newPayload")
 
         val subscription = storage.addOnItemChangedListener(
             testItem.id,
             object : ItemChangedListener<TestItem> {
                 override fun onItemChanged(item: TestItem) {
-                    assertEquals(changedItem, item)
+                    assert(item == testItem || item == changedItem)
                     lock.countDown()
                 }
             }
         )
-
+        storage.saveItem(testItem.id, testItem)
         storage.saveItem(changedItem.id, changedItem)
         lock.await(1, TimeUnit.SECONDS)
         subscription.unsubscribe()
