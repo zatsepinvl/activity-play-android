@@ -30,7 +30,7 @@ class GameSettingsServiceImpl @Inject constructor(
             val actions = if (enabledActions.isNotEmpty()) {
                 enabledActions
             } else {
-                GameAction.values().toSet()
+                GameAction.values().toList()
             }
             GameSettings(
                 teamCount = teamService.getTeamsCount(),

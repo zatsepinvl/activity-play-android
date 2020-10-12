@@ -18,6 +18,7 @@ import com.zatsepinvl.activityplay.game.fragment.StartRoundFragmentDirections.Co
 import com.zatsepinvl.activityplay.game.fragment.StartRoundFragmentDirections.Companion.finishGame
 import com.zatsepinvl.activityplay.game.fragment.StartRoundFragmentDirections.Companion.playRound
 import com.zatsepinvl.activityplay.game.fragment.StartRoundFragmentDirections.Companion.settings
+import com.zatsepinvl.activityplay.game.viewmodel.MultiplayerGameViewModel
 import com.zatsepinvl.activityplay.game.viewmodel.StartRoundViewModel
 import com.zatsepinvl.activityplay.navigation.NavigationFlow
 import dagger.android.support.DaggerFragment
@@ -32,13 +33,16 @@ class StartRoundFragment : DaggerFragment() {
 
     private val args: StartRoundFragmentArgs by navArgs()
 
-    private val viewModel: StartRoundViewModel by activityViewModels { viewModelFactory }
+    private val gameViewModel: StartRoundViewModel by activityViewModels { viewModelFactory }
+    private val multiplayerGameViewModel: MultiplayerGameViewModel by activityViewModels { viewModelFactory }
 
     override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View? {
-        setupViewModel()
+        setupGameViewModel()
+        setupMultiplayerGameViewModel()
 
         val dataBinding = FragmentRoundStartBinding.inflate(inflater, root, false)
-        dataBinding.viewmodel = viewModel
+        dataBinding.gameViewModel = gameViewModel
+        dataBinding.multiplayerGameViewModel = multiplayerGameViewModel
         dataBinding.lifecycleOwner = this
 
         dataBinding.gameStartRoundStartButton.onClick {
@@ -54,21 +58,26 @@ class StartRoundFragment : DaggerFragment() {
         return dataBinding.root
     }
 
-
-    private fun setupViewModel() {
-        if (args.navigationFlow == NavigationFlow.NEW_GAME) {
-            viewModel.startNewGame()
-        } else {
-            viewModel.continueGame()
+    private fun setupMultiplayerGameViewModel() {
+        if (args.navigationFlow == NavigationFlow.NEW_MULTIPLAYER_GAME) {
+            multiplayerGameViewModel.hostMultiplayerGame()
         }
-        if (viewModel.isGameFinished()) {
+    }
+
+    private fun setupGameViewModel() {
+        when (args.navigationFlow) {
+            NavigationFlow.NEW_GAME,
+            NavigationFlow.NEW_MULTIPLAYER_GAME -> gameViewModel.startNewGame()
+            else -> gameViewModel.continueGame()
+        }
+        if (gameViewModel.isGameFinished()) {
             navigate(finishGame())
         }
-        (activity as ColoredView).changeBackgroundColor(viewModel.currentTeam.color)
+        (activity as ColoredView).changeBackgroundColor(gameViewModel.currentTeam.color)
     }
 
     private fun createTeamBoardView(inflater: LayoutInflater, teamBoard: ViewGroup) {
-        viewModel.getTeamsBoardItemData().forEach {
+        gameViewModel.getTeamsBoardItemData().forEach {
             val teamBoardItem = ViewTeamBoardItemBinding.inflate(inflater, teamBoard, true)
             teamBoardItem.data = it
         }

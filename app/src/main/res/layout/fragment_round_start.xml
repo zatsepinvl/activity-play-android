@@ -6,8 +6,13 @@
     <data>
 
         <variable
-            name="viewmodel"
+            name="gameViewModel"
             type="com.zatsepinvl.activityplay.game.viewmodel.StartRoundViewModel" />
+
+        <variable
+            name="multiplayerGameViewModel"
+            type="com.zatsepinvl.activityplay.game.viewmodel.MultiplayerGameViewModel" />
+
     </data>
 
     <FrameLayout
@@ -22,14 +27,23 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:text="@string/main_menu"
-            app:color="@{viewmodel.currentTeam.color}"
+            app:color="@{gameViewModel.currentTeam.color}"
             app:icon="@drawable/ic_arrow_back_grey_800_24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="100dp"
+            android:gravity="center"
+            android:text='@{multiplayerGameViewModel.isMultiplayer ? "Multiplayer" : "Singleplayer"}'
+            tools:text="Singleplayer" />
 
         <com.zatsepinvl.activityplay.android.view.Button
             android:id="@+id/gameSettingsButton"
             style="@style/Widget.ActivityPlay.Button.OutlinedButton.IconButton"
             android:layout_gravity="end"
-            app:color="@{viewmodel.currentTeam.color}"
+            app:color="@{gameViewModel.currentTeam.color}"
             app:icon="@drawable/ic_settings_black_24dp" />
 
         <LinearLayout
@@ -51,9 +65,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableTop="@drawable/video_player"
-                    android:text="@{@string/team_plays_round(viewmodel.currentRound(),viewmodel.currentTeam.name)}"
+                    android:text="@{@string/team_plays_round(gameViewModel.currentRound(),gameViewModel.currentTeam.name)}"
                     android:textAlignment="center"
-                    android:textColor="@{viewmodel.currentTeam.color}"
+                    android:textColor="@{gameViewModel.currentTeam.color}"
                     android:textSize="20sp"
                     tools:hint="Round X - TeamName playes!" />
 
@@ -61,20 +75,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/gameFrameAction"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="@{@string/next_game_action(viewmodel.actionLocalName)}"
-                        android:textAlignment="center"
-                        android:textColor="@{viewmodel.currentTeam.color}"
-                        android:textSize="16sp"
                         android:layout_marginTop="4dp"
                         android:layout_marginBottom="4dp"
+                        android:text="@{@string/next_game_action(gameViewModel.actionLocalName)}"
+                        android:textColor="@{gameViewModel.currentTeam.color}"
+                        android:textSize="16sp"
                         tools:hint="Be ready to Act" />
 
                     <ImageView
@@ -83,7 +96,7 @@
                         android:layout_height="30dp"
                         android:layout_gravity="center"
                         android:layout_marginStart="6dp"
-                        android:src="@{viewmodel.actionDrawable}"
+                        android:src="@{gameViewModel.actionDrawable}"
                         tools:src="@drawable/theater" />
                 </LinearLayout>
 
@@ -102,9 +115,9 @@
                 style="@style/Widget.ActivityPlay.TextView.Body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{@string/round_max_score(viewmodel.gameSettings().maxScore)}"
+                android:text="@{@string/round_max_score(gameViewModel.gameSettings().maxScore)}"
                 android:textAlignment="textEnd"
-                android:textColor="@{viewmodel.currentTeam.color}"
+                android:textColor="@{gameViewModel.currentTeam.color}"
                 android:textSize="16sp"
                 tools:hint="max score is 10" />
         </LinearLayout>
@@ -115,7 +128,7 @@
             android:layout_width="match_parent"
             android:layout_gravity="bottom"
             android:text="@string/start_round"
-            app:color="@{viewmodel.currentTeam.color}"
+            app:color="@{gameViewModel.currentTeam.color}"
             app:icon="@drawable/ic_play_arrow_black_24dp"
             app:iconGravity="textStart"
             app:iconPadding="16dp" />

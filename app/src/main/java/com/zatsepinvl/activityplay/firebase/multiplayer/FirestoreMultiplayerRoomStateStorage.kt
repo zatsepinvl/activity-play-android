@@ -1,4 +1,4 @@
-package com.zatsepinvl.activityplay.firebase.provider
+package com.zatsepinvl.activityplay.firebase.multiplayer
 
 import com.zatsepinvl.activityplay.firebase.firestore.FirestoreProvider
 import com.zatsepinvl.activityplay.firebase.firestore.FirestoreRealtimeStorage

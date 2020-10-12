@@ -5,7 +5,7 @@ data class GameSettings(
     val pointsForDone: Int = 1,
     val pointsForFail: Int = 0,
     val maxScore: Int = 20,
-    val actions: Set<GameAction> = setOf(
+    val actions: List<GameAction> = listOf(
         GameAction.SAY,
         GameAction.DRAW,
         GameAction.SHOW

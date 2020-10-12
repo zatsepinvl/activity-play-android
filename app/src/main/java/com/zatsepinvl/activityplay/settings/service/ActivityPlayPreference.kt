@@ -25,7 +25,7 @@ object ActivityPlayPreference {
                 fineForSkipping = getBoolean(FINE_FOR_SKIPPING.key, false),
                 roundTimeSeconds = getInt(ROUND_TIME_SECONDS.key, 60),
                 maxScore = getInt(MAX_SCORE.key, 20),
-                enabledActions = getEnabledActionPreferenceKeys(context).map { it.action }.toSet(),
+                enabledActions = getEnabledActionPreferenceKeys(context).map { it.action }.toList(),
                 soundsEnabled = soundsEnabled(),
                 vibrationEnabled = vibrationEnabled()
             )

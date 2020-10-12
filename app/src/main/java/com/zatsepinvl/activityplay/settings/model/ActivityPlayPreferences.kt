@@ -10,5 +10,5 @@ data class ActivityPlayPreferences(
     val maxScore: Int,
     val soundsEnabled: Boolean,
     val vibrationEnabled: Boolean,
-    val enabledActions: Set<GameAction>
+    val enabledActions: List<GameAction>
 )

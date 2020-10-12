@@ -36,11 +36,11 @@ class MultiplayerLobbyFragment : DaggerFragment() {
     }
 
     private fun setupNavigation() {
-        viewModel.setupNewGameEvent.observe(viewLifecycleOwner, Observer {
+        viewModel.navigateToCreateNewGame.observe(viewLifecycleOwner, Observer {
             navigate(newMultiplayerGame())
         })
 
-        viewModel.joinNewGameEvent.observe(viewLifecycleOwner, Observer {
+        viewModel.navigateToJoinNewGame.observe(viewLifecycleOwner, Observer {
             Log.d(APP_LOG_TAG, "RoomID: $it.roomId")
         })
     }
