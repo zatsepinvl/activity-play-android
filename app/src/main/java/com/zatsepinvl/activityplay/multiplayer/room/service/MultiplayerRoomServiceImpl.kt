@@ -8,11 +8,11 @@ class MultiplayerRoomServiceImpl @Inject constructor(
     private val realtimeStorage: MultiplayerRoomStateStorage
 ) : MultiplayerRoomService {
     override suspend fun createRoom(roomState: MultiplayerRoomState) {
-        realtimeStorage.saveItem(roomState.id, roomState)
+        realtimeStorage.saveItem(roomState.roomId, roomState)
     }
 
     override suspend fun updateRoom(roomState: MultiplayerRoomState) {
-        realtimeStorage.saveItem(roomState.id, roomState)
+        realtimeStorage.saveItem(roomState.roomId, roomState)
     }
 
     override suspend fun getRoomState(roomId: String): MultiplayerRoomState {

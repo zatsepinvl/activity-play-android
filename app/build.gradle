@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId "com.zatsepinvl.activity.play"
         minSdkVersion 21
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 14
         versionName "1.4.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -84,7 +84,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:2.0.2"
     implementation "androidx.navigation:navigation-fragment-ktx:2.3.0"
     implementation "androidx.navigation:navigation-ui-ktx:2.3.0"
-    implementation "androidx.preference:preference:1.1.1"
+    implementation "androidx.preference:preference-ktx:1.1.1"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
     implementation "androidx.legacy:legacy-support-v4:1.0.0"
@@ -95,6 +95,9 @@ dependencies {
 
     implementation "com.google.dagger:dagger:2.25.2"
     implementation "com.google.dagger:dagger-android-support:2.25.2"
+
+    implementation "com.squareup.moshi:moshi:1.11.0"
+    implementation "com.squareup.moshi:moshi-kotlin:1.11.0"
 
     kapt "com.google.dagger:dagger-compiler:2.25.2"
     kapt "com.google.dagger:dagger-android-processor:2.25.2"

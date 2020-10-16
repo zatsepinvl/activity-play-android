@@ -36,7 +36,7 @@
             android:layout_gravity="end"
             android:layout_marginEnd="100dp"
             android:gravity="center"
-            android:text='@{multiplayerGameViewModel.isMultiplayer ? "Multiplayer" : "Singleplayer"}'
+            android:text='@{multiplayerGameViewModel.isMultiplayer ? multiplayerGameViewModel.multiplayerRoomState.roomId : "Singleplayer"}'
             tools:text="Singleplayer" />
 
         <com.zatsepinvl.activityplay.android.view.Button

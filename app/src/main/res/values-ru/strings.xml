@@ -163,5 +163,8 @@
     <string name="error">Ошибка</string>
     <string name="settings_vibration_title">Вибрация</string>
     <string name="round_is_over_helper">Проверьте, правильно ли все подсчитано:</string>
+    <string name="multiplayer">Игра онлайн</string>
+    <string name="join_game">Присоединиться к игре</string>
+    <string name="create_new_game">Создать игру</string>
 
 </resources>

@@ -1,16 +1,22 @@
 package com.zatsepinvl.activityplay.home.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.zatsepinvl.activityplay.android.viewmodel.Event
+import com.zatsepinvl.activityplay.android.viewmodel.SingleLiveEvent
 import com.zatsepinvl.activityplay.game.service.GameService
-import com.zatsepinvl.activityplay.home.viewmodel.HomePageEvent.SETUP_MULTIPLAYER_GAME
+import com.zatsepinvl.activityplay.home.viewmodel.HomeMenuItem.MULTIPLAYER
 import javax.inject.Inject
 
 
-enum class HomePageEvent {
-    SETUP_MULTIPLAYER_GAME
+enum class HomeMenuItem {
+    NEW_GAME,
+    CONTINUE,
+    MULTIPLAYER,
+    SETTINGS,
+    INTRO,
+    SUPPORT_DEV,
+    GITHUB,
+    EMAIL
 }
 
 class HomeViewModel @Inject constructor(
@@ -19,10 +25,10 @@ class HomeViewModel @Inject constructor(
 
     fun canContinueGame(): Boolean = gameService.isGameSaved()
 
-    private val _homePageEvent = MutableLiveData<Event<HomePageEvent>>()
-    val homePageEvent: LiveData<Event<HomePageEvent>> = _homePageEvent
+    val _menuItemSelectedEvent = SingleLiveEvent<HomeMenuItem>()
+    val menuItemSelectedEvent: LiveData<HomeMenuItem> = _menuItemSelectedEvent
 
     fun setupMultiPlayerGame() {
-        _homePageEvent.value = Event(SETUP_MULTIPLAYER_GAME)
+        _menuItemSelectedEvent.call(MULTIPLAYER)
     }
 }

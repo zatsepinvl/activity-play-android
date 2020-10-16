@@ -222,7 +222,7 @@ class ActivityGameTest {
     @Test
     fun same_action_between_round() {
         val game = createTestGame(
-            settings = GameSettings(actions = setOf(GameAction.SAY))
+            settings = GameSettings(actions = listOf(GameAction.SAY))
         )
 
         repeat(10) {

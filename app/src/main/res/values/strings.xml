@@ -180,5 +180,7 @@
     <string name="ad_just_a_second">Just a second…</string>
     <string name="round_is_over_helper">Check whether everything is counted right:</string>
     <string name="multiplayer">Multiplayer</string>
+    <string name="join_game">Join game</string>
+    <string name="create_new_game">Create new game</string>
 
 </resources>

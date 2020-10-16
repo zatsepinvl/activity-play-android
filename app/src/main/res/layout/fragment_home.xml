@@ -5,7 +5,7 @@
     <data>
 
         <variable
-            name="viewmodel"
+            name="homeViewModel"
             type="com.zatsepinvl.activityplay.home.viewmodel.HomeViewModel" />
     </data>
 
@@ -41,19 +41,18 @@
                 android:id="@+id/homeContinueButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton"
                 android:layout_marginTop="10dp"
-                android:enabled="@{viewmodel.canContinueGame()}"
+                android:enabled="@{homeViewModel.canContinueGame()}"
                 android:text="@string/home_continue"
-                app:color="@{viewmodel.canContinueGame() ? @color/colorPrimary : @color/md_grey_600}"
+                app:color="@{homeViewModel.canContinueGame() ? @color/colorPrimary : @color/md_grey_600}"
                 app:icon="@drawable/ic_play_arrow_amber_24dp" />
 
             <com.zatsepinvl.activityplay.android.view.Button
                 android:id="@+id/homeMultiplayerButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton"
                 android:layout_marginTop="10dp"
-                android:enabled="@{viewmodel.canContinueGame()}"
                 android:text="@string/multiplayer"
                 app:icon="@drawable/ic_people_amber_24dp"
-                android:onClick="@{() -> viewmodel.setupMultiPlayerGame()}"/>
+                android:onClick="@{() -> homeViewModel.setupMultiPlayerGame()}"/>
 
             <com.zatsepinvl.activityplay.android.view.Button
                 android:id="@+id/homeSettingsButton"

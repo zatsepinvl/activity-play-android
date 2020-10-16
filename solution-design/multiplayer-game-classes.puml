@@ -1,0 +1,65 @@
+@startuml
+
+package online {
+    package storage {
+        interface RealtimeEventListener<T> {
+            + onDataChanged(t: T)
+        }
+
+        interface RealtimeStorage<T> {
+            + save(obj:T)
+            + get(id): T
+            + listerForUpdates(id, listener: EventListener)
+        }
+    }
+
+    FirestoreStorage -|> RealtimeStorage
+
+    package room {
+        package Model {
+            class Device
+            class GameRoom
+        }
+
+        interface GameRoomHolder {
+            + createRoom(): GameRoom
+            + joinRoom(): GameRoom
+            + startNewGame()
+            + getCurrentGame()
+            + getTeams()
+            + getConnectedDevices()
+        }
+
+        package fragment {
+            class OnlineRoomFragment
+        }
+
+        GameRoomHolder -> GameRoom
+        GameRoomHolder --> Device
+        GameRoomHolder ..|> RealtimeEventListener
+        GameRoomHolder --> RealtimeStorage
+    }
+
+    OnlineGameViewModel --> GameRoomHolder
+    PlayOnlineGameFragment --> OnlineGameViewModel
+}
+
+package firebase {
+    package firestore {
+    }
+        class FirestoreStorage
+}
+
+package game {
+    package game.fragment {
+        class ObserveOnlineGameFragment
+    }
+
+    package game.viewmodel {
+        class ObserveOnlineGameViewModel
+    }
+
+    ObserveOnlineGameViewModel --> OnlineRoomFragment
+    ObserveOnlineGameFragment --> ObserveOnlineGameViewModel
+}
+@enduml

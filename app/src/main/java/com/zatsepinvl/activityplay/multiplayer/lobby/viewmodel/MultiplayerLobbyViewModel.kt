@@ -10,14 +10,14 @@ data class JoinNewGameEventData(
 
 class MultiplayerLobbyViewModel @Inject constructor() : ViewModel() {
 
-    val navigateToCreateNewGame = SingleLiveEvent<Void>()
-    val navigateToJoinNewGame = SingleLiveEvent<JoinNewGameEventData>()
+    val createNewGameEvent = SingleLiveEvent<Void>()
+    val joinGameEvent = SingleLiveEvent<JoinNewGameEventData>()
 
     fun createNewGame() {
-        navigateToCreateNewGame.call()
+        createNewGameEvent.call()
     }
 
     fun joinGame(roomId: String) {
-        navigateToJoinNewGame.call(JoinNewGameEventData(roomId))
+        joinGameEvent.call(JoinNewGameEventData(roomId))
     }
 }

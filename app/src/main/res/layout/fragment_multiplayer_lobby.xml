@@ -13,75 +13,57 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_margin="20dp"
             android:gravity="center"
-            android:orientation="vertical">
+            android:layout_gravity="center"
+            app:cardCornerRadius="4dp"
+            app:strokeColor="@color/colorPrimary"
+            app:strokeWidth="2dp">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/online_game_128px_lineal"
-                android:tint="@color/colorPrimary" />
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_margin="20dp"
-                android:text="Choose one of the variants"
-                android:textAlignment="center"
-                android:textSize="18sp" />
+                android:orientation="vertical">
 
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                app:cardCornerRadius="4dp"
-                app:strokeColor="@color/colorPrimary"
-                app:strokeWidth="2dp">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/online_game_128px_lineal"
+                    app:tint="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:text="Choose one of the variants"
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewmodel.createNewGame()}"
+                    android:text="@string/create_new_game"
+                    app:icon="@drawable/ic_add_white_24dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="30dp"
+                    android:text="or"
+                    android:textAlignment="center"
+                    android:textSize="18sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="10dp">
-
-
-                    <com.google.android.material.button.MaterialButton
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:onClick="@{() -> viewmodel.createNewGame()}"
-                        android:text="Create new game"
-                        app:icon="@drawable/ic_add_white_24dp" />
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="30dp"
-                android:text="or"
-                android:textAlignment="center"
-                android:textSize="18sp" />
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="6dp"
-                app:cardCornerRadius="4dp"
-                app:strokeColor="@color/colorPrimary"
-                app:strokeWidth="2dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+                    android:orientation="vertical">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textField"
@@ -89,7 +71,7 @@
                         android:layout_height="wrap_content"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
-                        android:hint="Game ID"
+                        android:hint="Room ID"
                         app:helperText="Ask your friends for the ID">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -108,12 +90,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:onClick="@{() -> viewmodel.joinGame(multiplayerLobbyGameIdInput.getText().toString())}"
-                        android:text="Join game"
+                        android:text="@string/join_game"
                         app:icon="@drawable/ic_group_add_white_24dp" />
                 </LinearLayout>
 
-            </com.google.android.material.card.MaterialCardView>
-        </LinearLayout>
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
 
     </FrameLayout>
 </layout>

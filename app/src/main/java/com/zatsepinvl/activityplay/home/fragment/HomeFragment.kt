@@ -20,7 +20,6 @@ import com.zatsepinvl.activityplay.BuildConfig
 import com.zatsepinvl.activityplay.R
 import com.zatsepinvl.activityplay.android.fragment.disableBackButton
 import com.zatsepinvl.activityplay.android.fragment.navigate
-import com.zatsepinvl.activityplay.android.viewmodel.EventObserver
 import com.zatsepinvl.activityplay.color.ColoredView
 import com.zatsepinvl.activityplay.databinding.FragmentHomeBinding
 import com.zatsepinvl.activityplay.home.fragment.HomeFragmentDirections.Companion.continueGame
@@ -28,6 +27,7 @@ import com.zatsepinvl.activityplay.home.fragment.HomeFragmentDirections.Companio
 import com.zatsepinvl.activityplay.home.fragment.HomeFragmentDirections.Companion.multiplayerLobby
 import com.zatsepinvl.activityplay.home.fragment.HomeFragmentDirections.Companion.newGame
 import com.zatsepinvl.activityplay.home.fragment.HomeFragmentDirections.Companion.settings
+import com.zatsepinvl.activityplay.home.viewmodel.HomeMenuItem
 import com.zatsepinvl.activityplay.home.viewmodel.HomeViewModel
 import com.zatsepinvl.activityplay.loading.LoadingData
 import com.zatsepinvl.activityplay.loading.LoadingDialog
@@ -42,7 +42,7 @@ class HomeFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val viewModel: HomeViewModel by activityViewModels { viewModelFactory }
+    private val homeViewModel: HomeViewModel by activityViewModels { viewModelFactory }
 
     private lateinit var rewardedAd: RewardedAd
 
@@ -53,7 +53,7 @@ class HomeFragment : DaggerFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View? {
         val binding = FragmentHomeBinding.inflate(inflater, root, false)
-        binding.viewmodel = viewModel
+        binding.homeViewModel = homeViewModel
         binding.lifecycleOwner = this
         (activity as ColoredView).resetBackgroundColor()
         setupNavigation()
@@ -65,28 +65,39 @@ class HomeFragment : DaggerFragment() {
         homeContinueButton.setOnClickListener { navigate(continueGame()) }
         homeSettingsButton.setOnClickListener { navigate(settings()) }
         homeTutorialButton.setOnClickListener { navigate(intro()) }
-        homeSupportButton.setOnClickListener { loadAdd() }
-
-        viewOnGithub.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.github_link)))
-            startActivity(intent)
-        }
-
-        contactMe.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW)
-            val data = Uri.parse(getString(R.string.email_intent_data))
-            intent.data = data
-            startActivity(intent)
-        }
+        homeSupportButton.setOnClickListener { loadAd() }
+        viewOnGithub.setOnClickListener { goToGitHub() }
+        contactMe.setOnClickListener { loadEmail() }
     }
 
     private fun setupNavigation() {
-        viewModel.homePageEvent.observe(this, EventObserver {
-            navigate(multiplayerLobby())
+        homeViewModel.menuItemSelectedEvent.observe(viewLifecycleOwner, {
+            when (it!!) {
+                HomeMenuItem.NEW_GAME -> navigate(newGame())
+                HomeMenuItem.CONTINUE -> navigate(continueGame())
+                HomeMenuItem.MULTIPLAYER -> navigate(multiplayerLobby())
+                HomeMenuItem.SETTINGS -> navigate(settings())
+                HomeMenuItem.INTRO -> navigate(intro())
+                HomeMenuItem.SUPPORT_DEV -> loadAd()
+                HomeMenuItem.GITHUB -> goToGitHub()
+                HomeMenuItem.EMAIL -> loadEmail()
+            }
         })
     }
 
-    private fun loadAdd() {
+    private fun goToGitHub() {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.github_link)))
+        startActivity(intent)
+    }
+
+    private fun loadEmail() {
+        val intent = Intent(Intent.ACTION_VIEW)
+        val data = Uri.parse(getString(R.string.email_intent_data))
+        intent.data = data
+        startActivity(intent)
+    }
+
+    private fun loadAd() {
         val adId = if (BuildConfig.DEBUG) {
             "ca-app-pub-3940256099942544/5224354917"
         } else {

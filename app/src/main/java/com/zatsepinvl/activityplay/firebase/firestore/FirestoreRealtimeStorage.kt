@@ -2,10 +2,10 @@ package com.zatsepinvl.activityplay.firebase.firestore
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
-import com.zatsepinvl.activityplay.firebase.await
 import com.zatsepinvl.activityplay.multiplayer.storage.ItemChangedListener
 import com.zatsepinvl.activityplay.multiplayer.storage.ItemChangedSubscription
 import com.zatsepinvl.activityplay.multiplayer.storage.RealtimeStorage
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import kotlin.reflect.KClass
 
@@ -24,12 +24,16 @@ open class FirestoreRealtimeStorage<T : Any> @Inject constructor(
         get() = firestore.collection(collectionName)
 
     override suspend fun getItem(itemId: String): T? {
-        val document = collection.document(itemId).get().await()
-        return document.toObject(dataType.java)
+        val snapshot = collection.document(itemId).get().await()
+        return snapshot.convertToObject(dataType.java)
     }
 
     override suspend fun saveItem(itemId: String, item: T) {
         collection.document(itemId).set(item).await()
+    }
+
+    override suspend fun deleteItem(itemId: String) {
+        collection.document(itemId).delete().await()
     }
 
     override fun addOnItemChangedListener(
@@ -43,8 +47,7 @@ open class FirestoreRealtimeStorage<T : Any> @Inject constructor(
                     return@addSnapshotListener
                 }
                 checkNotNull(snapshot)
-                val result = snapshot.toObject(dataType.java)
-                checkNotNull(result) { "Item by id $itemId is null" }
+                val result = snapshot.convertToObject(dataType.java)
                 listener.onItemChanged(result)
             }
         return object : ItemChangedSubscription {
