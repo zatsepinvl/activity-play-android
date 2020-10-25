@@ -2,10 +2,13 @@ package com.zatsepinvl.activityplay.di
 
 import android.content.Context
 import com.zatsepinvl.activityplay.ActivityPlayApplication
+import com.zatsepinvl.activityplay.device.DeviceModule
 import com.zatsepinvl.activityplay.dictionary.DictionaryModule
 import com.zatsepinvl.activityplay.firebase.FirebaseModule
 import com.zatsepinvl.activityplay.game.GameModule
+import com.zatsepinvl.activityplay.gameroom.GameRoomModule
 import com.zatsepinvl.activityplay.gamesetup.GameSetupModule
+import com.zatsepinvl.activityplay.gamestate.GameStateModule
 import com.zatsepinvl.activityplay.home.HomeModule
 import com.zatsepinvl.activityplay.multiplayer.MultiplayerModule
 import com.zatsepinvl.activityplay.settings.SettingsModule
@@ -30,7 +33,10 @@ import javax.inject.Singleton
         HomeModule::class,
         GameSetupModule::class,
         TimerModule::class,
-        MultiplayerModule::class
+        MultiplayerModule::class,
+        DeviceModule::class,
+        GameRoomModule::class,
+        GameStateModule::class
     ]
 )
 interface ApplicationComponent : AndroidInjector<ActivityPlayApplication> {

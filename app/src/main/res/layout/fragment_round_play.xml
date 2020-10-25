@@ -6,12 +6,16 @@
     <data>
 
         <variable
-            name="playViewmodel"
-            type="com.zatsepinvl.activityplay.game.viewmodel.PlayRoundViewModel" />
+            name="gameViewmodel"
+            type="com.zatsepinvl.activityplay.game.viewmodel.RoundGameViewModel" />
 
         <variable
             name="timerViewmodel"
             type="com.zatsepinvl.activityplay.game.viewmodel.TimerViewModel" />
+
+        <variable
+            name="uiViewmodel"
+            type="com.zatsepinvl.activityplay.game.viewmodel.RoundUIViewModel" />
     </data>
 
     <FrameLayout
@@ -49,7 +53,7 @@
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:layout_marginEnd="10dp"
-                    android:src="@{playViewmodel.actionDrawable}"
+                    android:src="@{gameViewmodel.actionDrawable}"
                     tools:src="@drawable/theater" />
 
                 <TextView
@@ -57,8 +61,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="@{playViewmodel.actionLocalName}"
-                    android:textAlignment="center"
+                    android:text="@{gameViewmodel.actionLocalName}"
                     android:textSize="26sp"
                     tools:hint="Action" />
             </LinearLayout>
@@ -68,9 +71,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:drawableBottom="@{playViewmodel.isWordHidden() ? @drawable/ic_visibility_black_24dp : @drawable/ic_visibility_off_black_24dp}"
-                android:onClick="@{() -> playViewmodel.toggleWordVisibility()}"
-                android:text="@{playViewmodel.isWordHidden() ? @string/word_mask : playViewmodel.currentTask.word.value}"
+                android:drawableBottom="@{uiViewmodel.isWordHidden() ? @drawable/ic_visibility_black_24dp : @drawable/ic_visibility_off_black_24dp}"
+                android:onClick="@{() -> uiViewmodel.toggleWordVisibility()}"
+                android:text="@{uiViewmodel.isWordHidden() ? @string/word_mask : gameViewmodel.currentTask.word.value}"
                 android:textAlignment="center"
                 android:textSize="40sp"
                 tools:hint="Word" />
@@ -80,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4sp"
                 android:layout_marginTop="20dp"
-                android:text="@{@string/round_score(playViewmodel.currentTeamRoundScore)}"
+                android:text="@{@string/round_score(gameViewmodel.currentTeamRoundScore)}"
                 android:textAlignment="center"
                 android:textSize="18sp"
                 tools:hint="10" />
@@ -93,11 +96,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:text="@string/finish_round"
-            android:textColor="@{playViewmodel.currentTeam.color}"
+            android:textColor="@{gameViewmodel.currentTeam.color}"
             app:icon="@drawable/ic_stop_black_24dp"
-            app:iconTint="@{playViewmodel.currentTeam.color}"
-            app:rippleColor="@{playViewmodel.currentTeam.color}"
-            app:strokeColor="@{playViewmodel.currentTeam.color}" />
+            app:iconTint="@{gameViewmodel.currentTeam.color}"
+            app:rippleColor="@{gameViewmodel.currentTeam.color}"
+            app:strokeColor="@{gameViewmodel.currentTeam.color}" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -110,7 +113,7 @@
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:text="@string/draw"
-                app:color="@{playViewmodel.currentTeam.color}"
+                app:color="@{gameViewmodel.currentTeam.color}"
                 app:icon="@drawable/ic_format_paint_black_24dp"
                 app:iconGravity="textStart"
                 app:iconPadding="10dp" />
@@ -136,7 +139,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:text="@string/next_word"
-                    app:color="@{playViewmodel.currentTeam.color}" />
+                    app:color="@{gameViewmodel.currentTeam.color}" />
 
             </LinearLayout>
         </LinearLayout>

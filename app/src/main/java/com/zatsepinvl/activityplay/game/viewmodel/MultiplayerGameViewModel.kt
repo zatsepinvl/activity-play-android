@@ -4,15 +4,16 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.zatsepinvl.activityplay.game.service.GameService
+import com.zatsepinvl.activityplay.android.viewmodel.SingleLiveEvent
+import com.zatsepinvl.activityplay.core.model.GameState
+import com.zatsepinvl.activityplay.gameroom.model.Device
+import com.zatsepinvl.activityplay.gameroom.model.GameRoomState
+import com.zatsepinvl.activityplay.gameroom.service.GameRoomManager
 import com.zatsepinvl.activityplay.log.APP_LOG_TAG
-import com.zatsepinvl.activityplay.multiplayer.room.model.Device
-import com.zatsepinvl.activityplay.multiplayer.room.model.MultiplayerRoomState
 import com.zatsepinvl.activityplay.multiplayer.room.service.MultiplayerRoomService
-import com.zatsepinvl.activityplay.team.service.TeamService
 import kotlinx.coroutines.launch
-import java.util.*
 import javax.inject.Inject
+import javax.inject.Singleton
 
 enum class RoomLoadingState {
     NONE,
@@ -22,33 +23,35 @@ enum class RoomLoadingState {
 }
 
 //ToDo: refactor this viewmodel
+@Singleton
 class MultiplayerGameViewModel @Inject constructor(
     private val multiplayerRoomService: MultiplayerRoomService,
-    private val gameService: GameService,
-    private val teamService: TeamService
+    private val gameRoomManager: GameRoomManager,
 ) : ViewModel() {
 
-    val multiplayerRoomState = MutableLiveData<MultiplayerRoomState>()
+    val multiplayerRoomState = MutableLiveData<GameRoomState>()
+    val multiplayerRoomStateUpdated = SingleLiveEvent<Void>()
     val isMultiplayer = MutableLiveData(false)
     val roomLoadingState = MutableLiveData(RoomLoadingState.NONE)
     val roomLoadingErrorMessage = MutableLiveData<String>(null)
 
+    fun updateRoomState(gameState: GameState) {
+        viewModelScope.launch {
+            val roomState = multiplayerRoomState.value!!
+                .copy(
+                    gameState = gameState
+                )
+            multiplayerRoomService.updateRoom(roomState)
+        }
+    }
+
     fun hostMultiplayerGame() {
-        val hostDevice = Device("hostDeviceId", "hostDeviceName")
-        val game = gameService.getSavedGame()
-        val roomState = MultiplayerRoomState(
-            roomId = "123456",
-            gameSettings = game.settings,
-            gameState = game.save(),
-            devices = listOf(hostDevice),
-            host = hostDevice,
-            teams = teamService.getTeams(),
-            createdAt = Date()
-        )
+        val roomState = gameRoomManager.startSingleplayerGame()
         viewModelScope.launch {
             multiplayerRoomService.createRoom(roomState)
             multiplayerRoomState.value = roomState
             isMultiplayer.value = true
+            subscribeOnRoomChanges()
         }
     }
 
@@ -64,10 +67,9 @@ class MultiplayerGameViewModel @Inject constructor(
                 )
                 multiplayerRoomService.updateRoom(newState)
                 multiplayerRoomState.value = newState
-                val game = gameService.createNewGame()
-                game.load(newState.gameState!!)
-                gameService.saveGame(game)
+                val gameState = gameRoomManager.startSingleplayerGame()
                 isMultiplayer.value = true
+                subscribeOnRoomChanges()
                 roomLoadingState.value = RoomLoadingState.LOADED
             } catch (e: Exception) {
                 //ToDo: catch exceptions
@@ -76,6 +78,14 @@ class MultiplayerGameViewModel @Inject constructor(
                 roomLoadingErrorMessage.value = e.message
             }
 
+        }
+    }
+
+    private fun subscribeOnRoomChanges() {
+        multiplayerRoomService.subscribeOnRoomStateChanges(multiplayerRoomState.value!!.roomId) { item ->
+            multiplayerRoomState.value = item
+            val gameState = gameRoomManager.startSingleplayerGame()
+            multiplayerRoomStateUpdated.call()
         }
     }
 }

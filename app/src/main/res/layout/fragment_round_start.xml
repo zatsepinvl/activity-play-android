@@ -7,7 +7,7 @@
 
         <variable
             name="gameViewModel"
-            type="com.zatsepinvl.activityplay.game.viewmodel.StartRoundViewModel" />
+            type="com.zatsepinvl.activityplay.game.viewmodel.GameRoomViewModel" />
 
         <variable
             name="multiplayerGameViewModel"
@@ -64,12 +64,12 @@
                     style="@style/Widget.ActivityPlay.TextView.Body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableTop="@drawable/video_player"
                     android:text="@{@string/team_plays_round(gameViewModel.currentRound(),gameViewModel.currentTeam.name)}"
                     android:textAlignment="center"
                     android:textColor="@{gameViewModel.currentTeam.color}"
                     android:textSize="20sp"
-                    tools:hint="Round X - TeamName playes!" />
+                    tools:hint="Round X - TeamName playes!"
+                    app:drawableTopCompat="@drawable/video_player" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"

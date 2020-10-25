@@ -5,6 +5,7 @@ import android.graphics.Shader
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.zatsepinvl.activityplay.android.color
@@ -32,7 +33,7 @@ class ActivityPlayMainActivity : AppCompatActivity(), ColoredView {
     }
 
     override fun changeBackgroundColor(color: Int) {
-        val backgroundDrawable = this.getDrawable(R.drawable.wallpaper)!!
+        val backgroundDrawable = ContextCompat.getDrawable(this, R.drawable.wallpaper)!!
         mainLayout.background = TileDrawable(
             backgroundDrawable,
             Shader.TileMode.REPEAT

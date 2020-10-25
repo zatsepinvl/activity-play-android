@@ -2,18 +2,16 @@ package com.zatsepinvl.activityplay.game.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.zatsepinvl.activityplay.game.model.TeamResult
-import com.zatsepinvl.activityplay.game.service.GameService
-import com.zatsepinvl.activityplay.team.service.TeamService
+import com.zatsepinvl.activityplay.gameroom.service.GameRoomManager
 import javax.inject.Inject
 
 class FinishGameViewModel @Inject constructor(
-    private val gameService: GameService,
-    private val teamService: TeamService
+    private val roomManager: GameRoomManager
 ) : ViewModel() {
 
     fun getTeamResults(): List<TeamResult> {
-        val game = gameService.getSavedGame()
-        return teamService.getTeams()
+        val game = roomManager.currentGame
+        return roomManager.teams
             .map {
                 val totalScore = game.getTeamTotalScore(it.index)
                 TeamResult(

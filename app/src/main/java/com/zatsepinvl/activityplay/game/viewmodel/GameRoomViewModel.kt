@@ -1,26 +1,25 @@
 package com.zatsepinvl.activityplay.game.viewmodel
 
 import android.graphics.drawable.Drawable
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.zatsepinvl.activityplay.core.ActivityGame
 import com.zatsepinvl.activityplay.core.model.GameAction
 import com.zatsepinvl.activityplay.core.model.GameSettings
 import com.zatsepinvl.activityplay.game.model.TeamBoardItemData
-import com.zatsepinvl.activityplay.game.service.GameActionService
-import com.zatsepinvl.activityplay.game.service.GameService
+import com.zatsepinvl.activityplay.gameaction.GameActionService
+import com.zatsepinvl.activityplay.gameroom.service.GameRoomManager
 import com.zatsepinvl.activityplay.team.model.Team
-import com.zatsepinvl.activityplay.team.service.TeamService
 import javax.inject.Inject
 
-class StartRoundViewModel @Inject constructor(
-    private val gameService: GameService,
-    private val teamService: TeamService,
-    private val gameActionService: GameActionService
+class GameRoomViewModel @Inject constructor(
+    private val gameActionService: GameActionService,
+    private val roomManager: GameRoomManager,
 ) : ViewModel() {
 
     private lateinit var game: ActivityGame
-    lateinit var currentTeam: Team
-        private set
+
+    val currentTeam = MutableLiveData<Team>(null)
 
     val actionLocalName: String
         get() = gameActionService.getActionLocalName(game.currentGameAction)
@@ -28,19 +27,19 @@ class StartRoundViewModel @Inject constructor(
     val actionDrawable: Drawable
         get() = gameActionService.getActionDrawable(game.currentGameAction)
 
-    fun startNewGame() {
-        gameService.startNewGame()
-        continueGame()
+    fun startNewSingleplayerGame() {
+        game = roomManager.startSingleplayerGame()
+        currentTeam.value = roomManager.currentTeam
     }
 
     fun continueGame() {
-        game = gameService.getSavedGame()
-        val teams = teams()
+        game = roomManager.currentGame
+        val teams = roomManager.teams
         if (game.currentTeamIndex >= teams.size) {
             game.resetCurrentTeam()
-            gameService.saveGame(game)
+            roomManager.updateGame(game)
         }
-        currentTeam = gameService.currentTeam()
+        currentTeam.value = roomManager.currentTeam
     }
 
     fun gameSettings(): GameSettings {
@@ -51,7 +50,7 @@ class StartRoundViewModel @Inject constructor(
         return game.currentRoundIndex + 1
     }
 
-    fun actionLocalName(action:GameAction):String {
+    fun actionLocalName(action: GameAction): String {
         return gameActionService.getActionLocalName(action)
     }
 
@@ -59,7 +58,7 @@ class StartRoundViewModel @Inject constructor(
      * @return list of teams with their scores sorted by playing order
      */
     fun getTeamsBoardItemData(): List<TeamBoardItemData> {
-        val teams = teams()
+        val teams = roomManager.teams
         return (0 until game.settings.teamCount)
             .map {
                 val totalScore = game.getTeamTotalScore(it)
@@ -69,6 +68,4 @@ class StartRoundViewModel @Inject constructor(
     }
 
     fun isGameFinished() = game.finished
-
-    private fun teams() = teamService.getTeams()
 }

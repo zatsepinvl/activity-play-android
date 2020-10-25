@@ -48,7 +48,7 @@ open class FirestoreRealtimeStorage<T : Any> @Inject constructor(
                 }
                 checkNotNull(snapshot)
                 val result = snapshot.convertToObject(dataType.java)
-                listener.onItemChanged(result)
+                listener(result)
             }
         return object : ItemChangedSubscription {
             override fun unsubscribe() {

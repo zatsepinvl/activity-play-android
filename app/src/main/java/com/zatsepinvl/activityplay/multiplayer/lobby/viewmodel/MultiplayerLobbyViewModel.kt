@@ -18,6 +18,6 @@ class MultiplayerLobbyViewModel @Inject constructor() : ViewModel() {
     }
 
     fun joinGame(roomId: String) {
-        joinGameEvent.call(JoinNewGameEventData(roomId))
+        joinGameEvent.call(JoinNewGameEventData("123456"))
     }
 }

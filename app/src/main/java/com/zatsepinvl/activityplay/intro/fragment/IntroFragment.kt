@@ -6,6 +6,7 @@ import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
@@ -127,7 +128,7 @@ class IntroFragment : Fragment() {
             title = context.getString(resources.title),
             color = context.color(resources.color),
             description = context.getString(resources.description),
-            drawable = context.getDrawable(resources.drawable)!!
+            drawable = ContextCompat.getDrawable(context, resources.drawable)!!
         )
         pageAdapter.addItem(slide)
     }

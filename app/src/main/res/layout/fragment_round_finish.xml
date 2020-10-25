@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.zatsepinvl.activityplay.game.viewmodel.PlayRoundViewModel" />
+            type="com.zatsepinvl.activityplay.game.viewmodel.RoundGameViewModel" />
     </data>
 
     <FrameLayout
@@ -83,6 +83,7 @@
             style="@style/Widget.ActivityPlay.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_gravity="center|bottom"
+            android:onClick="@{() -> viewmodel.finishRound()}"
             android:text="@string/done"
             app:color="@{viewmodel.currentTeam.color}" />
     </FrameLayout>

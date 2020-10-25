@@ -1,10 +1,9 @@
 package com.zatsepinvl.activityplay.settings.model
 
 import com.zatsepinvl.activityplay.core.model.GameAction
-import com.zatsepinvl.activityplay.language.SupportedLanguage
 
 data class ActivityPlayPreferences(
-    val dictionaryLanguage: SupportedLanguage,
+    val dictionaryLanguage: String,
     val fineForSkipping: Boolean,
     val roundTimeSeconds: Int,
     val maxScore: Int,

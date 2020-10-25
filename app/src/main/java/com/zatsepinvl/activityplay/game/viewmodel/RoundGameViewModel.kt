@@ -3,30 +3,29 @@ package com.zatsepinvl.activityplay.game.viewmodel
 import android.graphics.drawable.Drawable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.zatsepinvl.activityplay.android.viewmodel.SingleLiveEvent
 import com.zatsepinvl.activityplay.core.ActivityGame
 import com.zatsepinvl.activityplay.core.model.CompletedTask
 import com.zatsepinvl.activityplay.core.model.GameTask
 import com.zatsepinvl.activityplay.core.model.TaskResultStatus
-import com.zatsepinvl.activityplay.game.service.GameActionService
-import com.zatsepinvl.activityplay.game.service.GameService
+import com.zatsepinvl.activityplay.gameaction.GameActionService
+import com.zatsepinvl.activityplay.gameroom.service.GameRoomManager
 import com.zatsepinvl.activityplay.team.model.Team
 import javax.inject.Inject
 
-const val SECONDS_FOR_LAST_WORD = 10
-
-class PlayRoundViewModel @Inject constructor(
-    private val gameService: GameService,
-    private val gameActionService: GameActionService
+class RoundGameViewModel @Inject constructor(
+    private val gameActionService: GameActionService,
+    private val roomManager: GameRoomManager,
 ) : ViewModel() {
 
-    val currentTask = MutableLiveData<GameTask>()
+    //LiveData
+    val currentTeam = MutableLiveData<Team>()
     val currentTeamRoundScore = MutableLiveData<Int>()
-    val isWordHidden = MutableLiveData<Boolean>()
+    val currentTask = MutableLiveData<GameTask>()
 
-    lateinit var game: ActivityGame
-
-    lateinit var currentTeam: Team
-        private set
+    //Events
+    val roundFinishedEvent = SingleLiveEvent<Void>()
+    val lastTaskFinishedEvent = SingleLiveEvent<Void>()
 
     var isPlaying: Boolean = false
 
@@ -36,14 +35,11 @@ class PlayRoundViewModel @Inject constructor(
     val actionDrawable: Drawable
         get() = gameActionService.getActionDrawable(game.currentGameAction)
 
-    fun toggleWordVisibility() {
-        isWordHidden.value = !(isWordHidden.value ?: false)
-    }
+    lateinit var game: ActivityGame
 
     fun startRound() {
-        game = gameService.getSavedGame()
-        currentTeam = gameService.currentTeam()
-        isWordHidden.value = false
+        game = roomManager.currentGame
+        currentTeam.value = roomManager.currentTeam
         currentTask.value = game.startRound()
         updateCurrentTeamRoundScore()
         isPlaying = true
@@ -52,8 +48,12 @@ class PlayRoundViewModel @Inject constructor(
     fun completeTask() {
         if (!game.roundIsPlaying) return
         currentTask.value = game.completeCurrentTask()
-        isWordHidden.value = false
         updateCurrentTeamRoundScore()
+    }
+
+    fun completeLastTask() {
+        completeTask()
+        lastTaskFinishedEvent.call()
     }
 
     fun skipTask() {
@@ -62,10 +62,15 @@ class PlayRoundViewModel @Inject constructor(
         updateCurrentTeamRoundScore()
     }
 
+    fun skipLastTask() {
+        lastTaskFinishedEvent.call()
+    }
+
     fun finishRound() {
         isPlaying = false
         game.finishRound()
-        gameService.saveGame(game)
+        roomManager.updateGame(game)
+        roundFinishedEvent.call()
     }
 
     fun updateTask(task: CompletedTask, status: TaskResultStatus) {

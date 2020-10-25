@@ -15,7 +15,8 @@ import com.zatsepinvl.activityplay.databinding.FragmentRoundPlayBinding
 import com.zatsepinvl.activityplay.effects.EffectsService
 import com.zatsepinvl.activityplay.game.fragment.PlayRoundFragmentDirections.Companion.askLastWord
 import com.zatsepinvl.activityplay.game.fragment.PlayRoundFragmentDirections.Companion.canvas
-import com.zatsepinvl.activityplay.game.viewmodel.PlayRoundViewModel
+import com.zatsepinvl.activityplay.game.viewmodel.RoundGameViewModel
+import com.zatsepinvl.activityplay.game.viewmodel.RoundUIViewModel
 import com.zatsepinvl.activityplay.game.viewmodel.TimerViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -24,8 +25,9 @@ class PlayRoundFragment : DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val playViewModel: PlayRoundViewModel by activityViewModels { viewModelFactory }
+    private val gameViewModel: RoundGameViewModel by activityViewModels { viewModelFactory }
     private val timerViewModel: TimerViewModel by activityViewModels { viewModelFactory }
+    private val uiViewModel: RoundUIViewModel by activityViewModels { viewModelFactory }
 
     @Inject
     lateinit var effectsService: EffectsService
@@ -36,37 +38,39 @@ class PlayRoundFragment : DaggerFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View? {
-        if (!playViewModel.isPlaying) {
-            playViewModel.startRound()
+        if (!gameViewModel.isPlaying) {
+            gameViewModel.startRound()
             timerViewModel.startRoundTimer()
         }
 
         val dataBinding = FragmentRoundPlayBinding.inflate(inflater, root, false)
-        dataBinding.playViewmodel = playViewModel
+        dataBinding.gameViewmodel = gameViewModel
         dataBinding.timerViewmodel = timerViewModel
+        dataBinding.uiViewmodel = uiViewModel
+
         dataBinding.lifecycleOwner = this
 
         val hideDrawButton = { dataBinding.gameFrameDrawButton.visibility = View.GONE }
         val showDrawButton = { dataBinding.gameFrameDrawButton.visibility = View.VISIBLE }
 
-        playViewModel.currentTask.observe(viewLifecycleOwner, Observer { task ->
+        gameViewModel.currentTask.observe(viewLifecycleOwner) { task ->
             when (task.action) {
                 SHOW -> hideDrawButton()
                 SAY -> hideDrawButton()
                 DRAW -> showDrawButton()
             }
-        })
+        }
 
-        timerViewModel.timerFinishedEvent.observe(viewLifecycleOwner, Observer { stopRound() })
+        timerViewModel.timerFinishedEvent.observe(viewLifecycleOwner) { stopRound() }
 
         dataBinding.apply {
             gameFrameDoneButton.onClick {
-                playViewModel.completeTask()
+                gameViewModel.completeTask()
                 effectsService.playPlusCoinTrack()
                 effectsService.vibrate()
             }
             gameFrameSkipButton.onClick {
-                playViewModel.skipTask()
+                gameViewModel.skipTask()
                 effectsService.vibrate()
             }
             gameFrameDrawButton.onClick { navigate(canvas()) }

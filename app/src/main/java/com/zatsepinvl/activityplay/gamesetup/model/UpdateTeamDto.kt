@@ -27,8 +27,8 @@ fun Bundle.putUpdateTeamDto(updateTeamDto: UpdateTeamDto): Bundle {
 
 fun Intent.getUpdateTeamDto(): UpdateTeamDto {
     return UpdateTeamDto(
-        getStringExtra("id"),
-        getStringExtra("name"),
+        getStringExtra("id")!!,
+        getStringExtra("name")!!,
         getSerializableExtra("colorId") as ColorId
     )
 }

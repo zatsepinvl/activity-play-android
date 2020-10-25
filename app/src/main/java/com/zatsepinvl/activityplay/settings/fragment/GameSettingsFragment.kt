@@ -22,8 +22,6 @@ import com.zatsepinvl.activityplay.android.fragment.DaggerPreferenceFragmentComp
 import com.zatsepinvl.activityplay.android.fragment.navigate
 import com.zatsepinvl.activityplay.databinding.ViewSettingsHeaderBinding
 import com.zatsepinvl.activityplay.dictionary.DictionaryHolder
-import com.zatsepinvl.activityplay.language.SupportedLanguage
-import com.zatsepinvl.activityplay.language.getSupportedLanguageFromTag
 import com.zatsepinvl.activityplay.language.service.AppLanguageService
 import com.zatsepinvl.activityplay.settings.fragment.GameSettingsFragmentDirections.Companion.refresh
 import com.zatsepinvl.activityplay.settings.model.ActivityPlayPreferenceActionKey
@@ -50,9 +48,8 @@ class GameSettingsFragment : DaggerPreferenceFragmentCompat() {
             findPreference<CheckBoxPreference>(it.key)?.validateAtLeastOneActionEnabled()
         }
         findPreference<ListPreference>(DICTIONARY_LANGUAGE.key)?.apply {
-            setOnPreferenceChangeListener { _, newValue ->
-                val language = getSupportedLanguageFromTag(newValue as String)
-                setAppLanguage(language)
+            setOnPreferenceChangeListener { _, newLang ->
+                setAppLanguage(newLang as String)
                 true
             }
             if (value == "default") {
@@ -61,7 +58,7 @@ class GameSettingsFragment : DaggerPreferenceFragmentCompat() {
         }
     }
 
-    private fun setAppLanguage(language: SupportedLanguage) {
+    private fun setAppLanguage(language: String) {
         val activity = requireActivity()
         activity.lifecycleScope.launch {
             val snackbar = createLoadDictionarySnackbar()

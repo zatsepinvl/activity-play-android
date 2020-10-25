@@ -4,7 +4,8 @@ import androidx.lifecycle.ViewModel
 import com.zatsepinvl.activityplay.di.ViewModelBuilder
 import com.zatsepinvl.activityplay.di.ViewModelKey
 import com.zatsepinvl.activityplay.game.fragment.*
-import com.zatsepinvl.activityplay.game.service.*
+import com.zatsepinvl.activityplay.gameaction.GameActionService
+import com.zatsepinvl.activityplay.gameaction.GameActionServiceImpl
 import com.zatsepinvl.activityplay.game.viewmodel.*
 import dagger.Binds
 import dagger.Module
@@ -34,20 +35,12 @@ abstract class GameModule {
 
     @Binds
     @Singleton
-    abstract fun gameStateRepository(repo: LocalGameStateRepository): GameStateRepository
-
-    @Binds
-    @Singleton
-    abstract fun gameService(service: GameServiceImpl): GameService
-
-    @Binds
-    @Singleton
     abstract fun gameActionService(service: GameActionServiceImpl): GameActionService
 
     @Binds
     @IntoMap
-    @ViewModelKey(StartRoundViewModel::class)
-    abstract fun startRoundViewModel(startRoundViewModel: StartRoundViewModel): ViewModel
+    @ViewModelKey(GameRoomViewModel::class)
+    abstract fun startRoundViewModel(gameRoomViewModel: GameRoomViewModel): ViewModel
 
     @Binds
     @IntoMap
@@ -56,8 +49,8 @@ abstract class GameModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(PlayRoundViewModel::class)
-    abstract fun playRoundViewModel(playRoundViewModel: PlayRoundViewModel): ViewModel
+    @ViewModelKey(RoundGameViewModel::class)
+    abstract fun playRoundViewModel(roundGameViewModel: RoundGameViewModel): ViewModel
 
     @Binds
     @IntoMap

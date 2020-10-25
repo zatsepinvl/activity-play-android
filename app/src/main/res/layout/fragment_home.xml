@@ -92,22 +92,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="60dp"
                 android:autoLink="all"
-                android:drawableStart="@drawable/ic_github_18dp"
                 android:drawablePadding="4dp"
                 android:text="@string/view_on_github"
                 android:textColor="@color/colorPrimary"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                app:drawableStartCompat="@drawable/ic_github_18dp" />
 
             <TextView
                 android:id="@+id/contactMe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:autoLink="all"
-                android:drawableStart="@drawable/ic_email_amber_900_18dp"
                 android:drawablePadding="4dp"
                 android:text="@string/contact_me"
                 android:textColor="@color/colorPrimary"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                app:drawableStartCompat="@drawable/ic_email_amber_900_18dp" />
         </LinearLayout>
     </FrameLayout>
 </layout>

@@ -19,7 +19,7 @@ import com.zatsepinvl.activityplay.game.fragment.StartRoundFragmentDirections.Co
 import com.zatsepinvl.activityplay.game.fragment.StartRoundFragmentDirections.Companion.playRound
 import com.zatsepinvl.activityplay.game.fragment.StartRoundFragmentDirections.Companion.settings
 import com.zatsepinvl.activityplay.game.viewmodel.MultiplayerGameViewModel
-import com.zatsepinvl.activityplay.game.viewmodel.StartRoundViewModel
+import com.zatsepinvl.activityplay.game.viewmodel.GameRoomViewModel
 import com.zatsepinvl.activityplay.navigation.NavigationFlow
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -33,7 +33,7 @@ class StartRoundFragment : DaggerFragment() {
 
     private val args: StartRoundFragmentArgs by navArgs()
 
-    private val gameViewModel: StartRoundViewModel by activityViewModels { viewModelFactory }
+    private val gameViewModel: GameRoomViewModel by activityViewModels { viewModelFactory }
     private val multiplayerGameViewModel: MultiplayerGameViewModel by activityViewModels { viewModelFactory }
 
     override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View? {
@@ -62,18 +62,21 @@ class StartRoundFragment : DaggerFragment() {
         if (args.navigationFlow == NavigationFlow.NEW_MULTIPLAYER_GAME) {
             multiplayerGameViewModel.hostMultiplayerGame()
         }
+        multiplayerGameViewModel.multiplayerRoomStateUpdated.observe(viewLifecycleOwner) {
+            setupGameViewModel()
+        }
     }
 
     private fun setupGameViewModel() {
         when (args.navigationFlow) {
             NavigationFlow.NEW_GAME,
-            NavigationFlow.NEW_MULTIPLAYER_GAME -> gameViewModel.startNewGame()
+            NavigationFlow.NEW_MULTIPLAYER_GAME -> gameViewModel.startNewSingleplayerGame()
             else -> gameViewModel.continueGame()
         }
         if (gameViewModel.isGameFinished()) {
             navigate(finishGame())
         }
-        (activity as ColoredView).changeBackgroundColor(gameViewModel.currentTeam.color)
+        (activity as ColoredView).changeBackgroundColor(gameViewModel.currentTeam.value!!.color)
     }
 
     private fun createTeamBoardView(inflater: LayoutInflater, teamBoard: ViewGroup) {

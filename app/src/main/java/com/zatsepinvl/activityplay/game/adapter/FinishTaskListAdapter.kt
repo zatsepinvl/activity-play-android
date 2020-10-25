@@ -10,23 +10,24 @@ import com.zatsepinvl.activityplay.core.model.TaskResultStatus.DONE
 import com.zatsepinvl.activityplay.core.model.TaskResultStatus.SKIPPED
 import com.zatsepinvl.activityplay.core.model.TeamRoundResult
 import com.zatsepinvl.activityplay.databinding.ViewFinishTaskListItemBinding
-import com.zatsepinvl.activityplay.game.viewmodel.PlayRoundViewModel
+import com.zatsepinvl.activityplay.game.viewmodel.RoundGameViewModel
 import com.zatsepinvl.activityplay.team.model.Team
 
 class FinishTaskListAdapter(
-    private val viewModel: PlayRoundViewModel
+    private val gameViewModel: RoundGameViewModel
 ) : RecyclerView.Adapter<FinishTaskListAdapter.TaskListViewHolder>() {
 
     private lateinit var teamRoundResult: TeamRoundResult
     private val team: Team
 
     init {
-        team = viewModel.currentTeam
+        //ToDo
+        team = gameViewModel.currentTeam.value!!
         updateTasks()
     }
 
     private fun updateTasks() {
-        teamRoundResult = viewModel.game.getCurrentTeamRoundResult()
+        teamRoundResult = gameViewModel.game.getCurrentTeamRoundResult()
     }
 
     class TaskListViewHolder(
@@ -53,7 +54,7 @@ class FinishTaskListAdapter(
                     DONE -> SKIPPED
                     SKIPPED -> DONE
                 }
-                viewModel.updateTask(completedTask, newStatus)
+                gameViewModel.updateTask(completedTask, newStatus)
                 updateTasks()
                 notifyItemChanged(position)
             }

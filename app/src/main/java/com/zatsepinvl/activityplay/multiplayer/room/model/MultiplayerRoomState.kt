@@ -2,6 +2,7 @@ package com.zatsepinvl.activityplay.multiplayer.room.model
 
 import com.zatsepinvl.activityplay.core.model.GameSettings
 import com.zatsepinvl.activityplay.core.model.GameState
+import com.zatsepinvl.activityplay.gameroom.model.Device
 import com.zatsepinvl.activityplay.team.model.Team
 import java.util.*
 

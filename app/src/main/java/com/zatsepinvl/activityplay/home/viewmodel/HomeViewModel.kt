@@ -3,7 +3,7 @@ package com.zatsepinvl.activityplay.home.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.zatsepinvl.activityplay.android.viewmodel.SingleLiveEvent
-import com.zatsepinvl.activityplay.game.service.GameService
+import com.zatsepinvl.activityplay.gamestate.service.GameStateService
 import com.zatsepinvl.activityplay.home.viewmodel.HomeMenuItem.MULTIPLAYER
 import javax.inject.Inject
 
@@ -20,10 +20,10 @@ enum class HomeMenuItem {
 }
 
 class HomeViewModel @Inject constructor(
-    private val gameService: GameService
+    private val gameStateService: GameStateService
 ) : ViewModel() {
 
-    fun canContinueGame(): Boolean = gameService.isGameSaved()
+    fun canContinueGame(): Boolean = gameStateService.isGameSaved()
 
     val _menuItemSelectedEvent = SingleLiveEvent<HomeMenuItem>()
     val menuItemSelectedEvent: LiveData<HomeMenuItem> = _menuItemSelectedEvent

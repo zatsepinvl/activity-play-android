@@ -11,7 +11,7 @@ import com.zatsepinvl.activityplay.android.fragment.disableBackButton
 import com.zatsepinvl.activityplay.android.fragment.navigate
 import com.zatsepinvl.activityplay.android.onClick
 import com.zatsepinvl.activityplay.databinding.FragmentRoundLastWordBinding
-import com.zatsepinvl.activityplay.game.viewmodel.PlayRoundViewModel
+import com.zatsepinvl.activityplay.game.viewmodel.RoundGameViewModel
 import com.zatsepinvl.activityplay.game.viewmodel.TimerViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -20,7 +20,7 @@ class LastWordRoundFragment : DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val playViewModel: PlayRoundViewModel by activityViewModels { viewModelFactory }
+    private val gameViewModel: RoundGameViewModel by activityViewModels { viewModelFactory }
     private val timerViewModel: TimerViewModel by activityViewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,30 +32,18 @@ class LastWordRoundFragment : DaggerFragment() {
         val binding = FragmentRoundLastWordBinding.inflate(inflater, root, false)
         binding.lifecycleOwner = this
         binding.apply {
-            playViewmodel = playViewModel
+            gameViewmodel = gameViewModel
             timerViewmodel = timerViewModel
-            roundLastWordNoButton.onClick { skipLastWord() }
-            roundLastWordYesButton.onClick { completeLastWord() }
         }
 
-        timerViewModel.timerFinishedEvent.observe(viewLifecycleOwner, Observer { skipLastWord() })
+        gameViewModel.lastTaskFinishedEvent.observe(viewLifecycleOwner) {
+            timerViewModel.stopTimer()
+            navigate(LastWordRoundFragmentDirections.finishRound())
+        }
+
+        timerViewModel.timerFinishedEvent.observe(viewLifecycleOwner) { gameViewModel.skipLastTask() }
         timerViewModel.startLastWordTimer()
 
         return binding.root
-    }
-
-    private fun completeLastWord() {
-        playViewModel.completeTask()
-        finishRound()
-    }
-
-    private fun skipLastWord() {
-        playViewModel.skipTask()
-        finishRound()
-    }
-
-    private fun finishRound() {
-        timerViewModel.stopTimer()
-        navigate(LastWordRoundFragmentDirections.finishRound())
     }
 }

@@ -6,7 +6,6 @@ import android.content.res.Resources
 import androidx.core.os.ConfigurationCompat
 import androidx.preference.PreferenceManager
 import com.zatsepinvl.activityplay.language.SupportedLanguage
-import com.zatsepinvl.activityplay.language.getSupportedLanguageFromTag
 import com.zatsepinvl.activityplay.settings.model.ActivityPlayPreferenceActionKey
 import com.zatsepinvl.activityplay.settings.model.ActivityPlayPreferenceKey.*
 import com.zatsepinvl.activityplay.settings.model.ActivityPlayPreferences
@@ -19,9 +18,7 @@ object ActivityPlayPreference {
             .find { it.tag == currentLanguageTag } ?: SupportedLanguage.EN
         return PreferenceManager.getDefaultSharedPreferences(context).run {
             ActivityPlayPreferences(
-                dictionaryLanguage = getSupportedLanguageFromTag(
-                    getString(DICTIONARY_LANGUAGE.key, defaultLanguage.tag)!!
-                ),
+                dictionaryLanguage = getString(DICTIONARY_LANGUAGE.key, defaultLanguage.tag)!!,
                 fineForSkipping = getBoolean(FINE_FOR_SKIPPING.key, false),
                 roundTimeSeconds = getInt(ROUND_TIME_SECONDS.key, 60),
                 maxScore = getInt(MAX_SCORE.key, 20),
@@ -40,27 +37,27 @@ object ActivityPlayPreference {
         return getSharedPreferences(context).vibrationEnabled()
     }
 
-    fun SharedPreferences.soundsEnabled(): Boolean {
-        return getBoolean(SOUND_EFFECTS.key, true)
-    }
-
-    fun SharedPreferences.vibrationEnabled(): Boolean {
-        return getBoolean(VIBRATION.key, true)
-    }
-
-    private fun getDefaultLanguageTag(): String {
-        return ConfigurationCompat.getLocales(Resources.getSystem().configuration)[0].language
-    }
-
-    fun getSharedPreferences(context: Context): SharedPreferences {
-        return PreferenceManager.getDefaultSharedPreferences(context)
-    }
-
     fun getEnabledActionPreferenceKeys(context: Context): Set<ActivityPlayPreferenceActionKey> {
         return PreferenceManager.getDefaultSharedPreferences(context).run {
             ActivityPlayPreferenceActionKey.values().toList()
                 .filter { getBoolean(it.key, false) }
                 .toSet()
         }
+    }
+
+    private fun getDefaultLanguageTag(): String {
+        return ConfigurationCompat.getLocales(Resources.getSystem().configuration)[0].language
+    }
+
+    private fun SharedPreferences.soundsEnabled(): Boolean {
+        return getBoolean(SOUND_EFFECTS.key, true)
+    }
+
+    private fun SharedPreferences.vibrationEnabled(): Boolean {
+        return getBoolean(VIBRATION.key, true)
+    }
+
+    private fun getSharedPreferences(context: Context): SharedPreferences {
+        return PreferenceManager.getDefaultSharedPreferences(context)
     }
 }

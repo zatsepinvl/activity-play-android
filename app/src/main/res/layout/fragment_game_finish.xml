@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
 
@@ -24,12 +25,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableTop="@drawable/medal"
                 android:text="@{@string/winner_team_title(winner.team.name)}"
                 android:textAlignment="center"
                 android:textColor="@{winner.team.color}"
                 android:textSize="26sp"
-                tools:hint="Team wins" />
+                tools:hint="Team wins"
+                app:drawableTopCompat="@drawable/medal" />
 
             <LinearLayout
                 android:id="@+id/fragmentGameFinishTeamsScoreRoot"
