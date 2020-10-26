@@ -14,7 +14,7 @@ import com.zatsepinvl.activityplay.game.viewmodel.RoundGameViewModel
 import com.zatsepinvl.activityplay.team.model.Team
 
 class FinishTaskListAdapter(
-    private val gameViewModel: RoundGameViewModel
+    private val roundGameViewModel: RoundGameViewModel
 ) : RecyclerView.Adapter<FinishTaskListAdapter.TaskListViewHolder>() {
 
     private lateinit var teamRoundResult: TeamRoundResult
@@ -22,12 +22,12 @@ class FinishTaskListAdapter(
 
     init {
         //ToDo
-        team = gameViewModel.currentTeam.value!!
+        team = roundGameViewModel.currentTeam.value!!
         updateTasks()
     }
 
     private fun updateTasks() {
-        teamRoundResult = gameViewModel.game.getCurrentTeamRoundResult()
+        teamRoundResult = roundGameViewModel.game.getCurrentTeamRoundResult()
     }
 
     class TaskListViewHolder(
@@ -54,7 +54,7 @@ class FinishTaskListAdapter(
                     DONE -> SKIPPED
                     SKIPPED -> DONE
                 }
-                gameViewModel.updateTask(completedTask, newStatus)
+                roundGameViewModel.updateTask(completedTask, newStatus)
                 updateTasks()
                 notifyItemChanged(position)
             }

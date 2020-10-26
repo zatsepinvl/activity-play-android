@@ -5,11 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.zatsepinvl.activityplay.android.fragment.disableBackButton
 import com.zatsepinvl.activityplay.android.fragment.navigate
-import com.zatsepinvl.activityplay.android.onClick
 import com.zatsepinvl.activityplay.databinding.FragmentRoundLastWordBinding
 import com.zatsepinvl.activityplay.game.viewmodel.RoundGameViewModel
 import com.zatsepinvl.activityplay.game.viewmodel.TimerViewModel
@@ -20,7 +18,7 @@ class LastWordRoundFragment : DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val gameViewModel: RoundGameViewModel by activityViewModels { viewModelFactory }
+    private val roundGameViewModel: RoundGameViewModel by activityViewModels { viewModelFactory }
     private val timerViewModel: TimerViewModel by activityViewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,16 +30,16 @@ class LastWordRoundFragment : DaggerFragment() {
         val binding = FragmentRoundLastWordBinding.inflate(inflater, root, false)
         binding.lifecycleOwner = this
         binding.apply {
-            gameViewmodel = gameViewModel
+            gameViewmodel = roundGameViewModel
             timerViewmodel = timerViewModel
         }
 
-        gameViewModel.lastTaskFinishedEvent.observe(viewLifecycleOwner) {
+        roundGameViewModel.lastTaskFinishedEvent.observe(viewLifecycleOwner) {
             timerViewModel.stopTimer()
             navigate(LastWordRoundFragmentDirections.finishRound())
         }
 
-        timerViewModel.timerFinishedEvent.observe(viewLifecycleOwner) { gameViewModel.skipLastTask() }
+        timerViewModel.timerFinishedEvent.observe(viewLifecycleOwner) { roundGameViewModel.skipLastTask() }
         timerViewModel.startLastWordTimer()
 
         return binding.root

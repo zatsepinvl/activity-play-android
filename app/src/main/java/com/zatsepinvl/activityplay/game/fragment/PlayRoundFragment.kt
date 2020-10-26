@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.zatsepinvl.activityplay.android.fragment.disableBackButton
 import com.zatsepinvl.activityplay.android.fragment.navigate
@@ -16,7 +15,7 @@ import com.zatsepinvl.activityplay.effects.EffectsService
 import com.zatsepinvl.activityplay.game.fragment.PlayRoundFragmentDirections.Companion.askLastWord
 import com.zatsepinvl.activityplay.game.fragment.PlayRoundFragmentDirections.Companion.canvas
 import com.zatsepinvl.activityplay.game.viewmodel.RoundGameViewModel
-import com.zatsepinvl.activityplay.game.viewmodel.RoundUIViewModel
+import com.zatsepinvl.activityplay.game.viewmodel.RoundUiViewModel
 import com.zatsepinvl.activityplay.game.viewmodel.TimerViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -25,9 +24,9 @@ class PlayRoundFragment : DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val gameViewModel: RoundGameViewModel by activityViewModels { viewModelFactory }
+    private val roundGameViewModel: RoundGameViewModel by activityViewModels { viewModelFactory }
     private val timerViewModel: TimerViewModel by activityViewModels { viewModelFactory }
-    private val uiViewModel: RoundUIViewModel by activityViewModels { viewModelFactory }
+    private val uiViewModel: RoundUiViewModel by activityViewModels { viewModelFactory }
 
     @Inject
     lateinit var effectsService: EffectsService
@@ -38,13 +37,13 @@ class PlayRoundFragment : DaggerFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View? {
-        if (!gameViewModel.isPlaying) {
-            gameViewModel.startRound()
+        if (!roundGameViewModel.isPlaying) {
+            roundGameViewModel.startRound()
             timerViewModel.startRoundTimer()
         }
 
         val dataBinding = FragmentRoundPlayBinding.inflate(inflater, root, false)
-        dataBinding.gameViewmodel = gameViewModel
+        dataBinding.gameViewmodel = roundGameViewModel
         dataBinding.timerViewmodel = timerViewModel
         dataBinding.uiViewmodel = uiViewModel
 
@@ -53,7 +52,7 @@ class PlayRoundFragment : DaggerFragment() {
         val hideDrawButton = { dataBinding.gameFrameDrawButton.visibility = View.GONE }
         val showDrawButton = { dataBinding.gameFrameDrawButton.visibility = View.VISIBLE }
 
-        gameViewModel.currentTask.observe(viewLifecycleOwner) { task ->
+        roundGameViewModel.currentTask.observe(viewLifecycleOwner) { task ->
             when (task.action) {
                 SHOW -> hideDrawButton()
                 SAY -> hideDrawButton()
@@ -65,12 +64,12 @@ class PlayRoundFragment : DaggerFragment() {
 
         dataBinding.apply {
             gameFrameDoneButton.onClick {
-                gameViewModel.completeTask()
+                roundGameViewModel.completeTask()
                 effectsService.playPlusCoinTrack()
                 effectsService.vibrate()
             }
             gameFrameSkipButton.onClick {
-                gameViewModel.skipTask()
+                roundGameViewModel.skipTask()
                 effectsService.vibrate()
             }
             gameFrameDrawButton.onClick { navigate(canvas()) }

@@ -33,7 +33,7 @@ class GameRoomViewModel @Inject constructor(
     }
 
     fun continueGame() {
-        game = roomManager.currentGame
+        game = roomManager.continueSingleplayerGame()
         val teams = roomManager.teams
         if (game.currentTeamIndex >= teams.size) {
             game.resetCurrentTeam()

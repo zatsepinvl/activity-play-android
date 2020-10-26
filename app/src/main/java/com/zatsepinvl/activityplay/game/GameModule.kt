@@ -50,7 +50,12 @@ abstract class GameModule {
     @Binds
     @IntoMap
     @ViewModelKey(RoundGameViewModel::class)
-    abstract fun playRoundViewModel(roundGameViewModel: RoundGameViewModel): ViewModel
+    abstract fun roundGameViewModel(roundGameViewModel: RoundGameViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(RoundUiViewModel::class)
+    abstract fun roundUiViewModel(roundUiViewModel: RoundUiViewModel): ViewModel
 
     @Binds
     @IntoMap
@@ -61,4 +66,6 @@ abstract class GameModule {
     @IntoMap
     @ViewModelKey(TimerViewModel::class)
     abstract fun timerViewModel(timerViewModel: TimerViewModel): ViewModel
+
+
 }

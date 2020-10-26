@@ -48,8 +48,8 @@ class MultiplayerGameViewModel @Inject constructor(
     fun hostMultiplayerGame() {
         val roomState = gameRoomManager.startSingleplayerGame()
         viewModelScope.launch {
-            multiplayerRoomService.createRoom(roomState)
-            multiplayerRoomState.value = roomState
+            //multiplayerRoomService.createRoom(roomState)
+            //multiplayerRoomState.value = roomState
             isMultiplayer.value = true
             subscribeOnRoomChanges()
         }

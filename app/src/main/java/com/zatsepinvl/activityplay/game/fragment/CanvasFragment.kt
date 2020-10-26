@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.zatsepinvl.activityplay.android.fragment.navigate
+import com.zatsepinvl.activityplay.android.onClick
 import com.zatsepinvl.activityplay.databinding.FragmentCanvasBinding
 import com.zatsepinvl.activityplay.effects.EffectsService
 import com.zatsepinvl.activityplay.game.viewmodel.RoundGameViewModel
