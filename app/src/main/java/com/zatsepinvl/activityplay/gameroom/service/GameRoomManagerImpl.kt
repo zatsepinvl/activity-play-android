@@ -1,9 +1,11 @@
 package com.zatsepinvl.activityplay.gameroom.service
 
 import com.zatsepinvl.activityplay.core.ActivityGame
+import com.zatsepinvl.activityplay.core.model.GameSettings
 import com.zatsepinvl.activityplay.gameroom.model.GameRoomMode
 import com.zatsepinvl.activityplay.gameroom.model.GameRoomState
 import com.zatsepinvl.activityplay.team.model.Team
+import java.lang.IllegalStateException
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -33,9 +35,18 @@ class GameRoomManagerImpl @Inject constructor(
     override val currentGame: ActivityGame
         get() = gameFactory.createGame(currentRoomState)
 
+    private val currentGameRootRepository: GameRoomStateRepository
+        get() {
+            val gameMode = currentRoomState.gameMode
+            return roomStateRepositories[gameMode]
+                ?: throw IllegalStateException(
+                    "No implementation of ${GameRoomStateRepository::class} found for game mode $gameMode."
+                )
+        }
+
     override fun updateRoomState(roomState: GameRoomState): GameRoomState {
-        roomStateRepositories[roomState.gameMode]?.updateGameRoomState(roomState)
         _currentRoomState = roomState
+        currentGameRootRepository.updateGameRoomState(roomState)
         return roomState
     }
 
@@ -43,5 +54,10 @@ class GameRoomManagerImpl @Inject constructor(
         val gameState = game.save()
         updateRoomState(currentRoomState.copy(gameState = gameState))
         return currentGame
+    }
+
+    override fun updateGameSettings(gameSettings: GameSettings): GameRoomState {
+        updateRoomState(currentRoomState.copy(gameSettings = gameSettings))
+        return currentRoomState
     }
 }

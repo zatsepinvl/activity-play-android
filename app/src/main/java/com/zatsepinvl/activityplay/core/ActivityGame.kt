@@ -1,8 +1,7 @@
 package com.zatsepinvl.activityplay.core
 
 import com.zatsepinvl.activityplay.core.model.*
-import com.zatsepinvl.activityplay.core.model.TaskResultStatus.DONE
-import com.zatsepinvl.activityplay.core.model.TaskResultStatus.SKIPPED
+import com.zatsepinvl.activityplay.core.model.TaskResultStatus.*
 import java.util.*
 
 
@@ -76,14 +75,6 @@ class ActivityGame(
         return currentTask!!
     }
 
-    fun completeCurrentTask(): GameTask {
-        return completeCurrentTask(true)
-    }
-
-    fun skipCurrentTask(): GameTask {
-        return completeCurrentTask(false)
-    }
-
     fun save(): GameState {
         return GameState(
             _completedTasks,
@@ -126,9 +117,20 @@ class ActivityGame(
         currentTeamIndex = 0
     }
 
-    private fun completeCurrentTask(done: Boolean): GameTask {
+    fun completeCurrentTask(): GameTask {
+        return completeCurrentTask(DONE)
+    }
+
+    fun failCurrentTask(): GameTask {
+        return completeCurrentTask(FAILED)
+    }
+
+    fun skipCurrentTask(): GameTask {
+        return completeCurrentTask(SKIPPED)
+    }
+
+    private fun completeCurrentTask(status: TaskResultStatus): GameTask {
         requireInGame()
-        val status = if (done) DONE else SKIPPED
         val taskResult = TaskResult(
             score = taskStatusToScore(status),
             status = status
@@ -211,7 +213,8 @@ class ActivityGame(
     private fun taskStatusToScore(status: TaskResultStatus): Int {
         return when (status) {
             DONE -> settings.pointsForDone
-            SKIPPED -> settings.pointsForFail
+            FAILED -> settings.pointsForFail
+            SKIPPED -> 0
         }
     }
 

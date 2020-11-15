@@ -85,7 +85,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="@string/last_word_no"
-                android:onClick="@{() -> gameViewmodel.skipLastTask()}"
+                android:onClick="@{() -> gameViewmodel.failLastTask()}"
                 app:color="@color/md_grey_600" />
 
             <com.zatsepinvl.activityplay.android.view.Button

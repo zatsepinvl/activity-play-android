@@ -92,6 +92,17 @@ class ActivityGameTest {
     }
 
     @Test
+    fun skip_task() {
+        val game = createTestGame(GameSettings(maxScore = 2))
+
+        game.playOneFrame(skippedCount = 2)
+        game.playOneFrame(doneCount = 2)
+
+        assertTrue(game.finished)
+        assertEquals(1, game.getWinnerTeamIndex())
+    }
+
+    @Test
     fun save_then_restore_state() {
         val settings = GameSettings(maxScore = 2)
         val game = createTestGame(settings)
@@ -243,9 +254,9 @@ class ActivityGameTest {
         )
 
         game.startRound()
-        game.skipCurrentTask()//-1
+        game.failCurrentTask()//-1
         game.completeCurrentTask()//+1
-        game.skipCurrentTask()//-1
+        game.failCurrentTask()//-1
         game.completeCurrentTask()//+1
         game.completeCurrentTask()//+1
 
@@ -280,10 +291,10 @@ class ActivityGameTest {
         val game = createTestGame(settings = GameSettings(pointsForFail = -1))
 
         game.startRound()
-        game.skipCurrentTask() //-1
-        game.skipCurrentTask() //-1
+        game.failCurrentTask() //-1
+        game.failCurrentTask() //-1
         game.completeCurrentTask()//+1
-        game.skipCurrentTask()//-1
+        game.failCurrentTask()//-1
         game.completeCurrentTask()//+1
         game.finishRound()
 
@@ -295,10 +306,10 @@ class ActivityGameTest {
         val game = createTestGame(settings = GameSettings(pointsForFail = -1))
 
         game.startRound()
-        game.skipCurrentTask() //-1
-        game.skipCurrentTask() //-1
+        game.failCurrentTask() //-1
+        game.failCurrentTask() //-1
         game.completeCurrentTask()//+1
-        game.skipCurrentTask()//-1
+        game.failCurrentTask()//-1
         game.completeCurrentTask()//+1
         game.finishRound()
 
@@ -310,7 +321,7 @@ class ActivityGameTest {
         val game = createTestGame()
 
         game.startRound()
-        game.skipCurrentTask()
+        game.failCurrentTask()
         game.completeCurrentTask()
         val task = game.getCurrentTeamRoundResult().tasks[0]
 
@@ -338,7 +349,7 @@ class ActivityGameTest {
         val game = createTestGame()
 
         game.startRound()
-        game.skipCurrentTask()
+        game.failCurrentTask()
         game.completeCurrentTask()
         val task = game.getCurrentTeamRoundResult().tasks[0]
 
@@ -356,10 +367,15 @@ class ActivityGameTest {
         assertEquals(expectedScore, actualScore)
     }
 
-    private fun ActivityGame.playOneFrame(doneCount: Int = 0, failCount: Int = 0) {
+    private fun ActivityGame.playOneFrame(
+        doneCount: Int = 0,
+        failCount: Int = 0,
+        skippedCount: Int = 0
+    ) {
         this.startRound()
         repeat(doneCount) { this.completeCurrentTask() }
-        repeat(failCount) { this.skipCurrentTask() }
+        repeat(failCount) { this.failCurrentTask() }
+        repeat(skippedCount) { this.skipCurrentTask() }
         this.finishRound()
     }
 

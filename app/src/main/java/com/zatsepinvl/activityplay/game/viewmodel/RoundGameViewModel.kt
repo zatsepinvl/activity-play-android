@@ -51,18 +51,24 @@ class RoundGameViewModel @Inject constructor(
         updateCurrentTeamRoundScore()
     }
 
+    fun failTask() {
+        if (!game.roundIsPlaying) return
+        currentTask.value = game.failCurrentTask()
+        updateCurrentTeamRoundScore()
+    }
+
     fun completeLastTask() {
         completeTask()
         lastTaskFinishedEvent.call()
     }
 
-    fun skipTask() {
-        if (!game.roundIsPlaying) return
-        currentTask.value = game.skipCurrentTask()
-        updateCurrentTeamRoundScore()
+    fun failLastTask() {
+        failTask()
+        lastTaskFinishedEvent.call()
     }
 
     fun skipLastTask() {
+        game.skipCurrentTask()
         lastTaskFinishedEvent.call()
     }
 

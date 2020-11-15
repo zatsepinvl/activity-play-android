@@ -6,8 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.zatsepinvl.activityplay.R
 import com.zatsepinvl.activityplay.android.onClick
-import com.zatsepinvl.activityplay.core.model.TaskResultStatus.DONE
-import com.zatsepinvl.activityplay.core.model.TaskResultStatus.SKIPPED
+import com.zatsepinvl.activityplay.core.model.TaskResultStatus.*
 import com.zatsepinvl.activityplay.core.model.TeamRoundResult
 import com.zatsepinvl.activityplay.databinding.ViewFinishTaskListItemBinding
 import com.zatsepinvl.activityplay.game.viewmodel.RoundGameViewModel
@@ -17,11 +16,13 @@ class FinishTaskListAdapter(
     private val roundGameViewModel: RoundGameViewModel
 ) : RecyclerView.Adapter<FinishTaskListAdapter.TaskListViewHolder>() {
 
+    class TaskListViewHolder(val binding: ViewFinishTaskListItemBinding, view: View) :
+        RecyclerView.ViewHolder(view)
+
     private lateinit var teamRoundResult: TeamRoundResult
     private val team: Team
 
     init {
-        //ToDo
         team = roundGameViewModel.currentTeam.value!!
         updateTasks()
     }
@@ -30,29 +31,35 @@ class FinishTaskListAdapter(
         teamRoundResult = roundGameViewModel.game.getCurrentTeamRoundResult()
     }
 
-    class TaskListViewHolder(
-        val dataBinding: ViewFinishTaskListItemBinding,
-        view: View
-    ) : RecyclerView.ViewHolder(view)
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskListViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.view_finish_task_list_item, parent, false)
-        val dataBinding = ViewFinishTaskListItemBinding.bind(view)
-        view.tag = dataBinding
-        return TaskListViewHolder(dataBinding, view)
+        val binding = ViewFinishTaskListItemBinding.bind(view)
+        view.tag = binding
+        return TaskListViewHolder(binding, view)
     }
 
     override fun onBindViewHolder(holder: TaskListViewHolder, position: Int) {
         val completedTask = teamRoundResult.tasks[position]
-        holder.dataBinding.apply {
+        holder.binding.apply {
             team = this@FinishTaskListAdapter.team
             task = completedTask
             score = completedTask.result.score
+            iconDrawable = when (completedTask.result.status) {
+                DONE -> R.drawable.ic_sentiment_very_satisfied
+                SKIPPED -> R.drawable.ic_sentiment_neutral
+                FAILED -> R.drawable.ic_sentiment_very_dissatisfied
+            }
+            iconTint = when (completedTask.result.status) {
+                DONE -> this@FinishTaskListAdapter.team.color
+                SKIPPED -> R.color.md_grey_400
+                FAILED -> R.color.md_grey_400
+            }
             root.onClick {
                 val newStatus = when (completedTask.result.status) {
                     DONE -> SKIPPED
-                    SKIPPED -> DONE
+                    SKIPPED -> FAILED
+                    FAILED -> DONE
                 }
                 roundGameViewModel.updateTask(completedTask, newStatus)
                 updateTasks()

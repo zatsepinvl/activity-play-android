@@ -69,7 +69,7 @@ class PlayRoundFragment : DaggerFragment() {
                 effectsService.vibrate()
             }
             gameFrameSkipButton.onClick {
-                roundGameViewModel.skipTask()
+                roundGameViewModel.failTask()
                 effectsService.vibrate()
             }
             gameFrameDrawButton.onClick { navigate(canvas()) }

@@ -39,7 +39,10 @@ class LastWordRoundFragment : DaggerFragment() {
             navigate(LastWordRoundFragmentDirections.finishRound())
         }
 
-        timerViewModel.timerFinishedEvent.observe(viewLifecycleOwner) { roundGameViewModel.skipLastTask() }
+        timerViewModel.timerFinishedEvent.observe(viewLifecycleOwner) {
+            roundGameViewModel.skipLastTask()
+        }
+
         timerViewModel.startLastWordTimer()
 
         return binding.root

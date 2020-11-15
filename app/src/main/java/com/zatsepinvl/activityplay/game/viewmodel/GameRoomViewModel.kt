@@ -4,17 +4,18 @@ import android.graphics.drawable.Drawable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.zatsepinvl.activityplay.core.ActivityGame
-import com.zatsepinvl.activityplay.core.model.GameAction
 import com.zatsepinvl.activityplay.core.model.GameSettings
 import com.zatsepinvl.activityplay.game.model.TeamBoardItemData
 import com.zatsepinvl.activityplay.gameaction.GameActionService
 import com.zatsepinvl.activityplay.gameroom.service.GameRoomManager
+import com.zatsepinvl.activityplay.settings.service.GameSettingsService
 import com.zatsepinvl.activityplay.team.model.Team
 import javax.inject.Inject
 
 class GameRoomViewModel @Inject constructor(
     private val gameActionService: GameActionService,
     private val roomManager: GameRoomManager,
+    private val gameSettingsService: GameSettingsService
 ) : ViewModel() {
 
     private lateinit var game: ActivityGame
@@ -28,6 +29,7 @@ class GameRoomViewModel @Inject constructor(
         get() = gameActionService.getActionDrawable(game.currentGameAction)
 
     fun setupGame() {
+        roomManager.updateGameSettings(gameSettingsService.getGameSettings())
         game = roomManager.currentGame
         val teams = roomManager.teams
         if (game.currentTeamIndex >= teams.size) {
@@ -43,10 +45,6 @@ class GameRoomViewModel @Inject constructor(
 
     fun currentRound(): Int {
         return game.currentRoundIndex + 1
-    }
-
-    fun actionLocalName(action: GameAction): String {
-        return gameActionService.getActionLocalName(action)
     }
 
     /**
