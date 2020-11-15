@@ -1,8 +1,8 @@
 package com.zatsepinvl.activityplay.game
 
 import androidx.lifecycle.ViewModel
-import com.zatsepinvl.activityplay.di.ViewModelBuilder
-import com.zatsepinvl.activityplay.di.ViewModelKey
+import com.zatsepinvl.activityplay.di.viewmodel.ViewModelBuilder
+import com.zatsepinvl.activityplay.di.viewmodel.ViewModelKey
 import com.zatsepinvl.activityplay.game.fragment.*
 import com.zatsepinvl.activityplay.gameaction.GameActionService
 import com.zatsepinvl.activityplay.gameaction.GameActionServiceImpl
@@ -41,11 +41,6 @@ abstract class GameModule {
     @IntoMap
     @ViewModelKey(GameRoomViewModel::class)
     abstract fun startRoundViewModel(gameRoomViewModel: GameRoomViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(MultiplayerGameViewModel::class)
-    abstract fun multiplayerGameViewModel(multiplayerGameViewModel: MultiplayerGameViewModel): ViewModel
 
     @Binds
     @IntoMap

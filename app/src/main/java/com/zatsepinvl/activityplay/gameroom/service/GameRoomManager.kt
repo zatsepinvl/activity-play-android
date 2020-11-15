@@ -10,9 +10,6 @@ interface GameRoomManager {
     val currentGame: ActivityGame
     val currentRoomState: GameRoomState
 
-    fun startSingleplayerGame(): ActivityGame
-    fun continueSingleplayerGame(): ActivityGame
-
     fun updateRoomState(roomState: GameRoomState): GameRoomState
     fun updateGame(game: ActivityGame): ActivityGame
 }

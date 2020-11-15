@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -16,17 +15,19 @@ import com.zatsepinvl.activityplay.android.fragment.dismissDialog
 import com.zatsepinvl.activityplay.android.fragment.navigate
 import com.zatsepinvl.activityplay.databinding.FragmentTeamsSetupBinding
 import com.zatsepinvl.activityplay.databinding.ViewTeamListItemBinding
+import com.zatsepinvl.activityplay.gameroom.model.GameRoomMode.SINGLEPLAYER
 import com.zatsepinvl.activityplay.gamesetup.fragment.TeamsSetupFragmentDirections.Companion.gameSettings
 import com.zatsepinvl.activityplay.gamesetup.fragment.TeamsSetupFragmentDirections.Companion.startRound
-import com.zatsepinvl.activityplay.gamesetup.model.UpdateTeamDto
-import com.zatsepinvl.activityplay.gamesetup.model.getNewTeamDto
-import com.zatsepinvl.activityplay.gamesetup.model.getUpdateTeamDto
-import com.zatsepinvl.activityplay.gamesetup.model.putUpdateTeamDto
+import com.zatsepinvl.activityplay.gamesetup.model.*
+import com.zatsepinvl.activityplay.gamesetup.model.GameSetupMode.CONTINUE
+import com.zatsepinvl.activityplay.gamesetup.model.GameSetupMode.START_NEW
 import com.zatsepinvl.activityplay.gamesetup.viewmodel.DeleteTeamErrorCode.AT_LEAST_TWO_TEAMS_REQUIRED
+import com.zatsepinvl.activityplay.gamesetup.viewmodel.GameSetupViewModel
 import com.zatsepinvl.activityplay.gamesetup.viewmodel.TeamsSetupViewModel
+import com.zatsepinvl.activityplay.navigation.GameSetupNavigationFlow.CONTINUE_SINGLEPLAYER_GAME
+import com.zatsepinvl.activityplay.navigation.GameSetupNavigationFlow.NEW_SINGLEPLAYER_GAME
 import com.zatsepinvl.activityplay.team.model.Team
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_teams_setup.*
 import javax.inject.Inject
 
 class TeamsSetupFragment : DaggerFragment() {
@@ -35,25 +36,23 @@ class TeamsSetupFragment : DaggerFragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val teamsSetupViewModel: TeamsSetupViewModel by activityViewModels { viewModelFactory }
+    private val gameSetupViewModel: GameSetupViewModel by activityViewModels { viewModelFactory }
+
     private val args: TeamsSetupFragmentArgs by navArgs()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val binding = FragmentTeamsSetupBinding.inflate(inflater, container, false)
+    override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View? {
+        val binding = FragmentTeamsSetupBinding.inflate(inflater, root, false)
+        setupGameSetupViewModel()
+
         binding.lifecycleOwner = this
+        binding.gameSetupViewModel = gameSetupViewModel
+
+        setupNavigation(binding)
+        setupView(binding)
 
         observeTeams(binding.teamList, inflater)
 
         return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        setupNavigation()
-        setupAddNewTeamButton()
-        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -66,25 +65,38 @@ class TeamsSetupFragment : DaggerFragment() {
         }
     }
 
-    private fun setupNavigation() {
-        teamListSettingsButton.setOnClickListener { navigate(gameSettings()) }
-        teamListStartNewGameButton.setOnClickListener {
-
-            navigate(startRound(args.navigationFlow))
+    private fun setupGameSetupViewModel() {
+        when (args.gameSetupNavigationFlow) {
+            NEW_SINGLEPLAYER_GAME -> gameSetupViewModel.startGameSetup(START_NEW, SINGLEPLAYER)
+            CONTINUE_SINGLEPLAYER_GAME -> gameSetupViewModel.startGameSetup(CONTINUE, SINGLEPLAYER)
+            else -> throw NotImplementedError("Multiplayer is not supported yet.")
         }
-        teamListBackButton.setOnClickListener { findNavController().popBackStack() }
+        gameSetupViewModel.gameSetupFinishedEvent.observe(viewLifecycleOwner) {
+            navigate(startRound(args.gameSetupNavigationFlow))
+        }
     }
 
-    private fun setupAddNewTeamButton() {
-        teamListAddTeamButton.setOnClickListener {
+    private fun setupNavigation(binding: FragmentTeamsSetupBinding) {
+        binding.apply {
+            teamListSettingsButton.setOnClickListener { navigate(gameSettings()) }
+            teamListBackButton.setOnClickListener { findNavController().popBackStack() }
+        }
+    }
+
+    private fun setupView(binding: FragmentTeamsSetupBinding) {
+        setupAddNewTeamButton(binding)
+    }
+
+    private fun setupAddNewTeamButton(binding: FragmentTeamsSetupBinding) {
+        binding.teamListAddTeamButton.setOnClickListener {
             val addTeamDialog = UpdateTeamDialogFragment()
             addTeamDialog.setTargetFragment(this, UpdateTeamDialogRequestCode.REQUEST_NEW.code)
-            addTeamDialog.show(requireFragmentManager(), "addTeamDialog")
+            addTeamDialog.show(parentFragmentManager, "addTeamDialog")
         }
     }
 
     private fun observeTeams(teamsContainer: ViewGroup, inflater: LayoutInflater) {
-        teamsSetupViewModel.teams.observe(viewLifecycleOwner, Observer { teams ->
+        teamsSetupViewModel.teams.observe(viewLifecycleOwner) { teams ->
             teamsContainer.removeAllViews()
             teams.forEach { team ->
                 val teamBinding = ViewTeamListItemBinding.inflate(
@@ -93,7 +105,7 @@ class TeamsSetupFragment : DaggerFragment() {
                 teamBinding.team = team
                 initTeamItemButtons(team, teamBinding)
             }
-        })
+        }
     }
 
     private fun initTeamItemButtons(team: Team, binding: ViewTeamListItemBinding) {
@@ -127,7 +139,7 @@ class TeamsSetupFragment : DaggerFragment() {
                 UpdateTeamDto(team.id, team.name, team.colorId)
             )
             addTeamDialog.setTargetFragment(this, UpdateTeamDialogRequestCode.REQUEST_UPDATE.code)
-            addTeamDialog.show(requireFragmentManager(), "editTeamDialog")
+            addTeamDialog.show(parentFragmentManager, "editTeamDialog")
         }
     }
 }

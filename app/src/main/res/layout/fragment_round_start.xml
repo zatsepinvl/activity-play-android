@@ -9,10 +9,6 @@
             name="gameViewModel"
             type="com.zatsepinvl.activityplay.game.viewmodel.GameRoomViewModel" />
 
-        <variable
-            name="multiplayerGameViewModel"
-            type="com.zatsepinvl.activityplay.game.viewmodel.MultiplayerGameViewModel" />
-
     </data>
 
     <FrameLayout
@@ -36,7 +32,7 @@
             android:layout_gravity="end"
             android:layout_marginEnd="100dp"
             android:gravity="center"
-            android:text='@{multiplayerGameViewModel.isMultiplayer ? multiplayerGameViewModel.multiplayerRoomState.roomId : "Singleplayer"}'
+            android:text='@{"Singleplayer"}'
             tools:text="Singleplayer" />
 
         <com.zatsepinvl.activityplay.android.view.Button

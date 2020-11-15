@@ -30,9 +30,9 @@
             android:id="@+id/newGame"
             app:destination="@id/teamsSetupFragment">
             <argument
-                android:name="navigationFlow"
-                android:defaultValue="NEW_GAME"
-                app:argType="com.zatsepinvl.activityplay.navigation.NavigationFlow" />
+                android:name="gameSetupNavigationFlow"
+                android:defaultValue="NEW_SINGLEPLAYER_GAME"
+                app:argType="com.zatsepinvl.activityplay.navigation.GameSetupNavigationFlow" />
         </action>
 
         <action
@@ -52,16 +52,16 @@
         android:label="TeamsSetupFragment"
         tools:layout="@layout/fragment_teams_setup">
         <argument
-            android:name="navigationFlow"
-            android:defaultValue="DEFAULT"
-            app:argType="com.zatsepinvl.activityplay.navigation.NavigationFlow" />
+            android:name="gameSetupNavigationFlow"
+            android:defaultValue="NEW_SINGLEPLAYER_GAME"
+            app:argType="com.zatsepinvl.activityplay.navigation.GameSetupNavigationFlow" />
         <action
             android:id="@+id/startRound"
             app:destination="@id/startRoundFragment">
             <argument
-                android:name="navigationFlow"
-                android:defaultValue="NEW_GAME"
-                app:argType="com.zatsepinvl.activityplay.navigation.NavigationFlow" />
+                android:name="gameSetupNavigationFlow"
+                android:defaultValue="NEW_SINGLEPLAYER_GAME"
+                app:argType="com.zatsepinvl.activityplay.navigation.GameSetupNavigationFlow" />
         </action>
         <action
             android:id="@+id/gameSettings"
@@ -97,10 +97,6 @@
         <action
             android:id="@+id/settings"
             app:destination="@id/gameSettingsFragment" />
-        <argument
-            android:name="navigationFlow"
-            android:defaultValue="DEFAULT"
-            app:argType="com.zatsepinvl.activityplay.navigation.NavigationFlow" />
     </fragment>
 
     <fragment
@@ -172,17 +168,17 @@
             android:id="@+id/newMultiplayerGame"
             app:destination="@id/teamsSetupFragment">
             <argument
-                android:name="navigationFlow"
+                android:name="gameSetupNavigationFlow"
                 android:defaultValue="NEW_MULTIPLAYER_GAME"
-                app:argType="com.zatsepinvl.activityplay.navigation.NavigationFlow" />
+                app:argType="com.zatsepinvl.activityplay.navigation.GameSetupNavigationFlow" />
         </action>
         <action
             android:id="@+id/joinMultiplayerGame"
             app:destination="@id/startRoundFragment">
             <argument
-                android:name="navigationFlow"
+                android:name="gameSetupNavigationFlow"
                 android:defaultValue="JOIN_MULTIPLAYER_GAME"
-                app:argType="com.zatsepinvl.activityplay.navigation.NavigationFlow" />
+                app:argType="com.zatsepinvl.activityplay.navigation.GameSetupNavigationFlow" />
         </action>
     </fragment>
 

@@ -1,11 +1,11 @@
 package com.zatsepinvl.activityplay.home
 
 import androidx.lifecycle.ViewModel
-import com.zatsepinvl.activityplay.di.ViewModelBuilder
-import com.zatsepinvl.activityplay.di.ViewModelKey
+import com.zatsepinvl.activityplay.di.viewmodel.ViewModelBuilder
+import com.zatsepinvl.activityplay.di.viewmodel.ViewModelKey
 import com.zatsepinvl.activityplay.home.fragment.HomeFragment
 import com.zatsepinvl.activityplay.home.fragment.SplashScreenFragment
-import com.zatsepinvl.activityplay.home.viewmodel.HomeViewModel
+import com.zatsepinvl.activityplay.home.viewmodel.HomeMenuViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -21,6 +21,6 @@ abstract class HomeModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(HomeViewModel::class)
-    abstract fun homeViewModel(homeViewModel: HomeViewModel): ViewModel
+    @ViewModelKey(HomeMenuViewModel::class)
+    abstract fun homeViewModel(homeMenuViewModel: HomeMenuViewModel): ViewModel
 }

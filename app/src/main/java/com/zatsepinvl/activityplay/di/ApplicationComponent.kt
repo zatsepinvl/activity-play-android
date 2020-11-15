@@ -11,6 +11,7 @@ import com.zatsepinvl.activityplay.gamesetup.GameSetupModule
 import com.zatsepinvl.activityplay.gamestate.GameStateModule
 import com.zatsepinvl.activityplay.home.HomeModule
 import com.zatsepinvl.activityplay.multiplayer.MultiplayerModule
+import com.zatsepinvl.activityplay.singleplayer.SingleplayerModule
 import com.zatsepinvl.activityplay.settings.SettingsModule
 import com.zatsepinvl.activityplay.team.TeamModule
 import com.zatsepinvl.activityplay.timer.TimerModule
@@ -25,18 +26,19 @@ import javax.inject.Singleton
     modules = [
         AndroidSupportInjectionModule::class,
         ApplicationModule::class,
-        SettingsModule::class,
-        FirebaseModule::class,
-        DictionaryModule::class,
-        GameModule::class,
-        TeamModule::class,
-        HomeModule::class,
-        GameSetupModule::class,
-        TimerModule::class,
-        MultiplayerModule::class,
         DeviceModule::class,
+        DictionaryModule::class,
+        FirebaseModule::class,
+        GameModule::class,
         GameRoomModule::class,
-        GameStateModule::class
+        GameSetupModule::class,
+        GameStateModule::class,
+        HomeModule::class,
+        MultiplayerModule::class,
+        SettingsModule::class,
+        SingleplayerModule::class,
+        TeamModule::class,
+        TimerModule::class,
     ]
 )
 interface ApplicationComponent : AndroidInjector<ActivityPlayApplication> {

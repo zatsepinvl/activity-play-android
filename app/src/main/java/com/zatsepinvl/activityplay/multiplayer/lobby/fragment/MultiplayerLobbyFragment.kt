@@ -9,10 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.zatsepinvl.activityplay.android.fragment.navigate
 import com.zatsepinvl.activityplay.databinding.FragmentMultiplayerLobbyBinding
-import com.zatsepinvl.activityplay.game.viewmodel.MultiplayerGameViewModel
-import com.zatsepinvl.activityplay.game.viewmodel.RoomLoadingState
 import com.zatsepinvl.activityplay.log.APP_LOG_TAG
-import com.zatsepinvl.activityplay.multiplayer.lobby.fragment.MultiplayerLobbyFragmentDirections.Companion.joinMultiplayerGame
 import com.zatsepinvl.activityplay.multiplayer.lobby.fragment.MultiplayerLobbyFragmentDirections.Companion.newMultiplayerGame
 import com.zatsepinvl.activityplay.multiplayer.lobby.viewmodel.MultiplayerLobbyViewModel
 import dagger.android.support.DaggerFragment
@@ -24,7 +21,6 @@ class MultiplayerLobbyFragment : DaggerFragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val lobbyViewModel: MultiplayerLobbyViewModel by activityViewModels { viewModelFactory }
-    private val multiplayerGameViewModel: MultiplayerGameViewModel by activityViewModels { viewModelFactory }
 
     override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View? {
         val binding = FragmentMultiplayerLobbyBinding.inflate(inflater)
@@ -43,16 +39,10 @@ class MultiplayerLobbyFragment : DaggerFragment() {
             navigate(newMultiplayerGame())
         })
 
-        multiplayerGameViewModel.roomLoadingState.observe(viewLifecycleOwner, {
-            if (it == RoomLoadingState.LOADED) {
-                navigate(joinMultiplayerGame())
-            }
-        })
+
 
         lobbyViewModel.joinGameEvent.observe(viewLifecycleOwner, {
             Log.d(APP_LOG_TAG, "RoomID: $it.roomId")
-
-            multiplayerGameViewModel.joinMultiplayerGame(it.roomId)
         })
     }
 }

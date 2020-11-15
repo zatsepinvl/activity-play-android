@@ -1,8 +1,8 @@
 package com.zatsepinvl.activityplay.multiplayer.lobby
 
 import androidx.lifecycle.ViewModel
-import com.zatsepinvl.activityplay.di.ViewModelBuilder
-import com.zatsepinvl.activityplay.di.ViewModelKey
+import com.zatsepinvl.activityplay.di.viewmodel.ViewModelBuilder
+import com.zatsepinvl.activityplay.di.viewmodel.ViewModelKey
 import com.zatsepinvl.activityplay.multiplayer.lobby.fragment.MultiplayerLobbyFragment
 import com.zatsepinvl.activityplay.multiplayer.lobby.viewmodel.MultiplayerLobbyViewModel
 import com.zatsepinvl.activityplay.multiplayer.room.MultiplayerRoomModule

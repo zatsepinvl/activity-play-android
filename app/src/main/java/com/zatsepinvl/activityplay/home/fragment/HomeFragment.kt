@@ -22,17 +22,21 @@ import com.zatsepinvl.activityplay.android.fragment.disableBackButton
 import com.zatsepinvl.activityplay.android.fragment.navigate
 import com.zatsepinvl.activityplay.color.ColoredView
 import com.zatsepinvl.activityplay.databinding.FragmentHomeBinding
+import com.zatsepinvl.activityplay.gameroom.model.GameRoomMode.SINGLEPLAYER
+import com.zatsepinvl.activityplay.gamesetup.model.GameSetupMode.CONTINUE
+import com.zatsepinvl.activityplay.gamesetup.viewmodel.GameSetupViewModel
 import com.zatsepinvl.activityplay.home.fragment.HomeFragmentDirections.Companion.continueGame
 import com.zatsepinvl.activityplay.home.fragment.HomeFragmentDirections.Companion.intro
 import com.zatsepinvl.activityplay.home.fragment.HomeFragmentDirections.Companion.multiplayerLobby
 import com.zatsepinvl.activityplay.home.fragment.HomeFragmentDirections.Companion.newGame
 import com.zatsepinvl.activityplay.home.fragment.HomeFragmentDirections.Companion.settings
 import com.zatsepinvl.activityplay.home.viewmodel.HomeMenuItem
-import com.zatsepinvl.activityplay.home.viewmodel.HomeViewModel
+import com.zatsepinvl.activityplay.home.viewmodel.HomeMenuViewModel
 import com.zatsepinvl.activityplay.loading.LoadingData
 import com.zatsepinvl.activityplay.loading.LoadingDialog
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.lang.IllegalArgumentException
 import javax.inject.Inject
 
 private const val SUPPORT_AD_ID = "ca-app-pub-5369622084298684/1487269811"
@@ -42,7 +46,8 @@ class HomeFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val homeViewModel: HomeViewModel by activityViewModels { viewModelFactory }
+    private val homeMenuViewModel: HomeMenuViewModel by activityViewModels { viewModelFactory }
+    private val gameSetupViewModel: GameSetupViewModel by activityViewModels { viewModelFactory }
 
     private lateinit var rewardedAd: RewardedAd
 
@@ -53,36 +58,33 @@ class HomeFragment : DaggerFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View? {
         val binding = FragmentHomeBinding.inflate(inflater, root, false)
-        binding.homeViewModel = homeViewModel
+        binding.homeViewModel = homeMenuViewModel
         binding.lifecycleOwner = this
         (activity as ColoredView).resetBackgroundColor()
         setupNavigation()
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        homeNewGameButton.setOnClickListener { navigate(newGame()) }
-        homeContinueButton.setOnClickListener { navigate(continueGame()) }
-        homeSettingsButton.setOnClickListener { navigate(settings()) }
-        homeTutorialButton.setOnClickListener { navigate(intro()) }
-        homeSupportButton.setOnClickListener { loadAd() }
-        viewOnGithub.setOnClickListener { goToGitHub() }
-        contactMe.setOnClickListener { loadEmail() }
-    }
-
     private fun setupNavigation() {
-        homeViewModel.menuItemSelectedEvent.observe(viewLifecycleOwner, {
-            when (it!!) {
+        homeMenuViewModel.menuItemSelectedEvent.observe(viewLifecycleOwner) {
+            when (it) {
                 HomeMenuItem.NEW_GAME -> navigate(newGame())
-                HomeMenuItem.CONTINUE -> navigate(continueGame())
+                HomeMenuItem.CONTINUE -> {
+                    gameSetupViewModel.startGameSetup(CONTINUE, SINGLEPLAYER)
+                    gameSetupViewModel.finishGameSetup()
+                }
                 HomeMenuItem.MULTIPLAYER -> navigate(multiplayerLobby())
                 HomeMenuItem.SETTINGS -> navigate(settings())
                 HomeMenuItem.INTRO -> navigate(intro())
                 HomeMenuItem.SUPPORT_DEV -> loadAd()
                 HomeMenuItem.GITHUB -> goToGitHub()
                 HomeMenuItem.EMAIL -> loadEmail()
+                else -> throw IllegalArgumentException("Illegal param: $it")
             }
-        })
+        }
+        gameSetupViewModel.gameSetupFinishedEvent.observe(viewLifecycleOwner) {
+            navigate(continueGame())
+        }
     }
 
     private fun goToGitHub() {

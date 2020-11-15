@@ -103,7 +103,7 @@ class ActivityGame(
             clear()
             addAll(state.completedTasks)
         }
-        state.teamScores?.let { scores ->
+        state.teamScores.let { scores ->
             _teamScores.clear()
             _teamScores.putAll(scores)
         }
@@ -114,7 +114,7 @@ class ActivityGame(
             ?.let { action -> currentGameAction = action }
         finished = state.finished
         currentTask = state.currentTask
-        roundIsPlaying = state.roundIsPlaying ?: false
+        roundIsPlaying = state.roundIsPlaying
     }
 
     fun reset() {

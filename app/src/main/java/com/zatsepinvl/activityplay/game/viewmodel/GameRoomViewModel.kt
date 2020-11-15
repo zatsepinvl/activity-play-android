@@ -27,13 +27,8 @@ class GameRoomViewModel @Inject constructor(
     val actionDrawable: Drawable
         get() = gameActionService.getActionDrawable(game.currentGameAction)
 
-    fun startNewSingleplayerGame() {
-        game = roomManager.startSingleplayerGame()
-        currentTeam.value = roomManager.currentTeam
-    }
-
-    fun continueGame() {
-        game = roomManager.continueSingleplayerGame()
+    fun setupGame() {
+        game = roomManager.currentGame
         val teams = roomManager.teams
         if (game.currentTeamIndex >= teams.size) {
             game.resetCurrentTeam()

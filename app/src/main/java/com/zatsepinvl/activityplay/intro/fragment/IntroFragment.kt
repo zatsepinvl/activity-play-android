@@ -69,7 +69,7 @@ class IntroFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pageAdapter = IntroPageAdapter(requireFragmentManager())
+        pageAdapter = IntroPageAdapter(parentFragmentManager)
         addSlide(slideWelcome)
         addSlide(slideParticipants)
         addSlide(slideTeams)

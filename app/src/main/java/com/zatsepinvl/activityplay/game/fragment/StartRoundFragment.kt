@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.navArgs
 import com.zatsepinvl.activityplay.android.fragment.navigate
 import com.zatsepinvl.activityplay.android.onClick
 import com.zatsepinvl.activityplay.color.ColoredView
@@ -18,9 +17,7 @@ import com.zatsepinvl.activityplay.game.fragment.StartRoundFragmentDirections.Co
 import com.zatsepinvl.activityplay.game.fragment.StartRoundFragmentDirections.Companion.finishGame
 import com.zatsepinvl.activityplay.game.fragment.StartRoundFragmentDirections.Companion.playRound
 import com.zatsepinvl.activityplay.game.fragment.StartRoundFragmentDirections.Companion.settings
-import com.zatsepinvl.activityplay.game.viewmodel.MultiplayerGameViewModel
 import com.zatsepinvl.activityplay.game.viewmodel.GameRoomViewModel
-import com.zatsepinvl.activityplay.navigation.NavigationFlow
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -31,18 +28,13 @@ class StartRoundFragment : DaggerFragment() {
     @Inject
     lateinit var effectsService: EffectsService
 
-    private val args: StartRoundFragmentArgs by navArgs()
-
     private val gameViewModel: GameRoomViewModel by activityViewModels { viewModelFactory }
-    private val multiplayerGameViewModel: MultiplayerGameViewModel by activityViewModels { viewModelFactory }
 
     override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View? {
         setupGameViewModel()
-        setupMultiplayerGameViewModel()
 
         val dataBinding = FragmentRoundStartBinding.inflate(inflater, root, false)
         dataBinding.gameViewModel = gameViewModel
-        dataBinding.multiplayerGameViewModel = multiplayerGameViewModel
         dataBinding.lifecycleOwner = this
 
         dataBinding.gameStartRoundStartButton.onClick {
@@ -51,28 +43,17 @@ class StartRoundFragment : DaggerFragment() {
         }
         dataBinding.gameStartRoundExitButton.onClick { navigate(backToMenu()) }
         dataBinding.gameSettingsButton.onClick { navigate(settings()) }
-        requireActivity().onBackPressedDispatcher.addCallback(this) { navigate(backToMenu()) }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+
+        }
 
         createTeamBoardView(inflater, dataBinding.startRoundTeamsBoard)
 
         return dataBinding.root
     }
 
-    private fun setupMultiplayerGameViewModel() {
-        if (args.navigationFlow == NavigationFlow.NEW_MULTIPLAYER_GAME) {
-            multiplayerGameViewModel.hostMultiplayerGame()
-        }
-        multiplayerGameViewModel.multiplayerRoomStateUpdated.observe(viewLifecycleOwner) {
-            setupGameViewModel()
-        }
-    }
-
     private fun setupGameViewModel() {
-        when (args.navigationFlow) {
-            NavigationFlow.NEW_GAME,
-            NavigationFlow.NEW_MULTIPLAYER_GAME -> gameViewModel.startNewSingleplayerGame()
-            else -> gameViewModel.continueGame()
-        }
+        gameViewModel.setupGame()
         if (gameViewModel.isGameFinished()) {
             navigate(finishGame())
         }

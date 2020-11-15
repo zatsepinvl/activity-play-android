@@ -1,5 +1,7 @@
 package com.zatsepinvl.activityplay.team.service
 
+import android.content.Context
+import com.zatsepinvl.activityplay.R
 import com.zatsepinvl.activityplay.color.ColorId
 import com.zatsepinvl.activityplay.color.ColorService
 import com.zatsepinvl.activityplay.team.model.Team
@@ -15,12 +17,14 @@ interface TeamService {
     fun getTeams(): List<Team>
     fun getTeamsCount(): Int
     fun createTeam(name: String, colorId: ColorId): Team
+    fun setupDefaultTeamsIfNeeded()
 }
 
 @Singleton
 class TeamServiceImpl @Inject constructor(
     private val teamRepository: TeamRepository,
-    private val colorService: ColorService
+    private val colorService: ColorService,
+    private val context: Context
 ) : TeamService {
     override fun createTeam(name: String, colorId: ColorId): Team {
         val index = getTeamsCount()
@@ -31,6 +35,13 @@ class TeamServiceImpl @Inject constructor(
             colorId,
             colorService.getColorById(colorId).hexCode
         )
+    }
+
+    override fun setupDefaultTeamsIfNeeded() {
+        if (getTeamsCount() == 0) {
+            addTeam(context.getString(R.string.default_team_1_name), ColorId.GREEN)
+            addTeam(context.getString(R.string.default_team_2_name), ColorId.RED)
+        }
     }
 
     override fun updateTeam(team: Team) {

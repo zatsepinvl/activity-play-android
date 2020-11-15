@@ -1,9 +1,7 @@
 package com.zatsepinvl.activityplay.gamesetup.viewmodel
 
-import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.zatsepinvl.activityplay.R
 import com.zatsepinvl.activityplay.color.ColorId
 import com.zatsepinvl.activityplay.gamesetup.viewmodel.DeleteTeamErrorCode.AT_LEAST_TWO_TEAMS_REQUIRED
 import com.zatsepinvl.activityplay.team.model.Team
@@ -15,17 +13,13 @@ enum class DeleteTeamErrorCode {
 }
 
 class TeamsSetupViewModel @Inject constructor(
-    private val teamService: TeamService,
-    context: Context
+    private val teamService: TeamService
 ) : ViewModel() {
 
     val teams = MutableLiveData<List<Team>>()
 
     init {
-        if (teamService.getTeamsCount() == 0) {
-            teamService.addTeam(context.getString(R.string.default_team_1_name), ColorId.GREEN)
-            teamService.addTeam(context.getString(R.string.default_team_2_name), ColorId.RED)
-        }
+        teamService.setupDefaultTeamsIfNeeded()
         syncTeams()
     }
 

@@ -1,26 +1,17 @@
 package com.zatsepinvl.activityplay.gameroom.service
 
 import com.zatsepinvl.activityplay.core.ActivityGame
-import com.zatsepinvl.activityplay.core.model.GameStateFactory
-import com.zatsepinvl.activityplay.device.DeviceService
-import com.zatsepinvl.activityplay.dictionary.DictionaryHolder
 import com.zatsepinvl.activityplay.gameroom.model.GameRoomMode
 import com.zatsepinvl.activityplay.gameroom.model.GameRoomState
-import com.zatsepinvl.activityplay.gamestate.service.GameStateService
-import com.zatsepinvl.activityplay.settings.service.GameSettingsService
 import com.zatsepinvl.activityplay.team.model.Team
-import com.zatsepinvl.activityplay.team.service.TeamService
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
+@JvmSuppressWildcards
 class GameRoomManagerImpl @Inject constructor(
-    private val gameStateService: GameStateService,
-    private val gameSettingsService: GameSettingsService,
-    private val teamService: TeamService,
-    private val deviceService: DeviceService,
-    private val dictionaryHolder: DictionaryHolder,
     private val gameFactory: GameFactory,
+    private val roomStateRepositories: Map<GameRoomMode, GameRoomStateRepository>
 ) : GameRoomManager {
 
     private lateinit var _currentRoomState: GameRoomState
@@ -42,42 +33,8 @@ class GameRoomManagerImpl @Inject constructor(
     override val currentGame: ActivityGame
         get() = gameFactory.createGame(currentRoomState)
 
-    override fun startSingleplayerGame(): ActivityGame {
-        val host = deviceService.getCurrentDevice()
-        _currentRoomState = GameRoomState(
-            roomId = "singleplayer",
-            gameMode = GameRoomMode.SINGLEPLAYER,
-            host = host,
-            gameState = GameStateFactory.defaultGameState(),
-            gameSettings = gameSettingsService.getGameSettings(),
-            timerSettings = gameSettingsService.getTimerSettings(),
-            devices = listOf(host),
-            teams = teamService.getTeams(),
-            dictionaryLanguage = dictionaryHolder.getDictionary().language
-        )
-        return currentGame
-    }
-
-    override fun continueSingleplayerGame(): ActivityGame {
-        val host = deviceService.getCurrentDevice()
-        _currentRoomState = GameRoomState(
-            roomId = "singleplayer",
-            gameMode = GameRoomMode.SINGLEPLAYER,
-            host = host,
-            gameState = gameStateService.getSavedGame(),
-            gameSettings = gameSettingsService.getGameSettings(),
-            timerSettings = gameSettingsService.getTimerSettings(),
-            devices = listOf(host),
-            teams = teamService.getTeams(),
-            dictionaryLanguage = dictionaryHolder.getDictionary().language
-        )
-        return currentGame
-    }
-
     override fun updateRoomState(roomState: GameRoomState): GameRoomState {
-        if (roomState.gameMode == GameRoomMode.SINGLEPLAYER) {
-            gameStateService.saveGame(roomState.gameState)
-        }
+        roomStateRepositories[roomState.gameMode]?.updateGameRoomState(roomState)
         _currentRoomState = roomState
         return roomState
     }
