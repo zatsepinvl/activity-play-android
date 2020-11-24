@@ -47,12 +47,6 @@ data class WordFile(val file: String) {
     }
 }
 
-private fun AssetManager.getSupportedLanguages(): Set<WordFile> {
-    return list("words")!!.filter { it.startsWith("words") }
-        .map { file -> WordFile(file) }
-        .toSet()
-}
-
 private fun AssetManager.dictionary(wordFile: WordFile): Dictionary {
     return Dictionary(
         wordFile.lang, getWords(open(wordFile.file))

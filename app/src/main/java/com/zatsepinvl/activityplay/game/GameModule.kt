@@ -40,27 +40,26 @@ abstract class GameModule {
     @Binds
     @IntoMap
     @ViewModelKey(GameRoomViewModel::class)
-    abstract fun startRoundViewModel(gameRoomViewModel: GameRoomViewModel): ViewModel
+    abstract fun gameRoomViewModel(viewModel: GameRoomViewModel): ViewModel
 
     @Binds
     @IntoMap
-    @ViewModelKey(RoundGameViewModel::class)
-    abstract fun roundGameViewModel(roundGameViewModel: RoundGameViewModel): ViewModel
+    @ViewModelKey(GameViewModel::class)
+    abstract fun gameRoundViewModel(viewModel: GameViewModel): ViewModel
 
     @Binds
     @IntoMap
     @ViewModelKey(RoundUiViewModel::class)
-    abstract fun roundUiViewModel(roundUiViewModel: RoundUiViewModel): ViewModel
+    abstract fun roundUiViewModel(viewModel: RoundUiViewModel): ViewModel
 
     @Binds
     @IntoMap
-    @ViewModelKey(FinishGameViewModel::class)
-    abstract fun finishGameViewModel(finishGameViewModel: FinishGameViewModel): ViewModel
+    @ViewModelKey(GameFinishViewModel::class)
+    abstract fun gameFinishViewModel(viewModel: GameFinishViewModel): ViewModel
 
     @Binds
     @IntoMap
-    @ViewModelKey(TimerViewModel::class)
-    abstract fun timerViewModel(timerViewModel: TimerViewModel): ViewModel
-
+    @ViewModelKey(GameEffectsViewModel::class)
+    abstract fun effectsViewModel(viewModel: GameEffectsViewModel): ViewModel
 
 }

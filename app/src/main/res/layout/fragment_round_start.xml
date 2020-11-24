@@ -127,6 +127,6 @@
             app:color="@{gameViewModel.currentTeam.color}"
             app:icon="@drawable/ic_play_arrow_black_24dp"
             app:iconGravity="textStart"
-            app:iconPadding="16dp" />
+            app:iconPadding="16dp"/>
     </FrameLayout>
 </layout>

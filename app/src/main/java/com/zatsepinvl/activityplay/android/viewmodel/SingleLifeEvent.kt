@@ -5,6 +5,7 @@ import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import java.util.*
 import java.util.concurrent.atomic.AtomicBoolean
 
 
@@ -22,17 +23,19 @@ import java.util.concurrent.atomic.AtomicBoolean
 class SingleLiveEvent<T> : MutableLiveData<T>() {
 
     private val TAG = "SingleLiveEvent"
-    private val pendingForEvent = AtomicBoolean(false)
+    private val pendingForEvent = mutableMapOf<UUID, AtomicBoolean>()
 
     @MainThread
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
+        val id = UUID.randomUUID()
+        pendingForEvent[id] = AtomicBoolean(true)
         if (hasActiveObservers()) {
             Log.w(TAG, "Multiple observers registered but only one will be notified of changes.");
         }
 
         // Observe the internal MutableLiveData
         super.observe(owner) {
-            if (pendingForEvent.compareAndSet(true, false)) {
+            if (pendingForEvent[id]!!.compareAndSet(true, false)) {
                 observer.onChanged(it)
             }
         }
@@ -40,7 +43,7 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
 
     @MainThread
     override fun setValue(t: T?) {
-        pendingForEvent.set(true)
+        reset()
         super.setValue(t)
     }
 
@@ -56,7 +59,7 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
 
     @MainThread
     fun reset() {
-        pendingForEvent.set(false)
+        pendingForEvent.values.forEach { it.set(true) }
     }
 
 }

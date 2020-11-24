@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.zatsepinvl.activityplay.android.fragment.navigate
@@ -17,7 +16,9 @@ import com.zatsepinvl.activityplay.game.fragment.StartRoundFragmentDirections.Co
 import com.zatsepinvl.activityplay.game.fragment.StartRoundFragmentDirections.Companion.finishGame
 import com.zatsepinvl.activityplay.game.fragment.StartRoundFragmentDirections.Companion.playRound
 import com.zatsepinvl.activityplay.game.fragment.StartRoundFragmentDirections.Companion.settings
+import com.zatsepinvl.activityplay.game.viewmodel.GameEffectsViewModel
 import com.zatsepinvl.activityplay.game.viewmodel.GameRoomViewModel
+import com.zatsepinvl.activityplay.game.viewmodel.GameViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -28,40 +29,42 @@ class StartRoundFragment : DaggerFragment() {
     @Inject
     lateinit var effectsService: EffectsService
 
-    private val gameViewModel: GameRoomViewModel by activityViewModels { viewModelFactory }
+    private val roomViewModel: GameRoomViewModel by activityViewModels { viewModelFactory }
+    private val gameViewModel: GameViewModel by activityViewModels { viewModelFactory }
+    private val effectsViewModel: GameEffectsViewModel by activityViewModels { viewModelFactory }
 
     override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View? {
-        setupGameViewModel()
+        setupViewModels()
 
-        val dataBinding = FragmentRoundStartBinding.inflate(inflater, root, false)
-        dataBinding.gameViewModel = gameViewModel
-        dataBinding.lifecycleOwner = this
+        (activity as ColoredView).changeBackgroundColor(roomViewModel.currentTeam.value!!.color)
 
-        dataBinding.gameStartRoundStartButton.onClick {
-            effectsService.playStartRoundTrack()
+        val binding = FragmentRoundStartBinding.inflate(inflater, root, false)
+        binding.gameViewModel = roomViewModel
+        binding.lifecycleOwner = this
+
+        binding.gameStartRoundStartButton.onClick {
+            gameViewModel.startRound()
             navigate(playRound())
         }
-        dataBinding.gameStartRoundExitButton.onClick { navigate(backToMenu()) }
-        dataBinding.gameSettingsButton.onClick { navigate(settings()) }
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+        binding.gameStartRoundExitButton.onClick { navigate(backToMenu()) }
+        binding.gameSettingsButton.onClick { navigate(settings()) }
 
-        }
+        createTeamBoardView(inflater, binding.startRoundTeamsBoard)
 
-        createTeamBoardView(inflater, dataBinding.startRoundTeamsBoard)
-
-        return dataBinding.root
+        return binding.root
     }
 
-    private fun setupGameViewModel() {
-        gameViewModel.setupGame()
-        if (gameViewModel.isGameFinished()) {
+    private fun setupViewModels() {
+        roomViewModel.setupGame()
+        if (roomViewModel.isGameFinished()) {
             navigate(finishGame())
+            return
         }
-        (activity as ColoredView).changeBackgroundColor(gameViewModel.currentTeam.value!!.color)
+        effectsViewModel.subscribeOnGameEvents(viewLifecycleOwner, gameViewModel)
     }
 
     private fun createTeamBoardView(inflater: LayoutInflater, teamBoard: ViewGroup) {
-        gameViewModel.getTeamsBoardItemData().forEach {
+        roomViewModel.getTeamsBoardItemData().forEach {
             val teamBoardItem = ViewTeamBoardItemBinding.inflate(inflater, teamBoard, true)
             teamBoardItem.data = it
         }

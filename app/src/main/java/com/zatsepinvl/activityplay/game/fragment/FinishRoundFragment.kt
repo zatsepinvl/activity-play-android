@@ -11,10 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zatsepinvl.activityplay.android.fragment.disableBackButton
 import com.zatsepinvl.activityplay.android.fragment.navigate
 import com.zatsepinvl.activityplay.databinding.FragmentRoundFinishBinding
-import com.zatsepinvl.activityplay.effects.EffectsService
 import com.zatsepinvl.activityplay.game.adapter.FinishTaskListAdapter
 import com.zatsepinvl.activityplay.game.fragment.FinishRoundFragmentDirections.Companion.nextRound
-import com.zatsepinvl.activityplay.game.viewmodel.RoundGameViewModel
+import com.zatsepinvl.activityplay.game.viewmodel.GameEffectsViewModel
+import com.zatsepinvl.activityplay.game.viewmodel.GameViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -22,10 +22,9 @@ class FinishRoundFragment : DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val roundGameViewModel: RoundGameViewModel by activityViewModels { viewModelFactory }
 
-    @Inject
-    lateinit var effectsService: EffectsService
+    private val gameViewModel: GameViewModel by activityViewModels { viewModelFactory }
+    private val effectsViewModel: GameEffectsViewModel by activityViewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         disableBackButton()
@@ -33,24 +32,22 @@ class FinishRoundFragment : DaggerFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View? {
-        setupPlayRoundViewModel()
+        gameViewModel.roundFinishedEvent.observe(viewLifecycleOwner) {
+            navigate(nextRound())
+        }
+        effectsViewModel.subscribeOnGameEvents(viewLifecycleOwner, gameViewModel)
+
         val binding = FragmentRoundFinishBinding.inflate(inflater, root, false)
         binding.lifecycleOwner = this
         binding.apply {
-            viewmodel = roundGameViewModel
+            viewmodel = gameViewModel
             createTaskList(roundFinishTaskListRecyclerView)
         }
         return binding.root
     }
 
-    private fun setupPlayRoundViewModel() {
-        roundGameViewModel.roundFinishedEvent.observe(viewLifecycleOwner) {
-            navigate(nextRound())
-        }
-    }
-
     private fun createTaskList(recyclerView: RecyclerView) {
-        val viewAdapter = FinishTaskListAdapter(roundGameViewModel)
+        val viewAdapter = FinishTaskListAdapter(gameViewModel)
         val viewManager = LinearLayoutManager(requireContext())
         recyclerView.apply {
             adapter = viewAdapter

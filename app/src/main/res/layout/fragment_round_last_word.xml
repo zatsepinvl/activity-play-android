@@ -7,11 +7,8 @@
 
         <variable
             name="gameViewmodel"
-            type="com.zatsepinvl.activityplay.game.viewmodel.RoundGameViewModel" />
+            type="com.zatsepinvl.activityplay.game.viewmodel.GameViewModel" />
 
-        <variable
-            name="timerViewmodel"
-            type="com.zatsepinvl.activityplay.game.viewmodel.TimerViewModel" />
     </data>
 
     <FrameLayout
@@ -47,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="@{@string/in_round_seconds_left(timerViewmodel.remainingTimeSeconds)}"
+                android:text="@{@string/in_round_seconds_left(gameViewmodel.remainingTimeSeconds)}"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 tools:hint="10 seconds left" />

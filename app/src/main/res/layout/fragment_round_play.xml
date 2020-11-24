@@ -5,13 +5,13 @@
 
     <data>
 
-        <variable
-            name="gameViewmodel"
-            type="com.zatsepinvl.activityplay.game.viewmodel.RoundGameViewModel" />
+        <import type="com.zatsepinvl.activityplay.core.model.GameAction" />
+
+        <import type="android.view.View" />
 
         <variable
-            name="timerViewmodel"
-            type="com.zatsepinvl.activityplay.game.viewmodel.TimerViewModel" />
+            name="gameViewmodel"
+            type="com.zatsepinvl.activityplay.game.viewmodel.GameViewModel" />
 
         <variable
             name="uiViewmodel"
@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="40dp"
-                android:text="@{@string/in_round_seconds_left(timerViewmodel.remainingTimeSeconds)}"
+                android:text="@{@string/in_round_seconds_left(gameViewmodel.remainingTimeSeconds)}"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 tools:hint="10 seonds left" />
@@ -95,6 +95,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
+            android:onClick="@{() -> gameViewmodel.finishMainPart()}"
             android:text="@string/finish_round"
             android:textColor="@{gameViewmodel.currentTeam.color}"
             app:icon="@drawable/ic_stop_black_24dp"
@@ -113,6 +114,7 @@
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton"
                 android:layout_width="match_parent"
                 android:text="@string/draw"
+                android:visibility="@{gameViewmodel.currentTask.action == GameAction.DRAW ? View.VISIBLE : View.INVISIBLE}"
                 app:color="@{gameViewmodel.currentTeam.color}"
                 app:icon="@drawable/ic_format_paint_black_24dp"
                 app:iconGravity="textStart"
@@ -129,6 +131,7 @@
                     style="@style/Widget.ActivityPlay.Button.OutlinedButton"
                     android:layout_width="0dp"
                     android:layout_weight="1"
+                    android:onClick="@{() -> gameViewmodel.failTask()}"
                     android:text="@string/skip_word"
                     app:color="@color/md_grey_600" />
 
@@ -138,6 +141,7 @@
                     android:layout_width="0dp"
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
+                    android:onClick="@{() -> gameViewmodel.completeTask()}"
                     android:text="@string/next_word"
                     app:color="@{gameViewmodel.currentTeam.color}" />
 

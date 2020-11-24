@@ -9,8 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.zatsepinvl.activityplay.android.fragment.disableBackButton
 import com.zatsepinvl.activityplay.android.fragment.navigate
 import com.zatsepinvl.activityplay.databinding.FragmentRoundLastWordBinding
-import com.zatsepinvl.activityplay.game.viewmodel.RoundGameViewModel
-import com.zatsepinvl.activityplay.game.viewmodel.TimerViewModel
+import com.zatsepinvl.activityplay.game.fragment.LastWordRoundFragmentDirections.Companion.finishRound
+import com.zatsepinvl.activityplay.game.viewmodel.GameViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -18,8 +18,8 @@ class LastWordRoundFragment : DaggerFragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val roundGameViewModel: RoundGameViewModel by activityViewModels { viewModelFactory }
-    private val timerViewModel: TimerViewModel by activityViewModels { viewModelFactory }
+
+    private val gameViewModel: GameViewModel by activityViewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         disableBackButton()
@@ -27,24 +27,13 @@ class LastWordRoundFragment : DaggerFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View? {
+        gameViewModel.lastTaskFinishedEvent.observe(viewLifecycleOwner) {
+            navigate(finishRound())
+        }
+
         val binding = FragmentRoundLastWordBinding.inflate(inflater, root, false)
         binding.lifecycleOwner = this
-        binding.apply {
-            gameViewmodel = roundGameViewModel
-            timerViewmodel = timerViewModel
-        }
-
-        roundGameViewModel.lastTaskFinishedEvent.observe(viewLifecycleOwner) {
-            timerViewModel.stopTimer()
-            navigate(LastWordRoundFragmentDirections.finishRound())
-        }
-
-        timerViewModel.timerFinishedEvent.observe(viewLifecycleOwner) {
-            roundGameViewModel.skipLastTask()
-        }
-
-        timerViewModel.startLastWordTimer()
-
+        binding.gameViewmodel = gameViewModel
         return binding.root
     }
 }

@@ -15,7 +15,7 @@ private const val VIBRATION_DURATION = 100L
 @Singleton
 class EffectsService @Inject constructor(private val context: Context) {
 
-    fun playStartRoundTrack() {
+    fun playGrandOpeningTrack() {
         playTrack(R.raw.grand_opening)
     }
 
@@ -23,11 +23,11 @@ class EffectsService @Inject constructor(private val context: Context) {
         playTrack(R.raw.fruit)
     }
 
-    fun playTimeIsOverTrack() {
+    fun playRootsTrack() {
         playTrack(R.raw.roots)
     }
 
-    fun playFinishTrack() {
+    fun playFlowerTrack() {
         playTrack(R.raw.flower)
     }
 

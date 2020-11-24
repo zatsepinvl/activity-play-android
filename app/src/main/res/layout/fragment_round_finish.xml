@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.zatsepinvl.activityplay.game.viewmodel.RoundGameViewModel" />
+            type="com.zatsepinvl.activityplay.game.viewmodel.GameViewModel" />
     </data>
 
     <FrameLayout

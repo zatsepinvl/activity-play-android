@@ -6,12 +6,8 @@
     <data>
 
         <variable
-            name="timerViewmodel"
-            type="com.zatsepinvl.activityplay.game.viewmodel.TimerViewModel" />
-
-        <variable
-            name="playViewmodel"
-            type="com.zatsepinvl.activityplay.game.viewmodel.RoundGameViewModel" />
+            name="gameViewmodel"
+            type="com.zatsepinvl.activityplay.game.viewmodel.GameViewModel" />
     </data>
 
     <FrameLayout
@@ -22,7 +18,7 @@
             android:id="@+id/canvasPaintView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:paintColor="@{playViewmodel.currentTeam.color}" />
+            app:paintColor="@{gameViewmodel.currentTeam.color}" />
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -33,7 +29,7 @@
                 android:id="@+id/canvasBackButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton.Back"
                 android:layout_gravity="start"
-                app:color="@{playViewmodel.currentTeam.color}" />
+                app:color="@{gameViewmodel.currentTeam.color}" />
 
             <TextView
                 android:id="@+id/canvasRemainingTime"
@@ -41,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
-                android:text="@{@string/in_round_seconds_left(timerViewmodel.remainingTimeSeconds)}"
+                android:text="@{@string/in_round_seconds_left(gameViewmodel.remainingTimeSeconds)}"
                 android:textAlignment="center"
                 android:textSize="20sp"
                 tools:hint="12 seconds left" />
@@ -50,7 +46,7 @@
                 android:id="@+id/canvasClearButton"
                 style="@style/Widget.ActivityPlay.Button.OutlinedButton.IconButton"
                 android:layout_gravity="end"
-                app:color="@{playViewmodel.currentTeam.color}"
+                app:color="@{gameViewmodel.currentTeam.color}"
                 app:icon="@drawable/ic_autorenew_black_24dp" />
         </FrameLayout>
     </FrameLayout>

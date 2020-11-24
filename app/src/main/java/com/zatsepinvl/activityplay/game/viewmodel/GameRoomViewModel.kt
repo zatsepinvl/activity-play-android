@@ -3,6 +3,7 @@ package com.zatsepinvl.activityplay.game.viewmodel
 import android.graphics.drawable.Drawable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.zatsepinvl.activityplay.android.viewmodel.SingleLiveEvent
 import com.zatsepinvl.activityplay.core.ActivityGame
 import com.zatsepinvl.activityplay.core.model.GameSettings
 import com.zatsepinvl.activityplay.game.model.TeamBoardItemData

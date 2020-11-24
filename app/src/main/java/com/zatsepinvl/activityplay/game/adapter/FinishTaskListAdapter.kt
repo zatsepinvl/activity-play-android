@@ -9,11 +9,11 @@ import com.zatsepinvl.activityplay.android.onClick
 import com.zatsepinvl.activityplay.core.model.TaskResultStatus.*
 import com.zatsepinvl.activityplay.core.model.TeamRoundResult
 import com.zatsepinvl.activityplay.databinding.ViewFinishTaskListItemBinding
-import com.zatsepinvl.activityplay.game.viewmodel.RoundGameViewModel
+import com.zatsepinvl.activityplay.game.viewmodel.GameViewModel
 import com.zatsepinvl.activityplay.team.model.Team
 
 class FinishTaskListAdapter(
-    private val roundGameViewModel: RoundGameViewModel
+    private val gameViewModel: GameViewModel
 ) : RecyclerView.Adapter<FinishTaskListAdapter.TaskListViewHolder>() {
 
     class TaskListViewHolder(val binding: ViewFinishTaskListItemBinding, view: View) :
@@ -23,12 +23,12 @@ class FinishTaskListAdapter(
     private val team: Team
 
     init {
-        team = roundGameViewModel.currentTeam.value!!
+        team = gameViewModel.currentTeam.value!!
         updateTasks()
     }
 
     private fun updateTasks() {
-        teamRoundResult = roundGameViewModel.game.getCurrentTeamRoundResult()
+        teamRoundResult = gameViewModel.game.getCurrentTeamRoundResult()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskListViewHolder {
@@ -61,7 +61,7 @@ class FinishTaskListAdapter(
                     SKIPPED -> FAILED
                     FAILED -> DONE
                 }
-                roundGameViewModel.updateTask(completedTask, newStatus)
+                gameViewModel.updateTask(completedTask, newStatus)
                 updateTasks()
                 notifyItemChanged(position)
             }

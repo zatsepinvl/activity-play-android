@@ -8,5 +8,5 @@ import javax.inject.Singleton
 abstract class DictionaryModule {
     @Binds
     @Singleton
-    abstract fun dictionaryService(service: DictionaryHolderImpl): DictionaryHolder
+    abstract fun dictionaryHolder(service: DictionaryHolderImpl): DictionaryHolder
 }

@@ -5,7 +5,7 @@ import com.zatsepinvl.activityplay.game.model.TeamResult
 import com.zatsepinvl.activityplay.gameroom.service.GameRoomManager
 import javax.inject.Inject
 
-class FinishGameViewModel @Inject constructor(
+class GameFinishViewModel @Inject constructor(
     private val roomManager: GameRoomManager
 ) : ViewModel() {
 
