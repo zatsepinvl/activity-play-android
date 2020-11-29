@@ -10,10 +10,12 @@ import com.zatsepinvl.activityplay.core.model.TaskResultStatus.*
 import com.zatsepinvl.activityplay.core.model.TeamRoundResult
 import com.zatsepinvl.activityplay.databinding.ViewFinishTaskListItemBinding
 import com.zatsepinvl.activityplay.game.viewmodel.GameViewModel
+import com.zatsepinvl.activityplay.resource.ResourceService
 import com.zatsepinvl.activityplay.team.model.Team
 
 class FinishTaskListAdapter(
-    private val gameViewModel: GameViewModel
+    private val gameViewModel: GameViewModel,
+    private val resourceService: ResourceService
 ) : RecyclerView.Adapter<FinishTaskListAdapter.TaskListViewHolder>() {
 
     class TaskListViewHolder(val binding: ViewFinishTaskListItemBinding, view: View) :
@@ -52,8 +54,8 @@ class FinishTaskListAdapter(
             }
             iconTint = when (completedTask.result.status) {
                 DONE -> this@FinishTaskListAdapter.team.color
-                SKIPPED -> R.color.md_grey_400
-                FAILED -> R.color.md_grey_400
+                SKIPPED -> resourceService.colorCode(R.color.md_grey_400)
+                FAILED -> resourceService.colorCode(R.color.md_grey_400)
             }
             root.onClick {
                 val newStatus = when (completedTask.result.status) {

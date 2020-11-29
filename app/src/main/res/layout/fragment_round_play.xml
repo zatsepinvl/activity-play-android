@@ -72,7 +72,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:drawableBottom="@{uiViewmodel.isWordHidden() ? @drawable/ic_visibility_black_24dp : @drawable/ic_visibility_off_black_24dp}"
-                android:onClick="@{() -> uiViewmodel.toggleWordVisibility()}"
                 android:text="@{uiViewmodel.isWordHidden() ? @string/word_mask : gameViewmodel.currentTask.word.value}"
                 android:textAlignment="center"
                 android:textSize="40sp"

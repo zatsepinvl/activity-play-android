@@ -11,6 +11,7 @@ import com.zatsepinvl.activityplay.gamesetup.GameSetupModule
 import com.zatsepinvl.activityplay.gamestate.GameStateModule
 import com.zatsepinvl.activityplay.home.HomeModule
 import com.zatsepinvl.activityplay.multiplayer.MultiplayerModule
+import com.zatsepinvl.activityplay.resource.ResourceModule
 import com.zatsepinvl.activityplay.singleplayer.SingleplayerModule
 import com.zatsepinvl.activityplay.settings.SettingsModule
 import com.zatsepinvl.activityplay.team.TeamModule
@@ -35,6 +36,7 @@ import javax.inject.Singleton
         GameStateModule::class,
         HomeModule::class,
         MultiplayerModule::class,
+        ResourceModule::class,
         SettingsModule::class,
         SingleplayerModule::class,
         TeamModule::class,

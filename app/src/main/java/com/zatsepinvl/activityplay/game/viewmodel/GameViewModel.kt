@@ -6,12 +6,14 @@ import androidx.lifecycle.ViewModel
 import com.zatsepinvl.activityplay.android.viewmodel.SingleLiveEvent
 import com.zatsepinvl.activityplay.core.ActivityGame
 import com.zatsepinvl.activityplay.core.model.CompletedTask
+import com.zatsepinvl.activityplay.core.model.GameSettings
 import com.zatsepinvl.activityplay.core.model.GameTask
 import com.zatsepinvl.activityplay.core.model.TaskResultStatus
+import com.zatsepinvl.activityplay.game.model.TeamGameData
+import com.zatsepinvl.activityplay.game.service.GameEffectsService
 import com.zatsepinvl.activityplay.gameaction.GameActionService
 import com.zatsepinvl.activityplay.gameroom.model.GameRoomState
 import com.zatsepinvl.activityplay.gameroom.service.GameRoomManager
-import com.zatsepinvl.activityplay.settings.service.GameSettingsService
 import com.zatsepinvl.activityplay.team.model.Team
 import com.zatsepinvl.activityplay.timer.Timer
 import javax.inject.Inject
@@ -20,6 +22,7 @@ class GameViewModel @Inject constructor(
     private val gameActionService: GameActionService,
     private val roomManager: GameRoomManager,
     private val timer: Timer,
+    private val gameEffects: GameEffectsService
 ) : ViewModel() {
 
     //LiveData
@@ -29,14 +32,13 @@ class GameViewModel @Inject constructor(
     val remainingTimeSeconds = MutableLiveData<Int>()
 
     //Events
+    val exitEvent = SingleLiveEvent<Void>()
     val roundStartedEvent = SingleLiveEvent<Void>()
     val taskCompletedEvent = SingleLiveEvent<Void>()
     val taskFailedEvent = SingleLiveEvent<Void>()
     val lastTaskFinishedEvent = SingleLiveEvent<Void>()
     val mainPartFinishedEvent = SingleLiveEvent<Void>()
     val roundFinishedEvent = SingleLiveEvent<Void>()
-
-    var isPlaying: Boolean = false
 
     val actionLocalName: String
         get() = gameActionService.getActionLocalName(game.currentGameAction)
@@ -49,19 +51,32 @@ class GameViewModel @Inject constructor(
 
     private var isTimerStopped = true
 
-    fun startRound() {
+    fun exit() {
+        exitEvent.call()
+    }
+
+    fun setupGame() {
         game = roomManager.currentGame
+        val teams = roomManager.teams
+        if (game.currentTeamIndex >= teams.size) {
+            game.resetCurrentTeam()
+            roomManager.updateGame(game)
+        }
         gameRoom = roomManager.currentRoomState
         currentTeam.value = roomManager.currentTeam
+    }
+
+    fun startRound() {
         currentTask.value = game.startRound()
         updateCurrentTeamRoundScore()
-        isPlaying = true
         startRoundTimer()
+        gameEffects.onRoundStarted()
         roundStartedEvent.call()
     }
 
     fun completeTask() {
         doCompleteTask()
+        gameEffects.onTaskCompleted()
         taskCompletedEvent.call()
     }
 
@@ -73,6 +88,7 @@ class GameViewModel @Inject constructor(
 
     fun failTask() {
         doFailTask()
+        gameEffects.onTaskFailed()
         taskFailedEvent.call()
     }
 
@@ -109,7 +125,6 @@ class GameViewModel @Inject constructor(
     }
 
     fun finishRound() {
-        isPlaying = false
         game.finishRound()
         roomManager.updateGame(game)
         roundFinishedEvent.call()
@@ -120,8 +135,45 @@ class GameViewModel @Inject constructor(
         updateCurrentTeamRoundScore()
     }
 
+    private fun updateCurrentTeamRoundScore() {
+        currentTeamRoundScore.value = game.getCurrentTeamRoundResult().score
+    }
+
+    fun gameSettings(): GameSettings {
+        return game.settings
+    }
+
+    fun currentRound(): Int {
+        return game.currentRoundIndex + 1
+    }
+
+    fun getGameBoard(): List<TeamGameData> {
+        val teams = roomManager.teams
+        val winnerIndex = game.getWinnerTeamIndex()
+        return (0 until game.settings.teamCount)
+            .map {
+                val totalScore = game.getTeamTotalScore(it)
+                TeamGameData(
+                    team = teams[it],
+                    totalScore = totalScore,
+                    isCurrentTeam =  it == game.currentTeamIndex,
+                    winner = winnerIndex == it
+                )
+            }
+            .toList()
+    }
+
+    fun getGameBoardSortedByScore(): List<TeamGameData> {
+        return getGameBoard().sortedByDescending { it.totalScore }
+    }
+
+    fun isGameFinished() = game.finished
+
     private fun startRoundTimer() {
-        startTimer { finishMainPart() }
+        startTimer {
+            gameEffects.onTimeIsOver()
+            finishMainPart()
+        }
         timer.start(gameRoom.timerSettings.roundTimeSeconds)
         isTimerStopped = false
     }
@@ -146,9 +198,5 @@ class GameViewModel @Inject constructor(
 
     override fun onCleared() {
         stopTimerIfRunning()
-    }
-
-    private fun updateCurrentTeamRoundScore() {
-        currentTeamRoundScore.value = game.getCurrentTeamRoundResult().score
     }
 }

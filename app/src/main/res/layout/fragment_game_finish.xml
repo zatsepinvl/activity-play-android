@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
+            name="gameViewModel"
+            type="com.zatsepinvl.activityplay.game.viewmodel.GameViewModel" />
+
+        <variable
             name="winner"
-            type="com.zatsepinvl.activityplay.game.model.TeamResult" />
+            type="com.zatsepinvl.activityplay.game.model.TeamGameData" />
     </data>
 
     <FrameLayout xmlns:tools="http://schemas.android.com/tools"
@@ -29,8 +33,8 @@
                 android:textAlignment="center"
                 android:textColor="@{winner.team.color}"
                 android:textSize="26sp"
-                tools:hint="Team wins"
-                app:drawableTopCompat="@drawable/medal" />
+                app:drawableTopCompat="@drawable/medal"
+                tools:hint="Team wins" />
 
             <LinearLayout
                 android:id="@+id/fragmentGameFinishTeamsScoreRoot"
@@ -47,6 +51,7 @@
             android:layout_width="match_parent"
             android:layout_gravity="bottom"
             android:color="@{winner.team.color}"
+            android:onClick="@{() -> gameViewModel.exit()}"
             android:text="@string/done" />
     </FrameLayout>
 </layout>

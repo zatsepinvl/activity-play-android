@@ -13,8 +13,8 @@ import com.zatsepinvl.activityplay.android.fragment.navigate
 import com.zatsepinvl.activityplay.databinding.FragmentRoundFinishBinding
 import com.zatsepinvl.activityplay.game.adapter.FinishTaskListAdapter
 import com.zatsepinvl.activityplay.game.fragment.FinishRoundFragmentDirections.Companion.nextRound
-import com.zatsepinvl.activityplay.game.viewmodel.GameEffectsViewModel
 import com.zatsepinvl.activityplay.game.viewmodel.GameViewModel
+import com.zatsepinvl.activityplay.resource.ResourceService
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -23,8 +23,10 @@ class FinishRoundFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    @Inject
+    lateinit var resourceService: ResourceService
+
     private val gameViewModel: GameViewModel by activityViewModels { viewModelFactory }
-    private val effectsViewModel: GameEffectsViewModel by activityViewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         disableBackButton()
@@ -35,7 +37,6 @@ class FinishRoundFragment : DaggerFragment() {
         gameViewModel.roundFinishedEvent.observe(viewLifecycleOwner) {
             navigate(nextRound())
         }
-        effectsViewModel.subscribeOnGameEvents(viewLifecycleOwner, gameViewModel)
 
         val binding = FragmentRoundFinishBinding.inflate(inflater, root, false)
         binding.lifecycleOwner = this
@@ -47,7 +48,7 @@ class FinishRoundFragment : DaggerFragment() {
     }
 
     private fun createTaskList(recyclerView: RecyclerView) {
-        val viewAdapter = FinishTaskListAdapter(gameViewModel)
+        val viewAdapter = FinishTaskListAdapter(gameViewModel, resourceService)
         val viewManager = LinearLayoutManager(requireContext())
         recyclerView.apply {
             adapter = viewAdapter

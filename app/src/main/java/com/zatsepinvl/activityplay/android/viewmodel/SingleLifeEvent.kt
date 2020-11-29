@@ -23,19 +23,17 @@ import java.util.concurrent.atomic.AtomicBoolean
 class SingleLiveEvent<T> : MutableLiveData<T>() {
 
     private val TAG = "SingleLiveEvent"
-    private val pendingForEvent = mutableMapOf<UUID, AtomicBoolean>()
+    private val pendingForEvent = AtomicBoolean(false)
 
     @MainThread
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
-        val id = UUID.randomUUID()
-        pendingForEvent[id] = AtomicBoolean(true)
         if (hasActiveObservers()) {
             Log.w(TAG, "Multiple observers registered but only one will be notified of changes.");
         }
 
         // Observe the internal MutableLiveData
         super.observe(owner) {
-            if (pendingForEvent[id]!!.compareAndSet(true, false)) {
+            if (pendingForEvent.compareAndSet(true, false)) {
                 observer.onChanged(it)
             }
         }
@@ -59,7 +57,7 @@ class SingleLiveEvent<T> : MutableLiveData<T>() {
 
     @MainThread
     fun reset() {
-        pendingForEvent.values.forEach { it.set(true) }
+        pendingForEvent.set(true)
     }
 
 }

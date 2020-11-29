@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="com.zatsepinvl.activityplay.game.model.TeamBoardItemData" />
+            type="com.zatsepinvl.activityplay.game.model.TeamGameData" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

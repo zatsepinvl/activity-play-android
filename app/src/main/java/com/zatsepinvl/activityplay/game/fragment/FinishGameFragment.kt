@@ -11,8 +11,7 @@ import com.zatsepinvl.activityplay.color.ColoredView
 import com.zatsepinvl.activityplay.databinding.FragmentGameFinishBinding
 import com.zatsepinvl.activityplay.databinding.ViewGameFinishTeamScoreItemBinding
 import com.zatsepinvl.activityplay.game.fragment.FinishGameFragmentDirections.Companion.backHome
-import com.zatsepinvl.activityplay.game.viewmodel.GameFinishViewModel
-import com.zatsepinvl.activityplay.game.viewmodel.GameEffectsViewModel
+import com.zatsepinvl.activityplay.game.viewmodel.GameViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -21,30 +20,33 @@ class FinishGameFragment : DaggerFragment() {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    private val gameFinishViewModel: GameFinishViewModel by activityViewModels { viewModelFactory }
-    private val effectsViewModel: GameEffectsViewModel by activityViewModels { viewModelFactory }
+    private val gameViewModel: GameViewModel by activityViewModels { viewModelFactory }
 
     override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View? {
-        val dataBinding = FragmentGameFinishBinding.inflate(inflater, root, false)
-        dataBinding.lifecycleOwner = this
-        dataBinding.apply {
-            gameFinishDoneButton.setOnClickListener { navigate(backHome()) }
-        }
+        gameViewModel.exitEvent.observe(viewLifecycleOwner) { navigate(backHome()) }
 
-        val teamScoresRootView = dataBinding.fragmentGameFinishTeamsScoreRoot
-        gameFinishViewModel.getTeamResults().forEach {
+        val binding = FragmentGameFinishBinding.inflate(inflater, root, false)
+        binding.lifecycleOwner = this
+        binding.gameViewModel = gameViewModel
+
+        setupTeamsList(binding, inflater)
+
+        return binding.root
+    }
+
+    private fun setupTeamsList(binding: FragmentGameFinishBinding, inflater: LayoutInflater) {
+        val teamResults = gameViewModel.getGameBoardSortedByScore()
+        for (i in teamResults.indices) {
+            val teamResult = teamResults[i]
             val resultBinding = ViewGameFinishTeamScoreItemBinding.inflate(
-                inflater, teamScoresRootView, true
+                inflater, binding.fragmentGameFinishTeamsScoreRoot, true
             )
-            resultBinding.data = it
-            if (it.winner) {
-                dataBinding.winner = it
-                (requireActivity() as ColoredView).changeBackgroundColor(it.team.color)
+            resultBinding.teamPosition = i + 1
+            resultBinding.data = teamResult
+            if (teamResult.winner) {
+                binding.winner = teamResult
+                (requireActivity() as ColoredView).changeBackgroundColor(teamResult.team.color)
             }
         }
-
-        effectsViewModel.onGameFinished()
-
-        return dataBinding.root
     }
 }

@@ -4,10 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="teamPosition"
+            type="Integer" />
 
         <variable
             name="data"
-            type="com.zatsepinvl.activityplay.game.model.TeamResult" />
+            type="com.zatsepinvl.activityplay.game.model.TeamGameData" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -24,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|center_vertical"
             android:layout_marginStart="10dp"
-            android:text="@{@string/team_name_with_position(data.position, data.team.name)}"
+            android:text="@{@string/team_name_with_position(teamPosition, data.team.name)}"
             android:textColor="@{data.team.color}"
             android:textSize="22sp"
             tools:hint="Name" />
