@@ -11,7 +11,6 @@ import com.zatsepinvl.activityplay.android.fragment.navigate
 import com.zatsepinvl.activityplay.databinding.FragmentRoundPlayBinding
 import com.zatsepinvl.activityplay.game.fragment.PlayRoundFragmentDirections.Companion.askLastWord
 import com.zatsepinvl.activityplay.game.viewmodel.GameViewModel
-import com.zatsepinvl.activityplay.game.viewmodel.RoundUiViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -21,7 +20,6 @@ class PlayRoundFragment : DaggerFragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val gameViewModel: GameViewModel by activityViewModels { viewModelFactory }
-    private val uiViewModel: RoundUiViewModel by activityViewModels { viewModelFactory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         disableBackButton()
@@ -35,7 +33,6 @@ class PlayRoundFragment : DaggerFragment() {
 
         val binding = FragmentRoundPlayBinding.inflate(inflater, root, false)
         binding.gameViewmodel = gameViewModel
-        binding.uiViewmodel = uiViewModel
         binding.lifecycleOwner = this
         return binding.root
     }

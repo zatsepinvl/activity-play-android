@@ -30,6 +30,7 @@ class GameViewModel @Inject constructor(
     val currentTeamRoundScore = MutableLiveData<Int>()
     val currentTask = MutableLiveData<GameTask>()
     val remainingTimeSeconds = MutableLiveData<Int>()
+    val isWordHidden = MutableLiveData<Boolean>()
 
     //Events
     val exitEvent = SingleLiveEvent<Void>()
@@ -81,7 +82,7 @@ class GameViewModel @Inject constructor(
     }
 
     private fun doCompleteTask() {
-        if (!game.roundIsPlaying) return
+        isWordHidden.value = false
         currentTask.value = game.completeCurrentTask()
         updateCurrentTeamRoundScore()
     }
@@ -93,8 +94,8 @@ class GameViewModel @Inject constructor(
     }
 
     private fun doFailTask() {
-        if (!game.roundIsPlaying) return
         currentTask.value = game.failCurrentTask()
+        isWordHidden.value = false
         updateCurrentTeamRoundScore()
     }
 
@@ -145,6 +146,10 @@ class GameViewModel @Inject constructor(
 
     fun currentRound(): Int {
         return game.currentRoundIndex + 1
+    }
+
+    fun toggleWordVisibility() {
+        isWordHidden.value = !(isWordHidden.value ?: false)
     }
 
     fun getGameBoard(): List<TeamGameData> {

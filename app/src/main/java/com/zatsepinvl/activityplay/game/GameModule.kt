@@ -32,11 +32,6 @@ abstract class GameModule {
     @ViewModelKey(GameViewModel::class)
     abstract fun gameRoundViewModel(viewModel: GameViewModel): ViewModel
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(RoundUiViewModel::class)
-    abstract fun roundUiViewModel(viewModel: RoundUiViewModel): ViewModel
-
     //Fragments
     @ContributesAndroidInjector(modules = [ViewModelBuilder::class])
     abstract fun startRoundFragment(): StartRoundFragment

@@ -13,9 +13,6 @@
             name="gameViewmodel"
             type="com.zatsepinvl.activityplay.game.viewmodel.GameViewModel" />
 
-        <variable
-            name="uiViewmodel"
-            type="com.zatsepinvl.activityplay.game.viewmodel.RoundUiViewModel" />
     </data>
 
     <FrameLayout
@@ -71,8 +68,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:drawableBottom="@{uiViewmodel.isWordHidden() ? @drawable/ic_visibility_black_24dp : @drawable/ic_visibility_off_black_24dp}"
-                android:text="@{uiViewmodel.isWordHidden() ? @string/word_mask : gameViewmodel.currentTask.word.value}"
+                android:drawableBottom="@{gameViewmodel.isWordHidden() ? @drawable/ic_visibility_black_24dp : @drawable/ic_visibility_off_black_24dp}"
+                android:onClick="@{()->gameViewmodel.toggleWordVisibility()}"
+                android:text="@{gameViewmodel.isWordHidden() ? @string/word_mask : gameViewmodel.currentTask.word.value}"
                 android:textAlignment="center"
                 android:textSize="40sp"
                 tools:hint="Word" />
