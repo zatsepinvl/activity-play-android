@@ -8,7 +8,7 @@ enum class SupportedLanguage(val locale: Locale) {
     EN(Locale.ENGLISH),
     RU(Locale("ru", "RU"));
 
-    val tag = this.name.toLowerCase(Locale.ROOT)
+    val tag = this.name.lowercase(Locale.ROOT)
 }
 
 fun getSupportedLanguageFromTag(tag: String): SupportedLanguage {

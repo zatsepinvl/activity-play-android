@@ -10,7 +10,7 @@ data class NewTeamDto(
 
 fun Intent.getNewTeamDto(): NewTeamDto {
     return NewTeamDto(
-        getStringExtra("name"),
+        getStringExtra("name")!!,
         getSerializableExtra("colorId") as ColorId
     )
 }

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
@@ -17,7 +18,6 @@ import com.zatsepinvl.activityplay.color.ColoredView
 import com.zatsepinvl.activityplay.databinding.FragmentIntroBinding
 import com.zatsepinvl.activityplay.intro.fragment.IntroFragmentDirections.Companion.mainMenu
 import com.zatsepinvl.activityplay.intro.model.IntroSlideModel
-import kotlinx.android.synthetic.main.fragment_intro.*
 
 data class SlideResources(
     val title: Int,
@@ -65,10 +65,11 @@ val slideEnjoy = SlideResources(
 
 class IntroFragment : Fragment() {
     private lateinit var pageAdapter: IntroPageAdapter
-
+    private var _binding: FragmentIntroBinding? = null
+    private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pageAdapter = IntroPageAdapter(requireFragmentManager())
+        pageAdapter = IntroPageAdapter(parentFragmentManager)
         addSlide(slideWelcome)
         addSlide(slideParticipants)
         addSlide(slideTeams)
@@ -80,8 +81,8 @@ class IntroFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         bundle: Bundle?
-    ): View? {
-        val binding = FragmentIntroBinding.inflate(inflater)
+    ): View {
+        _binding = FragmentIntroBinding.inflate(inflater)
         binding.introViewPager.adapter = pageAdapter
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             navigate(mainMenu())
@@ -90,26 +91,26 @@ class IntroFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        introFinishButton.visibility = GONE
+        binding.introFinishButton.visibility = GONE
         changeCurrentColor(0)
-        introViewPager.addOnPageChangeListener(
+        binding.introViewPager.addOnPageChangeListener(
             object : ViewPager.SimpleOnPageChangeListener() {
                 override fun onPageSelected(position: Int) {
                     changeCurrentColor(position)
                     if (position == pageAdapter.count - 1) {
-                        introFinishButton.visibility = VISIBLE
-                        introNextButton.visibility = GONE
+                        binding.introFinishButton.visibility = VISIBLE
+                        binding.introNextButton.visibility = GONE
                     } else {
-                        introFinishButton.visibility = GONE
-                        introNextButton.visibility = VISIBLE
+                        binding.introFinishButton.visibility = GONE
+                        binding.introNextButton.visibility = VISIBLE
                     }
                 }
             }
         )
-        introNextButton.setOnClickListener {
-            introViewPager.arrowScroll(FOCUS_RIGHT)
+        binding.introNextButton.setOnClickListener {
+            binding.introViewPager.arrowScroll(FOCUS_RIGHT)
         }
-        introFinishButton.setOnClickListener {
+        binding.introFinishButton.setOnClickListener {
             navigate(mainMenu())
         }
     }
@@ -117,9 +118,8 @@ class IntroFragment : Fragment() {
     private fun changeCurrentColor(position: Int) {
         val color = pageAdapter.getSlide(position).color
         (requireActivity() as ColoredView).changeBarsColor(color)
-        introContainer.setBackgroundColor(color)
+        binding.introContainer.setBackgroundColor(color)
     }
-
 
     private fun addSlide(resources: SlideResources) {
         val context = requireContext()
@@ -127,9 +127,14 @@ class IntroFragment : Fragment() {
             title = context.getString(resources.title),
             color = context.color(resources.color),
             description = context.getString(resources.description),
-            drawable = context.getDrawable(resources.drawable)!!
+            drawable =  AppCompatResources.getDrawable(context, resources.drawable)!!
         )
         pageAdapter.addItem(slide)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
 

@@ -1,21 +1,28 @@
 package com.zatsepinvl.activityplay
 
+import android.graphics.BlendModeColorFilter
+import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.graphics.Shader
 import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import com.zatsepinvl.activityplay.android.color
 import com.zatsepinvl.activityplay.android.resource.TileDrawable
 import com.zatsepinvl.activityplay.color.ColoredView
-import kotlinx.android.synthetic.main.activity_main.*
+import com.zatsepinvl.activityplay.databinding.ActivityMainBinding
 
 class ActivityPlayMainActivity : AppCompatActivity(), ColoredView {
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        val view = binding.root
+        setContentView(view)
         resetBackgroundColor()
     }
 
@@ -24,12 +31,12 @@ class ActivityPlayMainActivity : AppCompatActivity(), ColoredView {
     }
 
     override fun changeBackgroundColor(color: Int) {
-        val backgroundDrawable = this.getDrawable(R.drawable.wallpaper)!!
-        mainLayout.background = TileDrawable(
+        val backgroundDrawable = AppCompatResources.getDrawable(this, R.drawable.wallpaper)!!
+        binding.mainLayout.background = TileDrawable(
             backgroundDrawable,
             Shader.TileMode.REPEAT
         )
-        mainLayout.background.apply {
+        binding.mainLayout.background.apply {
             alpha = 10
             setColorFilter(color, PorterDuff.Mode.SRC_ATOP)
         }

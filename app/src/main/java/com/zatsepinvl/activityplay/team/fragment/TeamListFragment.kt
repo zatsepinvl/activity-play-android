@@ -19,22 +19,29 @@ import com.zatsepinvl.activityplay.team.fragment.TeamListFragmentDirections.Comp
 import com.zatsepinvl.activityplay.team.model.*
 import com.zatsepinvl.activityplay.team.viewmodel.DeleteTeamErrorCode.AT_LEAST_TWO_TEAMS_REQUIRED
 import com.zatsepinvl.activityplay.team.viewmodel.TeamSettingsViewModel
-import kotlinx.android.synthetic.main.fragment_team_list.*
 
 class TeamListFragment :
     ViewModelAwareFragment<TeamSettingsViewModel>(TeamSettingsViewModel::class) {
+
+    private var _binding: FragmentTeamListBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val binding = FragmentTeamListBinding.inflate(inflater, container, false)
+    ): View {
+        _binding = FragmentTeamListBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
 
         observeTeams(binding.teamList, inflater)
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -54,13 +61,13 @@ class TeamListFragment :
     }
 
     private fun initNavButton() {
-        teamListSettingsButton.setOnClickListener { navigate(gameSettings()) }
-        teamListStartNewGameButton.setOnClickListener { navigate(startRound()) }
-        teamListBackButton.setOnClickListener { findNavController().popBackStack() }
+        binding.teamListSettingsButton.setOnClickListener { navigate(gameSettings()) }
+        binding.teamListStartNewGameButton.setOnClickListener { navigate(startRound()) }
+        binding.teamListBackButton.setOnClickListener { findNavController().popBackStack() }
     }
 
     private fun initAddNewTeamButton() {
-        teamListAddTeamButton.setOnClickListener {
+        binding.teamListAddTeamButton.setOnClickListener {
             val addTeamDialog = UpdateTeamDialogFragment()
             addTeamDialog.setTargetFragment(this, UpdateTeamDialogRequestCode.REQUEST_NEW.code)
             addTeamDialog.show(requireFragmentManager(), "addTeamDialog")
@@ -90,6 +97,7 @@ class TeamListFragment :
                         dismissDialog
                     )
                     .show()
+
                 else -> AlertDialog.Builder(requireContext())
                     .setMessage(R.string.delete_team_dialog_message)
                     .setPositiveButton(R.string.delete) { _, _ -> viewModel.deleteTeam(team.id) }

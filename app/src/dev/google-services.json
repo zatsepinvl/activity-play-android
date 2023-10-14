@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "860834763914",
+    "project_id": "activityplaydev-3d24b",
+    "storage_bucket": "activityplaydev-3d24b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860834763914:android:e878ec0111ee0a55638973",
+        "android_client_info": {
+          "package_name": "com.zatsepinvl.activity.play.dev"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmvFvGM91uHfk5f0v_HKZZXF29Xf8BvK8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

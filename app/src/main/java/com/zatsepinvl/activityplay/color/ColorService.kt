@@ -49,7 +49,7 @@ class ColorService @Inject constructor(private val context: Context) {
         val resourceColors = context.resources.obtainTypedArray(R.array.colors)
         val resourceColorNames = context.resources.obtainTypedArray(R.array.color_names)
         val resourceColorIds = context.resources.obtainTypedArray(R.array.colorIds)
-        val colorIdMap = ColorId.values().map { it.name.toLowerCase(Locale.ROOT) to it }.toMap()
+        val colorIdMap = ColorId.values().associateBy { it.name.lowercase(Locale.ROOT) }
         colors = (0 until resourceColors.length())
             .map {
                 val resource = context.color(resourceColors.getResourceIdOrThrow(it))

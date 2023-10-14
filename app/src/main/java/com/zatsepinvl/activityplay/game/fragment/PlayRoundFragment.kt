@@ -35,7 +35,7 @@ class PlayRoundFragment : DaggerFragment() {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View {
         if (!playViewModel.isPlaying) {
             playViewModel.startRound()
             timerViewModel.startRoundTimer()

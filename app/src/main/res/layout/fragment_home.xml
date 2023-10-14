@@ -59,15 +59,6 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/tutorial"
                 app:icon="@drawable/ic_help_amber_24dp" />
-
-            <com.zatsepinvl.activityplay.android.view.Button
-                android:id="@+id/homeSupportButton"
-                style="@style/Widget.ActivityPlay.Button.OutlinedButton"
-                android:layout_marginTop="10dp"
-                android:text="@string/home_support"
-                android:textSize="10sp"
-                app:icon="@drawable/ic_favorite_amber_24dp"
-                tools:text="Support the developer by watching an ad" />
         </LinearLayout>
 
         <LinearLayout

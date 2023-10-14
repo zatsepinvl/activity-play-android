@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1082630232854",
+    "project_id": "activityplay-96e75",
+    "storage_bucket": "activityplay-96e75.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1082630232854:android:8abdd2e12ec31236ce4e37",
+        "android_client_info": {
+          "package_name": "com.zatsepinvl.activity.play"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCw3vyUv2Kw5-WfAuWlpDIFEDWxj-E7qVA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

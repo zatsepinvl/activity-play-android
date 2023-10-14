@@ -49,7 +49,7 @@ object ActivityPlayPreference {
     }
 
     private fun getDefaultLanguageTag(): String {
-        return ConfigurationCompat.getLocales(Resources.getSystem().configuration)[0].language
+        return ConfigurationCompat.getLocales(Resources.getSystem().configuration)[0]!!.language
     }
 
     fun getSharedPreferences(context: Context): SharedPreferences {
