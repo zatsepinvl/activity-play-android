@@ -5,12 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.zatsepinvl.activityplay.android.fragment.disableBackButton
 import com.zatsepinvl.activityplay.android.fragment.navigate
 import com.zatsepinvl.activityplay.android.onClick
-import com.zatsepinvl.activityplay.core.model.GameAction.*
+import com.zatsepinvl.activityplay.core.model.GameAction.DRAW
+import com.zatsepinvl.activityplay.core.model.GameAction.SAY
+import com.zatsepinvl.activityplay.core.model.GameAction.SHOW
 import com.zatsepinvl.activityplay.databinding.FragmentRoundPlayBinding
 import com.zatsepinvl.activityplay.effects.EffectsService
 import com.zatsepinvl.activityplay.game.fragment.PlayRoundFragmentDirections.Companion.askLastWord
@@ -49,15 +50,15 @@ class PlayRoundFragment : DaggerFragment() {
         val hideDrawButton = { dataBinding.gameFrameDrawButton.visibility = View.GONE }
         val showDrawButton = { dataBinding.gameFrameDrawButton.visibility = View.VISIBLE }
 
-        playViewModel.currentTask.observe(viewLifecycleOwner, Observer { task ->
+        playViewModel.currentTask.observe(viewLifecycleOwner) { task ->
             when (task.action) {
                 SHOW -> hideDrawButton()
                 SAY -> hideDrawButton()
                 DRAW -> showDrawButton()
             }
-        })
+        }
 
-        timerViewModel.timerFinishedEvent.observe(viewLifecycleOwner, Observer { stopRound() })
+        timerViewModel.timerFinishedEvent.observe(viewLifecycleOwner) { stopRound() }
 
         dataBinding.apply {
             gameFrameDoneButton.onClick {

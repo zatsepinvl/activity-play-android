@@ -13,12 +13,12 @@ class TimerViewModel @Inject constructor(
 ) : ViewModel() {
 
     val remainingTimeSeconds = MutableLiveData<Int>()
-    val timerFinishedEvent = SingleLiveEvent<Void>()
+    val timerFinishedEvent = SingleLiveEvent<Timer>()
 
     init {
         timer
             .onTick { secondsLeft -> remainingTimeSeconds.value = secondsLeft }
-            .onFinish { timerFinishedEvent.call() }
+            .onFinish { timerFinishedEvent.value = timer }
     }
 
     fun startRoundTimer() {
