@@ -13,13 +13,13 @@ android {
         applicationId "com.zatsepinvl.activity.play"
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode 15
+        versionCode 16
         versionName "1.4.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
         }
     }
