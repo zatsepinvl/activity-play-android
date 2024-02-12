@@ -3,6 +3,7 @@ package com.zatsepinvl.activityplay.effects
 import android.content.Context
 import android.media.MediaPlayer
 import android.os.Build
+import android.os.CountDownTimer
 import android.os.VibrationEffect
 import android.os.Vibrator
 import com.zatsepinvl.activityplay.R
@@ -24,7 +25,7 @@ class EffectsService @Inject constructor(private val context: Context) {
     }
 
     fun playTimeIsOverTrack() {
-        playTrack(R.raw.roots)
+        playTrack(R.raw.clock_alarm, 2)
     }
 
     fun playFinishTrack() {
@@ -51,12 +52,21 @@ class EffectsService @Inject constructor(private val context: Context) {
         }
     }
 
-    private fun playTrack(track: Int) {
+    private fun playTrack(track: Int, durationSec: Int? = null) {
         if (!ActivityPlayPreference.getSoundsEnabled(context)) {
             return
         }
         val mediaPlayer: MediaPlayer = MediaPlayer.create(context, track) ?: return
         mediaPlayer.start()
         mediaPlayer.setOnCompletionListener { mediaPlayer.release() }
+        if (durationSec != null) {
+            object : CountDownTimer(durationSec * 1000L, 1000) {
+                override fun onTick(millisUntilFinished: Long) {}
+
+                override fun onFinish() {
+                    mediaPlayer.stop()
+                }
+            }.start()
+        }
     }
 }
