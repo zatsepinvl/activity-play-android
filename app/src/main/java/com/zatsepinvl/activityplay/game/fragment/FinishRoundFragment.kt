@@ -8,9 +8,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ncorti.slidetoact.SlideToActView
 import com.zatsepinvl.activityplay.android.fragment.disableBackButton
 import com.zatsepinvl.activityplay.android.fragment.navigate
-import com.zatsepinvl.activityplay.android.onClick
 import com.zatsepinvl.activityplay.databinding.FragmentRoundFinishBinding
 import com.zatsepinvl.activityplay.effects.EffectsService
 import com.zatsepinvl.activityplay.game.adapter.FinishTaskListAdapter
@@ -38,10 +38,16 @@ class FinishRoundFragment : DaggerFragment() {
         binding.lifecycleOwner = this
         binding.apply {
             viewmodel = viewModel
-            roundFinishDoneButton.onClick {
-                viewModel.finishRound()
-                navigate(nextRound())
-            }
+
+            roundFinishDoneSlider.outerColor = viewModel.currentTeam.color
+            roundFinishDoneSlider.iconColor = viewModel.currentTeam.color
+            roundFinishDoneSlider.onSlideCompleteListener =
+                object : SlideToActView.OnSlideCompleteListener {
+                    override fun onSlideComplete(view: SlideToActView) {
+                        viewModel.finishRound()
+                        navigate(nextRound())
+                    }
+                }
             createTaskList(roundFinishTaskListRecyclerView)
         }
         effectsService.playFinishTrack()

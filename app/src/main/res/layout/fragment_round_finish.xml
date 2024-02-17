@@ -78,12 +78,17 @@
                 tools:text="Total score 123" />
         </RelativeLayout>
 
-        <com.zatsepinvl.activityplay.android.view.Button
-            android:id="@+id/roundFinishDoneButton"
+        <com.ncorti.slidetoact.SlideToActView
+            android:id="@+id/roundFinishDoneSlider"
             style="@style/Widget.ActivityPlay.Button.OutlinedButton"
             android:layout_width="match_parent"
-            android:layout_gravity="center|bottom"
-            android:text="@string/done"
-            app:color="@{viewmodel.currentTeam.color}" />
+            android:layout_gravity="bottom"
+            app:complete_icon="@drawable/ic_activity_play_50dp"
+            app:iconGravity="textStart"
+            app:iconPadding="16dp"
+            app:icon_margin="6dp"
+            app:text="@string/done"
+            app:text_appearance="@style/TextAppearance.AppCompat.Widget.Button.Colored" />
+
     </FrameLayout>
 </layout>

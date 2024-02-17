@@ -8,6 +8,7 @@ import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import com.ncorti.slidetoact.SlideToActView
 import com.zatsepinvl.activityplay.android.fragment.navigate
 import com.zatsepinvl.activityplay.android.onClick
 import com.zatsepinvl.activityplay.color.ColoredView
@@ -34,17 +35,22 @@ class StartRoundFragment : DaggerFragment() {
 
     private val viewModel: StartRoundViewModel by activityViewModels { viewModelFactory }
 
-    override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, root: ViewGroup?, state: Bundle?): View {
         initViewModel()
 
         val dataBinding = FragmentRoundStartBinding.inflate(inflater, root, false)
         dataBinding.viewmodel = viewModel
         dataBinding.lifecycleOwner = this
 
-        dataBinding.gameStartRoundStartButton.onClick {
-            effectsService.playStartRoundTrack()
-            navigate(playRound())
-        }
+        dataBinding.gameStartRoundStartSlider.outerColor = viewModel.currentTeam.color
+        dataBinding.gameStartRoundStartSlider.iconColor = viewModel.currentTeam.color
+        dataBinding.gameStartRoundStartSlider.onSlideCompleteListener =
+            object : SlideToActView.OnSlideCompleteListener {
+                override fun onSlideComplete(view: SlideToActView) {
+                    effectsService.playStartRoundTrack()
+                    navigate(playRound())
+                }
+            }
         dataBinding.gameStartRoundExitButton.onClick { navigate(backToMenu()) }
         dataBinding.gameSettingsButton.onClick { navigate(settings()) }
         requireActivity().onBackPressedDispatcher.addCallback(this) { navigate(backToMenu()) }

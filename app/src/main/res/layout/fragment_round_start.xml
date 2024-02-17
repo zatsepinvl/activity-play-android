@@ -61,20 +61,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/gameFrameAction"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="4dp"
                         android:text="@{@string/next_game_action(viewmodel.actionLocalName)}"
                         android:textAlignment="center"
                         android:textColor="@{viewmodel.currentTeam.color}"
                         android:textSize="16sp"
-                        android:layout_marginTop="4dp"
-                        android:layout_marginBottom="4dp"
                         tools:hint="Be ready to Act" />
 
                     <ImageView
@@ -109,15 +109,19 @@
                 tools:hint="max score is 10" />
         </LinearLayout>
 
-        <com.zatsepinvl.activityplay.android.view.Button
-            android:id="@+id/gameStartRoundStartButton"
+        <com.ncorti.slidetoact.SlideToActView
+            android:id="@+id/gameStartRoundStartSlider"
             style="@style/Widget.ActivityPlay.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_gravity="bottom"
-            android:text="@string/start_round"
-            app:color="@{viewmodel.currentTeam.color}"
-            app:icon="@drawable/ic_play_arrow_black_24dp"
+            android:layout_marginBottom="16dp"
+            app:bounce_on_start="true"
+            app:complete_icon="@drawable/ic_activity_play_50dp"
             app:iconGravity="textStart"
-            app:iconPadding="16dp" />
+            app:iconPadding="16dp"
+            app:icon_margin="6dp"
+            app:text="@string/start_round"
+            app:text_appearance="@style/TextAppearance.AppCompat.Widget.Button.Colored" />
+
     </FrameLayout>
 </layout>
