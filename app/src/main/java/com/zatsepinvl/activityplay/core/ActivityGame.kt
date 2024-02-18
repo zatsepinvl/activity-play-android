@@ -240,11 +240,6 @@ class ActivityGame(
     }
 
     private fun nextWord(): Word {
-        return try {
-            dictionary.getRandomWord(getUsedWords())
-        } catch (ex: NoWordsFoundException) {
-            //should never happen
-            dictionary.getRandomWord(setOf())
-        }
+        return dictionary.getRandomWord(getUsedWords())
     }
 }

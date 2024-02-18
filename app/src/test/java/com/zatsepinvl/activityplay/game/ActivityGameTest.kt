@@ -6,8 +6,8 @@ import com.zatsepinvl.activityplay.core.Word
 import com.zatsepinvl.activityplay.core.model.GameAction
 import com.zatsepinvl.activityplay.core.model.GameSettings
 import com.zatsepinvl.activityplay.core.model.TaskResultStatus
-import com.zatsepinvl.activityplay.core.noun
 import createTestGame
+import noun
 import org.junit.Assert.*
 import org.junit.Test
 

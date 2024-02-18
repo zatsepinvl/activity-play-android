@@ -1,11 +1,17 @@
 package com.zatsepinvl.activityplay.game
 
+import com.zatsepinvl.activityplay.core.Word
+import com.zatsepinvl.activityplay.core.WordDifficulty
+import com.zatsepinvl.activityplay.core.WordDifficulty.HIGH
+import com.zatsepinvl.activityplay.core.WordDifficulty.LOW
+import com.zatsepinvl.activityplay.core.WordDifficulty.MEDIUM
 import com.zatsepinvl.activityplay.core.WordType.NOUN
-import com.zatsepinvl.activityplay.core.noun
-import com.zatsepinvl.activityplay.core.verb
 import createTestDictionary
+import noun
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
+import verb
 
 class DictionaryTest {
 
@@ -40,6 +46,32 @@ class DictionaryTest {
         assertEquals(expectedWord, actualWord)
     }
 
+    @Test
+    fun should_be_distributed_normally() {
+        // Given
+        val words = (1..10_000).map {
+            Word(value = "word${it}", NOUN, WordDifficulty.entries.random())
+        }
+        val dictionary = createTestDictionary(words)
+
+        // When
+        val wordDist = mutableMapOf<WordDifficulty, Int>()
+        repeat(words.size) {
+            val word = dictionary.getRandomWord()
+            wordDist.compute(word.difficulty) { _, count -> (count ?: 0) + 1 }
+        }
+
+        // Then
+        println("Distribution: $wordDist")
+        assertTrue(
+            "MEDIUM words should be at least 2 times more than LOW",
+            wordDist[MEDIUM]!! / wordDist[LOW]!! > 2
+        )
+        assertTrue(
+            "MEDIUM words should be at least 2 times more than HIGH",
+            wordDist[MEDIUM]!! / wordDist[HIGH]!! > 2
+        )
+    }
 
 }
 

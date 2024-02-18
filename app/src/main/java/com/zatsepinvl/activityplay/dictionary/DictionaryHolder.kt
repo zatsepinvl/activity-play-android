@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.res.AssetManager
 import com.zatsepinvl.activityplay.core.Dictionary
 import com.zatsepinvl.activityplay.core.Word
+import com.zatsepinvl.activityplay.core.WordDifficulty
 import com.zatsepinvl.activityplay.core.WordType
 import com.zatsepinvl.activityplay.language.SupportedLanguage
 import java.io.InputStream
@@ -61,9 +62,9 @@ private fun AssetManager.getSupportedLanguages(): Set<WordFile> {
 }
 
 private fun AssetManager.dictionary(wordFile: WordFile): Dictionary {
-    return Dictionary(
-        wordFile.lang, getWords(open(wordFile.file))
-    )
+    val wordsStream = open(wordFile.file)
+    val words = getWords(wordsStream)
+    return Dictionary(wordFile.lang, words)
 }
 
 private fun getWords(inputStream: InputStream): List<Word> {
@@ -84,6 +85,7 @@ private fun parseLine(line: String): Word {
             'v' -> WordType.VERB
             'a' -> WordType.ADJECTIVE
             else -> throw IllegalArgumentException("Unknown word type $wordTypeLetter")
-        }
+        },
+        WordDifficulty.fromActionRange(s[2].toInt(), s[3].toInt(), s[4].toInt())
     )
 }
